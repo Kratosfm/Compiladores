@@ -1,0 +1,11 @@
+program id :
+
+var int Tony ;
+var string Ponce ;
+var float Paco ;
+
+{
+  Tony = 32 ;
+  Ponce = dasdas ;
+  Paco = 2.0 ;
+}

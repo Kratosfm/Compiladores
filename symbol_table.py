@@ -2,7 +2,7 @@ import sys
 
 vart = None
 
-class Entry:
+class SymbolTable:
     def __init__(self, id, tipo, value = None):
         self.id = id
         self.tipo = tipo

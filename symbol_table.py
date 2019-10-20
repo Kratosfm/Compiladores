@@ -2,7 +2,7 @@ import sys
 
 vart = None
 
-class SymbolTable:
+class Entry:
     def __init__(self, id, tipo, value = None):
         self.id = id
         self.tipo = tipo
@@ -53,6 +53,7 @@ def validar(tipo, valor):
         return True
     else:
         print("Error")
+
 
 
 #for i in range(len(list_tok)):

@@ -1,6 +1,7 @@
 program id :
 
 var int Tony ;
+var int Abc ;
 var string Ponce ;
 var float Paco ;
 function void LaFunc(){
@@ -8,7 +9,8 @@ function void LaFunc(){
 }
 
 {
-  Tony = 32 ;
+	Abc = 15;
+	Tony = Abc ;
   Ponce = dasdas ;
   Paco = 2.0 ;
 }

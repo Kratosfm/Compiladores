@@ -3,6 +3,9 @@ program id :
 var int Tony ;
 var string Ponce ;
 var float Paco ;
+function void LaFunc(){
+	Tony = 5 ;
+}
 
 {
   Tony = 32 ;

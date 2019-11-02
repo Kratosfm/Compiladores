@@ -3,7 +3,9 @@ import ply.lex as lex
 import sys
 import symbol_table as symbol_table
 
+isInFunction = False
 success = True
+actualFunc = ""
 
 reserved = {
     'program' : 'PROGRAM',
@@ -16,7 +18,7 @@ reserved = {
     'string' : 'STRING',
     'bool' : 'BOOL',
     'print' : 'PRINT',
-	'vector' : 'VECTOR',
+    'vector' : 'VECTOR',
   	'while' : 'WHILE',
     'read' : 'READ',
     'void' : 'VOID',
@@ -178,6 +180,7 @@ def p_tipo(p):
         | BOOL
   '''
   symbol_table.vart = p[1]
+  print(p[1])
 
 def p_vector(p):
   '''
@@ -186,15 +189,30 @@ def p_vector(p):
 
 def p_func(p):
   '''
-  	func : FUNCTION functype ID LPAREN funci RPAREN bloq
+  	func : FUNCTION functype ID LPAREN funci RPAREN funcvar bloq
+    | FUNCTION functype ID LPAREN funci RPAREN funcvar bloq RETURN expres
+    | FUNCTION functype ID LPAREN RPAREN funcvar bloq
+    | FUNCTION functype ID LPAREN funci RPAREN bloq
     | FUNCTION functype ID LPAREN funci RPAREN bloq RETURN expres
+    | FUNCTION functype ID LPAREN RPAREN bloq
   '''
+  print(p[3], str(p[2]))
+  isInFunction = True
+  actualFunc = p[3]
+
+def p_funcvar(p):
+  '''
+    funcvar : var
+    | var funcvar 
+  '''
+
 
 def p_functype(p):
   '''
   	functype : tipo
     | VOID
   '''
+  print(p[1])
 
 def p_funci(p):
   '''
@@ -206,6 +224,8 @@ def p_bloq(p):
   '''
   	bloq : LKEY bloqi RKEY
   '''
+  if(isInFunction):
+    isInFunction = False
 
 def p_bloqi(p):
   '''
@@ -258,7 +278,7 @@ def p_leer(p):
 
 def p_expres(p):
   '''
-  	expres : exr
+  expres : exr
         | exr log expres
   '''
 
@@ -354,9 +374,16 @@ s = f.read()
 
 parser.parse(s)
 
+fila = []
+
 if success == True:
     print("Archivo aprobado12")
+    for i in fila:
+      print(fila[i])
     #sys.exit()
 else:
     print("Archivo no aprobado")
     #sys.exit()
+
+
+symbol_table.show();

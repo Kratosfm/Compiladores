@@ -1,7 +1,7 @@
 # Compiladores
 Compilador "*Franky*" para la materia de Compiladores.
 
-##Tasks
+## Tasks
   - [x] Analisis de Léxico y Sintaxis (Scanner y Parser)
   - [x] Tabla de variables
   - [ ] Tabla de funciones

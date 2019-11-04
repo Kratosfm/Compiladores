@@ -1,11 +1,12 @@
 program id :
 
 var int Tony ;
-var string Ponce ;
-var float Paco ;
+
+function int LaFunc() var int Abc ;  var string Paco ; {
+	Abc = 5 ;
+	Tony = 1905 ;
+}
 
 {
-  Tony = 32 ;
-  Ponce = dasdas ;
-  Paco = 2.0 ;
+	Tony = 1905 ;
 }

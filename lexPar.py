@@ -1,11 +1,9 @@
 import ply.yacc as yacc
 import ply.lex as lex
 import sys
-import symbol_table as symbol_table
+import varsTable as varsTable
 
-isInFunction = False
 success = True
-actualFunc = ""
 
 reserved = {
     'program' : 'PROGRAM',
@@ -21,7 +19,7 @@ reserved = {
     'vector' : 'VECTOR',
   	'while' : 'WHILE',
     'read' : 'READ',
-    'void' : 'VOID',
+    'void' : 'VOID'
 }
 
 # List of tokens
@@ -31,7 +29,7 @@ tokens = [
     'CTE_F',
   	'CTE_B',
     'CTE_S',
-    'CTE_STRING',
+    #'CTE_STRING',
     'PLUS',
     'MINUS',
     'TIMES',
@@ -90,8 +88,8 @@ t_COLON = r'\:'
 # Constants
 #t_CTE_I = r'[0-9]+'
 #t_CTE_F = r'[0-9]+\.[0-9]+'
-#t_CTE_STRING = r'\"([^\\\n]|(\\.))*?\"'
-t_CTE_STRING = r'\[a-zA-Z][a-zA-Z0-9]*'
+t_CTE_S = r'\"([^\\\n]|(\\.))*?\"'
+#t_CTE_STRING = r'\[a-zA-Z][a-zA-Z0-9]*'
 
 tokens = tokens + list(reserved.values())
 
@@ -170,7 +168,11 @@ def p_var(p):
   '''
   	var : VAR tipo ID SEMICOLON
   '''
-  symbol_table.insert(symbol_table.vart,p[3])
+  varsTable.var_id = p[3]
+  if(varsTable.is_local):
+      varsTable.insertVarInFunc(varsTable.var_tipo, varsTable.var_id)
+  else:
+      varsTable.insert(varsTable.var_tipo, varsTable.var_id)
 
 def p_tipo(p):
   '''
@@ -179,53 +181,69 @@ def p_tipo(p):
         | STRING
         | BOOL
   '''
-  symbol_table.vart = p[1]
-  print(p[1])
+  varsTable.var_tipo = p[1]
 
 def p_vector(p):
   '''
   	vector : VECTOR ID LBRACE CTE_I RBRACE SEMICOLON
   '''
+  varsTable.var_id = p[1]
+  varsTable.var_space = p[4]
 
 def p_func(p):
   '''
-  	func : FUNCTION functype ID LPAREN funci RPAREN funcvar bloq
-    | FUNCTION functype ID LPAREN funci RPAREN funcvar bloq RETURN expres
-    | FUNCTION functype ID LPAREN RPAREN funcvar bloq
-    | FUNCTION functype ID LPAREN funci RPAREN bloq
-    | FUNCTION functype ID LPAREN funci RPAREN bloq RETURN expres
-    | FUNCTION functype ID LPAREN RPAREN bloq
+  	func : FUNCTION functype ID addInTable LPAREN funci RPAREN localvar bloq return
+    | FUNCTION functype ID addInTable LPAREN funci RPAREN bloq return
   '''
-  print(p[3], str(p[2]))
-  isInFunction = True
-  actualFunc = p[3]
-
-def p_funcvar(p):
-  '''
-    funcvar : var
-    | var funcvar 
-  '''
+  varsTable.func_id = p[3]
+  varsTable.is_local = False
 
 
 def p_functype(p):
   '''
-  	functype : tipo
+  	functype : INT
+    | FLOAT
+    | STRING
+    | BOOL
     | VOID
   '''
-  print(p[1])
+  varsTable.func_tipo = p[1]
+
+def p_addInTable(p):
+    '''
+    addInTable :
+    '''
+    varsTable.is_local = True
+    varsTable.func_id = p[-1]
+    varsTable.insert(varsTable.func_tipo, varsTable.func_id)
+
 
 def p_funci(p):
   '''
     funci : tipo ID
     | tipo ID COMA funci
+    | empty
   '''
+
+
+def p_localvar(p):
+     '''
+     localvar : var
+     | vector
+     | var localvar
+     | vector localvar
+     '''
+
+def p_return(p):
+    '''
+    return : RETURN expres
+    | empty
+    '''
 
 def p_bloq(p):
   '''
   	bloq : LKEY bloqi RKEY
   '''
-  if(isInFunction):
-    isInFunction = False
 
 def p_bloqi(p):
   '''
@@ -247,7 +265,6 @@ def p_asign(p):
     asign : ID EQUAL expres SEMICOLON
         | ID LBRACE exr RBRACE EQUAL expres SEMICOLON
   '''
-  symbol_table.update(p[1],symbol_table.vart)
 
 def p_cond(p):
   '''
@@ -341,7 +358,6 @@ def p_var_cte(p):
         | fcall
         | vcall
   '''
-  symbol_table.vart = p[1]
 
 def p_fcall(p):
   '''
@@ -360,6 +376,12 @@ def p_vcall(p):
   	vcall : ID LBRACE expres RBRACE
   '''
 
+def p_empty(p):
+    '''
+    empty :
+    '''
+    pass
+
 def p_error(p):
     global success
     success = False
@@ -374,16 +396,11 @@ s = f.read()
 
 parser.parse(s)
 
-fila = []
-
 if success == True:
-    print("Archivo aprobado12")
-    for i in fila:
-      print(fila[i])
+    print("Archivo aprobado")
     #sys.exit()
 else:
     print("Archivo no aprobado")
     #sys.exit()
 
-
-symbol_table.show();
+varsTable.show();

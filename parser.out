@@ -1,9 +1,5 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    CTE_STRING
-
 Grammar
 
 Rule 0     S' -> program
@@ -21,151 +17,159 @@ Rule 11    tipo -> FLOAT
 Rule 12    tipo -> STRING
 Rule 13    tipo -> BOOL
 Rule 14    vector -> VECTOR ID LBRACE CTE_I RBRACE SEMICOLON
-Rule 15    func -> FUNCTION functype ID LPAREN funci RPAREN funcvar bloq
-Rule 16    func -> FUNCTION functype ID LPAREN funci RPAREN funcvar bloq RETURN expres
-Rule 17    func -> FUNCTION functype ID LPAREN RPAREN funcvar bloq
-Rule 18    func -> FUNCTION functype ID LPAREN funci RPAREN bloq
-Rule 19    func -> FUNCTION functype ID LPAREN funci RPAREN bloq RETURN expres
-Rule 20    func -> FUNCTION functype ID LPAREN RPAREN bloq
-Rule 21    funcvar -> var
-Rule 22    funcvar -> var funcvar
-Rule 23    functype -> tipo
-Rule 24    functype -> VOID
-Rule 25    funci -> tipo ID
-Rule 26    funci -> tipo ID COMA funci
-Rule 27    bloq -> LKEY bloqi RKEY
-Rule 28    bloqi -> estat
-Rule 29    bloqi -> estat bloqi
-Rule 30    estat -> asign
-Rule 31    estat -> cond
-Rule 32    estat -> escrit
-Rule 33    estat -> ciclo
-Rule 34    estat -> leer
-Rule 35    asign -> ID EQUAL expres SEMICOLON
-Rule 36    asign -> ID LBRACE exr RBRACE EQUAL expres SEMICOLON
-Rule 37    cond -> IF LPAREN expres RPAREN bloq
-Rule 38    cond -> IF LPAREN expres RPAREN bloq ELSE bloq
-Rule 39    escrit -> PRINT LPAREN escriti RPAREN SEMICOLON
-Rule 40    escriti -> expres
-Rule 41    escriti -> expres COMA escriti
-Rule 42    ciclo -> WHILE LPAREN expres RPAREN bloq
-Rule 43    leer -> READ LPAREN ID RPAREN SEMICOLON
-Rule 44    expres -> exr
-Rule 45    expres -> exr log expres
-Rule 46    exr -> ex
-Rule 47    exr -> ex rel exr
-Rule 48    ex -> term
-Rule 49    ex -> term PLUS ex
-Rule 50    ex -> term MINUS ex
-Rule 51    term -> fact
-Rule 52    term -> fact TIMES term
-Rule 53    term -> fact DIVIDE term
-Rule 54    fact -> LPAREN expres RPAREN
-Rule 55    fact -> fact1
-Rule 56    fact1 -> PLUS var_cte
-Rule 57    fact1 -> MINUS var_cte
-Rule 58    fact1 -> var_cte
-Rule 59    rel -> LOWERTHAN
-Rule 60    rel -> MORETHAN
-Rule 61    rel -> LOWEREQ
-Rule 62    rel -> MOREEQ
-Rule 63    rel -> SAME
-Rule 64    rel -> DIFFERENT
-Rule 65    log -> OR
-Rule 66    log -> AND
-Rule 67    var_cte -> ID
-Rule 68    var_cte -> CTE_I
-Rule 69    var_cte -> CTE_F
-Rule 70    var_cte -> CTE_B
-Rule 71    var_cte -> CTE_S
-Rule 72    var_cte -> fcall
-Rule 73    var_cte -> vcall
-Rule 74    fcall -> ID LPAREN fcall1 RPAREN
-Rule 75    fcall -> ID LPAREN RPAREN
-Rule 76    fcall1 -> expres
-Rule 77    fcall1 -> expres COMA fcall1
-Rule 78    vcall -> ID LBRACE expres RBRACE
+Rule 15    func -> FUNCTION functype ID addInTable LPAREN funci RPAREN localvar bloq return
+Rule 16    func -> FUNCTION functype ID addInTable LPAREN funci RPAREN bloq return
+Rule 17    functype -> INT
+Rule 18    functype -> FLOAT
+Rule 19    functype -> STRING
+Rule 20    functype -> BOOL
+Rule 21    functype -> VOID
+Rule 22    addInTable -> <empty>
+Rule 23    funci -> tipo ID
+Rule 24    funci -> tipo ID COMA funci
+Rule 25    funci -> empty
+Rule 26    localvar -> var
+Rule 27    localvar -> vector
+Rule 28    localvar -> var localvar
+Rule 29    localvar -> vector localvar
+Rule 30    return -> RETURN expres
+Rule 31    return -> empty
+Rule 32    bloq -> LKEY bloqi RKEY
+Rule 33    bloqi -> estat
+Rule 34    bloqi -> estat bloqi
+Rule 35    estat -> asign
+Rule 36    estat -> cond
+Rule 37    estat -> escrit
+Rule 38    estat -> ciclo
+Rule 39    estat -> leer
+Rule 40    asign -> ID EQUAL expres SEMICOLON
+Rule 41    asign -> ID LBRACE exr RBRACE EQUAL expres SEMICOLON
+Rule 42    cond -> IF LPAREN expres RPAREN bloq
+Rule 43    cond -> IF LPAREN expres RPAREN bloq ELSE bloq
+Rule 44    escrit -> PRINT LPAREN escriti RPAREN SEMICOLON
+Rule 45    escriti -> expres
+Rule 46    escriti -> expres COMA escriti
+Rule 47    ciclo -> WHILE LPAREN expres RPAREN bloq
+Rule 48    leer -> READ LPAREN ID RPAREN SEMICOLON
+Rule 49    expres -> exr
+Rule 50    expres -> exr log expres
+Rule 51    exr -> ex
+Rule 52    exr -> ex rel exr
+Rule 53    ex -> term
+Rule 54    ex -> term PLUS ex
+Rule 55    ex -> term MINUS ex
+Rule 56    term -> fact
+Rule 57    term -> fact TIMES term
+Rule 58    term -> fact DIVIDE term
+Rule 59    fact -> LPAREN expres RPAREN
+Rule 60    fact -> fact1
+Rule 61    fact1 -> PLUS var_cte
+Rule 62    fact1 -> MINUS var_cte
+Rule 63    fact1 -> var_cte
+Rule 64    rel -> LOWERTHAN
+Rule 65    rel -> MORETHAN
+Rule 66    rel -> LOWEREQ
+Rule 67    rel -> MOREEQ
+Rule 68    rel -> SAME
+Rule 69    rel -> DIFFERENT
+Rule 70    log -> OR
+Rule 71    log -> AND
+Rule 72    var_cte -> ID
+Rule 73    var_cte -> CTE_I
+Rule 74    var_cte -> CTE_F
+Rule 75    var_cte -> CTE_B
+Rule 76    var_cte -> CTE_S
+Rule 77    var_cte -> fcall
+Rule 78    var_cte -> vcall
+Rule 79    fcall -> ID LPAREN fcall1 RPAREN
+Rule 80    fcall -> ID LPAREN RPAREN
+Rule 81    fcall1 -> expres
+Rule 82    fcall1 -> expres COMA fcall1
+Rule 83    vcall -> ID LBRACE expres RBRACE
+Rule 84    empty -> <empty>
 
 Terminals, with rules where they appear
 
-AND                  : 66
-BOOL                 : 13
+AND                  : 71
+BOOL                 : 13 20
 COLON                : 1 2 3
-COMA                 : 26 41 77
-CTE_B                : 70
-CTE_F                : 69
-CTE_I                : 14 68
-CTE_S                : 71
-CTE_STRING           : 
-DIFFERENT            : 64
-DIVIDE               : 53
-ELSE                 : 38
-EQUAL                : 35 36
-FLOAT                : 11
-FUNCTION             : 15 16 17 18 19 20
-ID                   : 1 2 3 9 14 15 16 17 18 19 20 25 26 35 36 43 67 74 75 78
-IF                   : 37 38
-INT                  : 10
-LBRACE               : 14 36 78
-LKEY                 : 27
-LOWEREQ              : 61
-LOWERTHAN            : 59
-LPAREN               : 15 16 17 18 19 20 37 38 39 42 43 54 74 75
-MINUS                : 50 57
-MOREEQ               : 62
-MORETHAN             : 60
-OR                   : 65
-PLUS                 : 49 56
-PRINT                : 39
+COMA                 : 24 46 82
+CTE_B                : 75
+CTE_F                : 74
+CTE_I                : 14 73
+CTE_S                : 76
+DIFFERENT            : 69
+DIVIDE               : 58
+ELSE                 : 43
+EQUAL                : 40 41
+FLOAT                : 11 18
+FUNCTION             : 15 16
+ID                   : 1 2 3 9 14 15 16 23 24 40 41 48 72 79 80 83
+IF                   : 42 43
+INT                  : 10 17
+LBRACE               : 14 41 83
+LKEY                 : 32
+LOWEREQ              : 66
+LOWERTHAN            : 64
+LPAREN               : 15 16 42 43 44 47 48 59 79 80
+MINUS                : 55 62
+MOREEQ               : 67
+MORETHAN             : 65
+OR                   : 70
+PLUS                 : 54 61
+PRINT                : 44
 PROGRAM              : 1 2 3
-RBRACE               : 14 36 78
-READ                 : 43
-RETURN               : 16 19
-RKEY                 : 27
-RPAREN               : 15 16 17 18 19 20 37 38 39 42 43 54 74 75
-SAME                 : 63
-SEMICOLON            : 9 14 35 36 39 43
-STRING               : 12
-TIMES                : 52
+RBRACE               : 14 41 83
+READ                 : 48
+RETURN               : 30
+RKEY                 : 32
+RPAREN               : 15 16 42 43 44 47 48 59 79 80
+SAME                 : 68
+SEMICOLON            : 9 14 40 41 44 48
+STRING               : 12 19
+TIMES                : 57
 VAR                  : 9
 VECTOR               : 14
-VOID                 : 24
-WHILE                : 42
+VOID                 : 21
+WHILE                : 47
 error                : 
 
 Nonterminals, with rules where they appear
 
-asign                : 30
-bloq                 : 1 2 15 16 17 18 19 20 37 38 38 42
-bloqi                : 27 29
-ciclo                : 33
-cond                 : 31
+addInTable           : 15 16
+asign                : 35
+bloq                 : 1 2 15 16 42 43 43 47
+bloqi                : 32 34
+ciclo                : 38
+cond                 : 36
 crear                : 4 5
-escrit               : 32
-escriti              : 39 41
-estat                : 28 29
-ex                   : 46 47 49 50
-expres               : 16 19 35 36 37 38 40 41 42 45 54 76 77 78
-exr                  : 36 44 45 47
-fact                 : 51 52 53
-fact1                : 55
-fcall                : 72
-fcall1               : 74 77
+empty                : 25 31
+escrit               : 37
+escriti              : 44 46
+estat                : 33 34
+ex                   : 51 52 54 55
+expres               : 30 40 41 42 43 45 46 47 50 59 81 82 83
+exr                  : 41 49 50 52
+fact                 : 56 57 58
+fact1                : 60
+fcall                : 77
+fcall1               : 79 82
 func                 : 8
-funci                : 15 16 18 19 26
-functype             : 15 16 17 18 19 20
-funcvar              : 15 16 17 22
-leer                 : 34
-log                  : 45
+funci                : 15 16 24
+functype             : 15 16
+leer                 : 39
+localvar             : 15 28 29
+log                  : 50
 program              : 0
 program2             : 1 4
-rel                  : 47
-term                 : 48 49 50 52 53
-tipo                 : 9 23 25 26
-var                  : 6 21 22
-var_cte              : 56 57 58
-vcall                : 73
-vector               : 7
+rel                  : 52
+return               : 15 16
+term                 : 53 54 55 57 58
+tipo                 : 9 23 24
+var                  : 6 26 28
+var_cte              : 61 62 63
+vcall                : 78
+vector               : 7 27 29
 
 Parsing method: LALR
 
@@ -211,18 +215,14 @@ state 4
     (3) program -> PROGRAM ID COLON .
     (4) program2 -> . crear program2
     (5) program2 -> . crear
-    (27) bloq -> . LKEY bloqi RKEY
+    (32) bloq -> . LKEY bloqi RKEY
     (6) crear -> . var
     (7) crear -> . vector
     (8) crear -> . func
     (9) var -> . VAR tipo ID SEMICOLON
     (14) vector -> . VECTOR ID LBRACE CTE_I RBRACE SEMICOLON
-    (15) func -> . FUNCTION functype ID LPAREN funci RPAREN funcvar bloq
-    (16) func -> . FUNCTION functype ID LPAREN funci RPAREN funcvar bloq RETURN expres
-    (17) func -> . FUNCTION functype ID LPAREN RPAREN funcvar bloq
-    (18) func -> . FUNCTION functype ID LPAREN funci RPAREN bloq
-    (19) func -> . FUNCTION functype ID LPAREN funci RPAREN bloq RETURN expres
-    (20) func -> . FUNCTION functype ID LPAREN RPAREN bloq
+    (15) func -> . FUNCTION functype ID addInTable LPAREN funci RPAREN localvar bloq return
+    (16) func -> . FUNCTION functype ID addInTable LPAREN funci RPAREN bloq return
 
     $end            reduce using rule 3 (program -> PROGRAM ID COLON .)
     LKEY            shift and go to state 8
@@ -240,7 +240,7 @@ state 4
 state 5
 
     (1) program -> PROGRAM ID COLON program2 . bloq
-    (27) bloq -> . LKEY bloqi RKEY
+    (32) bloq -> . LKEY bloqi RKEY
 
     LKEY            shift and go to state 8
 
@@ -264,12 +264,8 @@ state 7
     (8) crear -> . func
     (9) var -> . VAR tipo ID SEMICOLON
     (14) vector -> . VECTOR ID LBRACE CTE_I RBRACE SEMICOLON
-    (15) func -> . FUNCTION functype ID LPAREN funci RPAREN funcvar bloq
-    (16) func -> . FUNCTION functype ID LPAREN funci RPAREN funcvar bloq RETURN expres
-    (17) func -> . FUNCTION functype ID LPAREN RPAREN funcvar bloq
-    (18) func -> . FUNCTION functype ID LPAREN funci RPAREN bloq
-    (19) func -> . FUNCTION functype ID LPAREN funci RPAREN bloq RETURN expres
-    (20) func -> . FUNCTION functype ID LPAREN RPAREN bloq
+    (15) func -> . FUNCTION functype ID addInTable LPAREN funci RPAREN localvar bloq return
+    (16) func -> . FUNCTION functype ID addInTable LPAREN funci RPAREN bloq return
 
     LKEY            reduce using rule 5 (program2 -> crear .)
     VAR             shift and go to state 12
@@ -284,21 +280,21 @@ state 7
 
 state 8
 
-    (27) bloq -> LKEY . bloqi RKEY
-    (28) bloqi -> . estat
-    (29) bloqi -> . estat bloqi
-    (30) estat -> . asign
-    (31) estat -> . cond
-    (32) estat -> . escrit
-    (33) estat -> . ciclo
-    (34) estat -> . leer
-    (35) asign -> . ID EQUAL expres SEMICOLON
-    (36) asign -> . ID LBRACE exr RBRACE EQUAL expres SEMICOLON
-    (37) cond -> . IF LPAREN expres RPAREN bloq
-    (38) cond -> . IF LPAREN expres RPAREN bloq ELSE bloq
-    (39) escrit -> . PRINT LPAREN escriti RPAREN SEMICOLON
-    (42) ciclo -> . WHILE LPAREN expres RPAREN bloq
-    (43) leer -> . READ LPAREN ID RPAREN SEMICOLON
+    (32) bloq -> LKEY . bloqi RKEY
+    (33) bloqi -> . estat
+    (34) bloqi -> . estat bloqi
+    (35) estat -> . asign
+    (36) estat -> . cond
+    (37) estat -> . escrit
+    (38) estat -> . ciclo
+    (39) estat -> . leer
+    (40) asign -> . ID EQUAL expres SEMICOLON
+    (41) asign -> . ID LBRACE exr RBRACE EQUAL expres SEMICOLON
+    (42) cond -> . IF LPAREN expres RPAREN bloq
+    (43) cond -> . IF LPAREN expres RPAREN bloq ELSE bloq
+    (44) escrit -> . PRINT LPAREN escriti RPAREN SEMICOLON
+    (47) ciclo -> . WHILE LPAREN expres RPAREN bloq
+    (48) leer -> . READ LPAREN ID RPAREN SEMICOLON
 
     ID              shift and go to state 24
     IF              shift and go to state 25
@@ -368,27 +364,21 @@ state 13
 
 state 14
 
-    (15) func -> FUNCTION . functype ID LPAREN funci RPAREN funcvar bloq
-    (16) func -> FUNCTION . functype ID LPAREN funci RPAREN funcvar bloq RETURN expres
-    (17) func -> FUNCTION . functype ID LPAREN RPAREN funcvar bloq
-    (18) func -> FUNCTION . functype ID LPAREN funci RPAREN bloq
-    (19) func -> FUNCTION . functype ID LPAREN funci RPAREN bloq RETURN expres
-    (20) func -> FUNCTION . functype ID LPAREN RPAREN bloq
-    (23) functype -> . tipo
-    (24) functype -> . VOID
-    (10) tipo -> . INT
-    (11) tipo -> . FLOAT
-    (12) tipo -> . STRING
-    (13) tipo -> . BOOL
+    (15) func -> FUNCTION . functype ID addInTable LPAREN funci RPAREN localvar bloq return
+    (16) func -> FUNCTION . functype ID addInTable LPAREN funci RPAREN bloq return
+    (17) functype -> . INT
+    (18) functype -> . FLOAT
+    (19) functype -> . STRING
+    (20) functype -> . BOOL
+    (21) functype -> . VOID
 
-    VOID            shift and go to state 37
-    INT             shift and go to state 30
-    FLOAT           shift and go to state 31
-    STRING          shift and go to state 32
-    BOOL            shift and go to state 33
+    INT             shift and go to state 36
+    FLOAT           shift and go to state 37
+    STRING          shift and go to state 38
+    BOOL            shift and go to state 39
+    VOID            shift and go to state 40
 
     functype                       shift and go to state 35
-    tipo                           shift and go to state 36
 
 state 15
 
@@ -406,31 +396,31 @@ state 16
 
 state 17
 
-    (27) bloq -> LKEY bloqi . RKEY
+    (32) bloq -> LKEY bloqi . RKEY
 
-    RKEY            shift and go to state 38
+    RKEY            shift and go to state 41
 
 
 state 18
 
-    (28) bloqi -> estat .
-    (29) bloqi -> estat . bloqi
-    (28) bloqi -> . estat
-    (29) bloqi -> . estat bloqi
-    (30) estat -> . asign
-    (31) estat -> . cond
-    (32) estat -> . escrit
-    (33) estat -> . ciclo
-    (34) estat -> . leer
-    (35) asign -> . ID EQUAL expres SEMICOLON
-    (36) asign -> . ID LBRACE exr RBRACE EQUAL expres SEMICOLON
-    (37) cond -> . IF LPAREN expres RPAREN bloq
-    (38) cond -> . IF LPAREN expres RPAREN bloq ELSE bloq
-    (39) escrit -> . PRINT LPAREN escriti RPAREN SEMICOLON
-    (42) ciclo -> . WHILE LPAREN expres RPAREN bloq
-    (43) leer -> . READ LPAREN ID RPAREN SEMICOLON
+    (33) bloqi -> estat .
+    (34) bloqi -> estat . bloqi
+    (33) bloqi -> . estat
+    (34) bloqi -> . estat bloqi
+    (35) estat -> . asign
+    (36) estat -> . cond
+    (37) estat -> . escrit
+    (38) estat -> . ciclo
+    (39) estat -> . leer
+    (40) asign -> . ID EQUAL expres SEMICOLON
+    (41) asign -> . ID LBRACE exr RBRACE EQUAL expres SEMICOLON
+    (42) cond -> . IF LPAREN expres RPAREN bloq
+    (43) cond -> . IF LPAREN expres RPAREN bloq ELSE bloq
+    (44) escrit -> . PRINT LPAREN escriti RPAREN SEMICOLON
+    (47) ciclo -> . WHILE LPAREN expres RPAREN bloq
+    (48) leer -> . READ LPAREN ID RPAREN SEMICOLON
 
-    RKEY            reduce using rule 28 (bloqi -> estat .)
+    RKEY            reduce using rule 33 (bloqi -> estat .)
     ID              shift and go to state 24
     IF              shift and go to state 25
     PRINT           shift and go to state 26
@@ -438,7 +428,7 @@ state 18
     READ            shift and go to state 28
 
     estat                          shift and go to state 18
-    bloqi                          shift and go to state 39
+    bloqi                          shift and go to state 42
     asign                          shift and go to state 19
     cond                           shift and go to state 20
     escrit                         shift and go to state 21
@@ -447,107 +437,107 @@ state 18
 
 state 19
 
-    (30) estat -> asign .
+    (35) estat -> asign .
 
-    ID              reduce using rule 30 (estat -> asign .)
-    IF              reduce using rule 30 (estat -> asign .)
-    PRINT           reduce using rule 30 (estat -> asign .)
-    WHILE           reduce using rule 30 (estat -> asign .)
-    READ            reduce using rule 30 (estat -> asign .)
-    RKEY            reduce using rule 30 (estat -> asign .)
+    ID              reduce using rule 35 (estat -> asign .)
+    IF              reduce using rule 35 (estat -> asign .)
+    PRINT           reduce using rule 35 (estat -> asign .)
+    WHILE           reduce using rule 35 (estat -> asign .)
+    READ            reduce using rule 35 (estat -> asign .)
+    RKEY            reduce using rule 35 (estat -> asign .)
 
 
 state 20
 
-    (31) estat -> cond .
+    (36) estat -> cond .
 
-    ID              reduce using rule 31 (estat -> cond .)
-    IF              reduce using rule 31 (estat -> cond .)
-    PRINT           reduce using rule 31 (estat -> cond .)
-    WHILE           reduce using rule 31 (estat -> cond .)
-    READ            reduce using rule 31 (estat -> cond .)
-    RKEY            reduce using rule 31 (estat -> cond .)
+    ID              reduce using rule 36 (estat -> cond .)
+    IF              reduce using rule 36 (estat -> cond .)
+    PRINT           reduce using rule 36 (estat -> cond .)
+    WHILE           reduce using rule 36 (estat -> cond .)
+    READ            reduce using rule 36 (estat -> cond .)
+    RKEY            reduce using rule 36 (estat -> cond .)
 
 
 state 21
 
-    (32) estat -> escrit .
+    (37) estat -> escrit .
 
-    ID              reduce using rule 32 (estat -> escrit .)
-    IF              reduce using rule 32 (estat -> escrit .)
-    PRINT           reduce using rule 32 (estat -> escrit .)
-    WHILE           reduce using rule 32 (estat -> escrit .)
-    READ            reduce using rule 32 (estat -> escrit .)
-    RKEY            reduce using rule 32 (estat -> escrit .)
+    ID              reduce using rule 37 (estat -> escrit .)
+    IF              reduce using rule 37 (estat -> escrit .)
+    PRINT           reduce using rule 37 (estat -> escrit .)
+    WHILE           reduce using rule 37 (estat -> escrit .)
+    READ            reduce using rule 37 (estat -> escrit .)
+    RKEY            reduce using rule 37 (estat -> escrit .)
 
 
 state 22
 
-    (33) estat -> ciclo .
+    (38) estat -> ciclo .
 
-    ID              reduce using rule 33 (estat -> ciclo .)
-    IF              reduce using rule 33 (estat -> ciclo .)
-    PRINT           reduce using rule 33 (estat -> ciclo .)
-    WHILE           reduce using rule 33 (estat -> ciclo .)
-    READ            reduce using rule 33 (estat -> ciclo .)
-    RKEY            reduce using rule 33 (estat -> ciclo .)
+    ID              reduce using rule 38 (estat -> ciclo .)
+    IF              reduce using rule 38 (estat -> ciclo .)
+    PRINT           reduce using rule 38 (estat -> ciclo .)
+    WHILE           reduce using rule 38 (estat -> ciclo .)
+    READ            reduce using rule 38 (estat -> ciclo .)
+    RKEY            reduce using rule 38 (estat -> ciclo .)
 
 
 state 23
 
-    (34) estat -> leer .
+    (39) estat -> leer .
 
-    ID              reduce using rule 34 (estat -> leer .)
-    IF              reduce using rule 34 (estat -> leer .)
-    PRINT           reduce using rule 34 (estat -> leer .)
-    WHILE           reduce using rule 34 (estat -> leer .)
-    READ            reduce using rule 34 (estat -> leer .)
-    RKEY            reduce using rule 34 (estat -> leer .)
+    ID              reduce using rule 39 (estat -> leer .)
+    IF              reduce using rule 39 (estat -> leer .)
+    PRINT           reduce using rule 39 (estat -> leer .)
+    WHILE           reduce using rule 39 (estat -> leer .)
+    READ            reduce using rule 39 (estat -> leer .)
+    RKEY            reduce using rule 39 (estat -> leer .)
 
 
 state 24
 
-    (35) asign -> ID . EQUAL expres SEMICOLON
-    (36) asign -> ID . LBRACE exr RBRACE EQUAL expres SEMICOLON
+    (40) asign -> ID . EQUAL expres SEMICOLON
+    (41) asign -> ID . LBRACE exr RBRACE EQUAL expres SEMICOLON
 
-    EQUAL           shift and go to state 40
-    LBRACE          shift and go to state 41
+    EQUAL           shift and go to state 43
+    LBRACE          shift and go to state 44
 
 
 state 25
 
-    (37) cond -> IF . LPAREN expres RPAREN bloq
-    (38) cond -> IF . LPAREN expres RPAREN bloq ELSE bloq
+    (42) cond -> IF . LPAREN expres RPAREN bloq
+    (43) cond -> IF . LPAREN expres RPAREN bloq ELSE bloq
 
-    LPAREN          shift and go to state 42
+    LPAREN          shift and go to state 45
 
 
 state 26
 
-    (39) escrit -> PRINT . LPAREN escriti RPAREN SEMICOLON
+    (44) escrit -> PRINT . LPAREN escriti RPAREN SEMICOLON
 
-    LPAREN          shift and go to state 43
+    LPAREN          shift and go to state 46
 
 
 state 27
 
-    (42) ciclo -> WHILE . LPAREN expres RPAREN bloq
+    (47) ciclo -> WHILE . LPAREN expres RPAREN bloq
 
-    LPAREN          shift and go to state 44
+    LPAREN          shift and go to state 47
 
 
 state 28
 
-    (43) leer -> READ . LPAREN ID RPAREN SEMICOLON
+    (48) leer -> READ . LPAREN ID RPAREN SEMICOLON
 
-    LPAREN          shift and go to state 45
+    LPAREN          shift and go to state 48
 
 
 state 29
 
     (9) var -> VAR tipo . ID SEMICOLON
 
-    ID              shift and go to state 46
+    ID              shift and go to state 49
 
 
 state 30
@@ -582,827 +572,842 @@ state 34
 
     (14) vector -> VECTOR ID . LBRACE CTE_I RBRACE SEMICOLON
 
-    LBRACE          shift and go to state 47
+    LBRACE          shift and go to state 50
 
 
 state 35
 
-    (15) func -> FUNCTION functype . ID LPAREN funci RPAREN funcvar bloq
-    (16) func -> FUNCTION functype . ID LPAREN funci RPAREN funcvar bloq RETURN expres
-    (17) func -> FUNCTION functype . ID LPAREN RPAREN funcvar bloq
-    (18) func -> FUNCTION functype . ID LPAREN funci RPAREN bloq
-    (19) func -> FUNCTION functype . ID LPAREN funci RPAREN bloq RETURN expres
-    (20) func -> FUNCTION functype . ID LPAREN RPAREN bloq
+    (15) func -> FUNCTION functype . ID addInTable LPAREN funci RPAREN localvar bloq return
+    (16) func -> FUNCTION functype . ID addInTable LPAREN funci RPAREN bloq return
 
-    ID              shift and go to state 48
+    ID              shift and go to state 51
 
 
 state 36
 
-    (23) functype -> tipo .
+    (17) functype -> INT .
 
-    ID              reduce using rule 23 (functype -> tipo .)
+    ID              reduce using rule 17 (functype -> INT .)
 
 
 state 37
 
-    (24) functype -> VOID .
+    (18) functype -> FLOAT .
 
-    ID              reduce using rule 24 (functype -> VOID .)
+    ID              reduce using rule 18 (functype -> FLOAT .)
 
 
 state 38
 
-    (27) bloq -> LKEY bloqi RKEY .
+    (19) functype -> STRING .
 
-    $end            reduce using rule 27 (bloq -> LKEY bloqi RKEY .)
-    ELSE            reduce using rule 27 (bloq -> LKEY bloqi RKEY .)
-    ID              reduce using rule 27 (bloq -> LKEY bloqi RKEY .)
-    IF              reduce using rule 27 (bloq -> LKEY bloqi RKEY .)
-    PRINT           reduce using rule 27 (bloq -> LKEY bloqi RKEY .)
-    WHILE           reduce using rule 27 (bloq -> LKEY bloqi RKEY .)
-    READ            reduce using rule 27 (bloq -> LKEY bloqi RKEY .)
-    RKEY            reduce using rule 27 (bloq -> LKEY bloqi RKEY .)
-    VAR             reduce using rule 27 (bloq -> LKEY bloqi RKEY .)
-    VECTOR          reduce using rule 27 (bloq -> LKEY bloqi RKEY .)
-    FUNCTION        reduce using rule 27 (bloq -> LKEY bloqi RKEY .)
-    LKEY            reduce using rule 27 (bloq -> LKEY bloqi RKEY .)
-    RETURN          reduce using rule 27 (bloq -> LKEY bloqi RKEY .)
+    ID              reduce using rule 19 (functype -> STRING .)
 
 
 state 39
 
-    (29) bloqi -> estat bloqi .
+    (20) functype -> BOOL .
 
-    RKEY            reduce using rule 29 (bloqi -> estat bloqi .)
+    ID              reduce using rule 20 (functype -> BOOL .)
 
 
 state 40
 
-    (35) asign -> ID EQUAL . expres SEMICOLON
-    (44) expres -> . exr
-    (45) expres -> . exr log expres
-    (46) exr -> . ex
-    (47) exr -> . ex rel exr
-    (48) ex -> . term
-    (49) ex -> . term PLUS ex
-    (50) ex -> . term MINUS ex
-    (51) term -> . fact
-    (52) term -> . fact TIMES term
-    (53) term -> . fact DIVIDE term
-    (54) fact -> . LPAREN expres RPAREN
-    (55) fact -> . fact1
-    (56) fact1 -> . PLUS var_cte
-    (57) fact1 -> . MINUS var_cte
-    (58) fact1 -> . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
+    (21) functype -> VOID .
 
-    LPAREN          shift and go to state 57
-    PLUS            shift and go to state 54
-    MINUS           shift and go to state 55
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
+    ID              reduce using rule 21 (functype -> VOID .)
 
-    expres                         shift and go to state 50
-    exr                            shift and go to state 51
-    ex                             shift and go to state 52
-    term                           shift and go to state 53
-    fact                           shift and go to state 56
-    fact1                          shift and go to state 58
-    var_cte                        shift and go to state 59
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
 
 state 41
 
-    (36) asign -> ID LBRACE . exr RBRACE EQUAL expres SEMICOLON
-    (46) exr -> . ex
-    (47) exr -> . ex rel exr
-    (48) ex -> . term
-    (49) ex -> . term PLUS ex
-    (50) ex -> . term MINUS ex
-    (51) term -> . fact
-    (52) term -> . fact TIMES term
-    (53) term -> . fact DIVIDE term
-    (54) fact -> . LPAREN expres RPAREN
-    (55) fact -> . fact1
-    (56) fact1 -> . PLUS var_cte
-    (57) fact1 -> . MINUS var_cte
-    (58) fact1 -> . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
+    (32) bloq -> LKEY bloqi RKEY .
 
-    LPAREN          shift and go to state 57
-    PLUS            shift and go to state 54
-    MINUS           shift and go to state 55
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
+    $end            reduce using rule 32 (bloq -> LKEY bloqi RKEY .)
+    ELSE            reduce using rule 32 (bloq -> LKEY bloqi RKEY .)
+    ID              reduce using rule 32 (bloq -> LKEY bloqi RKEY .)
+    IF              reduce using rule 32 (bloq -> LKEY bloqi RKEY .)
+    PRINT           reduce using rule 32 (bloq -> LKEY bloqi RKEY .)
+    WHILE           reduce using rule 32 (bloq -> LKEY bloqi RKEY .)
+    READ            reduce using rule 32 (bloq -> LKEY bloqi RKEY .)
+    RKEY            reduce using rule 32 (bloq -> LKEY bloqi RKEY .)
+    RETURN          reduce using rule 32 (bloq -> LKEY bloqi RKEY .)
+    VAR             reduce using rule 32 (bloq -> LKEY bloqi RKEY .)
+    VECTOR          reduce using rule 32 (bloq -> LKEY bloqi RKEY .)
+    FUNCTION        reduce using rule 32 (bloq -> LKEY bloqi RKEY .)
+    LKEY            reduce using rule 32 (bloq -> LKEY bloqi RKEY .)
 
-    exr                            shift and go to state 66
-    ex                             shift and go to state 52
-    term                           shift and go to state 53
-    fact                           shift and go to state 56
-    fact1                          shift and go to state 58
-    var_cte                        shift and go to state 59
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
 
 state 42
 
-    (37) cond -> IF LPAREN . expres RPAREN bloq
-    (38) cond -> IF LPAREN . expres RPAREN bloq ELSE bloq
-    (44) expres -> . exr
-    (45) expres -> . exr log expres
-    (46) exr -> . ex
-    (47) exr -> . ex rel exr
-    (48) ex -> . term
-    (49) ex -> . term PLUS ex
-    (50) ex -> . term MINUS ex
-    (51) term -> . fact
-    (52) term -> . fact TIMES term
-    (53) term -> . fact DIVIDE term
-    (54) fact -> . LPAREN expres RPAREN
-    (55) fact -> . fact1
-    (56) fact1 -> . PLUS var_cte
-    (57) fact1 -> . MINUS var_cte
-    (58) fact1 -> . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
+    (34) bloqi -> estat bloqi .
 
-    LPAREN          shift and go to state 57
-    PLUS            shift and go to state 54
-    MINUS           shift and go to state 55
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
+    RKEY            reduce using rule 34 (bloqi -> estat bloqi .)
 
-    expres                         shift and go to state 67
-    exr                            shift and go to state 51
-    ex                             shift and go to state 52
-    term                           shift and go to state 53
-    fact                           shift and go to state 56
-    fact1                          shift and go to state 58
-    var_cte                        shift and go to state 59
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
 
 state 43
 
-    (39) escrit -> PRINT LPAREN . escriti RPAREN SEMICOLON
-    (40) escriti -> . expres
-    (41) escriti -> . expres COMA escriti
-    (44) expres -> . exr
-    (45) expres -> . exr log expres
-    (46) exr -> . ex
-    (47) exr -> . ex rel exr
-    (48) ex -> . term
-    (49) ex -> . term PLUS ex
-    (50) ex -> . term MINUS ex
-    (51) term -> . fact
-    (52) term -> . fact TIMES term
-    (53) term -> . fact DIVIDE term
-    (54) fact -> . LPAREN expres RPAREN
-    (55) fact -> . fact1
-    (56) fact1 -> . PLUS var_cte
-    (57) fact1 -> . MINUS var_cte
-    (58) fact1 -> . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
+    (40) asign -> ID EQUAL . expres SEMICOLON
+    (49) expres -> . exr
+    (50) expres -> . exr log expres
+    (51) exr -> . ex
+    (52) exr -> . ex rel exr
+    (53) ex -> . term
+    (54) ex -> . term PLUS ex
+    (55) ex -> . term MINUS ex
+    (56) term -> . fact
+    (57) term -> . fact TIMES term
+    (58) term -> . fact DIVIDE term
+    (59) fact -> . LPAREN expres RPAREN
+    (60) fact -> . fact1
+    (61) fact1 -> . PLUS var_cte
+    (62) fact1 -> . MINUS var_cte
+    (63) fact1 -> . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
 
-    LPAREN          shift and go to state 57
-    PLUS            shift and go to state 54
-    MINUS           shift and go to state 55
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
+    LPAREN          shift and go to state 60
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
 
-    escriti                        shift and go to state 68
-    expres                         shift and go to state 69
-    exr                            shift and go to state 51
-    ex                             shift and go to state 52
-    term                           shift and go to state 53
-    fact                           shift and go to state 56
-    fact1                          shift and go to state 58
-    var_cte                        shift and go to state 59
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
+    expres                         shift and go to state 53
+    exr                            shift and go to state 54
+    ex                             shift and go to state 55
+    term                           shift and go to state 56
+    fact                           shift and go to state 59
+    fact1                          shift and go to state 61
+    var_cte                        shift and go to state 62
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
 
 state 44
 
-    (42) ciclo -> WHILE LPAREN . expres RPAREN bloq
-    (44) expres -> . exr
-    (45) expres -> . exr log expres
-    (46) exr -> . ex
-    (47) exr -> . ex rel exr
-    (48) ex -> . term
-    (49) ex -> . term PLUS ex
-    (50) ex -> . term MINUS ex
-    (51) term -> . fact
-    (52) term -> . fact TIMES term
-    (53) term -> . fact DIVIDE term
-    (54) fact -> . LPAREN expres RPAREN
-    (55) fact -> . fact1
-    (56) fact1 -> . PLUS var_cte
-    (57) fact1 -> . MINUS var_cte
-    (58) fact1 -> . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
+    (41) asign -> ID LBRACE . exr RBRACE EQUAL expres SEMICOLON
+    (51) exr -> . ex
+    (52) exr -> . ex rel exr
+    (53) ex -> . term
+    (54) ex -> . term PLUS ex
+    (55) ex -> . term MINUS ex
+    (56) term -> . fact
+    (57) term -> . fact TIMES term
+    (58) term -> . fact DIVIDE term
+    (59) fact -> . LPAREN expres RPAREN
+    (60) fact -> . fact1
+    (61) fact1 -> . PLUS var_cte
+    (62) fact1 -> . MINUS var_cte
+    (63) fact1 -> . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
 
-    LPAREN          shift and go to state 57
-    PLUS            shift and go to state 54
-    MINUS           shift and go to state 55
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
+    LPAREN          shift and go to state 60
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
 
-    expres                         shift and go to state 70
-    exr                            shift and go to state 51
-    ex                             shift and go to state 52
-    term                           shift and go to state 53
-    fact                           shift and go to state 56
-    fact1                          shift and go to state 58
-    var_cte                        shift and go to state 59
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
+    exr                            shift and go to state 69
+    ex                             shift and go to state 55
+    term                           shift and go to state 56
+    fact                           shift and go to state 59
+    fact1                          shift and go to state 61
+    var_cte                        shift and go to state 62
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
 
 state 45
 
-    (43) leer -> READ LPAREN . ID RPAREN SEMICOLON
+    (42) cond -> IF LPAREN . expres RPAREN bloq
+    (43) cond -> IF LPAREN . expres RPAREN bloq ELSE bloq
+    (49) expres -> . exr
+    (50) expres -> . exr log expres
+    (51) exr -> . ex
+    (52) exr -> . ex rel exr
+    (53) ex -> . term
+    (54) ex -> . term PLUS ex
+    (55) ex -> . term MINUS ex
+    (56) term -> . fact
+    (57) term -> . fact TIMES term
+    (58) term -> . fact DIVIDE term
+    (59) fact -> . LPAREN expres RPAREN
+    (60) fact -> . fact1
+    (61) fact1 -> . PLUS var_cte
+    (62) fact1 -> . MINUS var_cte
+    (63) fact1 -> . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
 
-    ID              shift and go to state 71
+    LPAREN          shift and go to state 60
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
 
+    expres                         shift and go to state 70
+    exr                            shift and go to state 54
+    ex                             shift and go to state 55
+    term                           shift and go to state 56
+    fact                           shift and go to state 59
+    fact1                          shift and go to state 61
+    var_cte                        shift and go to state 62
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
 
 state 46
 
-    (9) var -> VAR tipo ID . SEMICOLON
+    (44) escrit -> PRINT LPAREN . escriti RPAREN SEMICOLON
+    (45) escriti -> . expres
+    (46) escriti -> . expres COMA escriti
+    (49) expres -> . exr
+    (50) expres -> . exr log expres
+    (51) exr -> . ex
+    (52) exr -> . ex rel exr
+    (53) ex -> . term
+    (54) ex -> . term PLUS ex
+    (55) ex -> . term MINUS ex
+    (56) term -> . fact
+    (57) term -> . fact TIMES term
+    (58) term -> . fact DIVIDE term
+    (59) fact -> . LPAREN expres RPAREN
+    (60) fact -> . fact1
+    (61) fact1 -> . PLUS var_cte
+    (62) fact1 -> . MINUS var_cte
+    (63) fact1 -> . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
 
-    SEMICOLON       shift and go to state 72
+    LPAREN          shift and go to state 60
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
 
+    escriti                        shift and go to state 71
+    expres                         shift and go to state 72
+    exr                            shift and go to state 54
+    ex                             shift and go to state 55
+    term                           shift and go to state 56
+    fact                           shift and go to state 59
+    fact1                          shift and go to state 61
+    var_cte                        shift and go to state 62
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
 
 state 47
 
-    (14) vector -> VECTOR ID LBRACE . CTE_I RBRACE SEMICOLON
+    (47) ciclo -> WHILE LPAREN . expres RPAREN bloq
+    (49) expres -> . exr
+    (50) expres -> . exr log expres
+    (51) exr -> . ex
+    (52) exr -> . ex rel exr
+    (53) ex -> . term
+    (54) ex -> . term PLUS ex
+    (55) ex -> . term MINUS ex
+    (56) term -> . fact
+    (57) term -> . fact TIMES term
+    (58) term -> . fact DIVIDE term
+    (59) fact -> . LPAREN expres RPAREN
+    (60) fact -> . fact1
+    (61) fact1 -> . PLUS var_cte
+    (62) fact1 -> . MINUS var_cte
+    (63) fact1 -> . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
 
-    CTE_I           shift and go to state 73
+    LPAREN          shift and go to state 60
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
 
+    expres                         shift and go to state 73
+    exr                            shift and go to state 54
+    ex                             shift and go to state 55
+    term                           shift and go to state 56
+    fact                           shift and go to state 59
+    fact1                          shift and go to state 61
+    var_cte                        shift and go to state 62
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
 
 state 48
 
-    (15) func -> FUNCTION functype ID . LPAREN funci RPAREN funcvar bloq
-    (16) func -> FUNCTION functype ID . LPAREN funci RPAREN funcvar bloq RETURN expres
-    (17) func -> FUNCTION functype ID . LPAREN RPAREN funcvar bloq
-    (18) func -> FUNCTION functype ID . LPAREN funci RPAREN bloq
-    (19) func -> FUNCTION functype ID . LPAREN funci RPAREN bloq RETURN expres
-    (20) func -> FUNCTION functype ID . LPAREN RPAREN bloq
+    (48) leer -> READ LPAREN . ID RPAREN SEMICOLON
 
-    LPAREN          shift and go to state 74
+    ID              shift and go to state 74
 
 
 state 49
 
-    (67) var_cte -> ID .
-    (74) fcall -> ID . LPAREN fcall1 RPAREN
-    (75) fcall -> ID . LPAREN RPAREN
-    (78) vcall -> ID . LBRACE expres RBRACE
+    (9) var -> VAR tipo ID . SEMICOLON
 
-    TIMES           reduce using rule 67 (var_cte -> ID .)
-    DIVIDE          reduce using rule 67 (var_cte -> ID .)
-    PLUS            reduce using rule 67 (var_cte -> ID .)
-    MINUS           reduce using rule 67 (var_cte -> ID .)
-    LOWERTHAN       reduce using rule 67 (var_cte -> ID .)
-    MORETHAN        reduce using rule 67 (var_cte -> ID .)
-    LOWEREQ         reduce using rule 67 (var_cte -> ID .)
-    MOREEQ          reduce using rule 67 (var_cte -> ID .)
-    SAME            reduce using rule 67 (var_cte -> ID .)
-    DIFFERENT       reduce using rule 67 (var_cte -> ID .)
-    OR              reduce using rule 67 (var_cte -> ID .)
-    AND             reduce using rule 67 (var_cte -> ID .)
-    SEMICOLON       reduce using rule 67 (var_cte -> ID .)
-    RBRACE          reduce using rule 67 (var_cte -> ID .)
-    RPAREN          reduce using rule 67 (var_cte -> ID .)
-    COMA            reduce using rule 67 (var_cte -> ID .)
-    VAR             reduce using rule 67 (var_cte -> ID .)
-    VECTOR          reduce using rule 67 (var_cte -> ID .)
-    FUNCTION        reduce using rule 67 (var_cte -> ID .)
-    LKEY            reduce using rule 67 (var_cte -> ID .)
-    LPAREN          shift and go to state 75
-    LBRACE          shift and go to state 76
+    SEMICOLON       shift and go to state 75
 
 
 state 50
 
-    (35) asign -> ID EQUAL expres . SEMICOLON
+    (14) vector -> VECTOR ID LBRACE . CTE_I RBRACE SEMICOLON
 
-    SEMICOLON       shift and go to state 77
+    CTE_I           shift and go to state 76
 
 
 state 51
 
-    (44) expres -> exr .
-    (45) expres -> exr . log expres
-    (65) log -> . OR
-    (66) log -> . AND
+    (15) func -> FUNCTION functype ID . addInTable LPAREN funci RPAREN localvar bloq return
+    (16) func -> FUNCTION functype ID . addInTable LPAREN funci RPAREN bloq return
+    (22) addInTable -> .
 
-    SEMICOLON       reduce using rule 44 (expres -> exr .)
-    RPAREN          reduce using rule 44 (expres -> exr .)
-    COMA            reduce using rule 44 (expres -> exr .)
-    RBRACE          reduce using rule 44 (expres -> exr .)
-    VAR             reduce using rule 44 (expres -> exr .)
-    VECTOR          reduce using rule 44 (expres -> exr .)
-    FUNCTION        reduce using rule 44 (expres -> exr .)
-    LKEY            reduce using rule 44 (expres -> exr .)
-    OR              shift and go to state 79
-    AND             shift and go to state 80
+    LPAREN          reduce using rule 22 (addInTable -> .)
 
-    log                            shift and go to state 78
+    addInTable                     shift and go to state 77
 
 state 52
 
-    (46) exr -> ex .
-    (47) exr -> ex . rel exr
-    (59) rel -> . LOWERTHAN
-    (60) rel -> . MORETHAN
-    (61) rel -> . LOWEREQ
-    (62) rel -> . MOREEQ
-    (63) rel -> . SAME
-    (64) rel -> . DIFFERENT
+    (72) var_cte -> ID .
+    (79) fcall -> ID . LPAREN fcall1 RPAREN
+    (80) fcall -> ID . LPAREN RPAREN
+    (83) vcall -> ID . LBRACE expres RBRACE
 
-    OR              reduce using rule 46 (exr -> ex .)
-    AND             reduce using rule 46 (exr -> ex .)
-    SEMICOLON       reduce using rule 46 (exr -> ex .)
-    RBRACE          reduce using rule 46 (exr -> ex .)
-    RPAREN          reduce using rule 46 (exr -> ex .)
-    COMA            reduce using rule 46 (exr -> ex .)
-    VAR             reduce using rule 46 (exr -> ex .)
-    VECTOR          reduce using rule 46 (exr -> ex .)
-    FUNCTION        reduce using rule 46 (exr -> ex .)
-    LKEY            reduce using rule 46 (exr -> ex .)
-    LOWERTHAN       shift and go to state 82
-    MORETHAN        shift and go to state 83
-    LOWEREQ         shift and go to state 84
-    MOREEQ          shift and go to state 85
-    SAME            shift and go to state 86
-    DIFFERENT       shift and go to state 87
+    TIMES           reduce using rule 72 (var_cte -> ID .)
+    DIVIDE          reduce using rule 72 (var_cte -> ID .)
+    PLUS            reduce using rule 72 (var_cte -> ID .)
+    MINUS           reduce using rule 72 (var_cte -> ID .)
+    LOWERTHAN       reduce using rule 72 (var_cte -> ID .)
+    MORETHAN        reduce using rule 72 (var_cte -> ID .)
+    LOWEREQ         reduce using rule 72 (var_cte -> ID .)
+    MOREEQ          reduce using rule 72 (var_cte -> ID .)
+    SAME            reduce using rule 72 (var_cte -> ID .)
+    DIFFERENT       reduce using rule 72 (var_cte -> ID .)
+    OR              reduce using rule 72 (var_cte -> ID .)
+    AND             reduce using rule 72 (var_cte -> ID .)
+    SEMICOLON       reduce using rule 72 (var_cte -> ID .)
+    RBRACE          reduce using rule 72 (var_cte -> ID .)
+    RPAREN          reduce using rule 72 (var_cte -> ID .)
+    COMA            reduce using rule 72 (var_cte -> ID .)
+    VAR             reduce using rule 72 (var_cte -> ID .)
+    VECTOR          reduce using rule 72 (var_cte -> ID .)
+    FUNCTION        reduce using rule 72 (var_cte -> ID .)
+    LKEY            reduce using rule 72 (var_cte -> ID .)
+    LPAREN          shift and go to state 78
+    LBRACE          shift and go to state 79
 
-    rel                            shift and go to state 81
 
 state 53
 
-    (48) ex -> term .
-    (49) ex -> term . PLUS ex
-    (50) ex -> term . MINUS ex
+    (40) asign -> ID EQUAL expres . SEMICOLON
 
-    LOWERTHAN       reduce using rule 48 (ex -> term .)
-    MORETHAN        reduce using rule 48 (ex -> term .)
-    LOWEREQ         reduce using rule 48 (ex -> term .)
-    MOREEQ          reduce using rule 48 (ex -> term .)
-    SAME            reduce using rule 48 (ex -> term .)
-    DIFFERENT       reduce using rule 48 (ex -> term .)
-    OR              reduce using rule 48 (ex -> term .)
-    AND             reduce using rule 48 (ex -> term .)
-    SEMICOLON       reduce using rule 48 (ex -> term .)
-    RBRACE          reduce using rule 48 (ex -> term .)
-    RPAREN          reduce using rule 48 (ex -> term .)
-    COMA            reduce using rule 48 (ex -> term .)
-    VAR             reduce using rule 48 (ex -> term .)
-    VECTOR          reduce using rule 48 (ex -> term .)
-    FUNCTION        reduce using rule 48 (ex -> term .)
-    LKEY            reduce using rule 48 (ex -> term .)
-    PLUS            shift and go to state 88
-    MINUS           shift and go to state 89
+    SEMICOLON       shift and go to state 80
 
 
 state 54
 
-    (56) fact1 -> PLUS . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
+    (49) expres -> exr .
+    (50) expres -> exr . log expres
+    (70) log -> . OR
+    (71) log -> . AND
 
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
+    SEMICOLON       reduce using rule 49 (expres -> exr .)
+    RPAREN          reduce using rule 49 (expres -> exr .)
+    COMA            reduce using rule 49 (expres -> exr .)
+    RBRACE          reduce using rule 49 (expres -> exr .)
+    VAR             reduce using rule 49 (expres -> exr .)
+    VECTOR          reduce using rule 49 (expres -> exr .)
+    FUNCTION        reduce using rule 49 (expres -> exr .)
+    LKEY            reduce using rule 49 (expres -> exr .)
+    OR              shift and go to state 82
+    AND             shift and go to state 83
 
-    var_cte                        shift and go to state 90
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
+    log                            shift and go to state 81
 
 state 55
 
-    (57) fact1 -> MINUS . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
+    (51) exr -> ex .
+    (52) exr -> ex . rel exr
+    (64) rel -> . LOWERTHAN
+    (65) rel -> . MORETHAN
+    (66) rel -> . LOWEREQ
+    (67) rel -> . MOREEQ
+    (68) rel -> . SAME
+    (69) rel -> . DIFFERENT
 
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
+    OR              reduce using rule 51 (exr -> ex .)
+    AND             reduce using rule 51 (exr -> ex .)
+    SEMICOLON       reduce using rule 51 (exr -> ex .)
+    RBRACE          reduce using rule 51 (exr -> ex .)
+    RPAREN          reduce using rule 51 (exr -> ex .)
+    COMA            reduce using rule 51 (exr -> ex .)
+    VAR             reduce using rule 51 (exr -> ex .)
+    VECTOR          reduce using rule 51 (exr -> ex .)
+    FUNCTION        reduce using rule 51 (exr -> ex .)
+    LKEY            reduce using rule 51 (exr -> ex .)
+    LOWERTHAN       shift and go to state 85
+    MORETHAN        shift and go to state 86
+    LOWEREQ         shift and go to state 87
+    MOREEQ          shift and go to state 88
+    SAME            shift and go to state 89
+    DIFFERENT       shift and go to state 90
 
-    var_cte                        shift and go to state 91
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
+    rel                            shift and go to state 84
 
 state 56
 
-    (51) term -> fact .
-    (52) term -> fact . TIMES term
-    (53) term -> fact . DIVIDE term
+    (53) ex -> term .
+    (54) ex -> term . PLUS ex
+    (55) ex -> term . MINUS ex
 
-    PLUS            reduce using rule 51 (term -> fact .)
-    MINUS           reduce using rule 51 (term -> fact .)
-    LOWERTHAN       reduce using rule 51 (term -> fact .)
-    MORETHAN        reduce using rule 51 (term -> fact .)
-    LOWEREQ         reduce using rule 51 (term -> fact .)
-    MOREEQ          reduce using rule 51 (term -> fact .)
-    SAME            reduce using rule 51 (term -> fact .)
-    DIFFERENT       reduce using rule 51 (term -> fact .)
-    OR              reduce using rule 51 (term -> fact .)
-    AND             reduce using rule 51 (term -> fact .)
-    SEMICOLON       reduce using rule 51 (term -> fact .)
-    RBRACE          reduce using rule 51 (term -> fact .)
-    RPAREN          reduce using rule 51 (term -> fact .)
-    COMA            reduce using rule 51 (term -> fact .)
-    VAR             reduce using rule 51 (term -> fact .)
-    VECTOR          reduce using rule 51 (term -> fact .)
-    FUNCTION        reduce using rule 51 (term -> fact .)
-    LKEY            reduce using rule 51 (term -> fact .)
-    TIMES           shift and go to state 92
-    DIVIDE          shift and go to state 93
+    LOWERTHAN       reduce using rule 53 (ex -> term .)
+    MORETHAN        reduce using rule 53 (ex -> term .)
+    LOWEREQ         reduce using rule 53 (ex -> term .)
+    MOREEQ          reduce using rule 53 (ex -> term .)
+    SAME            reduce using rule 53 (ex -> term .)
+    DIFFERENT       reduce using rule 53 (ex -> term .)
+    OR              reduce using rule 53 (ex -> term .)
+    AND             reduce using rule 53 (ex -> term .)
+    SEMICOLON       reduce using rule 53 (ex -> term .)
+    RBRACE          reduce using rule 53 (ex -> term .)
+    RPAREN          reduce using rule 53 (ex -> term .)
+    COMA            reduce using rule 53 (ex -> term .)
+    VAR             reduce using rule 53 (ex -> term .)
+    VECTOR          reduce using rule 53 (ex -> term .)
+    FUNCTION        reduce using rule 53 (ex -> term .)
+    LKEY            reduce using rule 53 (ex -> term .)
+    PLUS            shift and go to state 91
+    MINUS           shift and go to state 92
 
 
 state 57
 
-    (54) fact -> LPAREN . expres RPAREN
-    (44) expres -> . exr
-    (45) expres -> . exr log expres
-    (46) exr -> . ex
-    (47) exr -> . ex rel exr
-    (48) ex -> . term
-    (49) ex -> . term PLUS ex
-    (50) ex -> . term MINUS ex
-    (51) term -> . fact
-    (52) term -> . fact TIMES term
-    (53) term -> . fact DIVIDE term
-    (54) fact -> . LPAREN expres RPAREN
-    (55) fact -> . fact1
-    (56) fact1 -> . PLUS var_cte
-    (57) fact1 -> . MINUS var_cte
-    (58) fact1 -> . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
+    (61) fact1 -> PLUS . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
 
-    LPAREN          shift and go to state 57
-    PLUS            shift and go to state 54
-    MINUS           shift and go to state 55
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
 
-    expres                         shift and go to state 94
-    exr                            shift and go to state 51
-    ex                             shift and go to state 52
-    term                           shift and go to state 53
-    fact                           shift and go to state 56
-    fact1                          shift and go to state 58
-    var_cte                        shift and go to state 59
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
+    var_cte                        shift and go to state 93
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
 
 state 58
 
-    (55) fact -> fact1 .
+    (62) fact1 -> MINUS . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
 
-    TIMES           reduce using rule 55 (fact -> fact1 .)
-    DIVIDE          reduce using rule 55 (fact -> fact1 .)
-    PLUS            reduce using rule 55 (fact -> fact1 .)
-    MINUS           reduce using rule 55 (fact -> fact1 .)
-    LOWERTHAN       reduce using rule 55 (fact -> fact1 .)
-    MORETHAN        reduce using rule 55 (fact -> fact1 .)
-    LOWEREQ         reduce using rule 55 (fact -> fact1 .)
-    MOREEQ          reduce using rule 55 (fact -> fact1 .)
-    SAME            reduce using rule 55 (fact -> fact1 .)
-    DIFFERENT       reduce using rule 55 (fact -> fact1 .)
-    OR              reduce using rule 55 (fact -> fact1 .)
-    AND             reduce using rule 55 (fact -> fact1 .)
-    SEMICOLON       reduce using rule 55 (fact -> fact1 .)
-    RBRACE          reduce using rule 55 (fact -> fact1 .)
-    RPAREN          reduce using rule 55 (fact -> fact1 .)
-    COMA            reduce using rule 55 (fact -> fact1 .)
-    VAR             reduce using rule 55 (fact -> fact1 .)
-    VECTOR          reduce using rule 55 (fact -> fact1 .)
-    FUNCTION        reduce using rule 55 (fact -> fact1 .)
-    LKEY            reduce using rule 55 (fact -> fact1 .)
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
 
+    var_cte                        shift and go to state 94
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
 
 state 59
 
-    (58) fact1 -> var_cte .
+    (56) term -> fact .
+    (57) term -> fact . TIMES term
+    (58) term -> fact . DIVIDE term
 
-    TIMES           reduce using rule 58 (fact1 -> var_cte .)
-    DIVIDE          reduce using rule 58 (fact1 -> var_cte .)
-    PLUS            reduce using rule 58 (fact1 -> var_cte .)
-    MINUS           reduce using rule 58 (fact1 -> var_cte .)
-    LOWERTHAN       reduce using rule 58 (fact1 -> var_cte .)
-    MORETHAN        reduce using rule 58 (fact1 -> var_cte .)
-    LOWEREQ         reduce using rule 58 (fact1 -> var_cte .)
-    MOREEQ          reduce using rule 58 (fact1 -> var_cte .)
-    SAME            reduce using rule 58 (fact1 -> var_cte .)
-    DIFFERENT       reduce using rule 58 (fact1 -> var_cte .)
-    OR              reduce using rule 58 (fact1 -> var_cte .)
-    AND             reduce using rule 58 (fact1 -> var_cte .)
-    SEMICOLON       reduce using rule 58 (fact1 -> var_cte .)
-    RBRACE          reduce using rule 58 (fact1 -> var_cte .)
-    RPAREN          reduce using rule 58 (fact1 -> var_cte .)
-    COMA            reduce using rule 58 (fact1 -> var_cte .)
-    VAR             reduce using rule 58 (fact1 -> var_cte .)
-    VECTOR          reduce using rule 58 (fact1 -> var_cte .)
-    FUNCTION        reduce using rule 58 (fact1 -> var_cte .)
-    LKEY            reduce using rule 58 (fact1 -> var_cte .)
+    PLUS            reduce using rule 56 (term -> fact .)
+    MINUS           reduce using rule 56 (term -> fact .)
+    LOWERTHAN       reduce using rule 56 (term -> fact .)
+    MORETHAN        reduce using rule 56 (term -> fact .)
+    LOWEREQ         reduce using rule 56 (term -> fact .)
+    MOREEQ          reduce using rule 56 (term -> fact .)
+    SAME            reduce using rule 56 (term -> fact .)
+    DIFFERENT       reduce using rule 56 (term -> fact .)
+    OR              reduce using rule 56 (term -> fact .)
+    AND             reduce using rule 56 (term -> fact .)
+    SEMICOLON       reduce using rule 56 (term -> fact .)
+    RBRACE          reduce using rule 56 (term -> fact .)
+    RPAREN          reduce using rule 56 (term -> fact .)
+    COMA            reduce using rule 56 (term -> fact .)
+    VAR             reduce using rule 56 (term -> fact .)
+    VECTOR          reduce using rule 56 (term -> fact .)
+    FUNCTION        reduce using rule 56 (term -> fact .)
+    LKEY            reduce using rule 56 (term -> fact .)
+    TIMES           shift and go to state 95
+    DIVIDE          shift and go to state 96
 
 
 state 60
 
-    (68) var_cte -> CTE_I .
+    (59) fact -> LPAREN . expres RPAREN
+    (49) expres -> . exr
+    (50) expres -> . exr log expres
+    (51) exr -> . ex
+    (52) exr -> . ex rel exr
+    (53) ex -> . term
+    (54) ex -> . term PLUS ex
+    (55) ex -> . term MINUS ex
+    (56) term -> . fact
+    (57) term -> . fact TIMES term
+    (58) term -> . fact DIVIDE term
+    (59) fact -> . LPAREN expres RPAREN
+    (60) fact -> . fact1
+    (61) fact1 -> . PLUS var_cte
+    (62) fact1 -> . MINUS var_cte
+    (63) fact1 -> . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
 
-    TIMES           reduce using rule 68 (var_cte -> CTE_I .)
-    DIVIDE          reduce using rule 68 (var_cte -> CTE_I .)
-    PLUS            reduce using rule 68 (var_cte -> CTE_I .)
-    MINUS           reduce using rule 68 (var_cte -> CTE_I .)
-    LOWERTHAN       reduce using rule 68 (var_cte -> CTE_I .)
-    MORETHAN        reduce using rule 68 (var_cte -> CTE_I .)
-    LOWEREQ         reduce using rule 68 (var_cte -> CTE_I .)
-    MOREEQ          reduce using rule 68 (var_cte -> CTE_I .)
-    SAME            reduce using rule 68 (var_cte -> CTE_I .)
-    DIFFERENT       reduce using rule 68 (var_cte -> CTE_I .)
-    OR              reduce using rule 68 (var_cte -> CTE_I .)
-    AND             reduce using rule 68 (var_cte -> CTE_I .)
-    SEMICOLON       reduce using rule 68 (var_cte -> CTE_I .)
-    RBRACE          reduce using rule 68 (var_cte -> CTE_I .)
-    RPAREN          reduce using rule 68 (var_cte -> CTE_I .)
-    COMA            reduce using rule 68 (var_cte -> CTE_I .)
-    VAR             reduce using rule 68 (var_cte -> CTE_I .)
-    VECTOR          reduce using rule 68 (var_cte -> CTE_I .)
-    FUNCTION        reduce using rule 68 (var_cte -> CTE_I .)
-    LKEY            reduce using rule 68 (var_cte -> CTE_I .)
+    LPAREN          shift and go to state 60
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
 
+    expres                         shift and go to state 97
+    exr                            shift and go to state 54
+    ex                             shift and go to state 55
+    term                           shift and go to state 56
+    fact                           shift and go to state 59
+    fact1                          shift and go to state 61
+    var_cte                        shift and go to state 62
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
 
 state 61
 
-    (69) var_cte -> CTE_F .
+    (60) fact -> fact1 .
 
-    TIMES           reduce using rule 69 (var_cte -> CTE_F .)
-    DIVIDE          reduce using rule 69 (var_cte -> CTE_F .)
-    PLUS            reduce using rule 69 (var_cte -> CTE_F .)
-    MINUS           reduce using rule 69 (var_cte -> CTE_F .)
-    LOWERTHAN       reduce using rule 69 (var_cte -> CTE_F .)
-    MORETHAN        reduce using rule 69 (var_cte -> CTE_F .)
-    LOWEREQ         reduce using rule 69 (var_cte -> CTE_F .)
-    MOREEQ          reduce using rule 69 (var_cte -> CTE_F .)
-    SAME            reduce using rule 69 (var_cte -> CTE_F .)
-    DIFFERENT       reduce using rule 69 (var_cte -> CTE_F .)
-    OR              reduce using rule 69 (var_cte -> CTE_F .)
-    AND             reduce using rule 69 (var_cte -> CTE_F .)
-    SEMICOLON       reduce using rule 69 (var_cte -> CTE_F .)
-    RBRACE          reduce using rule 69 (var_cte -> CTE_F .)
-    RPAREN          reduce using rule 69 (var_cte -> CTE_F .)
-    COMA            reduce using rule 69 (var_cte -> CTE_F .)
-    VAR             reduce using rule 69 (var_cte -> CTE_F .)
-    VECTOR          reduce using rule 69 (var_cte -> CTE_F .)
-    FUNCTION        reduce using rule 69 (var_cte -> CTE_F .)
-    LKEY            reduce using rule 69 (var_cte -> CTE_F .)
+    TIMES           reduce using rule 60 (fact -> fact1 .)
+    DIVIDE          reduce using rule 60 (fact -> fact1 .)
+    PLUS            reduce using rule 60 (fact -> fact1 .)
+    MINUS           reduce using rule 60 (fact -> fact1 .)
+    LOWERTHAN       reduce using rule 60 (fact -> fact1 .)
+    MORETHAN        reduce using rule 60 (fact -> fact1 .)
+    LOWEREQ         reduce using rule 60 (fact -> fact1 .)
+    MOREEQ          reduce using rule 60 (fact -> fact1 .)
+    SAME            reduce using rule 60 (fact -> fact1 .)
+    DIFFERENT       reduce using rule 60 (fact -> fact1 .)
+    OR              reduce using rule 60 (fact -> fact1 .)
+    AND             reduce using rule 60 (fact -> fact1 .)
+    SEMICOLON       reduce using rule 60 (fact -> fact1 .)
+    RBRACE          reduce using rule 60 (fact -> fact1 .)
+    RPAREN          reduce using rule 60 (fact -> fact1 .)
+    COMA            reduce using rule 60 (fact -> fact1 .)
+    VAR             reduce using rule 60 (fact -> fact1 .)
+    VECTOR          reduce using rule 60 (fact -> fact1 .)
+    FUNCTION        reduce using rule 60 (fact -> fact1 .)
+    LKEY            reduce using rule 60 (fact -> fact1 .)
 
 
 state 62
 
-    (70) var_cte -> CTE_B .
+    (63) fact1 -> var_cte .
 
-    TIMES           reduce using rule 70 (var_cte -> CTE_B .)
-    DIVIDE          reduce using rule 70 (var_cte -> CTE_B .)
-    PLUS            reduce using rule 70 (var_cte -> CTE_B .)
-    MINUS           reduce using rule 70 (var_cte -> CTE_B .)
-    LOWERTHAN       reduce using rule 70 (var_cte -> CTE_B .)
-    MORETHAN        reduce using rule 70 (var_cte -> CTE_B .)
-    LOWEREQ         reduce using rule 70 (var_cte -> CTE_B .)
-    MOREEQ          reduce using rule 70 (var_cte -> CTE_B .)
-    SAME            reduce using rule 70 (var_cte -> CTE_B .)
-    DIFFERENT       reduce using rule 70 (var_cte -> CTE_B .)
-    OR              reduce using rule 70 (var_cte -> CTE_B .)
-    AND             reduce using rule 70 (var_cte -> CTE_B .)
-    SEMICOLON       reduce using rule 70 (var_cte -> CTE_B .)
-    RBRACE          reduce using rule 70 (var_cte -> CTE_B .)
-    RPAREN          reduce using rule 70 (var_cte -> CTE_B .)
-    COMA            reduce using rule 70 (var_cte -> CTE_B .)
-    VAR             reduce using rule 70 (var_cte -> CTE_B .)
-    VECTOR          reduce using rule 70 (var_cte -> CTE_B .)
-    FUNCTION        reduce using rule 70 (var_cte -> CTE_B .)
-    LKEY            reduce using rule 70 (var_cte -> CTE_B .)
+    TIMES           reduce using rule 63 (fact1 -> var_cte .)
+    DIVIDE          reduce using rule 63 (fact1 -> var_cte .)
+    PLUS            reduce using rule 63 (fact1 -> var_cte .)
+    MINUS           reduce using rule 63 (fact1 -> var_cte .)
+    LOWERTHAN       reduce using rule 63 (fact1 -> var_cte .)
+    MORETHAN        reduce using rule 63 (fact1 -> var_cte .)
+    LOWEREQ         reduce using rule 63 (fact1 -> var_cte .)
+    MOREEQ          reduce using rule 63 (fact1 -> var_cte .)
+    SAME            reduce using rule 63 (fact1 -> var_cte .)
+    DIFFERENT       reduce using rule 63 (fact1 -> var_cte .)
+    OR              reduce using rule 63 (fact1 -> var_cte .)
+    AND             reduce using rule 63 (fact1 -> var_cte .)
+    SEMICOLON       reduce using rule 63 (fact1 -> var_cte .)
+    RBRACE          reduce using rule 63 (fact1 -> var_cte .)
+    RPAREN          reduce using rule 63 (fact1 -> var_cte .)
+    COMA            reduce using rule 63 (fact1 -> var_cte .)
+    VAR             reduce using rule 63 (fact1 -> var_cte .)
+    VECTOR          reduce using rule 63 (fact1 -> var_cte .)
+    FUNCTION        reduce using rule 63 (fact1 -> var_cte .)
+    LKEY            reduce using rule 63 (fact1 -> var_cte .)
 
 
 state 63
 
-    (71) var_cte -> CTE_S .
+    (73) var_cte -> CTE_I .
 
-    TIMES           reduce using rule 71 (var_cte -> CTE_S .)
-    DIVIDE          reduce using rule 71 (var_cte -> CTE_S .)
-    PLUS            reduce using rule 71 (var_cte -> CTE_S .)
-    MINUS           reduce using rule 71 (var_cte -> CTE_S .)
-    LOWERTHAN       reduce using rule 71 (var_cte -> CTE_S .)
-    MORETHAN        reduce using rule 71 (var_cte -> CTE_S .)
-    LOWEREQ         reduce using rule 71 (var_cte -> CTE_S .)
-    MOREEQ          reduce using rule 71 (var_cte -> CTE_S .)
-    SAME            reduce using rule 71 (var_cte -> CTE_S .)
-    DIFFERENT       reduce using rule 71 (var_cte -> CTE_S .)
-    OR              reduce using rule 71 (var_cte -> CTE_S .)
-    AND             reduce using rule 71 (var_cte -> CTE_S .)
-    SEMICOLON       reduce using rule 71 (var_cte -> CTE_S .)
-    RBRACE          reduce using rule 71 (var_cte -> CTE_S .)
-    RPAREN          reduce using rule 71 (var_cte -> CTE_S .)
-    COMA            reduce using rule 71 (var_cte -> CTE_S .)
-    VAR             reduce using rule 71 (var_cte -> CTE_S .)
-    VECTOR          reduce using rule 71 (var_cte -> CTE_S .)
-    FUNCTION        reduce using rule 71 (var_cte -> CTE_S .)
-    LKEY            reduce using rule 71 (var_cte -> CTE_S .)
+    TIMES           reduce using rule 73 (var_cte -> CTE_I .)
+    DIVIDE          reduce using rule 73 (var_cte -> CTE_I .)
+    PLUS            reduce using rule 73 (var_cte -> CTE_I .)
+    MINUS           reduce using rule 73 (var_cte -> CTE_I .)
+    LOWERTHAN       reduce using rule 73 (var_cte -> CTE_I .)
+    MORETHAN        reduce using rule 73 (var_cte -> CTE_I .)
+    LOWEREQ         reduce using rule 73 (var_cte -> CTE_I .)
+    MOREEQ          reduce using rule 73 (var_cte -> CTE_I .)
+    SAME            reduce using rule 73 (var_cte -> CTE_I .)
+    DIFFERENT       reduce using rule 73 (var_cte -> CTE_I .)
+    OR              reduce using rule 73 (var_cte -> CTE_I .)
+    AND             reduce using rule 73 (var_cte -> CTE_I .)
+    SEMICOLON       reduce using rule 73 (var_cte -> CTE_I .)
+    RBRACE          reduce using rule 73 (var_cte -> CTE_I .)
+    RPAREN          reduce using rule 73 (var_cte -> CTE_I .)
+    COMA            reduce using rule 73 (var_cte -> CTE_I .)
+    VAR             reduce using rule 73 (var_cte -> CTE_I .)
+    VECTOR          reduce using rule 73 (var_cte -> CTE_I .)
+    FUNCTION        reduce using rule 73 (var_cte -> CTE_I .)
+    LKEY            reduce using rule 73 (var_cte -> CTE_I .)
 
 
 state 64
 
-    (72) var_cte -> fcall .
+    (74) var_cte -> CTE_F .
 
-    TIMES           reduce using rule 72 (var_cte -> fcall .)
-    DIVIDE          reduce using rule 72 (var_cte -> fcall .)
-    PLUS            reduce using rule 72 (var_cte -> fcall .)
-    MINUS           reduce using rule 72 (var_cte -> fcall .)
-    LOWERTHAN       reduce using rule 72 (var_cte -> fcall .)
-    MORETHAN        reduce using rule 72 (var_cte -> fcall .)
-    LOWEREQ         reduce using rule 72 (var_cte -> fcall .)
-    MOREEQ          reduce using rule 72 (var_cte -> fcall .)
-    SAME            reduce using rule 72 (var_cte -> fcall .)
-    DIFFERENT       reduce using rule 72 (var_cte -> fcall .)
-    OR              reduce using rule 72 (var_cte -> fcall .)
-    AND             reduce using rule 72 (var_cte -> fcall .)
-    SEMICOLON       reduce using rule 72 (var_cte -> fcall .)
-    RBRACE          reduce using rule 72 (var_cte -> fcall .)
-    RPAREN          reduce using rule 72 (var_cte -> fcall .)
-    COMA            reduce using rule 72 (var_cte -> fcall .)
-    VAR             reduce using rule 72 (var_cte -> fcall .)
-    VECTOR          reduce using rule 72 (var_cte -> fcall .)
-    FUNCTION        reduce using rule 72 (var_cte -> fcall .)
-    LKEY            reduce using rule 72 (var_cte -> fcall .)
+    TIMES           reduce using rule 74 (var_cte -> CTE_F .)
+    DIVIDE          reduce using rule 74 (var_cte -> CTE_F .)
+    PLUS            reduce using rule 74 (var_cte -> CTE_F .)
+    MINUS           reduce using rule 74 (var_cte -> CTE_F .)
+    LOWERTHAN       reduce using rule 74 (var_cte -> CTE_F .)
+    MORETHAN        reduce using rule 74 (var_cte -> CTE_F .)
+    LOWEREQ         reduce using rule 74 (var_cte -> CTE_F .)
+    MOREEQ          reduce using rule 74 (var_cte -> CTE_F .)
+    SAME            reduce using rule 74 (var_cte -> CTE_F .)
+    DIFFERENT       reduce using rule 74 (var_cte -> CTE_F .)
+    OR              reduce using rule 74 (var_cte -> CTE_F .)
+    AND             reduce using rule 74 (var_cte -> CTE_F .)
+    SEMICOLON       reduce using rule 74 (var_cte -> CTE_F .)
+    RBRACE          reduce using rule 74 (var_cte -> CTE_F .)
+    RPAREN          reduce using rule 74 (var_cte -> CTE_F .)
+    COMA            reduce using rule 74 (var_cte -> CTE_F .)
+    VAR             reduce using rule 74 (var_cte -> CTE_F .)
+    VECTOR          reduce using rule 74 (var_cte -> CTE_F .)
+    FUNCTION        reduce using rule 74 (var_cte -> CTE_F .)
+    LKEY            reduce using rule 74 (var_cte -> CTE_F .)
 
 
 state 65
 
-    (73) var_cte -> vcall .
+    (75) var_cte -> CTE_B .
 
-    TIMES           reduce using rule 73 (var_cte -> vcall .)
-    DIVIDE          reduce using rule 73 (var_cte -> vcall .)
-    PLUS            reduce using rule 73 (var_cte -> vcall .)
-    MINUS           reduce using rule 73 (var_cte -> vcall .)
-    LOWERTHAN       reduce using rule 73 (var_cte -> vcall .)
-    MORETHAN        reduce using rule 73 (var_cte -> vcall .)
-    LOWEREQ         reduce using rule 73 (var_cte -> vcall .)
-    MOREEQ          reduce using rule 73 (var_cte -> vcall .)
-    SAME            reduce using rule 73 (var_cte -> vcall .)
-    DIFFERENT       reduce using rule 73 (var_cte -> vcall .)
-    OR              reduce using rule 73 (var_cte -> vcall .)
-    AND             reduce using rule 73 (var_cte -> vcall .)
-    SEMICOLON       reduce using rule 73 (var_cte -> vcall .)
-    RBRACE          reduce using rule 73 (var_cte -> vcall .)
-    RPAREN          reduce using rule 73 (var_cte -> vcall .)
-    COMA            reduce using rule 73 (var_cte -> vcall .)
-    VAR             reduce using rule 73 (var_cte -> vcall .)
-    VECTOR          reduce using rule 73 (var_cte -> vcall .)
-    FUNCTION        reduce using rule 73 (var_cte -> vcall .)
-    LKEY            reduce using rule 73 (var_cte -> vcall .)
+    TIMES           reduce using rule 75 (var_cte -> CTE_B .)
+    DIVIDE          reduce using rule 75 (var_cte -> CTE_B .)
+    PLUS            reduce using rule 75 (var_cte -> CTE_B .)
+    MINUS           reduce using rule 75 (var_cte -> CTE_B .)
+    LOWERTHAN       reduce using rule 75 (var_cte -> CTE_B .)
+    MORETHAN        reduce using rule 75 (var_cte -> CTE_B .)
+    LOWEREQ         reduce using rule 75 (var_cte -> CTE_B .)
+    MOREEQ          reduce using rule 75 (var_cte -> CTE_B .)
+    SAME            reduce using rule 75 (var_cte -> CTE_B .)
+    DIFFERENT       reduce using rule 75 (var_cte -> CTE_B .)
+    OR              reduce using rule 75 (var_cte -> CTE_B .)
+    AND             reduce using rule 75 (var_cte -> CTE_B .)
+    SEMICOLON       reduce using rule 75 (var_cte -> CTE_B .)
+    RBRACE          reduce using rule 75 (var_cte -> CTE_B .)
+    RPAREN          reduce using rule 75 (var_cte -> CTE_B .)
+    COMA            reduce using rule 75 (var_cte -> CTE_B .)
+    VAR             reduce using rule 75 (var_cte -> CTE_B .)
+    VECTOR          reduce using rule 75 (var_cte -> CTE_B .)
+    FUNCTION        reduce using rule 75 (var_cte -> CTE_B .)
+    LKEY            reduce using rule 75 (var_cte -> CTE_B .)
 
 
 state 66
 
-    (36) asign -> ID LBRACE exr . RBRACE EQUAL expres SEMICOLON
+    (76) var_cte -> CTE_S .
 
-    RBRACE          shift and go to state 95
+    TIMES           reduce using rule 76 (var_cte -> CTE_S .)
+    DIVIDE          reduce using rule 76 (var_cte -> CTE_S .)
+    PLUS            reduce using rule 76 (var_cte -> CTE_S .)
+    MINUS           reduce using rule 76 (var_cte -> CTE_S .)
+    LOWERTHAN       reduce using rule 76 (var_cte -> CTE_S .)
+    MORETHAN        reduce using rule 76 (var_cte -> CTE_S .)
+    LOWEREQ         reduce using rule 76 (var_cte -> CTE_S .)
+    MOREEQ          reduce using rule 76 (var_cte -> CTE_S .)
+    SAME            reduce using rule 76 (var_cte -> CTE_S .)
+    DIFFERENT       reduce using rule 76 (var_cte -> CTE_S .)
+    OR              reduce using rule 76 (var_cte -> CTE_S .)
+    AND             reduce using rule 76 (var_cte -> CTE_S .)
+    SEMICOLON       reduce using rule 76 (var_cte -> CTE_S .)
+    RBRACE          reduce using rule 76 (var_cte -> CTE_S .)
+    RPAREN          reduce using rule 76 (var_cte -> CTE_S .)
+    COMA            reduce using rule 76 (var_cte -> CTE_S .)
+    VAR             reduce using rule 76 (var_cte -> CTE_S .)
+    VECTOR          reduce using rule 76 (var_cte -> CTE_S .)
+    FUNCTION        reduce using rule 76 (var_cte -> CTE_S .)
+    LKEY            reduce using rule 76 (var_cte -> CTE_S .)
 
 
 state 67
 
-    (37) cond -> IF LPAREN expres . RPAREN bloq
-    (38) cond -> IF LPAREN expres . RPAREN bloq ELSE bloq
+    (77) var_cte -> fcall .
 
-    RPAREN          shift and go to state 96
+    TIMES           reduce using rule 77 (var_cte -> fcall .)
+    DIVIDE          reduce using rule 77 (var_cte -> fcall .)
+    PLUS            reduce using rule 77 (var_cte -> fcall .)
+    MINUS           reduce using rule 77 (var_cte -> fcall .)
+    LOWERTHAN       reduce using rule 77 (var_cte -> fcall .)
+    MORETHAN        reduce using rule 77 (var_cte -> fcall .)
+    LOWEREQ         reduce using rule 77 (var_cte -> fcall .)
+    MOREEQ          reduce using rule 77 (var_cte -> fcall .)
+    SAME            reduce using rule 77 (var_cte -> fcall .)
+    DIFFERENT       reduce using rule 77 (var_cte -> fcall .)
+    OR              reduce using rule 77 (var_cte -> fcall .)
+    AND             reduce using rule 77 (var_cte -> fcall .)
+    SEMICOLON       reduce using rule 77 (var_cte -> fcall .)
+    RBRACE          reduce using rule 77 (var_cte -> fcall .)
+    RPAREN          reduce using rule 77 (var_cte -> fcall .)
+    COMA            reduce using rule 77 (var_cte -> fcall .)
+    VAR             reduce using rule 77 (var_cte -> fcall .)
+    VECTOR          reduce using rule 77 (var_cte -> fcall .)
+    FUNCTION        reduce using rule 77 (var_cte -> fcall .)
+    LKEY            reduce using rule 77 (var_cte -> fcall .)
 
 
 state 68
 
-    (39) escrit -> PRINT LPAREN escriti . RPAREN SEMICOLON
+    (78) var_cte -> vcall .
 
-    RPAREN          shift and go to state 97
+    TIMES           reduce using rule 78 (var_cte -> vcall .)
+    DIVIDE          reduce using rule 78 (var_cte -> vcall .)
+    PLUS            reduce using rule 78 (var_cte -> vcall .)
+    MINUS           reduce using rule 78 (var_cte -> vcall .)
+    LOWERTHAN       reduce using rule 78 (var_cte -> vcall .)
+    MORETHAN        reduce using rule 78 (var_cte -> vcall .)
+    LOWEREQ         reduce using rule 78 (var_cte -> vcall .)
+    MOREEQ          reduce using rule 78 (var_cte -> vcall .)
+    SAME            reduce using rule 78 (var_cte -> vcall .)
+    DIFFERENT       reduce using rule 78 (var_cte -> vcall .)
+    OR              reduce using rule 78 (var_cte -> vcall .)
+    AND             reduce using rule 78 (var_cte -> vcall .)
+    SEMICOLON       reduce using rule 78 (var_cte -> vcall .)
+    RBRACE          reduce using rule 78 (var_cte -> vcall .)
+    RPAREN          reduce using rule 78 (var_cte -> vcall .)
+    COMA            reduce using rule 78 (var_cte -> vcall .)
+    VAR             reduce using rule 78 (var_cte -> vcall .)
+    VECTOR          reduce using rule 78 (var_cte -> vcall .)
+    FUNCTION        reduce using rule 78 (var_cte -> vcall .)
+    LKEY            reduce using rule 78 (var_cte -> vcall .)
 
 
 state 69
 
-    (40) escriti -> expres .
-    (41) escriti -> expres . COMA escriti
+    (41) asign -> ID LBRACE exr . RBRACE EQUAL expres SEMICOLON
 
-    RPAREN          reduce using rule 40 (escriti -> expres .)
-    COMA            shift and go to state 98
+    RBRACE          shift and go to state 98
 
 
 state 70
 
-    (42) ciclo -> WHILE LPAREN expres . RPAREN bloq
+    (42) cond -> IF LPAREN expres . RPAREN bloq
+    (43) cond -> IF LPAREN expres . RPAREN bloq ELSE bloq
 
     RPAREN          shift and go to state 99
 
 
 state 71
 
-    (43) leer -> READ LPAREN ID . RPAREN SEMICOLON
+    (44) escrit -> PRINT LPAREN escriti . RPAREN SEMICOLON
 
     RPAREN          shift and go to state 100
 
 
 state 72
+
+    (45) escriti -> expres .
+    (46) escriti -> expres . COMA escriti
+
+    RPAREN          reduce using rule 45 (escriti -> expres .)
+    COMA            shift and go to state 101
+
+
+state 73
+
+    (47) ciclo -> WHILE LPAREN expres . RPAREN bloq
+
+    RPAREN          shift and go to state 102
+
+
+state 74
+
+    (48) leer -> READ LPAREN ID . RPAREN SEMICOLON
+
+    RPAREN          shift and go to state 103
+
+
+state 75
 
     (9) var -> VAR tipo ID SEMICOLON .
 
@@ -1412,1009 +1417,982 @@ state 72
     LKEY            reduce using rule 9 (var -> VAR tipo ID SEMICOLON .)
 
 
-state 73
+state 76
 
     (14) vector -> VECTOR ID LBRACE CTE_I . RBRACE SEMICOLON
 
-    RBRACE          shift and go to state 101
+    RBRACE          shift and go to state 104
 
-
-state 74
-
-    (15) func -> FUNCTION functype ID LPAREN . funci RPAREN funcvar bloq
-    (16) func -> FUNCTION functype ID LPAREN . funci RPAREN funcvar bloq RETURN expres
-    (17) func -> FUNCTION functype ID LPAREN . RPAREN funcvar bloq
-    (18) func -> FUNCTION functype ID LPAREN . funci RPAREN bloq
-    (19) func -> FUNCTION functype ID LPAREN . funci RPAREN bloq RETURN expres
-    (20) func -> FUNCTION functype ID LPAREN . RPAREN bloq
-    (25) funci -> . tipo ID
-    (26) funci -> . tipo ID COMA funci
-    (10) tipo -> . INT
-    (11) tipo -> . FLOAT
-    (12) tipo -> . STRING
-    (13) tipo -> . BOOL
-
-    RPAREN          shift and go to state 103
-    INT             shift and go to state 30
-    FLOAT           shift and go to state 31
-    STRING          shift and go to state 32
-    BOOL            shift and go to state 33
-
-    funci                          shift and go to state 102
-    tipo                           shift and go to state 104
-
-state 75
-
-    (74) fcall -> ID LPAREN . fcall1 RPAREN
-    (75) fcall -> ID LPAREN . RPAREN
-    (76) fcall1 -> . expres
-    (77) fcall1 -> . expres COMA fcall1
-    (44) expres -> . exr
-    (45) expres -> . exr log expres
-    (46) exr -> . ex
-    (47) exr -> . ex rel exr
-    (48) ex -> . term
-    (49) ex -> . term PLUS ex
-    (50) ex -> . term MINUS ex
-    (51) term -> . fact
-    (52) term -> . fact TIMES term
-    (53) term -> . fact DIVIDE term
-    (54) fact -> . LPAREN expres RPAREN
-    (55) fact -> . fact1
-    (56) fact1 -> . PLUS var_cte
-    (57) fact1 -> . MINUS var_cte
-    (58) fact1 -> . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
-
-    RPAREN          shift and go to state 106
-    LPAREN          shift and go to state 57
-    PLUS            shift and go to state 54
-    MINUS           shift and go to state 55
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
-
-    fcall1                         shift and go to state 105
-    expres                         shift and go to state 107
-    exr                            shift and go to state 51
-    ex                             shift and go to state 52
-    term                           shift and go to state 53
-    fact                           shift and go to state 56
-    fact1                          shift and go to state 58
-    var_cte                        shift and go to state 59
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
-
-state 76
-
-    (78) vcall -> ID LBRACE . expres RBRACE
-    (44) expres -> . exr
-    (45) expres -> . exr log expres
-    (46) exr -> . ex
-    (47) exr -> . ex rel exr
-    (48) ex -> . term
-    (49) ex -> . term PLUS ex
-    (50) ex -> . term MINUS ex
-    (51) term -> . fact
-    (52) term -> . fact TIMES term
-    (53) term -> . fact DIVIDE term
-    (54) fact -> . LPAREN expres RPAREN
-    (55) fact -> . fact1
-    (56) fact1 -> . PLUS var_cte
-    (57) fact1 -> . MINUS var_cte
-    (58) fact1 -> . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
-
-    LPAREN          shift and go to state 57
-    PLUS            shift and go to state 54
-    MINUS           shift and go to state 55
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
-
-    expres                         shift and go to state 108
-    exr                            shift and go to state 51
-    ex                             shift and go to state 52
-    term                           shift and go to state 53
-    fact                           shift and go to state 56
-    fact1                          shift and go to state 58
-    var_cte                        shift and go to state 59
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
 
 state 77
 
-    (35) asign -> ID EQUAL expres SEMICOLON .
+    (15) func -> FUNCTION functype ID addInTable . LPAREN funci RPAREN localvar bloq return
+    (16) func -> FUNCTION functype ID addInTable . LPAREN funci RPAREN bloq return
 
-    ID              reduce using rule 35 (asign -> ID EQUAL expres SEMICOLON .)
-    IF              reduce using rule 35 (asign -> ID EQUAL expres SEMICOLON .)
-    PRINT           reduce using rule 35 (asign -> ID EQUAL expres SEMICOLON .)
-    WHILE           reduce using rule 35 (asign -> ID EQUAL expres SEMICOLON .)
-    READ            reduce using rule 35 (asign -> ID EQUAL expres SEMICOLON .)
-    RKEY            reduce using rule 35 (asign -> ID EQUAL expres SEMICOLON .)
+    LPAREN          shift and go to state 105
 
 
 state 78
 
-    (45) expres -> exr log . expres
-    (44) expres -> . exr
-    (45) expres -> . exr log expres
-    (46) exr -> . ex
-    (47) exr -> . ex rel exr
-    (48) ex -> . term
-    (49) ex -> . term PLUS ex
-    (50) ex -> . term MINUS ex
-    (51) term -> . fact
-    (52) term -> . fact TIMES term
-    (53) term -> . fact DIVIDE term
-    (54) fact -> . LPAREN expres RPAREN
-    (55) fact -> . fact1
-    (56) fact1 -> . PLUS var_cte
-    (57) fact1 -> . MINUS var_cte
-    (58) fact1 -> . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
+    (79) fcall -> ID LPAREN . fcall1 RPAREN
+    (80) fcall -> ID LPAREN . RPAREN
+    (81) fcall1 -> . expres
+    (82) fcall1 -> . expres COMA fcall1
+    (49) expres -> . exr
+    (50) expres -> . exr log expres
+    (51) exr -> . ex
+    (52) exr -> . ex rel exr
+    (53) ex -> . term
+    (54) ex -> . term PLUS ex
+    (55) ex -> . term MINUS ex
+    (56) term -> . fact
+    (57) term -> . fact TIMES term
+    (58) term -> . fact DIVIDE term
+    (59) fact -> . LPAREN expres RPAREN
+    (60) fact -> . fact1
+    (61) fact1 -> . PLUS var_cte
+    (62) fact1 -> . MINUS var_cte
+    (63) fact1 -> . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
 
-    LPAREN          shift and go to state 57
-    PLUS            shift and go to state 54
-    MINUS           shift and go to state 55
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
+    RPAREN          shift and go to state 107
+    LPAREN          shift and go to state 60
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
 
-    exr                            shift and go to state 51
-    expres                         shift and go to state 109
-    ex                             shift and go to state 52
-    term                           shift and go to state 53
-    fact                           shift and go to state 56
-    fact1                          shift and go to state 58
-    var_cte                        shift and go to state 59
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
+    fcall1                         shift and go to state 106
+    expres                         shift and go to state 108
+    exr                            shift and go to state 54
+    ex                             shift and go to state 55
+    term                           shift and go to state 56
+    fact                           shift and go to state 59
+    fact1                          shift and go to state 61
+    var_cte                        shift and go to state 62
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
 
 state 79
 
-    (65) log -> OR .
+    (83) vcall -> ID LBRACE . expres RBRACE
+    (49) expres -> . exr
+    (50) expres -> . exr log expres
+    (51) exr -> . ex
+    (52) exr -> . ex rel exr
+    (53) ex -> . term
+    (54) ex -> . term PLUS ex
+    (55) ex -> . term MINUS ex
+    (56) term -> . fact
+    (57) term -> . fact TIMES term
+    (58) term -> . fact DIVIDE term
+    (59) fact -> . LPAREN expres RPAREN
+    (60) fact -> . fact1
+    (61) fact1 -> . PLUS var_cte
+    (62) fact1 -> . MINUS var_cte
+    (63) fact1 -> . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
 
-    LPAREN          reduce using rule 65 (log -> OR .)
-    PLUS            reduce using rule 65 (log -> OR .)
-    MINUS           reduce using rule 65 (log -> OR .)
-    ID              reduce using rule 65 (log -> OR .)
-    CTE_I           reduce using rule 65 (log -> OR .)
-    CTE_F           reduce using rule 65 (log -> OR .)
-    CTE_B           reduce using rule 65 (log -> OR .)
-    CTE_S           reduce using rule 65 (log -> OR .)
+    LPAREN          shift and go to state 60
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
 
+    expres                         shift and go to state 109
+    exr                            shift and go to state 54
+    ex                             shift and go to state 55
+    term                           shift and go to state 56
+    fact                           shift and go to state 59
+    fact1                          shift and go to state 61
+    var_cte                        shift and go to state 62
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
 
 state 80
 
-    (66) log -> AND .
+    (40) asign -> ID EQUAL expres SEMICOLON .
 
-    LPAREN          reduce using rule 66 (log -> AND .)
-    PLUS            reduce using rule 66 (log -> AND .)
-    MINUS           reduce using rule 66 (log -> AND .)
-    ID              reduce using rule 66 (log -> AND .)
-    CTE_I           reduce using rule 66 (log -> AND .)
-    CTE_F           reduce using rule 66 (log -> AND .)
-    CTE_B           reduce using rule 66 (log -> AND .)
-    CTE_S           reduce using rule 66 (log -> AND .)
+    ID              reduce using rule 40 (asign -> ID EQUAL expres SEMICOLON .)
+    IF              reduce using rule 40 (asign -> ID EQUAL expres SEMICOLON .)
+    PRINT           reduce using rule 40 (asign -> ID EQUAL expres SEMICOLON .)
+    WHILE           reduce using rule 40 (asign -> ID EQUAL expres SEMICOLON .)
+    READ            reduce using rule 40 (asign -> ID EQUAL expres SEMICOLON .)
+    RKEY            reduce using rule 40 (asign -> ID EQUAL expres SEMICOLON .)
 
 
 state 81
 
-    (47) exr -> ex rel . exr
-    (46) exr -> . ex
-    (47) exr -> . ex rel exr
-    (48) ex -> . term
-    (49) ex -> . term PLUS ex
-    (50) ex -> . term MINUS ex
-    (51) term -> . fact
-    (52) term -> . fact TIMES term
-    (53) term -> . fact DIVIDE term
-    (54) fact -> . LPAREN expres RPAREN
-    (55) fact -> . fact1
-    (56) fact1 -> . PLUS var_cte
-    (57) fact1 -> . MINUS var_cte
-    (58) fact1 -> . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
+    (50) expres -> exr log . expres
+    (49) expres -> . exr
+    (50) expres -> . exr log expres
+    (51) exr -> . ex
+    (52) exr -> . ex rel exr
+    (53) ex -> . term
+    (54) ex -> . term PLUS ex
+    (55) ex -> . term MINUS ex
+    (56) term -> . fact
+    (57) term -> . fact TIMES term
+    (58) term -> . fact DIVIDE term
+    (59) fact -> . LPAREN expres RPAREN
+    (60) fact -> . fact1
+    (61) fact1 -> . PLUS var_cte
+    (62) fact1 -> . MINUS var_cte
+    (63) fact1 -> . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
 
-    LPAREN          shift and go to state 57
-    PLUS            shift and go to state 54
-    MINUS           shift and go to state 55
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
+    LPAREN          shift and go to state 60
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
 
-    ex                             shift and go to state 52
-    exr                            shift and go to state 110
-    term                           shift and go to state 53
-    fact                           shift and go to state 56
-    fact1                          shift and go to state 58
-    var_cte                        shift and go to state 59
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
+    exr                            shift and go to state 54
+    expres                         shift and go to state 110
+    ex                             shift and go to state 55
+    term                           shift and go to state 56
+    fact                           shift and go to state 59
+    fact1                          shift and go to state 61
+    var_cte                        shift and go to state 62
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
 
 state 82
 
-    (59) rel -> LOWERTHAN .
+    (70) log -> OR .
 
-    LPAREN          reduce using rule 59 (rel -> LOWERTHAN .)
-    PLUS            reduce using rule 59 (rel -> LOWERTHAN .)
-    MINUS           reduce using rule 59 (rel -> LOWERTHAN .)
-    ID              reduce using rule 59 (rel -> LOWERTHAN .)
-    CTE_I           reduce using rule 59 (rel -> LOWERTHAN .)
-    CTE_F           reduce using rule 59 (rel -> LOWERTHAN .)
-    CTE_B           reduce using rule 59 (rel -> LOWERTHAN .)
-    CTE_S           reduce using rule 59 (rel -> LOWERTHAN .)
+    LPAREN          reduce using rule 70 (log -> OR .)
+    PLUS            reduce using rule 70 (log -> OR .)
+    MINUS           reduce using rule 70 (log -> OR .)
+    ID              reduce using rule 70 (log -> OR .)
+    CTE_I           reduce using rule 70 (log -> OR .)
+    CTE_F           reduce using rule 70 (log -> OR .)
+    CTE_B           reduce using rule 70 (log -> OR .)
+    CTE_S           reduce using rule 70 (log -> OR .)
 
 
 state 83
 
-    (60) rel -> MORETHAN .
+    (71) log -> AND .
 
-    LPAREN          reduce using rule 60 (rel -> MORETHAN .)
-    PLUS            reduce using rule 60 (rel -> MORETHAN .)
-    MINUS           reduce using rule 60 (rel -> MORETHAN .)
-    ID              reduce using rule 60 (rel -> MORETHAN .)
-    CTE_I           reduce using rule 60 (rel -> MORETHAN .)
-    CTE_F           reduce using rule 60 (rel -> MORETHAN .)
-    CTE_B           reduce using rule 60 (rel -> MORETHAN .)
-    CTE_S           reduce using rule 60 (rel -> MORETHAN .)
+    LPAREN          reduce using rule 71 (log -> AND .)
+    PLUS            reduce using rule 71 (log -> AND .)
+    MINUS           reduce using rule 71 (log -> AND .)
+    ID              reduce using rule 71 (log -> AND .)
+    CTE_I           reduce using rule 71 (log -> AND .)
+    CTE_F           reduce using rule 71 (log -> AND .)
+    CTE_B           reduce using rule 71 (log -> AND .)
+    CTE_S           reduce using rule 71 (log -> AND .)
 
 
 state 84
 
-    (61) rel -> LOWEREQ .
+    (52) exr -> ex rel . exr
+    (51) exr -> . ex
+    (52) exr -> . ex rel exr
+    (53) ex -> . term
+    (54) ex -> . term PLUS ex
+    (55) ex -> . term MINUS ex
+    (56) term -> . fact
+    (57) term -> . fact TIMES term
+    (58) term -> . fact DIVIDE term
+    (59) fact -> . LPAREN expres RPAREN
+    (60) fact -> . fact1
+    (61) fact1 -> . PLUS var_cte
+    (62) fact1 -> . MINUS var_cte
+    (63) fact1 -> . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
 
-    LPAREN          reduce using rule 61 (rel -> LOWEREQ .)
-    PLUS            reduce using rule 61 (rel -> LOWEREQ .)
-    MINUS           reduce using rule 61 (rel -> LOWEREQ .)
-    ID              reduce using rule 61 (rel -> LOWEREQ .)
-    CTE_I           reduce using rule 61 (rel -> LOWEREQ .)
-    CTE_F           reduce using rule 61 (rel -> LOWEREQ .)
-    CTE_B           reduce using rule 61 (rel -> LOWEREQ .)
-    CTE_S           reduce using rule 61 (rel -> LOWEREQ .)
+    LPAREN          shift and go to state 60
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
 
+    ex                             shift and go to state 55
+    exr                            shift and go to state 111
+    term                           shift and go to state 56
+    fact                           shift and go to state 59
+    fact1                          shift and go to state 61
+    var_cte                        shift and go to state 62
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
 
 state 85
 
-    (62) rel -> MOREEQ .
+    (64) rel -> LOWERTHAN .
 
-    LPAREN          reduce using rule 62 (rel -> MOREEQ .)
-    PLUS            reduce using rule 62 (rel -> MOREEQ .)
-    MINUS           reduce using rule 62 (rel -> MOREEQ .)
-    ID              reduce using rule 62 (rel -> MOREEQ .)
-    CTE_I           reduce using rule 62 (rel -> MOREEQ .)
-    CTE_F           reduce using rule 62 (rel -> MOREEQ .)
-    CTE_B           reduce using rule 62 (rel -> MOREEQ .)
-    CTE_S           reduce using rule 62 (rel -> MOREEQ .)
+    LPAREN          reduce using rule 64 (rel -> LOWERTHAN .)
+    PLUS            reduce using rule 64 (rel -> LOWERTHAN .)
+    MINUS           reduce using rule 64 (rel -> LOWERTHAN .)
+    ID              reduce using rule 64 (rel -> LOWERTHAN .)
+    CTE_I           reduce using rule 64 (rel -> LOWERTHAN .)
+    CTE_F           reduce using rule 64 (rel -> LOWERTHAN .)
+    CTE_B           reduce using rule 64 (rel -> LOWERTHAN .)
+    CTE_S           reduce using rule 64 (rel -> LOWERTHAN .)
 
 
 state 86
 
-    (63) rel -> SAME .
+    (65) rel -> MORETHAN .
 
-    LPAREN          reduce using rule 63 (rel -> SAME .)
-    PLUS            reduce using rule 63 (rel -> SAME .)
-    MINUS           reduce using rule 63 (rel -> SAME .)
-    ID              reduce using rule 63 (rel -> SAME .)
-    CTE_I           reduce using rule 63 (rel -> SAME .)
-    CTE_F           reduce using rule 63 (rel -> SAME .)
-    CTE_B           reduce using rule 63 (rel -> SAME .)
-    CTE_S           reduce using rule 63 (rel -> SAME .)
+    LPAREN          reduce using rule 65 (rel -> MORETHAN .)
+    PLUS            reduce using rule 65 (rel -> MORETHAN .)
+    MINUS           reduce using rule 65 (rel -> MORETHAN .)
+    ID              reduce using rule 65 (rel -> MORETHAN .)
+    CTE_I           reduce using rule 65 (rel -> MORETHAN .)
+    CTE_F           reduce using rule 65 (rel -> MORETHAN .)
+    CTE_B           reduce using rule 65 (rel -> MORETHAN .)
+    CTE_S           reduce using rule 65 (rel -> MORETHAN .)
 
 
 state 87
 
-    (64) rel -> DIFFERENT .
+    (66) rel -> LOWEREQ .
 
-    LPAREN          reduce using rule 64 (rel -> DIFFERENT .)
-    PLUS            reduce using rule 64 (rel -> DIFFERENT .)
-    MINUS           reduce using rule 64 (rel -> DIFFERENT .)
-    ID              reduce using rule 64 (rel -> DIFFERENT .)
-    CTE_I           reduce using rule 64 (rel -> DIFFERENT .)
-    CTE_F           reduce using rule 64 (rel -> DIFFERENT .)
-    CTE_B           reduce using rule 64 (rel -> DIFFERENT .)
-    CTE_S           reduce using rule 64 (rel -> DIFFERENT .)
+    LPAREN          reduce using rule 66 (rel -> LOWEREQ .)
+    PLUS            reduce using rule 66 (rel -> LOWEREQ .)
+    MINUS           reduce using rule 66 (rel -> LOWEREQ .)
+    ID              reduce using rule 66 (rel -> LOWEREQ .)
+    CTE_I           reduce using rule 66 (rel -> LOWEREQ .)
+    CTE_F           reduce using rule 66 (rel -> LOWEREQ .)
+    CTE_B           reduce using rule 66 (rel -> LOWEREQ .)
+    CTE_S           reduce using rule 66 (rel -> LOWEREQ .)
 
 
 state 88
 
-    (49) ex -> term PLUS . ex
-    (48) ex -> . term
-    (49) ex -> . term PLUS ex
-    (50) ex -> . term MINUS ex
-    (51) term -> . fact
-    (52) term -> . fact TIMES term
-    (53) term -> . fact DIVIDE term
-    (54) fact -> . LPAREN expres RPAREN
-    (55) fact -> . fact1
-    (56) fact1 -> . PLUS var_cte
-    (57) fact1 -> . MINUS var_cte
-    (58) fact1 -> . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
+    (67) rel -> MOREEQ .
 
-    LPAREN          shift and go to state 57
-    PLUS            shift and go to state 54
-    MINUS           shift and go to state 55
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
+    LPAREN          reduce using rule 67 (rel -> MOREEQ .)
+    PLUS            reduce using rule 67 (rel -> MOREEQ .)
+    MINUS           reduce using rule 67 (rel -> MOREEQ .)
+    ID              reduce using rule 67 (rel -> MOREEQ .)
+    CTE_I           reduce using rule 67 (rel -> MOREEQ .)
+    CTE_F           reduce using rule 67 (rel -> MOREEQ .)
+    CTE_B           reduce using rule 67 (rel -> MOREEQ .)
+    CTE_S           reduce using rule 67 (rel -> MOREEQ .)
 
-    term                           shift and go to state 53
-    ex                             shift and go to state 111
-    fact                           shift and go to state 56
-    fact1                          shift and go to state 58
-    var_cte                        shift and go to state 59
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
 
 state 89
 
-    (50) ex -> term MINUS . ex
-    (48) ex -> . term
-    (49) ex -> . term PLUS ex
-    (50) ex -> . term MINUS ex
-    (51) term -> . fact
-    (52) term -> . fact TIMES term
-    (53) term -> . fact DIVIDE term
-    (54) fact -> . LPAREN expres RPAREN
-    (55) fact -> . fact1
-    (56) fact1 -> . PLUS var_cte
-    (57) fact1 -> . MINUS var_cte
-    (58) fact1 -> . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
+    (68) rel -> SAME .
 
-    LPAREN          shift and go to state 57
-    PLUS            shift and go to state 54
-    MINUS           shift and go to state 55
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
+    LPAREN          reduce using rule 68 (rel -> SAME .)
+    PLUS            reduce using rule 68 (rel -> SAME .)
+    MINUS           reduce using rule 68 (rel -> SAME .)
+    ID              reduce using rule 68 (rel -> SAME .)
+    CTE_I           reduce using rule 68 (rel -> SAME .)
+    CTE_F           reduce using rule 68 (rel -> SAME .)
+    CTE_B           reduce using rule 68 (rel -> SAME .)
+    CTE_S           reduce using rule 68 (rel -> SAME .)
 
-    term                           shift and go to state 53
-    ex                             shift and go to state 112
-    fact                           shift and go to state 56
-    fact1                          shift and go to state 58
-    var_cte                        shift and go to state 59
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
 
 state 90
 
-    (56) fact1 -> PLUS var_cte .
+    (69) rel -> DIFFERENT .
 
-    TIMES           reduce using rule 56 (fact1 -> PLUS var_cte .)
-    DIVIDE          reduce using rule 56 (fact1 -> PLUS var_cte .)
-    PLUS            reduce using rule 56 (fact1 -> PLUS var_cte .)
-    MINUS           reduce using rule 56 (fact1 -> PLUS var_cte .)
-    LOWERTHAN       reduce using rule 56 (fact1 -> PLUS var_cte .)
-    MORETHAN        reduce using rule 56 (fact1 -> PLUS var_cte .)
-    LOWEREQ         reduce using rule 56 (fact1 -> PLUS var_cte .)
-    MOREEQ          reduce using rule 56 (fact1 -> PLUS var_cte .)
-    SAME            reduce using rule 56 (fact1 -> PLUS var_cte .)
-    DIFFERENT       reduce using rule 56 (fact1 -> PLUS var_cte .)
-    OR              reduce using rule 56 (fact1 -> PLUS var_cte .)
-    AND             reduce using rule 56 (fact1 -> PLUS var_cte .)
-    SEMICOLON       reduce using rule 56 (fact1 -> PLUS var_cte .)
-    RBRACE          reduce using rule 56 (fact1 -> PLUS var_cte .)
-    RPAREN          reduce using rule 56 (fact1 -> PLUS var_cte .)
-    COMA            reduce using rule 56 (fact1 -> PLUS var_cte .)
-    VAR             reduce using rule 56 (fact1 -> PLUS var_cte .)
-    VECTOR          reduce using rule 56 (fact1 -> PLUS var_cte .)
-    FUNCTION        reduce using rule 56 (fact1 -> PLUS var_cte .)
-    LKEY            reduce using rule 56 (fact1 -> PLUS var_cte .)
+    LPAREN          reduce using rule 69 (rel -> DIFFERENT .)
+    PLUS            reduce using rule 69 (rel -> DIFFERENT .)
+    MINUS           reduce using rule 69 (rel -> DIFFERENT .)
+    ID              reduce using rule 69 (rel -> DIFFERENT .)
+    CTE_I           reduce using rule 69 (rel -> DIFFERENT .)
+    CTE_F           reduce using rule 69 (rel -> DIFFERENT .)
+    CTE_B           reduce using rule 69 (rel -> DIFFERENT .)
+    CTE_S           reduce using rule 69 (rel -> DIFFERENT .)
 
 
 state 91
 
-    (57) fact1 -> MINUS var_cte .
+    (54) ex -> term PLUS . ex
+    (53) ex -> . term
+    (54) ex -> . term PLUS ex
+    (55) ex -> . term MINUS ex
+    (56) term -> . fact
+    (57) term -> . fact TIMES term
+    (58) term -> . fact DIVIDE term
+    (59) fact -> . LPAREN expres RPAREN
+    (60) fact -> . fact1
+    (61) fact1 -> . PLUS var_cte
+    (62) fact1 -> . MINUS var_cte
+    (63) fact1 -> . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
 
-    TIMES           reduce using rule 57 (fact1 -> MINUS var_cte .)
-    DIVIDE          reduce using rule 57 (fact1 -> MINUS var_cte .)
-    PLUS            reduce using rule 57 (fact1 -> MINUS var_cte .)
-    MINUS           reduce using rule 57 (fact1 -> MINUS var_cte .)
-    LOWERTHAN       reduce using rule 57 (fact1 -> MINUS var_cte .)
-    MORETHAN        reduce using rule 57 (fact1 -> MINUS var_cte .)
-    LOWEREQ         reduce using rule 57 (fact1 -> MINUS var_cte .)
-    MOREEQ          reduce using rule 57 (fact1 -> MINUS var_cte .)
-    SAME            reduce using rule 57 (fact1 -> MINUS var_cte .)
-    DIFFERENT       reduce using rule 57 (fact1 -> MINUS var_cte .)
-    OR              reduce using rule 57 (fact1 -> MINUS var_cte .)
-    AND             reduce using rule 57 (fact1 -> MINUS var_cte .)
-    SEMICOLON       reduce using rule 57 (fact1 -> MINUS var_cte .)
-    RBRACE          reduce using rule 57 (fact1 -> MINUS var_cte .)
-    RPAREN          reduce using rule 57 (fact1 -> MINUS var_cte .)
-    COMA            reduce using rule 57 (fact1 -> MINUS var_cte .)
-    VAR             reduce using rule 57 (fact1 -> MINUS var_cte .)
-    VECTOR          reduce using rule 57 (fact1 -> MINUS var_cte .)
-    FUNCTION        reduce using rule 57 (fact1 -> MINUS var_cte .)
-    LKEY            reduce using rule 57 (fact1 -> MINUS var_cte .)
+    LPAREN          shift and go to state 60
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
 
+    term                           shift and go to state 56
+    ex                             shift and go to state 112
+    fact                           shift and go to state 59
+    fact1                          shift and go to state 61
+    var_cte                        shift and go to state 62
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
 
 state 92
 
-    (52) term -> fact TIMES . term
-    (51) term -> . fact
-    (52) term -> . fact TIMES term
-    (53) term -> . fact DIVIDE term
-    (54) fact -> . LPAREN expres RPAREN
-    (55) fact -> . fact1
-    (56) fact1 -> . PLUS var_cte
-    (57) fact1 -> . MINUS var_cte
-    (58) fact1 -> . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
+    (55) ex -> term MINUS . ex
+    (53) ex -> . term
+    (54) ex -> . term PLUS ex
+    (55) ex -> . term MINUS ex
+    (56) term -> . fact
+    (57) term -> . fact TIMES term
+    (58) term -> . fact DIVIDE term
+    (59) fact -> . LPAREN expres RPAREN
+    (60) fact -> . fact1
+    (61) fact1 -> . PLUS var_cte
+    (62) fact1 -> . MINUS var_cte
+    (63) fact1 -> . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
 
-    LPAREN          shift and go to state 57
-    PLUS            shift and go to state 54
-    MINUS           shift and go to state 55
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
+    LPAREN          shift and go to state 60
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
 
-    fact                           shift and go to state 56
-    term                           shift and go to state 113
-    fact1                          shift and go to state 58
-    var_cte                        shift and go to state 59
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
+    term                           shift and go to state 56
+    ex                             shift and go to state 113
+    fact                           shift and go to state 59
+    fact1                          shift and go to state 61
+    var_cte                        shift and go to state 62
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
 
 state 93
 
-    (53) term -> fact DIVIDE . term
-    (51) term -> . fact
-    (52) term -> . fact TIMES term
-    (53) term -> . fact DIVIDE term
-    (54) fact -> . LPAREN expres RPAREN
-    (55) fact -> . fact1
-    (56) fact1 -> . PLUS var_cte
-    (57) fact1 -> . MINUS var_cte
-    (58) fact1 -> . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
+    (61) fact1 -> PLUS var_cte .
 
-    LPAREN          shift and go to state 57
-    PLUS            shift and go to state 54
-    MINUS           shift and go to state 55
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
+    TIMES           reduce using rule 61 (fact1 -> PLUS var_cte .)
+    DIVIDE          reduce using rule 61 (fact1 -> PLUS var_cte .)
+    PLUS            reduce using rule 61 (fact1 -> PLUS var_cte .)
+    MINUS           reduce using rule 61 (fact1 -> PLUS var_cte .)
+    LOWERTHAN       reduce using rule 61 (fact1 -> PLUS var_cte .)
+    MORETHAN        reduce using rule 61 (fact1 -> PLUS var_cte .)
+    LOWEREQ         reduce using rule 61 (fact1 -> PLUS var_cte .)
+    MOREEQ          reduce using rule 61 (fact1 -> PLUS var_cte .)
+    SAME            reduce using rule 61 (fact1 -> PLUS var_cte .)
+    DIFFERENT       reduce using rule 61 (fact1 -> PLUS var_cte .)
+    OR              reduce using rule 61 (fact1 -> PLUS var_cte .)
+    AND             reduce using rule 61 (fact1 -> PLUS var_cte .)
+    SEMICOLON       reduce using rule 61 (fact1 -> PLUS var_cte .)
+    RBRACE          reduce using rule 61 (fact1 -> PLUS var_cte .)
+    RPAREN          reduce using rule 61 (fact1 -> PLUS var_cte .)
+    COMA            reduce using rule 61 (fact1 -> PLUS var_cte .)
+    VAR             reduce using rule 61 (fact1 -> PLUS var_cte .)
+    VECTOR          reduce using rule 61 (fact1 -> PLUS var_cte .)
+    FUNCTION        reduce using rule 61 (fact1 -> PLUS var_cte .)
+    LKEY            reduce using rule 61 (fact1 -> PLUS var_cte .)
 
-    fact                           shift and go to state 56
-    term                           shift and go to state 114
-    fact1                          shift and go to state 58
-    var_cte                        shift and go to state 59
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
 
 state 94
 
-    (54) fact -> LPAREN expres . RPAREN
+    (62) fact1 -> MINUS var_cte .
 
-    RPAREN          shift and go to state 115
+    TIMES           reduce using rule 62 (fact1 -> MINUS var_cte .)
+    DIVIDE          reduce using rule 62 (fact1 -> MINUS var_cte .)
+    PLUS            reduce using rule 62 (fact1 -> MINUS var_cte .)
+    MINUS           reduce using rule 62 (fact1 -> MINUS var_cte .)
+    LOWERTHAN       reduce using rule 62 (fact1 -> MINUS var_cte .)
+    MORETHAN        reduce using rule 62 (fact1 -> MINUS var_cte .)
+    LOWEREQ         reduce using rule 62 (fact1 -> MINUS var_cte .)
+    MOREEQ          reduce using rule 62 (fact1 -> MINUS var_cte .)
+    SAME            reduce using rule 62 (fact1 -> MINUS var_cte .)
+    DIFFERENT       reduce using rule 62 (fact1 -> MINUS var_cte .)
+    OR              reduce using rule 62 (fact1 -> MINUS var_cte .)
+    AND             reduce using rule 62 (fact1 -> MINUS var_cte .)
+    SEMICOLON       reduce using rule 62 (fact1 -> MINUS var_cte .)
+    RBRACE          reduce using rule 62 (fact1 -> MINUS var_cte .)
+    RPAREN          reduce using rule 62 (fact1 -> MINUS var_cte .)
+    COMA            reduce using rule 62 (fact1 -> MINUS var_cte .)
+    VAR             reduce using rule 62 (fact1 -> MINUS var_cte .)
+    VECTOR          reduce using rule 62 (fact1 -> MINUS var_cte .)
+    FUNCTION        reduce using rule 62 (fact1 -> MINUS var_cte .)
+    LKEY            reduce using rule 62 (fact1 -> MINUS var_cte .)
 
 
 state 95
 
-    (36) asign -> ID LBRACE exr RBRACE . EQUAL expres SEMICOLON
+    (57) term -> fact TIMES . term
+    (56) term -> . fact
+    (57) term -> . fact TIMES term
+    (58) term -> . fact DIVIDE term
+    (59) fact -> . LPAREN expres RPAREN
+    (60) fact -> . fact1
+    (61) fact1 -> . PLUS var_cte
+    (62) fact1 -> . MINUS var_cte
+    (63) fact1 -> . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
 
-    EQUAL           shift and go to state 116
+    LPAREN          shift and go to state 60
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
 
+    fact                           shift and go to state 59
+    term                           shift and go to state 114
+    fact1                          shift and go to state 61
+    var_cte                        shift and go to state 62
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
 
 state 96
 
-    (37) cond -> IF LPAREN expres RPAREN . bloq
-    (38) cond -> IF LPAREN expres RPAREN . bloq ELSE bloq
-    (27) bloq -> . LKEY bloqi RKEY
+    (58) term -> fact DIVIDE . term
+    (56) term -> . fact
+    (57) term -> . fact TIMES term
+    (58) term -> . fact DIVIDE term
+    (59) fact -> . LPAREN expres RPAREN
+    (60) fact -> . fact1
+    (61) fact1 -> . PLUS var_cte
+    (62) fact1 -> . MINUS var_cte
+    (63) fact1 -> . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
 
-    LKEY            shift and go to state 8
+    LPAREN          shift and go to state 60
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
 
-    bloq                           shift and go to state 117
+    fact                           shift and go to state 59
+    term                           shift and go to state 115
+    fact1                          shift and go to state 61
+    var_cte                        shift and go to state 62
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
 
 state 97
 
-    (39) escrit -> PRINT LPAREN escriti RPAREN . SEMICOLON
+    (59) fact -> LPAREN expres . RPAREN
 
-    SEMICOLON       shift and go to state 118
+    RPAREN          shift and go to state 116
 
 
 state 98
 
-    (41) escriti -> expres COMA . escriti
-    (40) escriti -> . expres
-    (41) escriti -> . expres COMA escriti
-    (44) expres -> . exr
-    (45) expres -> . exr log expres
-    (46) exr -> . ex
-    (47) exr -> . ex rel exr
-    (48) ex -> . term
-    (49) ex -> . term PLUS ex
-    (50) ex -> . term MINUS ex
-    (51) term -> . fact
-    (52) term -> . fact TIMES term
-    (53) term -> . fact DIVIDE term
-    (54) fact -> . LPAREN expres RPAREN
-    (55) fact -> . fact1
-    (56) fact1 -> . PLUS var_cte
-    (57) fact1 -> . MINUS var_cte
-    (58) fact1 -> . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
+    (41) asign -> ID LBRACE exr RBRACE . EQUAL expres SEMICOLON
 
-    LPAREN          shift and go to state 57
-    PLUS            shift and go to state 54
-    MINUS           shift and go to state 55
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
+    EQUAL           shift and go to state 117
 
-    expres                         shift and go to state 69
-    escriti                        shift and go to state 119
-    exr                            shift and go to state 51
-    ex                             shift and go to state 52
-    term                           shift and go to state 53
-    fact                           shift and go to state 56
-    fact1                          shift and go to state 58
-    var_cte                        shift and go to state 59
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
 
 state 99
 
-    (42) ciclo -> WHILE LPAREN expres RPAREN . bloq
-    (27) bloq -> . LKEY bloqi RKEY
+    (42) cond -> IF LPAREN expres RPAREN . bloq
+    (43) cond -> IF LPAREN expres RPAREN . bloq ELSE bloq
+    (32) bloq -> . LKEY bloqi RKEY
 
     LKEY            shift and go to state 8
 
-    bloq                           shift and go to state 120
+    bloq                           shift and go to state 118
 
 state 100
 
-    (43) leer -> READ LPAREN ID RPAREN . SEMICOLON
+    (44) escrit -> PRINT LPAREN escriti RPAREN . SEMICOLON
 
-    SEMICOLON       shift and go to state 121
+    SEMICOLON       shift and go to state 119
 
 
 state 101
 
-    (14) vector -> VECTOR ID LBRACE CTE_I RBRACE . SEMICOLON
+    (46) escriti -> expres COMA . escriti
+    (45) escriti -> . expres
+    (46) escriti -> . expres COMA escriti
+    (49) expres -> . exr
+    (50) expres -> . exr log expres
+    (51) exr -> . ex
+    (52) exr -> . ex rel exr
+    (53) ex -> . term
+    (54) ex -> . term PLUS ex
+    (55) ex -> . term MINUS ex
+    (56) term -> . fact
+    (57) term -> . fact TIMES term
+    (58) term -> . fact DIVIDE term
+    (59) fact -> . LPAREN expres RPAREN
+    (60) fact -> . fact1
+    (61) fact1 -> . PLUS var_cte
+    (62) fact1 -> . MINUS var_cte
+    (63) fact1 -> . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
+
+    LPAREN          shift and go to state 60
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
+
+    expres                         shift and go to state 72
+    escriti                        shift and go to state 120
+    exr                            shift and go to state 54
+    ex                             shift and go to state 55
+    term                           shift and go to state 56
+    fact                           shift and go to state 59
+    fact1                          shift and go to state 61
+    var_cte                        shift and go to state 62
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
+
+state 102
+
+    (47) ciclo -> WHILE LPAREN expres RPAREN . bloq
+    (32) bloq -> . LKEY bloqi RKEY
+
+    LKEY            shift and go to state 8
+
+    bloq                           shift and go to state 121
+
+state 103
+
+    (48) leer -> READ LPAREN ID RPAREN . SEMICOLON
 
     SEMICOLON       shift and go to state 122
 
 
-state 102
-
-    (15) func -> FUNCTION functype ID LPAREN funci . RPAREN funcvar bloq
-    (16) func -> FUNCTION functype ID LPAREN funci . RPAREN funcvar bloq RETURN expres
-    (18) func -> FUNCTION functype ID LPAREN funci . RPAREN bloq
-    (19) func -> FUNCTION functype ID LPAREN funci . RPAREN bloq RETURN expres
-
-    RPAREN          shift and go to state 123
-
-
-state 103
-
-    (17) func -> FUNCTION functype ID LPAREN RPAREN . funcvar bloq
-    (20) func -> FUNCTION functype ID LPAREN RPAREN . bloq
-    (21) funcvar -> . var
-    (22) funcvar -> . var funcvar
-    (27) bloq -> . LKEY bloqi RKEY
-    (9) var -> . VAR tipo ID SEMICOLON
-
-    LKEY            shift and go to state 8
-    VAR             shift and go to state 12
-
-    funcvar                        shift and go to state 124
-    bloq                           shift and go to state 125
-    var                            shift and go to state 126
-
 state 104
 
-    (25) funci -> tipo . ID
-    (26) funci -> tipo . ID COMA funci
+    (14) vector -> VECTOR ID LBRACE CTE_I RBRACE . SEMICOLON
 
-    ID              shift and go to state 127
+    SEMICOLON       shift and go to state 123
 
 
 state 105
 
-    (74) fcall -> ID LPAREN fcall1 . RPAREN
+    (15) func -> FUNCTION functype ID addInTable LPAREN . funci RPAREN localvar bloq return
+    (16) func -> FUNCTION functype ID addInTable LPAREN . funci RPAREN bloq return
+    (23) funci -> . tipo ID
+    (24) funci -> . tipo ID COMA funci
+    (25) funci -> . empty
+    (10) tipo -> . INT
+    (11) tipo -> . FLOAT
+    (12) tipo -> . STRING
+    (13) tipo -> . BOOL
+    (84) empty -> .
 
-    RPAREN          shift and go to state 128
+    INT             shift and go to state 30
+    FLOAT           shift and go to state 31
+    STRING          shift and go to state 32
+    BOOL            shift and go to state 33
+    RPAREN          reduce using rule 84 (empty -> .)
 
+    funci                          shift and go to state 124
+    tipo                           shift and go to state 125
+    empty                          shift and go to state 126
 
 state 106
 
-    (75) fcall -> ID LPAREN RPAREN .
+    (79) fcall -> ID LPAREN fcall1 . RPAREN
 
-    TIMES           reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
-    DIVIDE          reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
-    PLUS            reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
-    MINUS           reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
-    LOWERTHAN       reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
-    MORETHAN        reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
-    LOWEREQ         reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
-    MOREEQ          reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
-    SAME            reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
-    DIFFERENT       reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
-    OR              reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
-    AND             reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
-    SEMICOLON       reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
-    RBRACE          reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
-    RPAREN          reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
-    COMA            reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
-    VAR             reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
-    VECTOR          reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
-    FUNCTION        reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
-    LKEY            reduce using rule 75 (fcall -> ID LPAREN RPAREN .)
+    RPAREN          shift and go to state 127
 
 
 state 107
 
-    (76) fcall1 -> expres .
-    (77) fcall1 -> expres . COMA fcall1
+    (80) fcall -> ID LPAREN RPAREN .
 
-    RPAREN          reduce using rule 76 (fcall1 -> expres .)
-    COMA            shift and go to state 129
+    TIMES           reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
+    DIVIDE          reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
+    PLUS            reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
+    MINUS           reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
+    LOWERTHAN       reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
+    MORETHAN        reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
+    LOWEREQ         reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
+    MOREEQ          reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
+    SAME            reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
+    DIFFERENT       reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
+    OR              reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
+    AND             reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
+    SEMICOLON       reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
+    RBRACE          reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
+    RPAREN          reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
+    COMA            reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
+    VAR             reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
+    VECTOR          reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
+    FUNCTION        reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
+    LKEY            reduce using rule 80 (fcall -> ID LPAREN RPAREN .)
 
 
 state 108
 
-    (78) vcall -> ID LBRACE expres . RBRACE
+    (81) fcall1 -> expres .
+    (82) fcall1 -> expres . COMA fcall1
 
-    RBRACE          shift and go to state 130
+    RPAREN          reduce using rule 81 (fcall1 -> expres .)
+    COMA            shift and go to state 128
 
 
 state 109
 
-    (45) expres -> exr log expres .
+    (83) vcall -> ID LBRACE expres . RBRACE
 
-    SEMICOLON       reduce using rule 45 (expres -> exr log expres .)
-    RPAREN          reduce using rule 45 (expres -> exr log expres .)
-    COMA            reduce using rule 45 (expres -> exr log expres .)
-    RBRACE          reduce using rule 45 (expres -> exr log expres .)
-    VAR             reduce using rule 45 (expres -> exr log expres .)
-    VECTOR          reduce using rule 45 (expres -> exr log expres .)
-    FUNCTION        reduce using rule 45 (expres -> exr log expres .)
-    LKEY            reduce using rule 45 (expres -> exr log expres .)
+    RBRACE          shift and go to state 129
 
 
 state 110
 
-    (47) exr -> ex rel exr .
+    (50) expres -> exr log expres .
 
-    OR              reduce using rule 47 (exr -> ex rel exr .)
-    AND             reduce using rule 47 (exr -> ex rel exr .)
-    SEMICOLON       reduce using rule 47 (exr -> ex rel exr .)
-    RBRACE          reduce using rule 47 (exr -> ex rel exr .)
-    RPAREN          reduce using rule 47 (exr -> ex rel exr .)
-    COMA            reduce using rule 47 (exr -> ex rel exr .)
-    VAR             reduce using rule 47 (exr -> ex rel exr .)
-    VECTOR          reduce using rule 47 (exr -> ex rel exr .)
-    FUNCTION        reduce using rule 47 (exr -> ex rel exr .)
-    LKEY            reduce using rule 47 (exr -> ex rel exr .)
+    SEMICOLON       reduce using rule 50 (expres -> exr log expres .)
+    RPAREN          reduce using rule 50 (expres -> exr log expres .)
+    COMA            reduce using rule 50 (expres -> exr log expres .)
+    RBRACE          reduce using rule 50 (expres -> exr log expres .)
+    VAR             reduce using rule 50 (expres -> exr log expres .)
+    VECTOR          reduce using rule 50 (expres -> exr log expres .)
+    FUNCTION        reduce using rule 50 (expres -> exr log expres .)
+    LKEY            reduce using rule 50 (expres -> exr log expres .)
 
 
 state 111
 
-    (49) ex -> term PLUS ex .
+    (52) exr -> ex rel exr .
 
-    LOWERTHAN       reduce using rule 49 (ex -> term PLUS ex .)
-    MORETHAN        reduce using rule 49 (ex -> term PLUS ex .)
-    LOWEREQ         reduce using rule 49 (ex -> term PLUS ex .)
-    MOREEQ          reduce using rule 49 (ex -> term PLUS ex .)
-    SAME            reduce using rule 49 (ex -> term PLUS ex .)
-    DIFFERENT       reduce using rule 49 (ex -> term PLUS ex .)
-    OR              reduce using rule 49 (ex -> term PLUS ex .)
-    AND             reduce using rule 49 (ex -> term PLUS ex .)
-    SEMICOLON       reduce using rule 49 (ex -> term PLUS ex .)
-    RBRACE          reduce using rule 49 (ex -> term PLUS ex .)
-    RPAREN          reduce using rule 49 (ex -> term PLUS ex .)
-    COMA            reduce using rule 49 (ex -> term PLUS ex .)
-    VAR             reduce using rule 49 (ex -> term PLUS ex .)
-    VECTOR          reduce using rule 49 (ex -> term PLUS ex .)
-    FUNCTION        reduce using rule 49 (ex -> term PLUS ex .)
-    LKEY            reduce using rule 49 (ex -> term PLUS ex .)
+    OR              reduce using rule 52 (exr -> ex rel exr .)
+    AND             reduce using rule 52 (exr -> ex rel exr .)
+    SEMICOLON       reduce using rule 52 (exr -> ex rel exr .)
+    RBRACE          reduce using rule 52 (exr -> ex rel exr .)
+    RPAREN          reduce using rule 52 (exr -> ex rel exr .)
+    COMA            reduce using rule 52 (exr -> ex rel exr .)
+    VAR             reduce using rule 52 (exr -> ex rel exr .)
+    VECTOR          reduce using rule 52 (exr -> ex rel exr .)
+    FUNCTION        reduce using rule 52 (exr -> ex rel exr .)
+    LKEY            reduce using rule 52 (exr -> ex rel exr .)
 
 
 state 112
 
-    (50) ex -> term MINUS ex .
+    (54) ex -> term PLUS ex .
 
-    LOWERTHAN       reduce using rule 50 (ex -> term MINUS ex .)
-    MORETHAN        reduce using rule 50 (ex -> term MINUS ex .)
-    LOWEREQ         reduce using rule 50 (ex -> term MINUS ex .)
-    MOREEQ          reduce using rule 50 (ex -> term MINUS ex .)
-    SAME            reduce using rule 50 (ex -> term MINUS ex .)
-    DIFFERENT       reduce using rule 50 (ex -> term MINUS ex .)
-    OR              reduce using rule 50 (ex -> term MINUS ex .)
-    AND             reduce using rule 50 (ex -> term MINUS ex .)
-    SEMICOLON       reduce using rule 50 (ex -> term MINUS ex .)
-    RBRACE          reduce using rule 50 (ex -> term MINUS ex .)
-    RPAREN          reduce using rule 50 (ex -> term MINUS ex .)
-    COMA            reduce using rule 50 (ex -> term MINUS ex .)
-    VAR             reduce using rule 50 (ex -> term MINUS ex .)
-    VECTOR          reduce using rule 50 (ex -> term MINUS ex .)
-    FUNCTION        reduce using rule 50 (ex -> term MINUS ex .)
-    LKEY            reduce using rule 50 (ex -> term MINUS ex .)
+    LOWERTHAN       reduce using rule 54 (ex -> term PLUS ex .)
+    MORETHAN        reduce using rule 54 (ex -> term PLUS ex .)
+    LOWEREQ         reduce using rule 54 (ex -> term PLUS ex .)
+    MOREEQ          reduce using rule 54 (ex -> term PLUS ex .)
+    SAME            reduce using rule 54 (ex -> term PLUS ex .)
+    DIFFERENT       reduce using rule 54 (ex -> term PLUS ex .)
+    OR              reduce using rule 54 (ex -> term PLUS ex .)
+    AND             reduce using rule 54 (ex -> term PLUS ex .)
+    SEMICOLON       reduce using rule 54 (ex -> term PLUS ex .)
+    RBRACE          reduce using rule 54 (ex -> term PLUS ex .)
+    RPAREN          reduce using rule 54 (ex -> term PLUS ex .)
+    COMA            reduce using rule 54 (ex -> term PLUS ex .)
+    VAR             reduce using rule 54 (ex -> term PLUS ex .)
+    VECTOR          reduce using rule 54 (ex -> term PLUS ex .)
+    FUNCTION        reduce using rule 54 (ex -> term PLUS ex .)
+    LKEY            reduce using rule 54 (ex -> term PLUS ex .)
 
 
 state 113
 
-    (52) term -> fact TIMES term .
+    (55) ex -> term MINUS ex .
 
-    PLUS            reduce using rule 52 (term -> fact TIMES term .)
-    MINUS           reduce using rule 52 (term -> fact TIMES term .)
-    LOWERTHAN       reduce using rule 52 (term -> fact TIMES term .)
-    MORETHAN        reduce using rule 52 (term -> fact TIMES term .)
-    LOWEREQ         reduce using rule 52 (term -> fact TIMES term .)
-    MOREEQ          reduce using rule 52 (term -> fact TIMES term .)
-    SAME            reduce using rule 52 (term -> fact TIMES term .)
-    DIFFERENT       reduce using rule 52 (term -> fact TIMES term .)
-    OR              reduce using rule 52 (term -> fact TIMES term .)
-    AND             reduce using rule 52 (term -> fact TIMES term .)
-    SEMICOLON       reduce using rule 52 (term -> fact TIMES term .)
-    RBRACE          reduce using rule 52 (term -> fact TIMES term .)
-    RPAREN          reduce using rule 52 (term -> fact TIMES term .)
-    COMA            reduce using rule 52 (term -> fact TIMES term .)
-    VAR             reduce using rule 52 (term -> fact TIMES term .)
-    VECTOR          reduce using rule 52 (term -> fact TIMES term .)
-    FUNCTION        reduce using rule 52 (term -> fact TIMES term .)
-    LKEY            reduce using rule 52 (term -> fact TIMES term .)
+    LOWERTHAN       reduce using rule 55 (ex -> term MINUS ex .)
+    MORETHAN        reduce using rule 55 (ex -> term MINUS ex .)
+    LOWEREQ         reduce using rule 55 (ex -> term MINUS ex .)
+    MOREEQ          reduce using rule 55 (ex -> term MINUS ex .)
+    SAME            reduce using rule 55 (ex -> term MINUS ex .)
+    DIFFERENT       reduce using rule 55 (ex -> term MINUS ex .)
+    OR              reduce using rule 55 (ex -> term MINUS ex .)
+    AND             reduce using rule 55 (ex -> term MINUS ex .)
+    SEMICOLON       reduce using rule 55 (ex -> term MINUS ex .)
+    RBRACE          reduce using rule 55 (ex -> term MINUS ex .)
+    RPAREN          reduce using rule 55 (ex -> term MINUS ex .)
+    COMA            reduce using rule 55 (ex -> term MINUS ex .)
+    VAR             reduce using rule 55 (ex -> term MINUS ex .)
+    VECTOR          reduce using rule 55 (ex -> term MINUS ex .)
+    FUNCTION        reduce using rule 55 (ex -> term MINUS ex .)
+    LKEY            reduce using rule 55 (ex -> term MINUS ex .)
 
 
 state 114
 
-    (53) term -> fact DIVIDE term .
+    (57) term -> fact TIMES term .
 
-    PLUS            reduce using rule 53 (term -> fact DIVIDE term .)
-    MINUS           reduce using rule 53 (term -> fact DIVIDE term .)
-    LOWERTHAN       reduce using rule 53 (term -> fact DIVIDE term .)
-    MORETHAN        reduce using rule 53 (term -> fact DIVIDE term .)
-    LOWEREQ         reduce using rule 53 (term -> fact DIVIDE term .)
-    MOREEQ          reduce using rule 53 (term -> fact DIVIDE term .)
-    SAME            reduce using rule 53 (term -> fact DIVIDE term .)
-    DIFFERENT       reduce using rule 53 (term -> fact DIVIDE term .)
-    OR              reduce using rule 53 (term -> fact DIVIDE term .)
-    AND             reduce using rule 53 (term -> fact DIVIDE term .)
-    SEMICOLON       reduce using rule 53 (term -> fact DIVIDE term .)
-    RBRACE          reduce using rule 53 (term -> fact DIVIDE term .)
-    RPAREN          reduce using rule 53 (term -> fact DIVIDE term .)
-    COMA            reduce using rule 53 (term -> fact DIVIDE term .)
-    VAR             reduce using rule 53 (term -> fact DIVIDE term .)
-    VECTOR          reduce using rule 53 (term -> fact DIVIDE term .)
-    FUNCTION        reduce using rule 53 (term -> fact DIVIDE term .)
-    LKEY            reduce using rule 53 (term -> fact DIVIDE term .)
+    PLUS            reduce using rule 57 (term -> fact TIMES term .)
+    MINUS           reduce using rule 57 (term -> fact TIMES term .)
+    LOWERTHAN       reduce using rule 57 (term -> fact TIMES term .)
+    MORETHAN        reduce using rule 57 (term -> fact TIMES term .)
+    LOWEREQ         reduce using rule 57 (term -> fact TIMES term .)
+    MOREEQ          reduce using rule 57 (term -> fact TIMES term .)
+    SAME            reduce using rule 57 (term -> fact TIMES term .)
+    DIFFERENT       reduce using rule 57 (term -> fact TIMES term .)
+    OR              reduce using rule 57 (term -> fact TIMES term .)
+    AND             reduce using rule 57 (term -> fact TIMES term .)
+    SEMICOLON       reduce using rule 57 (term -> fact TIMES term .)
+    RBRACE          reduce using rule 57 (term -> fact TIMES term .)
+    RPAREN          reduce using rule 57 (term -> fact TIMES term .)
+    COMA            reduce using rule 57 (term -> fact TIMES term .)
+    VAR             reduce using rule 57 (term -> fact TIMES term .)
+    VECTOR          reduce using rule 57 (term -> fact TIMES term .)
+    FUNCTION        reduce using rule 57 (term -> fact TIMES term .)
+    LKEY            reduce using rule 57 (term -> fact TIMES term .)
 
 
 state 115
 
-    (54) fact -> LPAREN expres RPAREN .
+    (58) term -> fact DIVIDE term .
 
-    TIMES           reduce using rule 54 (fact -> LPAREN expres RPAREN .)
-    DIVIDE          reduce using rule 54 (fact -> LPAREN expres RPAREN .)
-    PLUS            reduce using rule 54 (fact -> LPAREN expres RPAREN .)
-    MINUS           reduce using rule 54 (fact -> LPAREN expres RPAREN .)
-    LOWERTHAN       reduce using rule 54 (fact -> LPAREN expres RPAREN .)
-    MORETHAN        reduce using rule 54 (fact -> LPAREN expres RPAREN .)
-    LOWEREQ         reduce using rule 54 (fact -> LPAREN expres RPAREN .)
-    MOREEQ          reduce using rule 54 (fact -> LPAREN expres RPAREN .)
-    SAME            reduce using rule 54 (fact -> LPAREN expres RPAREN .)
-    DIFFERENT       reduce using rule 54 (fact -> LPAREN expres RPAREN .)
-    OR              reduce using rule 54 (fact -> LPAREN expres RPAREN .)
-    AND             reduce using rule 54 (fact -> LPAREN expres RPAREN .)
-    SEMICOLON       reduce using rule 54 (fact -> LPAREN expres RPAREN .)
-    RBRACE          reduce using rule 54 (fact -> LPAREN expres RPAREN .)
-    RPAREN          reduce using rule 54 (fact -> LPAREN expres RPAREN .)
-    COMA            reduce using rule 54 (fact -> LPAREN expres RPAREN .)
-    VAR             reduce using rule 54 (fact -> LPAREN expres RPAREN .)
-    VECTOR          reduce using rule 54 (fact -> LPAREN expres RPAREN .)
-    FUNCTION        reduce using rule 54 (fact -> LPAREN expres RPAREN .)
-    LKEY            reduce using rule 54 (fact -> LPAREN expres RPAREN .)
+    PLUS            reduce using rule 58 (term -> fact DIVIDE term .)
+    MINUS           reduce using rule 58 (term -> fact DIVIDE term .)
+    LOWERTHAN       reduce using rule 58 (term -> fact DIVIDE term .)
+    MORETHAN        reduce using rule 58 (term -> fact DIVIDE term .)
+    LOWEREQ         reduce using rule 58 (term -> fact DIVIDE term .)
+    MOREEQ          reduce using rule 58 (term -> fact DIVIDE term .)
+    SAME            reduce using rule 58 (term -> fact DIVIDE term .)
+    DIFFERENT       reduce using rule 58 (term -> fact DIVIDE term .)
+    OR              reduce using rule 58 (term -> fact DIVIDE term .)
+    AND             reduce using rule 58 (term -> fact DIVIDE term .)
+    SEMICOLON       reduce using rule 58 (term -> fact DIVIDE term .)
+    RBRACE          reduce using rule 58 (term -> fact DIVIDE term .)
+    RPAREN          reduce using rule 58 (term -> fact DIVIDE term .)
+    COMA            reduce using rule 58 (term -> fact DIVIDE term .)
+    VAR             reduce using rule 58 (term -> fact DIVIDE term .)
+    VECTOR          reduce using rule 58 (term -> fact DIVIDE term .)
+    FUNCTION        reduce using rule 58 (term -> fact DIVIDE term .)
+    LKEY            reduce using rule 58 (term -> fact DIVIDE term .)
 
 
 state 116
 
-    (36) asign -> ID LBRACE exr RBRACE EQUAL . expres SEMICOLON
-    (44) expres -> . exr
-    (45) expres -> . exr log expres
-    (46) exr -> . ex
-    (47) exr -> . ex rel exr
-    (48) ex -> . term
-    (49) ex -> . term PLUS ex
-    (50) ex -> . term MINUS ex
-    (51) term -> . fact
-    (52) term -> . fact TIMES term
-    (53) term -> . fact DIVIDE term
-    (54) fact -> . LPAREN expres RPAREN
-    (55) fact -> . fact1
-    (56) fact1 -> . PLUS var_cte
-    (57) fact1 -> . MINUS var_cte
-    (58) fact1 -> . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
+    (59) fact -> LPAREN expres RPAREN .
 
-    LPAREN          shift and go to state 57
-    PLUS            shift and go to state 54
-    MINUS           shift and go to state 55
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
+    TIMES           reduce using rule 59 (fact -> LPAREN expres RPAREN .)
+    DIVIDE          reduce using rule 59 (fact -> LPAREN expres RPAREN .)
+    PLUS            reduce using rule 59 (fact -> LPAREN expres RPAREN .)
+    MINUS           reduce using rule 59 (fact -> LPAREN expres RPAREN .)
+    LOWERTHAN       reduce using rule 59 (fact -> LPAREN expres RPAREN .)
+    MORETHAN        reduce using rule 59 (fact -> LPAREN expres RPAREN .)
+    LOWEREQ         reduce using rule 59 (fact -> LPAREN expres RPAREN .)
+    MOREEQ          reduce using rule 59 (fact -> LPAREN expres RPAREN .)
+    SAME            reduce using rule 59 (fact -> LPAREN expres RPAREN .)
+    DIFFERENT       reduce using rule 59 (fact -> LPAREN expres RPAREN .)
+    OR              reduce using rule 59 (fact -> LPAREN expres RPAREN .)
+    AND             reduce using rule 59 (fact -> LPAREN expres RPAREN .)
+    SEMICOLON       reduce using rule 59 (fact -> LPAREN expres RPAREN .)
+    RBRACE          reduce using rule 59 (fact -> LPAREN expres RPAREN .)
+    RPAREN          reduce using rule 59 (fact -> LPAREN expres RPAREN .)
+    COMA            reduce using rule 59 (fact -> LPAREN expres RPAREN .)
+    VAR             reduce using rule 59 (fact -> LPAREN expres RPAREN .)
+    VECTOR          reduce using rule 59 (fact -> LPAREN expres RPAREN .)
+    FUNCTION        reduce using rule 59 (fact -> LPAREN expres RPAREN .)
+    LKEY            reduce using rule 59 (fact -> LPAREN expres RPAREN .)
 
-    exr                            shift and go to state 51
-    expres                         shift and go to state 131
-    ex                             shift and go to state 52
-    term                           shift and go to state 53
-    fact                           shift and go to state 56
-    fact1                          shift and go to state 58
-    var_cte                        shift and go to state 59
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
 
 state 117
 
-    (37) cond -> IF LPAREN expres RPAREN bloq .
-    (38) cond -> IF LPAREN expres RPAREN bloq . ELSE bloq
+    (41) asign -> ID LBRACE exr RBRACE EQUAL . expres SEMICOLON
+    (49) expres -> . exr
+    (50) expres -> . exr log expres
+    (51) exr -> . ex
+    (52) exr -> . ex rel exr
+    (53) ex -> . term
+    (54) ex -> . term PLUS ex
+    (55) ex -> . term MINUS ex
+    (56) term -> . fact
+    (57) term -> . fact TIMES term
+    (58) term -> . fact DIVIDE term
+    (59) fact -> . LPAREN expres RPAREN
+    (60) fact -> . fact1
+    (61) fact1 -> . PLUS var_cte
+    (62) fact1 -> . MINUS var_cte
+    (63) fact1 -> . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
 
-    ID              reduce using rule 37 (cond -> IF LPAREN expres RPAREN bloq .)
-    IF              reduce using rule 37 (cond -> IF LPAREN expres RPAREN bloq .)
-    PRINT           reduce using rule 37 (cond -> IF LPAREN expres RPAREN bloq .)
-    WHILE           reduce using rule 37 (cond -> IF LPAREN expres RPAREN bloq .)
-    READ            reduce using rule 37 (cond -> IF LPAREN expres RPAREN bloq .)
-    RKEY            reduce using rule 37 (cond -> IF LPAREN expres RPAREN bloq .)
-    ELSE            shift and go to state 132
+    LPAREN          shift and go to state 60
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
 
+    exr                            shift and go to state 54
+    expres                         shift and go to state 130
+    ex                             shift and go to state 55
+    term                           shift and go to state 56
+    fact                           shift and go to state 59
+    fact1                          shift and go to state 61
+    var_cte                        shift and go to state 62
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
 
 state 118
 
-    (39) escrit -> PRINT LPAREN escriti RPAREN SEMICOLON .
+    (42) cond -> IF LPAREN expres RPAREN bloq .
+    (43) cond -> IF LPAREN expres RPAREN bloq . ELSE bloq
 
-    ID              reduce using rule 39 (escrit -> PRINT LPAREN escriti RPAREN SEMICOLON .)
-    IF              reduce using rule 39 (escrit -> PRINT LPAREN escriti RPAREN SEMICOLON .)
-    PRINT           reduce using rule 39 (escrit -> PRINT LPAREN escriti RPAREN SEMICOLON .)
-    WHILE           reduce using rule 39 (escrit -> PRINT LPAREN escriti RPAREN SEMICOLON .)
-    READ            reduce using rule 39 (escrit -> PRINT LPAREN escriti RPAREN SEMICOLON .)
-    RKEY            reduce using rule 39 (escrit -> PRINT LPAREN escriti RPAREN SEMICOLON .)
+    ID              reduce using rule 42 (cond -> IF LPAREN expres RPAREN bloq .)
+    IF              reduce using rule 42 (cond -> IF LPAREN expres RPAREN bloq .)
+    PRINT           reduce using rule 42 (cond -> IF LPAREN expres RPAREN bloq .)
+    WHILE           reduce using rule 42 (cond -> IF LPAREN expres RPAREN bloq .)
+    READ            reduce using rule 42 (cond -> IF LPAREN expres RPAREN bloq .)
+    RKEY            reduce using rule 42 (cond -> IF LPAREN expres RPAREN bloq .)
+    ELSE            shift and go to state 131
 
 
 state 119
 
-    (41) escriti -> expres COMA escriti .
+    (44) escrit -> PRINT LPAREN escriti RPAREN SEMICOLON .
 
-    RPAREN          reduce using rule 41 (escriti -> expres COMA escriti .)
+    ID              reduce using rule 44 (escrit -> PRINT LPAREN escriti RPAREN SEMICOLON .)
+    IF              reduce using rule 44 (escrit -> PRINT LPAREN escriti RPAREN SEMICOLON .)
+    PRINT           reduce using rule 44 (escrit -> PRINT LPAREN escriti RPAREN SEMICOLON .)
+    WHILE           reduce using rule 44 (escrit -> PRINT LPAREN escriti RPAREN SEMICOLON .)
+    READ            reduce using rule 44 (escrit -> PRINT LPAREN escriti RPAREN SEMICOLON .)
+    RKEY            reduce using rule 44 (escrit -> PRINT LPAREN escriti RPAREN SEMICOLON .)
 
 
 state 120
 
-    (42) ciclo -> WHILE LPAREN expres RPAREN bloq .
+    (46) escriti -> expres COMA escriti .
 
-    ID              reduce using rule 42 (ciclo -> WHILE LPAREN expres RPAREN bloq .)
-    IF              reduce using rule 42 (ciclo -> WHILE LPAREN expres RPAREN bloq .)
-    PRINT           reduce using rule 42 (ciclo -> WHILE LPAREN expres RPAREN bloq .)
-    WHILE           reduce using rule 42 (ciclo -> WHILE LPAREN expres RPAREN bloq .)
-    READ            reduce using rule 42 (ciclo -> WHILE LPAREN expres RPAREN bloq .)
-    RKEY            reduce using rule 42 (ciclo -> WHILE LPAREN expres RPAREN bloq .)
+    RPAREN          reduce using rule 46 (escriti -> expres COMA escriti .)
 
 
 state 121
 
-    (43) leer -> READ LPAREN ID RPAREN SEMICOLON .
+    (47) ciclo -> WHILE LPAREN expres RPAREN bloq .
 
-    ID              reduce using rule 43 (leer -> READ LPAREN ID RPAREN SEMICOLON .)
-    IF              reduce using rule 43 (leer -> READ LPAREN ID RPAREN SEMICOLON .)
-    PRINT           reduce using rule 43 (leer -> READ LPAREN ID RPAREN SEMICOLON .)
-    WHILE           reduce using rule 43 (leer -> READ LPAREN ID RPAREN SEMICOLON .)
-    READ            reduce using rule 43 (leer -> READ LPAREN ID RPAREN SEMICOLON .)
-    RKEY            reduce using rule 43 (leer -> READ LPAREN ID RPAREN SEMICOLON .)
+    ID              reduce using rule 47 (ciclo -> WHILE LPAREN expres RPAREN bloq .)
+    IF              reduce using rule 47 (ciclo -> WHILE LPAREN expres RPAREN bloq .)
+    PRINT           reduce using rule 47 (ciclo -> WHILE LPAREN expres RPAREN bloq .)
+    WHILE           reduce using rule 47 (ciclo -> WHILE LPAREN expres RPAREN bloq .)
+    READ            reduce using rule 47 (ciclo -> WHILE LPAREN expres RPAREN bloq .)
+    RKEY            reduce using rule 47 (ciclo -> WHILE LPAREN expres RPAREN bloq .)
 
 
 state 122
+
+    (48) leer -> READ LPAREN ID RPAREN SEMICOLON .
+
+    ID              reduce using rule 48 (leer -> READ LPAREN ID RPAREN SEMICOLON .)
+    IF              reduce using rule 48 (leer -> READ LPAREN ID RPAREN SEMICOLON .)
+    PRINT           reduce using rule 48 (leer -> READ LPAREN ID RPAREN SEMICOLON .)
+    WHILE           reduce using rule 48 (leer -> READ LPAREN ID RPAREN SEMICOLON .)
+    READ            reduce using rule 48 (leer -> READ LPAREN ID RPAREN SEMICOLON .)
+    RKEY            reduce using rule 48 (leer -> READ LPAREN ID RPAREN SEMICOLON .)
+
+
+state 123
 
     (14) vector -> VECTOR ID LBRACE CTE_I RBRACE SEMICOLON .
 
@@ -2424,404 +2402,415 @@ state 122
     LKEY            reduce using rule 14 (vector -> VECTOR ID LBRACE CTE_I RBRACE SEMICOLON .)
 
 
-state 123
-
-    (15) func -> FUNCTION functype ID LPAREN funci RPAREN . funcvar bloq
-    (16) func -> FUNCTION functype ID LPAREN funci RPAREN . funcvar bloq RETURN expres
-    (18) func -> FUNCTION functype ID LPAREN funci RPAREN . bloq
-    (19) func -> FUNCTION functype ID LPAREN funci RPAREN . bloq RETURN expres
-    (21) funcvar -> . var
-    (22) funcvar -> . var funcvar
-    (27) bloq -> . LKEY bloqi RKEY
-    (9) var -> . VAR tipo ID SEMICOLON
-
-    LKEY            shift and go to state 8
-    VAR             shift and go to state 12
-
-    funcvar                        shift and go to state 133
-    bloq                           shift and go to state 134
-    var                            shift and go to state 126
-
 state 124
 
-    (17) func -> FUNCTION functype ID LPAREN RPAREN funcvar . bloq
-    (27) bloq -> . LKEY bloqi RKEY
+    (15) func -> FUNCTION functype ID addInTable LPAREN funci . RPAREN localvar bloq return
+    (16) func -> FUNCTION functype ID addInTable LPAREN funci . RPAREN bloq return
 
-    LKEY            shift and go to state 8
+    RPAREN          shift and go to state 132
 
-    bloq                           shift and go to state 135
 
 state 125
 
-    (20) func -> FUNCTION functype ID LPAREN RPAREN bloq .
+    (23) funci -> tipo . ID
+    (24) funci -> tipo . ID COMA funci
 
-    VAR             reduce using rule 20 (func -> FUNCTION functype ID LPAREN RPAREN bloq .)
-    VECTOR          reduce using rule 20 (func -> FUNCTION functype ID LPAREN RPAREN bloq .)
-    FUNCTION        reduce using rule 20 (func -> FUNCTION functype ID LPAREN RPAREN bloq .)
-    LKEY            reduce using rule 20 (func -> FUNCTION functype ID LPAREN RPAREN bloq .)
+    ID              shift and go to state 133
 
 
 state 126
 
-    (21) funcvar -> var .
-    (22) funcvar -> var . funcvar
-    (21) funcvar -> . var
-    (22) funcvar -> . var funcvar
-    (9) var -> . VAR tipo ID SEMICOLON
+    (25) funci -> empty .
 
-    LKEY            reduce using rule 21 (funcvar -> var .)
-    VAR             shift and go to state 12
+    RPAREN          reduce using rule 25 (funci -> empty .)
 
-    var                            shift and go to state 126
-    funcvar                        shift and go to state 136
 
 state 127
 
-    (25) funci -> tipo ID .
-    (26) funci -> tipo ID . COMA funci
+    (79) fcall -> ID LPAREN fcall1 RPAREN .
 
-    RPAREN          reduce using rule 25 (funci -> tipo ID .)
-    COMA            shift and go to state 137
+    TIMES           reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
+    DIVIDE          reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
+    PLUS            reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
+    MINUS           reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
+    LOWERTHAN       reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
+    MORETHAN        reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
+    LOWEREQ         reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
+    MOREEQ          reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
+    SAME            reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
+    DIFFERENT       reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
+    OR              reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
+    AND             reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
+    SEMICOLON       reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
+    RBRACE          reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
+    RPAREN          reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
+    COMA            reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
+    VAR             reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
+    VECTOR          reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
+    FUNCTION        reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
+    LKEY            reduce using rule 79 (fcall -> ID LPAREN fcall1 RPAREN .)
 
 
 state 128
 
-    (74) fcall -> ID LPAREN fcall1 RPAREN .
+    (82) fcall1 -> expres COMA . fcall1
+    (81) fcall1 -> . expres
+    (82) fcall1 -> . expres COMA fcall1
+    (49) expres -> . exr
+    (50) expres -> . exr log expres
+    (51) exr -> . ex
+    (52) exr -> . ex rel exr
+    (53) ex -> . term
+    (54) ex -> . term PLUS ex
+    (55) ex -> . term MINUS ex
+    (56) term -> . fact
+    (57) term -> . fact TIMES term
+    (58) term -> . fact DIVIDE term
+    (59) fact -> . LPAREN expres RPAREN
+    (60) fact -> . fact1
+    (61) fact1 -> . PLUS var_cte
+    (62) fact1 -> . MINUS var_cte
+    (63) fact1 -> . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
 
-    TIMES           reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
-    DIVIDE          reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
-    PLUS            reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
-    MINUS           reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
-    LOWERTHAN       reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
-    MORETHAN        reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
-    LOWEREQ         reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
-    MOREEQ          reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
-    SAME            reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
-    DIFFERENT       reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
-    OR              reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
-    AND             reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
-    SEMICOLON       reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
-    RBRACE          reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
-    RPAREN          reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
-    COMA            reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
-    VAR             reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
-    VECTOR          reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
-    FUNCTION        reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
-    LKEY            reduce using rule 74 (fcall -> ID LPAREN fcall1 RPAREN .)
+    LPAREN          shift and go to state 60
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
 
+    expres                         shift and go to state 108
+    fcall1                         shift and go to state 134
+    exr                            shift and go to state 54
+    ex                             shift and go to state 55
+    term                           shift and go to state 56
+    fact                           shift and go to state 59
+    fact1                          shift and go to state 61
+    var_cte                        shift and go to state 62
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
 
 state 129
 
-    (77) fcall1 -> expres COMA . fcall1
-    (76) fcall1 -> . expres
-    (77) fcall1 -> . expres COMA fcall1
-    (44) expres -> . exr
-    (45) expres -> . exr log expres
-    (46) exr -> . ex
-    (47) exr -> . ex rel exr
-    (48) ex -> . term
-    (49) ex -> . term PLUS ex
-    (50) ex -> . term MINUS ex
-    (51) term -> . fact
-    (52) term -> . fact TIMES term
-    (53) term -> . fact DIVIDE term
-    (54) fact -> . LPAREN expres RPAREN
-    (55) fact -> . fact1
-    (56) fact1 -> . PLUS var_cte
-    (57) fact1 -> . MINUS var_cte
-    (58) fact1 -> . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
+    (83) vcall -> ID LBRACE expres RBRACE .
 
-    LPAREN          shift and go to state 57
-    PLUS            shift and go to state 54
-    MINUS           shift and go to state 55
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
+    TIMES           reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
+    DIVIDE          reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
+    PLUS            reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
+    MINUS           reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
+    LOWERTHAN       reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
+    MORETHAN        reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
+    LOWEREQ         reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
+    MOREEQ          reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
+    SAME            reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
+    DIFFERENT       reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
+    OR              reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
+    AND             reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
+    SEMICOLON       reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
+    RBRACE          reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
+    RPAREN          reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
+    COMA            reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
+    VAR             reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
+    VECTOR          reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
+    FUNCTION        reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
+    LKEY            reduce using rule 83 (vcall -> ID LBRACE expres RBRACE .)
 
-    expres                         shift and go to state 107
-    fcall1                         shift and go to state 138
-    exr                            shift and go to state 51
-    ex                             shift and go to state 52
-    term                           shift and go to state 53
-    fact                           shift and go to state 56
-    fact1                          shift and go to state 58
-    var_cte                        shift and go to state 59
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
 
 state 130
 
-    (78) vcall -> ID LBRACE expres RBRACE .
+    (41) asign -> ID LBRACE exr RBRACE EQUAL expres . SEMICOLON
 
-    TIMES           reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
-    DIVIDE          reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
-    PLUS            reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
-    MINUS           reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
-    LOWERTHAN       reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
-    MORETHAN        reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
-    LOWEREQ         reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
-    MOREEQ          reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
-    SAME            reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
-    DIFFERENT       reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
-    OR              reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
-    AND             reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
-    SEMICOLON       reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
-    RBRACE          reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
-    RPAREN          reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
-    COMA            reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
-    VAR             reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
-    VECTOR          reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
-    FUNCTION        reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
-    LKEY            reduce using rule 78 (vcall -> ID LBRACE expres RBRACE .)
+    SEMICOLON       shift and go to state 135
 
 
 state 131
 
-    (36) asign -> ID LBRACE exr RBRACE EQUAL expres . SEMICOLON
+    (43) cond -> IF LPAREN expres RPAREN bloq ELSE . bloq
+    (32) bloq -> . LKEY bloqi RKEY
 
-    SEMICOLON       shift and go to state 139
+    LKEY            shift and go to state 8
 
+    bloq                           shift and go to state 136
 
 state 132
 
-    (38) cond -> IF LPAREN expres RPAREN bloq ELSE . bloq
-    (27) bloq -> . LKEY bloqi RKEY
+    (15) func -> FUNCTION functype ID addInTable LPAREN funci RPAREN . localvar bloq return
+    (16) func -> FUNCTION functype ID addInTable LPAREN funci RPAREN . bloq return
+    (26) localvar -> . var
+    (27) localvar -> . vector
+    (28) localvar -> . var localvar
+    (29) localvar -> . vector localvar
+    (32) bloq -> . LKEY bloqi RKEY
+    (9) var -> . VAR tipo ID SEMICOLON
+    (14) vector -> . VECTOR ID LBRACE CTE_I RBRACE SEMICOLON
 
     LKEY            shift and go to state 8
+    VAR             shift and go to state 12
+    VECTOR          shift and go to state 13
 
-    bloq                           shift and go to state 140
+    localvar                       shift and go to state 137
+    bloq                           shift and go to state 138
+    var                            shift and go to state 139
+    vector                         shift and go to state 140
 
 state 133
 
-    (15) func -> FUNCTION functype ID LPAREN funci RPAREN funcvar . bloq
-    (16) func -> FUNCTION functype ID LPAREN funci RPAREN funcvar . bloq RETURN expres
-    (27) bloq -> . LKEY bloqi RKEY
+    (23) funci -> tipo ID .
+    (24) funci -> tipo ID . COMA funci
 
-    LKEY            shift and go to state 8
+    RPAREN          reduce using rule 23 (funci -> tipo ID .)
+    COMA            shift and go to state 141
 
-    bloq                           shift and go to state 141
 
 state 134
 
-    (18) func -> FUNCTION functype ID LPAREN funci RPAREN bloq .
-    (19) func -> FUNCTION functype ID LPAREN funci RPAREN bloq . RETURN expres
+    (82) fcall1 -> expres COMA fcall1 .
 
-    VAR             reduce using rule 18 (func -> FUNCTION functype ID LPAREN funci RPAREN bloq .)
-    VECTOR          reduce using rule 18 (func -> FUNCTION functype ID LPAREN funci RPAREN bloq .)
-    FUNCTION        reduce using rule 18 (func -> FUNCTION functype ID LPAREN funci RPAREN bloq .)
-    LKEY            reduce using rule 18 (func -> FUNCTION functype ID LPAREN funci RPAREN bloq .)
-    RETURN          shift and go to state 142
+    RPAREN          reduce using rule 82 (fcall1 -> expres COMA fcall1 .)
 
 
 state 135
 
-    (17) func -> FUNCTION functype ID LPAREN RPAREN funcvar bloq .
+    (41) asign -> ID LBRACE exr RBRACE EQUAL expres SEMICOLON .
 
-    VAR             reduce using rule 17 (func -> FUNCTION functype ID LPAREN RPAREN funcvar bloq .)
-    VECTOR          reduce using rule 17 (func -> FUNCTION functype ID LPAREN RPAREN funcvar bloq .)
-    FUNCTION        reduce using rule 17 (func -> FUNCTION functype ID LPAREN RPAREN funcvar bloq .)
-    LKEY            reduce using rule 17 (func -> FUNCTION functype ID LPAREN RPAREN funcvar bloq .)
+    ID              reduce using rule 41 (asign -> ID LBRACE exr RBRACE EQUAL expres SEMICOLON .)
+    IF              reduce using rule 41 (asign -> ID LBRACE exr RBRACE EQUAL expres SEMICOLON .)
+    PRINT           reduce using rule 41 (asign -> ID LBRACE exr RBRACE EQUAL expres SEMICOLON .)
+    WHILE           reduce using rule 41 (asign -> ID LBRACE exr RBRACE EQUAL expres SEMICOLON .)
+    READ            reduce using rule 41 (asign -> ID LBRACE exr RBRACE EQUAL expres SEMICOLON .)
+    RKEY            reduce using rule 41 (asign -> ID LBRACE exr RBRACE EQUAL expres SEMICOLON .)
 
 
 state 136
 
-    (22) funcvar -> var funcvar .
+    (43) cond -> IF LPAREN expres RPAREN bloq ELSE bloq .
 
-    LKEY            reduce using rule 22 (funcvar -> var funcvar .)
+    ID              reduce using rule 43 (cond -> IF LPAREN expres RPAREN bloq ELSE bloq .)
+    IF              reduce using rule 43 (cond -> IF LPAREN expres RPAREN bloq ELSE bloq .)
+    PRINT           reduce using rule 43 (cond -> IF LPAREN expres RPAREN bloq ELSE bloq .)
+    WHILE           reduce using rule 43 (cond -> IF LPAREN expres RPAREN bloq ELSE bloq .)
+    READ            reduce using rule 43 (cond -> IF LPAREN expres RPAREN bloq ELSE bloq .)
+    RKEY            reduce using rule 43 (cond -> IF LPAREN expres RPAREN bloq ELSE bloq .)
 
 
 state 137
 
-    (26) funci -> tipo ID COMA . funci
-    (25) funci -> . tipo ID
-    (26) funci -> . tipo ID COMA funci
+    (15) func -> FUNCTION functype ID addInTable LPAREN funci RPAREN localvar . bloq return
+    (32) bloq -> . LKEY bloqi RKEY
+
+    LKEY            shift and go to state 8
+
+    bloq                           shift and go to state 142
+
+state 138
+
+    (16) func -> FUNCTION functype ID addInTable LPAREN funci RPAREN bloq . return
+    (30) return -> . RETURN expres
+    (31) return -> . empty
+    (84) empty -> .
+
+    RETURN          shift and go to state 144
+    VAR             reduce using rule 84 (empty -> .)
+    VECTOR          reduce using rule 84 (empty -> .)
+    FUNCTION        reduce using rule 84 (empty -> .)
+    LKEY            reduce using rule 84 (empty -> .)
+
+    return                         shift and go to state 143
+    empty                          shift and go to state 145
+
+state 139
+
+    (26) localvar -> var .
+    (28) localvar -> var . localvar
+    (26) localvar -> . var
+    (27) localvar -> . vector
+    (28) localvar -> . var localvar
+    (29) localvar -> . vector localvar
+    (9) var -> . VAR tipo ID SEMICOLON
+    (14) vector -> . VECTOR ID LBRACE CTE_I RBRACE SEMICOLON
+
+    LKEY            reduce using rule 26 (localvar -> var .)
+    VAR             shift and go to state 12
+    VECTOR          shift and go to state 13
+
+    var                            shift and go to state 139
+    localvar                       shift and go to state 146
+    vector                         shift and go to state 140
+
+state 140
+
+    (27) localvar -> vector .
+    (29) localvar -> vector . localvar
+    (26) localvar -> . var
+    (27) localvar -> . vector
+    (28) localvar -> . var localvar
+    (29) localvar -> . vector localvar
+    (9) var -> . VAR tipo ID SEMICOLON
+    (14) vector -> . VECTOR ID LBRACE CTE_I RBRACE SEMICOLON
+
+    LKEY            reduce using rule 27 (localvar -> vector .)
+    VAR             shift and go to state 12
+    VECTOR          shift and go to state 13
+
+    vector                         shift and go to state 140
+    localvar                       shift and go to state 147
+    var                            shift and go to state 139
+
+state 141
+
+    (24) funci -> tipo ID COMA . funci
+    (23) funci -> . tipo ID
+    (24) funci -> . tipo ID COMA funci
+    (25) funci -> . empty
     (10) tipo -> . INT
     (11) tipo -> . FLOAT
     (12) tipo -> . STRING
     (13) tipo -> . BOOL
+    (84) empty -> .
 
     INT             shift and go to state 30
     FLOAT           shift and go to state 31
     STRING          shift and go to state 32
     BOOL            shift and go to state 33
+    RPAREN          reduce using rule 84 (empty -> .)
 
-    tipo                           shift and go to state 104
-    funci                          shift and go to state 143
-
-state 138
-
-    (77) fcall1 -> expres COMA fcall1 .
-
-    RPAREN          reduce using rule 77 (fcall1 -> expres COMA fcall1 .)
-
-
-state 139
-
-    (36) asign -> ID LBRACE exr RBRACE EQUAL expres SEMICOLON .
-
-    ID              reduce using rule 36 (asign -> ID LBRACE exr RBRACE EQUAL expres SEMICOLON .)
-    IF              reduce using rule 36 (asign -> ID LBRACE exr RBRACE EQUAL expres SEMICOLON .)
-    PRINT           reduce using rule 36 (asign -> ID LBRACE exr RBRACE EQUAL expres SEMICOLON .)
-    WHILE           reduce using rule 36 (asign -> ID LBRACE exr RBRACE EQUAL expres SEMICOLON .)
-    READ            reduce using rule 36 (asign -> ID LBRACE exr RBRACE EQUAL expres SEMICOLON .)
-    RKEY            reduce using rule 36 (asign -> ID LBRACE exr RBRACE EQUAL expres SEMICOLON .)
-
-
-state 140
-
-    (38) cond -> IF LPAREN expres RPAREN bloq ELSE bloq .
-
-    ID              reduce using rule 38 (cond -> IF LPAREN expres RPAREN bloq ELSE bloq .)
-    IF              reduce using rule 38 (cond -> IF LPAREN expres RPAREN bloq ELSE bloq .)
-    PRINT           reduce using rule 38 (cond -> IF LPAREN expres RPAREN bloq ELSE bloq .)
-    WHILE           reduce using rule 38 (cond -> IF LPAREN expres RPAREN bloq ELSE bloq .)
-    READ            reduce using rule 38 (cond -> IF LPAREN expres RPAREN bloq ELSE bloq .)
-    RKEY            reduce using rule 38 (cond -> IF LPAREN expres RPAREN bloq ELSE bloq .)
-
-
-state 141
-
-    (15) func -> FUNCTION functype ID LPAREN funci RPAREN funcvar bloq .
-    (16) func -> FUNCTION functype ID LPAREN funci RPAREN funcvar bloq . RETURN expres
-
-    VAR             reduce using rule 15 (func -> FUNCTION functype ID LPAREN funci RPAREN funcvar bloq .)
-    VECTOR          reduce using rule 15 (func -> FUNCTION functype ID LPAREN funci RPAREN funcvar bloq .)
-    FUNCTION        reduce using rule 15 (func -> FUNCTION functype ID LPAREN funci RPAREN funcvar bloq .)
-    LKEY            reduce using rule 15 (func -> FUNCTION functype ID LPAREN funci RPAREN funcvar bloq .)
-    RETURN          shift and go to state 144
-
+    tipo                           shift and go to state 125
+    funci                          shift and go to state 148
+    empty                          shift and go to state 126
 
 state 142
 
-    (19) func -> FUNCTION functype ID LPAREN funci RPAREN bloq RETURN . expres
-    (44) expres -> . exr
-    (45) expres -> . exr log expres
-    (46) exr -> . ex
-    (47) exr -> . ex rel exr
-    (48) ex -> . term
-    (49) ex -> . term PLUS ex
-    (50) ex -> . term MINUS ex
-    (51) term -> . fact
-    (52) term -> . fact TIMES term
-    (53) term -> . fact DIVIDE term
-    (54) fact -> . LPAREN expres RPAREN
-    (55) fact -> . fact1
-    (56) fact1 -> . PLUS var_cte
-    (57) fact1 -> . MINUS var_cte
-    (58) fact1 -> . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
+    (15) func -> FUNCTION functype ID addInTable LPAREN funci RPAREN localvar bloq . return
+    (30) return -> . RETURN expres
+    (31) return -> . empty
+    (84) empty -> .
 
-    LPAREN          shift and go to state 57
-    PLUS            shift and go to state 54
-    MINUS           shift and go to state 55
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
+    RETURN          shift and go to state 144
+    VAR             reduce using rule 84 (empty -> .)
+    VECTOR          reduce using rule 84 (empty -> .)
+    FUNCTION        reduce using rule 84 (empty -> .)
+    LKEY            reduce using rule 84 (empty -> .)
 
-    expres                         shift and go to state 145
-    exr                            shift and go to state 51
-    ex                             shift and go to state 52
-    term                           shift and go to state 53
-    fact                           shift and go to state 56
-    fact1                          shift and go to state 58
-    var_cte                        shift and go to state 59
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
+    return                         shift and go to state 149
+    empty                          shift and go to state 145
 
 state 143
 
-    (26) funci -> tipo ID COMA funci .
+    (16) func -> FUNCTION functype ID addInTable LPAREN funci RPAREN bloq return .
 
-    RPAREN          reduce using rule 26 (funci -> tipo ID COMA funci .)
+    VAR             reduce using rule 16 (func -> FUNCTION functype ID addInTable LPAREN funci RPAREN bloq return .)
+    VECTOR          reduce using rule 16 (func -> FUNCTION functype ID addInTable LPAREN funci RPAREN bloq return .)
+    FUNCTION        reduce using rule 16 (func -> FUNCTION functype ID addInTable LPAREN funci RPAREN bloq return .)
+    LKEY            reduce using rule 16 (func -> FUNCTION functype ID addInTable LPAREN funci RPAREN bloq return .)
 
 
 state 144
 
-    (16) func -> FUNCTION functype ID LPAREN funci RPAREN funcvar bloq RETURN . expres
-    (44) expres -> . exr
-    (45) expres -> . exr log expres
-    (46) exr -> . ex
-    (47) exr -> . ex rel exr
-    (48) ex -> . term
-    (49) ex -> . term PLUS ex
-    (50) ex -> . term MINUS ex
-    (51) term -> . fact
-    (52) term -> . fact TIMES term
-    (53) term -> . fact DIVIDE term
-    (54) fact -> . LPAREN expres RPAREN
-    (55) fact -> . fact1
-    (56) fact1 -> . PLUS var_cte
-    (57) fact1 -> . MINUS var_cte
-    (58) fact1 -> . var_cte
-    (67) var_cte -> . ID
-    (68) var_cte -> . CTE_I
-    (69) var_cte -> . CTE_F
-    (70) var_cte -> . CTE_B
-    (71) var_cte -> . CTE_S
-    (72) var_cte -> . fcall
-    (73) var_cte -> . vcall
-    (74) fcall -> . ID LPAREN fcall1 RPAREN
-    (75) fcall -> . ID LPAREN RPAREN
-    (78) vcall -> . ID LBRACE expres RBRACE
+    (30) return -> RETURN . expres
+    (49) expres -> . exr
+    (50) expres -> . exr log expres
+    (51) exr -> . ex
+    (52) exr -> . ex rel exr
+    (53) ex -> . term
+    (54) ex -> . term PLUS ex
+    (55) ex -> . term MINUS ex
+    (56) term -> . fact
+    (57) term -> . fact TIMES term
+    (58) term -> . fact DIVIDE term
+    (59) fact -> . LPAREN expres RPAREN
+    (60) fact -> . fact1
+    (61) fact1 -> . PLUS var_cte
+    (62) fact1 -> . MINUS var_cte
+    (63) fact1 -> . var_cte
+    (72) var_cte -> . ID
+    (73) var_cte -> . CTE_I
+    (74) var_cte -> . CTE_F
+    (75) var_cte -> . CTE_B
+    (76) var_cte -> . CTE_S
+    (77) var_cte -> . fcall
+    (78) var_cte -> . vcall
+    (79) fcall -> . ID LPAREN fcall1 RPAREN
+    (80) fcall -> . ID LPAREN RPAREN
+    (83) vcall -> . ID LBRACE expres RBRACE
 
-    LPAREN          shift and go to state 57
-    PLUS            shift and go to state 54
-    MINUS           shift and go to state 55
-    ID              shift and go to state 49
-    CTE_I           shift and go to state 60
-    CTE_F           shift and go to state 61
-    CTE_B           shift and go to state 62
-    CTE_S           shift and go to state 63
+    LPAREN          shift and go to state 60
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    ID              shift and go to state 52
+    CTE_I           shift and go to state 63
+    CTE_F           shift and go to state 64
+    CTE_B           shift and go to state 65
+    CTE_S           shift and go to state 66
 
-    expres                         shift and go to state 146
-    exr                            shift and go to state 51
-    ex                             shift and go to state 52
-    term                           shift and go to state 53
-    fact                           shift and go to state 56
-    fact1                          shift and go to state 58
-    var_cte                        shift and go to state 59
-    fcall                          shift and go to state 64
-    vcall                          shift and go to state 65
+    expres                         shift and go to state 150
+    exr                            shift and go to state 54
+    ex                             shift and go to state 55
+    term                           shift and go to state 56
+    fact                           shift and go to state 59
+    fact1                          shift and go to state 61
+    var_cte                        shift and go to state 62
+    fcall                          shift and go to state 67
+    vcall                          shift and go to state 68
 
 state 145
 
-    (19) func -> FUNCTION functype ID LPAREN funci RPAREN bloq RETURN expres .
+    (31) return -> empty .
 
-    VAR             reduce using rule 19 (func -> FUNCTION functype ID LPAREN funci RPAREN bloq RETURN expres .)
-    VECTOR          reduce using rule 19 (func -> FUNCTION functype ID LPAREN funci RPAREN bloq RETURN expres .)
-    FUNCTION        reduce using rule 19 (func -> FUNCTION functype ID LPAREN funci RPAREN bloq RETURN expres .)
-    LKEY            reduce using rule 19 (func -> FUNCTION functype ID LPAREN funci RPAREN bloq RETURN expres .)
+    VAR             reduce using rule 31 (return -> empty .)
+    VECTOR          reduce using rule 31 (return -> empty .)
+    FUNCTION        reduce using rule 31 (return -> empty .)
+    LKEY            reduce using rule 31 (return -> empty .)
 
 
 state 146
 
-    (16) func -> FUNCTION functype ID LPAREN funci RPAREN funcvar bloq RETURN expres .
+    (28) localvar -> var localvar .
 
-    VAR             reduce using rule 16 (func -> FUNCTION functype ID LPAREN funci RPAREN funcvar bloq RETURN expres .)
-    VECTOR          reduce using rule 16 (func -> FUNCTION functype ID LPAREN funci RPAREN funcvar bloq RETURN expres .)
-    FUNCTION        reduce using rule 16 (func -> FUNCTION functype ID LPAREN funci RPAREN funcvar bloq RETURN expres .)
-    LKEY            reduce using rule 16 (func -> FUNCTION functype ID LPAREN funci RPAREN funcvar bloq RETURN expres .)
+    LKEY            reduce using rule 28 (localvar -> var localvar .)
+
+
+state 147
+
+    (29) localvar -> vector localvar .
+
+    LKEY            reduce using rule 29 (localvar -> vector localvar .)
+
+
+state 148
+
+    (24) funci -> tipo ID COMA funci .
+
+    RPAREN          reduce using rule 24 (funci -> tipo ID COMA funci .)
+
+
+state 149
+
+    (15) func -> FUNCTION functype ID addInTable LPAREN funci RPAREN localvar bloq return .
+
+    VAR             reduce using rule 15 (func -> FUNCTION functype ID addInTable LPAREN funci RPAREN localvar bloq return .)
+    VECTOR          reduce using rule 15 (func -> FUNCTION functype ID addInTable LPAREN funci RPAREN localvar bloq return .)
+    FUNCTION        reduce using rule 15 (func -> FUNCTION functype ID addInTable LPAREN funci RPAREN localvar bloq return .)
+    LKEY            reduce using rule 15 (func -> FUNCTION functype ID addInTable LPAREN funci RPAREN localvar bloq return .)
+
+
+state 150
+
+    (30) return -> RETURN expres .
+
+    VAR             reduce using rule 30 (return -> RETURN expres .)
+    VECTOR          reduce using rule 30 (return -> RETURN expres .)
+    FUNCTION        reduce using rule 30 (return -> RETURN expres .)
+    LKEY            reduce using rule 30 (return -> RETURN expres .)
 

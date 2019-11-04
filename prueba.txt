@@ -1,16 +1,12 @@
 program id :
 
 var int Tony ;
-var int Abc ;
-var string Ponce ;
-var float Paco ;
-function void LaFunc(){
-	Tony = 5 ;
+
+function int LaFunc() var int Abc ;  var string Paco ; {
+	Abc = 5 ;
+	Tony = 1905 ;
 }
 
 {
-	Abc = 15;
-	Tony = Abc ;
-  Ponce = dasdas ;
-  Paco = 2.0 ;
+	Tony = 1905 ;
 }

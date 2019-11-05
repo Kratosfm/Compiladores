@@ -3,6 +3,19 @@ import ply.lex as lex
 import sys
 import varsTable as varsTable
 
+from varsTable import index_globalInt as index_globalInt
+from varsTable import index_globalFloat as index_globalFloat
+from varsTable import index_globalBool as index_globalBool
+from varsTable import index_globalString as index_globalString
+from varsTable import index_localInt as index_localInt
+from varsTable import index_localFloat as index_localFloat
+from varsTable import index_localBool as index_localBool
+from varsTable import index_localString as index_localString
+from varsTable import index_tempInt as index_tempInt
+from varsTable import index_tempFloat as index_tempFloat
+from varsTable import index_tempBool as index_tempBool
+from varsTable import index_tempString as index_tempString
+
 success = True
 
 reserved = {
@@ -144,6 +157,7 @@ while True:
 #    '''program : PROGRAM ID COLON crear bloque
 #               | PROGRAM ID COLON bloque'''
 
+
 def p_program(p):
   '''
   	program : PROGRAM ID COLON program2 bloq
@@ -182,6 +196,7 @@ def p_tipo(p):
         | BOOL
   '''
   varsTable.var_tipo = p[1]
+  print("tipo = ",p[1])
 
 def p_vector(p):
   '''
@@ -208,6 +223,7 @@ def p_functype(p):
     | VOID
   '''
   varsTable.func_tipo = p[1]
+
 
 def p_addInTable(p):
     '''

@@ -2,7 +2,7 @@ program id :
 
 var int Tony ;
 
-function int LaFunc() var int Abc ;  var string Paco ; {
+function int LaFunc() var int Abc ;  var string Paco ; var string Qwre ; {
 	Abc = 5 ;
 	Tony = 1905 ;
 }

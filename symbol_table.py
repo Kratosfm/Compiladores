@@ -7,41 +7,16 @@ class Entry:
         self.id = id
         self.tipo = tipo
         self.value = value
-symbol_table = []
 
-def look(valid):
-    for i in range(len(symbol_table)):
-        if valid == symbol_table[i].id:
-            return 0
-        else:
-            return 1
+class FunctionEntry:
+    def __init__(self, id, tipo):
+        self.id = id
+        self.tipo = tipo
+    dict = {}
 
-
-def insert(tipo,id):
-    existe = look(id)
-    if existe != 0:
-        valor2 = Entry(id,tipo)
-        symbol_table.append(valor2)
-        #show()
-    else:
-        print("Variable ya declarada")
-        sys.exit()
-    #show()
-
-def show():
-    for i in range(len(symbol_table)):
-        print(symbol_table[i].id , " ", symbol_table[i].tipo ," ",symbol_table[i].value)
-
-#Si encuentra = cambiar valor
-def update(valid,valor):
-    for i in range(len(symbol_table)):
-        if valid == symbol_table[i].id:
-            if (validar(symbol_table[i].tipo, valor) == True):
-                symbol_table[i].value = valor
-    #show()
+symbol_table = {}
 
 def validar(tipo, valor):
-    print(tipo, str(type(valor)))
     if str(type(valor)) == "<class 'float'>" and tipo == 'float':
         return True
     if str(type(valor)) == "<class 'int'>" and tipo == 'int':
@@ -52,25 +27,31 @@ def validar(tipo, valor):
     if str(type(valor)) == "<class 'bool'>" and tipo == 'bool':
         return True
     else:
-        print("Error")
+        return False
 
+def delete(id):
+    del symbol_table[id]
 
+def look(id):
+    if symbol_table.get(id):
+      return (symbol_table[id].id, symbol_table[id].tipo, symbol_table[id].value)
+    else:
+      return None
 
-#for i in range(len(list_tok)):
-#    if str(list_tok[i]).find("int") != -1:
-#        print(str(list_tok[i]).find("int"))
+def insert(tipo, id):
+    if symbol_table.get(id):
+        pass
+    else:
+        symbol_table[id] = Entry(id, tipo)
 
-#valor = Entry("Francisco","int",123)
-#symbol_table.append(valor)x
-#valor = Entry("Oscar","float",12.5)
-#symbol_table.append(valor)
-#valor = Entry("Tony","int",502)
-#symbol_table.append(valor)
-#valid = input("Da el id ")
-#valtipo = input("Da el tipo ")
-#insert(valtipo,valid)
-#update("Tony",500)
-#valid = input("Da el id ")
-#valtipo = input("Da el tipo ")
-#insert(valtipo,valid)
-#show()
+def update(id, value):
+  if(validar(symbol_table[id].tipo, value)):
+    symbol_table[id].value = value
+
+def getAttributes(id):
+    return (symbol_table[id].value)
+
+def show():
+    for i in symbol_table:
+        print(symbol_table[i].id, symbol_table[i].tipo, symbol_table[i].value)
+

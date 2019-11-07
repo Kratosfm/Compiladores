@@ -1,11 +1,10 @@
-program id :
+program :
 
 var int Tony ;
-var string Ponce ;
-var float Paco ;
-
+var float Carlos ;
+var int Paco ;
 {
-  Tony = 32 ;
-  Ponce = dasdas ;
-  Paco = 2.0 ;
+	Tony = 1905 - 45 * 2 + 7 / 7;
+	Carlos = 5 + 5 + 5 ;
+	Paco = 7 * 8 + 9 ;
 }

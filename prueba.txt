@@ -3,7 +3,9 @@ program :
 var int Tony ;
 var float Carlos ;
 var int Paco ;
+
 {
+	Paco = 2000 ;
 	Tony = 1905 - 45 * 2 + 7 / 7;
 	Carlos = 5 + 5 + 5 ;
 	Paco = 7 * 8 + 9 ;

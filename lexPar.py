@@ -384,7 +384,7 @@ def p_error(p):
     success = False
     print("Error de sintaxis en '%s'" % p.value)
     sys.exit()
-    
+
 def p_pushcte(p):
     "pushcte :"
     cuadruplos.pushCTE(p[-1])
@@ -417,8 +417,6 @@ s = f.read()
 
 parser.parse(s)
 
-varsTable.show();
-
 if success == True:
     print("Archivo aprobado")
     #sys.exit()
@@ -426,3 +424,5 @@ else:
     print("Archivo no aprobado")
     #sys.exit()
 print
+
+varsTable.show();

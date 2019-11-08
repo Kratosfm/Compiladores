@@ -2,6 +2,7 @@ import ply.yacc as yacc
 import ply.lex as lex
 import sys
 import varsTable as varsTable
+<<<<<<< HEAD
 
 from varsTable import index_globalInt as index_globalInt
 from varsTable import index_globalFloat as index_globalFloat
@@ -15,6 +16,9 @@ from varsTable import index_tempInt as index_tempInt
 from varsTable import index_tempFloat as index_tempFloat
 from varsTable import index_tempBool as index_tempBool
 from varsTable import index_tempString as index_tempString
+=======
+import cuadruplos as cuadruplos
+>>>>>>> Francisco
 
 success = True
 
@@ -157,12 +161,20 @@ while True:
 #    '''program : PROGRAM ID COLON crear bloque
 #               | PROGRAM ID COLON bloque'''
 
+<<<<<<< HEAD
 
 def p_program(p):
   '''
   	program : PROGRAM ID COLON program2 bloq
     	| PROGRAM ID COLON bloq
         | PROGRAM ID COLON
+=======
+def p_program(p):
+  '''
+  	program : PROGRAM COLON program2 bloq
+    	| PROGRAM COLON bloq
+        | PROGRAM COLON
+>>>>>>> Francisco
   '''
 
 def p_program2(p):
@@ -188,6 +200,10 @@ def p_var(p):
   else:
       varsTable.insert(varsTable.var_tipo, varsTable.var_id)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> Francisco
 def p_tipo(p):
   '''
   	tipo : INT
@@ -196,7 +212,10 @@ def p_tipo(p):
         | BOOL
   '''
   varsTable.var_tipo = p[1]
+<<<<<<< HEAD
   print("tipo = ",p[1])
+=======
+>>>>>>> Francisco
 
 def p_vector(p):
   '''
@@ -224,7 +243,10 @@ def p_functype(p):
   '''
   varsTable.func_tipo = p[1]
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> Francisco
 def p_addInTable(p):
     '''
     addInTable :
@@ -278,8 +300,13 @@ def p_estat(p):
 
 def p_asign(p):
   '''
+<<<<<<< HEAD
     asign : ID EQUAL expres SEMICOLON
         | ID LBRACE exr RBRACE EQUAL expres SEMICOLON
+=======
+    asign : ID pushid EQUAL pushop expres cuadradresasign SEMICOLON
+        | ID pushid LBRACE exr RBRACE EQUAL pushop expres SEMICOLON
+>>>>>>> Francisco
   '''
 
 def p_cond(p):
@@ -323,20 +350,33 @@ def p_exr(p):
 
 def p_ex(p):
   '''
+<<<<<<< HEAD
   	ex : term
     	| term PLUS ex
     	| term MINUS ex
+=======
+  	ex : term resterm
+    	| term resterm PLUS pushop ex
+    	| term resterm MINUS pushop ex
+>>>>>>> Francisco
   '''
 
 def p_term(p):
   '''
+<<<<<<< HEAD
   	term : fact
     	| fact TIMES term
         | fact DIVIDE term
+=======
+  	term : fact resfact
+    	| fact resfact TIMES pushop term
+        | fact resfact DIVIDE pushop term
+>>>>>>> Francisco
   '''
 
 def p_fact(p):
   '''
+<<<<<<< HEAD
   	fact : LPAREN expres RPAREN
         | fact1
   '''
@@ -346,6 +386,12 @@ def p_fact1(p):
   	fact1 : PLUS var_cte
         | MINUS var_cte
         | var_cte
+=======
+  	fact : LPAREN pushop expres RPAREN pushop
+        | var_cte
+        | PLUS var_cte
+        | MINUS var_cte
+>>>>>>> Francisco
   '''
 
 def p_rel(p):
@@ -366,11 +412,19 @@ def p_log(p):
 
 def p_var_cte(p):
   '''
+<<<<<<< HEAD
   	var_cte : ID
         | CTE_I
         | CTE_F
         | CTE_B
         | CTE_S
+=======
+  	var_cte : ID pushid
+        | CTE_I pushcte
+        | CTE_F pushcte
+        | CTE_B pushcte
+        | CTE_S pushcte
+>>>>>>> Francisco
         | fcall
         | vcall
   '''
@@ -404,6 +458,33 @@ def p_error(p):
     print("Error de sintaxis en '%s'" % p.value)
     sys.exit()
 
+<<<<<<< HEAD
+=======
+def p_pushcte(p):
+    "pushcte :"
+    cuadruplos.pushCTE(p[-1])
+
+def p_pushid(p):
+    "pushid :"
+    cuadruplos.pushID(p[-1])
+
+def p_pushop(p):
+    "pushop :"
+    cuadruplos.pushPoper(p[-1])
+
+def p_cuadradresasign(p):
+    "cuadradresasign :"
+    cuadruplos.resolverasignacion()
+
+def p_resfact(p):
+    "resfact :"
+    cuadruplos.resolverfact()
+
+def p_resterm(p):
+    "resterm :"
+    cuadruplos.resolverterm()
+
+>>>>>>> Francisco
 parser = yacc.yacc()
 
 archivo = "prueba.txt"
@@ -418,5 +499,9 @@ if success == True:
 else:
     print("Archivo no aprobado")
     #sys.exit()
+<<<<<<< HEAD
+=======
+print
+>>>>>>> Francisco
 
 varsTable.show();

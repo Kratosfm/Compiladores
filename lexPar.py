@@ -20,7 +20,8 @@ reserved = {
     'vector' : 'VECTOR',
   	'while' : 'WHILE',
     'read' : 'READ',
-    'void' : 'VOID'
+    'void' : 'VOID',
+    'main' : 'MAIN',
 }
 
 # List of tokens
@@ -141,13 +142,9 @@ while True:
     #print(tok)
     list_tok.append(tok)
 
-# def p_program(p):
-#    '''program : PROGRAM ID COLON crear bloque
-#               | PROGRAM ID COLON bloque'''
-
 def p_program(p):
   '''
-  	program : PROGRAM COLON program2 bloq
+  	program : PROGRAM COLON program2 MAIN mainc
     	| PROGRAM COLON bloq
         | PROGRAM COLON
   '''
@@ -174,7 +171,6 @@ def p_var(p):
       varsTable.insertVarInFunc(varsTable.var_tipo, varsTable.var_id)
   else:
       varsTable.insert(varsTable.var_tipo, varsTable.var_id)
-
 
 def p_tipo(p):
   '''
@@ -242,10 +238,25 @@ def p_return(p):
     | empty
     '''
 
+def p_mainc(p):
+    '''
+    mainc : LKEY bloq RKEY
+    | LKEY mainc2 bloq RKEY
+    '''
+    varsTable.is_main = True
+
+
+
+def p_mainc2(p):
+    '''
+    mainc2 : var
+    | var mainc2
+    '''
+
 def p_bloq(p):
-  '''
-  	bloq : LKEY bloqi RKEY
-  '''
+    '''
+  	 bloq : bloqi
+    '''
 
 def p_bloqi(p):
   '''
@@ -264,14 +275,14 @@ def p_estat(p):
 
 def p_asign(p):
   '''
-    asign : ID pushid EQUAL pushop expres cuadradresasign SEMICOLON
+    asign : ID pushid EQUAL pushop expres resolverasignacion SEMICOLON
         | ID pushid LBRACE exr RBRACE EQUAL pushop expres SEMICOLON
   '''
 
 def p_cond(p):
   '''
-    cond : IF LPAREN expres RPAREN bloq
-        | IF LPAREN expres RPAREN bloq ELSE bloq
+    cond : IF LPAREN expres RPAREN LKEY bloq RKEY
+        | IF LPAREN expres RPAREN LKEY bloq RKEY ELSE LKEY bloq RKEY
   '''
 
 def p_escrit(p):
@@ -287,7 +298,7 @@ def p_escriti(p):
 
 def p_ciclo(p):
   '''
-    ciclo : WHILE LPAREN expres RPAREN bloq
+    ciclo : WHILE LPAREN expres RPAREN LKEY bloq RKEY
   '''
 
 def p_leer(p):
@@ -304,7 +315,7 @@ def p_expres(p):
 def p_exr(p):
   '''
   	exr : ex
-    	| ex rel exr
+    	| ex reslog rel exr
   '''
 
 def p_ex(p):
@@ -331,12 +342,12 @@ def p_fact(p):
 
 def p_rel(p):
   '''
-  	rel : LOWERTHAN
-    	| MORETHAN
-        | LOWEREQ
-        | MOREEQ
-        | SAME
-        | DIFFERENT
+  	rel : LOWERTHAN pushop
+    	| MORETHAN pushop
+        | LOWEREQ pushop
+        | MOREEQ pushop
+        | SAME pushop
+        | DIFFERENT pushop
   '''
 
 def p_log(p):
@@ -397,9 +408,10 @@ def p_pushop(p):
     "pushop :"
     cuadruplos.pushPoper(p[-1])
 
-def p_cuadradresasign(p):
-    "cuadradresasign :"
-    cuadruplos.resolverasignacion()
+def p_resolverasignacion(p):
+    "resolverasignacion :"
+    res = cuadruplos.resolverasignacion()
+    varsTable.update(p[-5],res)
 
 def p_resfact(p):
     "resfact :"
@@ -408,6 +420,11 @@ def p_resfact(p):
 def p_resterm(p):
     "resterm :"
     cuadruplos.resolverterm()
+
+def p_reslog(p):
+    "reslog :"
+    cuadruplos.resolverlog()
+
 
 parser = yacc.yacc()
 

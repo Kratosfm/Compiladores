@@ -1,12 +1,16 @@
 program :
 
-var int Tony ;
+var float Tony ;
 var float Carlos ;
-var int Paco ;
+var float Paco ;
+var float Hola ;
 
+main
 {
-	Paco = 2000 ;
-	Tony = 1905 - 45 * 2 + 7 / 7;
-	Carlos = 5 + 5 + 5 ;
-	Paco = 7 * 8 + 9 ;
+	var int Pepe ;
+
+	Hola = 2000.0 - 500 ;
+	Tony = Hola - 2 * 2 + 7 / 7 ;
+	Carlos = 5 + 5 + 5.2 ;
+	Paco = 7 * 8 + Carlos ;
 }

@@ -6,6 +6,8 @@ var_id = None
 var_tipo = None
 var_space = None
 is_local = False
+is_main = False
+is_global = False
 
 symbol_table = {}
 

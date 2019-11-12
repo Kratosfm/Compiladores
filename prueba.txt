@@ -1,16 +1,23 @@
 program :
 
-var float Tony ;
+var int Caca ;
 var float Carlos ;
-var float Paco ;
-var float Hola ;
+
+function float Apple() {
+	var float Ponce ;
+	Ponce = 9 + 9 - ( 10 - 2  * 3 ) + 2 + ( 6 - 4 ) ;
+}
+
+function float Banana() {
+	var float Bermea ;
+	Bermea = 9.0 * 9 ;
+}
 
 main
 {
-	var int Pepe ;
-
-	Hola = 2000.0 - 500 ;
-	Tony = Hola - 2 * 2 + 7 / 7 ;
-	Carlos = 5 + 5 + 5.2 ;
-	Paco = 7 * 8 + Carlos ;
+	var int Bermea ;
+	var float Tony ;
+	Bermea = 7 + 2 ;
+	Tony = Bermea / 3 ;
+	Bermea = 3 * 3 ;
 }

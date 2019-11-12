@@ -1,34 +1,34 @@
 resultType = {
-	int : {
-		int : {
-			"+" : int,
-			"-" : int,
-			"*" : int,
-			"/" : int,
-			">" : bool,
-			"<" : bool,
-			">=" : bool,
-			"<=" : bool,
-			"==" : bool,
-			"!=" : bool,
+	"int" : {
+		"int" : {
+			"+" : "int",
+			"-" : "int",
+			"*" : "int",
+			"/" : "int",
+			">" : "bool",
+			"<" : "bool",
+			">=" : "bool",
+			"<=" : "bool",
+			"==" : "bool",
+			"!=" : "bool",
 			"||" : "err",
 			"&&" : "err"
 		},
-		float : {
-			"+" : float,
-			"-" : float,
-			"*" : float,
-			"/" : float,
-			">" : bool,
-			"<" : bool,
-			">=" : bool,
-			"<=" : bool,
-			"==" : bool,
-			"!=" : bool,
+		"float" : {
+			"+" : "float",
+			"-" : "float",
+			"*" : "float",
+			"/" : "float",
+			">" : "bool",
+			"<" : "bool",
+			">=" : "bool",
+			"<=" : "bool",
+			"==" : "bool",
+			"!=" : "bool",
 			"||" : "err",
 			"&&" : "err"
 		},
-		str : {
+		"str" : {
 			"+" : "err",
 			"-" : "err",
 			"*" : "err",
@@ -42,65 +42,7 @@ resultType = {
 			"||" : "err",
 			"&&" : "err"
 		},
-		bool : {
-			"+" : "err",
-			"-" : "err",
-			"*" : "err",
-			"/" : "err",
-			">" : "err",
-			"<" : "err",
-			">=" : "err",
-			"<=" : "err",
-			"==" : "err",
-			"!=" : "err",
-			"||" : "err",
-			"&&" : "err"
-		}
-	},
-	float : {
-		int : {
-			"+" : float,
-			"-" : float,
-			"*" : float,
-			"/" : float,
-			">" : bool,
-			"<" : bool,
-			">=" : bool,
-			"<=" : bool,
-			"==" : bool,
-			"!=" : bool,
-			"||" : "err",
-			"&&" : "err"
-		},
-		float : {
-			"+" : float,
-			"-" : float,
-			"*" : float,
-			"/" : float,
-			">" : bool,
-			"<" : bool,
-			">=" : bool,
-			"<=" : bool,
-			"==" : bool,
-			"!=" : bool,
-			"||" : "err",
-			"&&" : "err"
-		},
-		str : {
-			"+" : "err",
-			"-" : "err",
-			"*" : "err",
-			"/" : "err",
-			">" : "err",
-			"<" : "err",
-			">=" : "err",
-			"<=" : "err",
-			"==" : "err",
-			"!=" : "err",
-			"||" : "err",
-			"&&" : "err"
-		},
-		bool : {
+		"bool" : {
 			"+" : "err",
 			"-" : "err",
 			"*" : "err",
@@ -115,8 +57,36 @@ resultType = {
 			"&&" : "err"
 		}
 	},
-	str : {
-		int : {
+	"float" : {
+		"int" : {
+			"+" : "float",
+			"-" : "float",
+			"*" : "float",
+			"/" : "float",
+			">" : "bool",
+			"<" : "bool",
+			">=" : "bool",
+			"<=" : "bool",
+			"==" : "bool",
+			"!=" : "bool",
+			"||" : "err",
+			"&&" : "err"
+		},
+		"float" : {
+			"+" : "float",
+			"-" : "float",
+			"*" : "float",
+			"/" : "float",
+			">" : "bool",
+			"<" : "bool",
+			">=" : "bool",
+			"<=" : "bool",
+			"==" : "bool",
+			"!=" : "bool",
+			"||" : "err",
+			"&&" : "err"
+		},
+		"str" : {
 			"+" : "err",
 			"-" : "err",
 			"*" : "err",
@@ -130,35 +100,7 @@ resultType = {
 			"||" : "err",
 			"&&" : "err"
 		},
-		float : {
-			"+" : "err",
-			"-" : "err",
-			"*" : "err",
-			"/" : "err",
-			">" : "err",
-			"<" : "err",
-			">=" : "err",
-			"<=" : "err",
-			"==" : "err",
-			"!=" : "err",
-			"||" : "err",
-			"&&" : "err"
-		},
-		str : {
-			"+" : str,
-			"-" : "err",
-			"*" : "err",
-			"/" : "err",
-			">" : "err",
-			"<" : "err",
-			">=" : "err",
-			"<=" : "err",
-			"==" : bool,
-			"!=" : bool,
-			"||" : "err",
-			"&&" : "err"
-		},
-		bool : {
+		"bool" : {
 			"+" : "err",
 			"-" : "err",
 			"*" : "err",
@@ -173,8 +115,8 @@ resultType = {
 			"&&" : "err"
 		}
 	},
-	bool : {
-		int : {
+	"str" : {
+		"int" : {
 			"+" : "err",
 			"-" : "err",
 			"*" : "err",
@@ -188,7 +130,7 @@ resultType = {
 			"||" : "err",
 			"&&" : "err"
 		},
-		float : {
+		"float" : {
 			"+" : "err",
 			"-" : "err",
 			"*" : "err",
@@ -202,7 +144,37 @@ resultType = {
 			"||" : "err",
 			"&&" : "err"
 		},
-		str : {
+		"str" : {
+			"+" : "str",
+			"-" : "err",
+			"*" : "err",
+			"/" : "err",
+			">" : "err",
+			"<" : "err",
+			">=" : "err",
+			"<=" : "err",
+			"==" : "bool",
+			"!=" : "bool",
+			"||" : "err",
+			"&&" : "err"
+		},
+		"bool" : {
+			"+" : "err",
+			"-" : "err",
+			"*" : "err",
+			"/" : "err",
+			">" : "err",
+			"<" : "err",
+			">=" : "err",
+			"<=" : "err",
+			"==" : "err",
+			"!=" : "err",
+			"||" : "err",
+			"&&" : "err"
+		}
+	},
+	"bool" : {
+		"int" : {
 			"+" : "err",
 			"-" : "err",
 			"*" : "err",
@@ -216,7 +188,7 @@ resultType = {
 			"||" : "err",
 			"&&" : "err"
 		},
-		bool : {
+		"float" : {
 			"+" : "err",
 			"-" : "err",
 			"*" : "err",
@@ -225,10 +197,38 @@ resultType = {
 			"<" : "err",
 			">=" : "err",
 			"<=" : "err",
-			"==" : bool,
-			"!=" : bool,
-			"||" : bool,
-			"&&" : bool
+			"==" : "err",
+			"!=" : "err",
+			"||" : "err",
+			"&&" : "err"
+		},
+		"str" : {
+			"+" : "err",
+			"-" : "err",
+			"*" : "err",
+			"/" : "err",
+			">" : "err",
+			"<" : "err",
+			">=" : "err",
+			"<=" : "err",
+			"==" : "err",
+			"!=" : "err",
+			"||" : "err",
+			"&&" : "err"
+		},
+		"bool" : {
+			"+" : "err",
+			"-" : "err",
+			"*" : "err",
+			"/" : "err",
+			">" : "err",
+			"<" : "err",
+			">=" : "err",
+			"<=" : "err",
+			"==" : "bool",
+			"!=" : "bool",
+			"||" : "bool",
+			"&&" : "bool"
 		}
 	}
 }
@@ -243,11 +243,3 @@ def isSymbol(sym):
 		return True
 	else:
 		return False
-
-def cuadruplos(expres):
-	popper = []
-	pilaid = []
-	pilaTipos = []
-	pilaSaltos = []
-	t = []
-	for i in expres:

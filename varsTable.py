@@ -22,7 +22,7 @@ class FunctionEntry:
     def __init__(self, id, tipo):
         self.id = id
         self.tipo = tipo
-    dict = {}
+        self.dict = {}
 
 def validar(tipo, valor):
     if str(type(valor)) == "<class 'float'>" and tipo == 'float':
@@ -48,38 +48,70 @@ def look(id):
 def insert(tipo, id):
     if(is_local):
         if symbol_table.get(id):
-            return false
+            print ("variable ya declarada")
+            sys.exit()
         else:
             symbol_table[id] = FunctionEntry(id, tipo)
-    else:
+    elif(is_main):
         if symbol_table.get(id):
-            return false
+            print ("variable ya declarada")
+            sys.exit()
         else:
-            symbol_table[id] = Entry(id, tipo)
+            symbol_table[id] = FunctionEntry("main",tipo)
+    elif(is_global):
+        if symbol_table.get(id):
+            print ("variable ya declarada")
+            sys.exit()
+        else:
+            symbol_table[id] = FunctionEntry("global",tipo)
+
 
 def update(id, value):
     if(is_local):
         if(validar(symbol_table[func_id].dict[id].tipo, value)):
             symbol_table[func_id].dict[id].value = value
+    elif(is_main):
+        if(validar(symbol_table[func_id].dict[id].tipo, value)):
+            symbol_table[func_id].dict[id].value = value
     else:
-        if(validar(symbol_table[id].tipo, value)):
+        if(validar(symbol_table[func_id].tipo, value)):
             symbol_table[id].value = value
 
 def getAttributes(id):
-    return (symbol_table[id].value)
+    return (symbol_table[func_id].dict[id].value)
+
+def getType(id):
+    return (symbol_table[id].tipo)
+
+def getTypeVar(id):
+    return (symbol_table[func_id].dict[id].tipo)
+
+def getTypeVar2(tipo):
+    if tipo == "<class 'float'>" :
+        return "float"
+    if tipo == "<class 'int'>" :
+        return "int"
+    if tipo == "<class 'str'>" :
+        return "str"
+    if tipo == "<class 'bool'>" :
+        return "bool"
+    else:
+        return False
 
 def show():
+#    print(symbol_table["global"].dict, symbol_table["main"].dict)
     for i in symbol_table:
         if (str((type(symbol_table[i]))) == "<class 'varsTable.FunctionEntry'>"):
-            print(i, "{")
+            print(i, getType(i) ,"{")
             for j in symbol_table[i].dict:
                 print(symbol_table[i].dict[j].id, symbol_table[i].dict[j].tipo, symbol_table[i].dict[j].value)
             print("}")
         else:
             print(symbol_table[i].id, symbol_table[i].tipo, symbol_table[i].value)
 
-def insertVarInFunc(tipo, id):
-    if symbol_table[func_id].dict.get(id):
-        return false
+def insertVarInFunc(tipo, id, funt):
+    if (symbol_table[funt].dict.get(id) or symbol_table["global"].dict.get(id)):
+        print ("variable ya declarada")
+        sys.exit()
     else:
-        symbol_table[func_id].dict[id] = Entry(id, tipo)
+        symbol_table[funt].dict[id] = Entry(id, tipo)

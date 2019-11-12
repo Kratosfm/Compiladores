@@ -144,9 +144,9 @@ while True:
 
 def p_program(p):
   '''
-  	program : PROGRAM COLON program2 MAIN mainc
-    	| PROGRAM COLON bloq
-        | PROGRAM COLON
+  	program : PROGRAM COLON global program2 finglobal program3 MAIN main1 mainc finmain
+        | PROGRAM COLON global program2 finglobal MAIN main1 mainc finmain
+        | PROGRAM COLON MAIN main1 mainc finmain
   '''
 
 def p_program2(p):
@@ -155,22 +155,50 @@ def p_program2(p):
     	| crear
   '''
 
+def p_program3(p):
+  '''
+  	program3 : function program3
+    	| function
+  '''
+
 def p_crear(p):
   '''
   	crear : var
     	| vector
-        | func
   '''
+
+def p_global(p):
+    "global :"
+    varsTable.is_global = True
+    varsTable.func_id = "global"
+    varsTable.insert(None, "global")
+
+def p_finglobal(p):
+  "finglobal :"
+  varsTable.is_global = False
+
+def p_main1(p):
+    "main1 :"
+    varsTable.is_main = True
+    varsTable.func_id = "main"
+    varsTable.insert(None, "main")
+
+def p_finmain(p):
+    "finmain :"
+    varsTable.is_main = False
 
 def p_var(p):
   '''
   	var : VAR tipo ID SEMICOLON
   '''
-  varsTable.var_id = p[3]
-  if(varsTable.is_local):
-      varsTable.insertVarInFunc(varsTable.var_tipo, varsTable.var_id)
-  else:
-      varsTable.insert(varsTable.var_tipo, varsTable.var_id)
+  #print("Meter var")
+  if varsTable.is_global:
+      varsTable.insertVarInFunc(varsTable.var_tipo,p[3], "global")
+  elif varsTable.is_main:
+      varsTable.insertVarInFunc(varsTable.var_tipo,p[3], "main")
+  elif varsTable.is_local:
+      varsTable.insertVarInFunc(varsTable.var_tipo, p[3], varsTable.func_id)
+#      print("aqui yace una var main")''
 
 def p_tipo(p):
   '''
@@ -188,12 +216,16 @@ def p_vector(p):
   varsTable.var_id = p[1]
   varsTable.var_space = p[4]
 
-def p_func(p):
+def p_function(p):
   '''
-  	func : FUNCTION functype ID addInTable LPAREN funci RPAREN localvar bloq return
-    | FUNCTION functype ID addInTable LPAREN funci RPAREN bloq return
+  	function : FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq return expres RKEY
+    | FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar RKEY
+    | FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq RKEY
+    | FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq return expres RKEY
+    | FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq RKEY
+    | FUNCTION functype ID addInTable LPAREN RPAREN LKEY RKEY
+
   '''
-  varsTable.func_id = p[3]
   varsTable.is_local = False
 
 
@@ -223,7 +255,6 @@ def p_funci(p):
     | empty
   '''
 
-
 def p_localvar(p):
      '''
      localvar : var
@@ -240,17 +271,18 @@ def p_return(p):
 
 def p_mainc(p):
     '''
-    mainc : LKEY bloq RKEY
+    mainc : LKEY RKEY
+    | LKEY bloq RKEY
     | LKEY mainc2 bloq RKEY
+    | LKEY mainc2 RKEY
     '''
-    varsTable.is_main = True
-
-
 
 def p_mainc2(p):
     '''
     mainc2 : var
     | var mainc2
+    | vector
+    | vector mainc2
     '''
 
 def p_bloq(p):
@@ -334,7 +366,7 @@ def p_term(p):
 
 def p_fact(p):
   '''
-  	fact : LPAREN pushop expres RPAREN pushop
+  	fact : LPAREN pushop expres RPAREN popop
         | var_cte
         | PLUS var_cte
         | MINUS var_cte
@@ -408,6 +440,10 @@ def p_pushop(p):
     "pushop :"
     cuadruplos.pushPoper(p[-1])
 
+def p_popop(p):
+    "popop :"
+    cuadruplos.popper.pop()
+
 def p_resolverasignacion(p):
     "resolverasignacion :"
     res = cuadruplos.resolverasignacion()
@@ -436,6 +472,7 @@ parser.parse(s)
 
 if success == True:
     print("Archivo aprobado")
+    print("VarsTable")
     #sys.exit()
 else:
     print("Archivo no aprobado")

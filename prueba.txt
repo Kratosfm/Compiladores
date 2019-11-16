@@ -20,10 +20,16 @@ main
 	var int Bermea ;
 	var float Tony ;
 	var int Oscar ;
+	var int Ponce ;
+	var bool Manuel ;
+	var bool Alejandra ;
 	Oscar = 9 ;
 	Bermea = Oscar * Oscar ;
-	Alex = 9 > 5 ;
-	Bermea = 7 + 2 ;
+	Manuel = false ;
+	Alex = 9 < 5 ;
+	if ( Alex == Manuel ) {
+		Ponce = 1 + 1 ;
+	}
 	Tony = Bermea / 3 ;
 	Bermea = ( 3 * 3 ) - ( 2 + 1 ) ;
 }

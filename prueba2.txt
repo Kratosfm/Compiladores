@@ -20,3 +20,9 @@ main
 	Paco = 7 * 8 + Carlos ;
 	Pepe = Pepe * Pepe ;
 }
+
+
+
+if ( Alex == Manuel ) {
+		Ponce = 0 ;
+}

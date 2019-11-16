@@ -24,8 +24,8 @@ def imprimirtodocuadr():
     for i in range(len(pilacuadruplos)):
         imprimircuadruplo(pilacuadruplos[i].num,pilacuadruplos[i].left,pilacuadruplos[i].operator,pilacuadruplos[i].right,pilacuadruplos[i].resultado)
 
-def imprimircuadruplo(left, operator, right, resultado):
-    print (operator, left, right, resultado)
+def imprimircuadruplo(num,left, operator, right, resultado):
+    print (num,operator, left, right, resultado)
 
 def pushID(id):
     pilaid.append(id)
@@ -74,7 +74,6 @@ def resolverasignacion():
             #print (str(pilaid)[1:-1])
             cuad = Cuadrupl(valor, operator, None, valid, len(pilacuadruplos))
             pilacuadruplos.append(cuad)
-            imprimircuadruplo(valor, operator, None, valid)
             #varsTable.update(valid,valor)
             #print(id, varsTable.getAttributes(id))
             return valor
@@ -90,9 +89,8 @@ def resolverterm():
             pilaid.pop()
             tipo_izq = pilaTipos.pop()
             operator = popper.pop()
-            print(operator)
+            #print(operator)
             tipo_resultado = semantic.getReturnType(tipo_der,tipo_izq,operator)
-            print(tipo_resultado)
             if(tipo_resultado != "err"):
                 if(operator == '+'):
                     resultado = val_izq + val_der
@@ -104,7 +102,7 @@ def resolverterm():
                 #pilaTipos.append(tip)
                 cuad = Cuadrupl(val_izq, operator, val_der, resultado, len(pilacuadruplos))
                 pilacuadruplos.append(cuad)
-                imprimircuadruplo(val_izq, operator, val_der, resultado)
+                #imprimircuadruplo(val_izq, operator, val_der, resultado)
             else:
                 print("error de semantica")
                 sys.exit()
@@ -120,7 +118,6 @@ def resolverfact():
             pilaid.pop()
             tipo_izq = pilaTipos.pop()
             operator = popper.pop()
-            print(operator)
             tipo_resultado = semantic.getReturnType(tipo_der,tipo_izq,operator)
             if(tipo_resultado != "err"):
                 if(operator == '*'):
@@ -132,7 +129,7 @@ def resolverfact():
                 tip = crearTipo(resultado)
                 cuad = Cuadrupl(val_izq, operator, val_der, resultado, len(pilacuadruplos))
                 pilacuadruplos.append(cuad)
-                imprimircuadruplo(val_izq, operator, val_der, resultado)
+                #imprimircuadruplo(val_izq, operator, val_der, resultado)
             else:
                 print("error de semantica")
                 sys.exit()
@@ -147,8 +144,7 @@ def resolverRel():
             val_izq = avail.pop()
             tipo_izq = pilaTipos.pop()
             pilaid.pop()
-            operator = popper.pop
-            print(val_izq,val_der,operator)
+            operator = popper.pop()
             tipo_resultado = semantic.getReturnType(tipo_der,tipo_izq,operator)
             if (tipo_resultado != "err"):
                 if(operator == '<'):
@@ -164,7 +160,7 @@ def resolverRel():
                 elif(operator == '!='):
                     resultado = val_izq != val_der
                 cuad = Cuadrupl(val_izq, operator, val_der, resultado, len(pilacuadruplos))
-                imprimircuadruplo(val_izq, operator, val_der, resultado)
+                #imprimircuadruplo(val_izq, operator, val_der, resultado)
                 pilacuadruplos.append(cuad)
                 pilaid.append(resultado)
                 avail.append(resultado)
@@ -172,3 +168,23 @@ def resolverRel():
             else:
                 print("error de semantica")
                 sys.exit()
+
+def ResolverCond():
+    tipo = pilaTipos.pop()
+    if (tipo != "bool"):
+        print("error de typme-mismatch")
+        sys.exit()
+    else:
+        resultado = avail.pop()
+        pilaid.pop()
+        print(tipo, resultado)
+        cuad = Cuadrupl("GotoF", None, None, resultado, len(pilacuadruplos))
+        pilacuadruplos.append(cuad)
+        pilaSaltos.append(len(pilacuadruplos)-1)
+
+def fill(cuadr, salto):
+    pilacuadruplos[cuadr].resultado = salto
+
+def finalif():
+    end = pilaSaltos.pop()
+    fill(end, len(pilacuadruplos))

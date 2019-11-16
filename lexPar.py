@@ -288,14 +288,9 @@ def p_mainc2(p):
 
 def p_bloq(p):
     '''
-  	 bloq : bloqi
+  	 bloq : estat
+         | estat bloq
     '''
-
-def p_bloqi(p):
-  '''
-  	bloqi : estat
-        | estat bloqi
-  '''
 
 def p_estat(p):
   '''
@@ -314,8 +309,9 @@ def p_asign(p):
 
 def p_cond(p):
   '''
-    cond : IF LPAREN expres RPAREN LKEY bloq RKEY
-        | IF LPAREN expres RPAREN LKEY bloq RKEY ELSE LKEY bloq RKEY
+    cond : IF LPAREN expres RPAREN LKEY resif finif RKEY
+        | IF LPAREN expres RPAREN LKEY resif bloq finif RKEY
+        | IF LPAREN expres RPAREN LKEY resif bloq finif RKEY ELSE LKEY bloq RKEY
   '''
 
 def p_escrit(p):
@@ -382,7 +378,7 @@ def p_rel(p):
         | SAME
         | DIFFERENT
   '''
-  print(p[1])
+  #print(p[1])
   cuadruplos.pushPoper(p[1])
 
 def p_log(p):
@@ -472,6 +468,13 @@ def p_resrel(p):
     "resrel :"
     cuadruplos.resolverRel()
 
+def p_resif(p):
+    "resif :"
+    cuadruplos.ResolverCond()
+
+def p_finif(p):
+    "finif :"
+    cuadruplos.finalif()
 
 parser = yacc.yacc()
 

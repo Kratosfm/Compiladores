@@ -2,23 +2,7 @@ import ply.yacc as yacc
 import ply.lex as lex
 import sys
 import varsTable as varsTable
-<<<<<<< HEAD
-
-from varsTable import index_globalInt as index_globalInt
-from varsTable import index_globalFloat as index_globalFloat
-from varsTable import index_globalBool as index_globalBool
-from varsTable import index_globalString as index_globalString
-from varsTable import index_localInt as index_localInt
-from varsTable import index_localFloat as index_localFloat
-from varsTable import index_localBool as index_localBool
-from varsTable import index_localString as index_localString
-from varsTable import index_tempInt as index_tempInt
-from varsTable import index_tempFloat as index_tempFloat
-from varsTable import index_tempBool as index_tempBool
-from varsTable import index_tempString as index_tempString
-=======
 import cuadruplos as cuadruplos
->>>>>>> Francisco
 
 success = True
 
@@ -36,7 +20,10 @@ reserved = {
     'vector' : 'VECTOR',
   	'while' : 'WHILE',
     'read' : 'READ',
-    'void' : 'VOID'
+    'void' : 'VOID',
+    'main' : 'MAIN',
+    'true' : 'TRUE',
+    'false' : 'FALSE'
 }
 
 # List of tokens
@@ -44,7 +31,6 @@ tokens = [
     'ID',
     'CTE_I',
     'CTE_F',
-  	'CTE_B',
     'CTE_S',
     #'CTE_STRING',
     'PLUS',
@@ -81,15 +67,15 @@ t_DIVIDE = r'\/'
 # Comparison Operators
 t_EQUAL = r'\='
 t_SAME = r'\=='
-t_DIFFERENT = r'\[!=]'
+t_DIFFERENT = r'\!='
 t_LOWERTHAN = r'\<'
 t_MORETHAN = r'\>'
-t_MOREEQ = r'\[>=]'
-t_LOWEREQ = r'\[<=]'
+t_MOREEQ = r'\>='
+t_LOWEREQ = r'\<='
 
 # Logic Operators
-t_OR = r'\[|=]'
-t_AND = r'\[&&]'
+t_OR = r'\|='
+t_AND = r'\&&'
 
 # Symbols
 t_LPAREN = r'\('
@@ -157,24 +143,11 @@ while True:
     #print(tok)
     list_tok.append(tok)
 
-# def p_program(p):
-#    '''program : PROGRAM ID COLON crear bloque
-#               | PROGRAM ID COLON bloque'''
-
-<<<<<<< HEAD
-
 def p_program(p):
   '''
-  	program : PROGRAM ID COLON program2 bloq
-    	| PROGRAM ID COLON bloq
-        | PROGRAM ID COLON
-=======
-def p_program(p):
-  '''
-  	program : PROGRAM COLON program2 bloq
-    	| PROGRAM COLON bloq
-        | PROGRAM COLON
->>>>>>> Francisco
+  	program : PROGRAM COLON global program2 finglobal program3 MAIN main1 mainc finmain
+        | PROGRAM COLON global program2 finglobal MAIN main1 mainc finmain
+        | PROGRAM COLON MAIN main1 mainc finmain
   '''
 
 def p_program2(p):
@@ -183,27 +156,51 @@ def p_program2(p):
     	| crear
   '''
 
+def p_program3(p):
+  '''
+  	program3 : function program3
+    	| function
+  '''
+
 def p_crear(p):
   '''
   	crear : var
     	| vector
-        | func
   '''
+
+def p_global(p):
+    "global :"
+    varsTable.is_global = True
+    varsTable.func_id = "global"
+    varsTable.insert(None, "global")
+
+def p_finglobal(p):
+  "finglobal :"
+  varsTable.is_global = False
+
+def p_main1(p):
+    "main1 :"
+    varsTable.is_main = True
+    varsTable.func_id = "main"
+    varsTable.insert(None, "main")
+
+def p_finmain(p):
+    "finmain :"
+    varsTable.is_main = False
 
 def p_var(p):
   '''
   	var : VAR tipo ID SEMICOLON
   '''
-  varsTable.var_id = p[3]
-  if(varsTable.is_local):
-      varsTable.insertVarInFunc(varsTable.var_tipo, varsTable.var_id)
-  else:
-      varsTable.insert(varsTable.var_tipo, varsTable.var_id)
+  #print("Meter var")
+  if varsTable.is_global:
+      varsTable.insertVarInFunc(varsTable.var_tipo,p[3], "global")
+  elif varsTable.is_main:
+      varsTable.insertVarInFunc(varsTable.var_tipo,p[3], "main")
+  elif varsTable.is_local:
+      varsTable.insertVarInFunc(varsTable.var_tipo, p[3], varsTable.func_id)
+#      print("aqui yace una var main")''
 
-<<<<<<< HEAD
-=======
-
->>>>>>> Francisco
 def p_tipo(p):
   '''
   	tipo : INT
@@ -212,10 +209,6 @@ def p_tipo(p):
         | BOOL
   '''
   varsTable.var_tipo = p[1]
-<<<<<<< HEAD
-  print("tipo = ",p[1])
-=======
->>>>>>> Francisco
 
 def p_vector(p):
   '''
@@ -224,12 +217,16 @@ def p_vector(p):
   varsTable.var_id = p[1]
   varsTable.var_space = p[4]
 
-def p_func(p):
+def p_function(p):
   '''
-  	func : FUNCTION functype ID addInTable LPAREN funci RPAREN localvar bloq return
-    | FUNCTION functype ID addInTable LPAREN funci RPAREN bloq return
+  	function : FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq return expres RKEY
+    | FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar RKEY
+    | FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq RKEY
+    | FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq return expres RKEY
+    | FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq RKEY
+    | FUNCTION functype ID addInTable LPAREN RPAREN LKEY RKEY
+
   '''
-  varsTable.func_id = p[3]
   varsTable.is_local = False
 
 
@@ -243,10 +240,6 @@ def p_functype(p):
   '''
   varsTable.func_tipo = p[1]
 
-<<<<<<< HEAD
-
-=======
->>>>>>> Francisco
 def p_addInTable(p):
     '''
     addInTable :
@@ -263,7 +256,6 @@ def p_funci(p):
     | empty
   '''
 
-
 def p_localvar(p):
      '''
      localvar : var
@@ -278,10 +270,26 @@ def p_return(p):
     | empty
     '''
 
+def p_mainc(p):
+    '''
+    mainc : LKEY RKEY
+    | LKEY bloq RKEY
+    | LKEY mainc2 bloq RKEY
+    | LKEY mainc2 RKEY
+    '''
+
+def p_mainc2(p):
+    '''
+    mainc2 : var
+    | var mainc2
+    | vector
+    | vector mainc2
+    '''
+
 def p_bloq(p):
-  '''
-  	bloq : LKEY bloqi RKEY
-  '''
+    '''
+  	 bloq : bloqi
+    '''
 
 def p_bloqi(p):
   '''
@@ -300,19 +308,14 @@ def p_estat(p):
 
 def p_asign(p):
   '''
-<<<<<<< HEAD
-    asign : ID EQUAL expres SEMICOLON
-        | ID LBRACE exr RBRACE EQUAL expres SEMICOLON
-=======
-    asign : ID pushid EQUAL pushop expres cuadradresasign SEMICOLON
+    asign : ID pushid EQUAL pushop expres resolverasignacion SEMICOLON
         | ID pushid LBRACE exr RBRACE EQUAL pushop expres SEMICOLON
->>>>>>> Francisco
   '''
 
 def p_cond(p):
   '''
-    cond : IF LPAREN expres RPAREN bloq
-        | IF LPAREN expres RPAREN bloq ELSE bloq
+    cond : IF LPAREN expres RPAREN LKEY bloq RKEY
+        | IF LPAREN expres RPAREN LKEY bloq RKEY ELSE LKEY bloq RKEY
   '''
 
 def p_escrit(p):
@@ -328,7 +331,7 @@ def p_escriti(p):
 
 def p_ciclo(p):
   '''
-    ciclo : WHILE LPAREN expres RPAREN bloq
+    ciclo : WHILE LPAREN expres RPAREN LKEY bloq RKEY
   '''
 
 def p_leer(p):
@@ -345,53 +348,29 @@ def p_expres(p):
 def p_exr(p):
   '''
   	exr : ex
-    	| ex rel exr
+    	| ex rel exr resrel
   '''
 
 def p_ex(p):
   '''
-<<<<<<< HEAD
-  	ex : term
-    	| term PLUS ex
-    	| term MINUS ex
-=======
   	ex : term resterm
     	| term resterm PLUS pushop ex
     	| term resterm MINUS pushop ex
->>>>>>> Francisco
   '''
 
 def p_term(p):
   '''
-<<<<<<< HEAD
-  	term : fact
-    	| fact TIMES term
-        | fact DIVIDE term
-=======
   	term : fact resfact
     	| fact resfact TIMES pushop term
         | fact resfact DIVIDE pushop term
->>>>>>> Francisco
   '''
 
 def p_fact(p):
   '''
-<<<<<<< HEAD
-  	fact : LPAREN expres RPAREN
-        | fact1
-  '''
-
-def p_fact1(p):
-  '''
-  	fact1 : PLUS var_cte
-        | MINUS var_cte
-        | var_cte
-=======
-  	fact : LPAREN pushop expres RPAREN pushop
+  	fact : LPAREN pushop expres RPAREN popop
         | var_cte
         | PLUS var_cte
         | MINUS var_cte
->>>>>>> Francisco
   '''
 
 def p_rel(p):
@@ -403,6 +382,8 @@ def p_rel(p):
         | SAME
         | DIFFERENT
   '''
+  print(p[1])
+  cuadruplos.pushPoper(p[1])
 
 def p_log(p):
   '''
@@ -412,19 +393,12 @@ def p_log(p):
 
 def p_var_cte(p):
   '''
-<<<<<<< HEAD
-  	var_cte : ID
-        | CTE_I
-        | CTE_F
-        | CTE_B
-        | CTE_S
-=======
   	var_cte : ID pushid
         | CTE_I pushcte
         | CTE_F pushcte
-        | CTE_B pushcte
         | CTE_S pushcte
->>>>>>> Francisco
+        | TRUE pushcte
+        | FALSE pushcte
         | fcall
         | vcall
   '''
@@ -458,8 +432,6 @@ def p_error(p):
     print("Error de sintaxis en '%s'" % p.value)
     sys.exit()
 
-<<<<<<< HEAD
-=======
 def p_pushcte(p):
     "pushcte :"
     cuadruplos.pushCTE(p[-1])
@@ -472,9 +444,21 @@ def p_pushop(p):
     "pushop :"
     cuadruplos.pushPoper(p[-1])
 
-def p_cuadradresasign(p):
-    "cuadradresasign :"
-    cuadruplos.resolverasignacion()
+def p_popop(p):
+    "popop :"
+    cuadruplos.popper.pop()
+
+def p_resolverasignacion(p):
+    "resolverasignacion :"
+    res = cuadruplos.resolverasignacion()
+    if(res == 'true'):
+        resb = bool(res)
+        varsTable.update(p[-5],resb)
+    elif(res == 'false'):
+        resb = bool()
+        varsTable.update(p[-5],resb)
+    else:
+        varsTable.update(p[-5],res)
 
 def p_resfact(p):
     "resfact :"
@@ -484,7 +468,11 @@ def p_resterm(p):
     "resterm :"
     cuadruplos.resolverterm()
 
->>>>>>> Francisco
+def p_resrel(p):
+    "resrel :"
+    cuadruplos.resolverRel()
+
+
 parser = yacc.yacc()
 
 archivo = "prueba.txt"
@@ -493,15 +481,14 @@ s = f.read()
 
 parser.parse(s)
 
+cuadruplos.imprimirtodocuadr()
 if success == True:
     print("Archivo aprobado")
+    print("VarsTable")
     #sys.exit()
 else:
     print("Archivo no aprobado")
     #sys.exit()
-<<<<<<< HEAD
-=======
 print
->>>>>>> Francisco
 
 varsTable.show();

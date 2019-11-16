@@ -1,0 +1,22 @@
+program :
+
+var int Caca ;
+
+function float Apple() {
+	var int Bermea ;
+}
+
+main
+{
+	var float Tony ;
+	var float Carlos ;
+	var float Paco ;
+	var float Hola ;
+	var int Pepe ;
+	Pepe = 30 ;
+	Hola = 2000.0 - 500 ;
+	Tony = Hola - 2 * 2 + 7 / 7 ;
+	Carlos = 5 + 5 + 5.2 ;
+	Paco = 7 * 8 + Carlos ;
+	Pepe = Pepe * Pepe ;
+}

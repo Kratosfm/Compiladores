@@ -5,24 +5,21 @@ var float Carlos ;
 
 function float Apple() {
 	var float Ponce ;
-	Ponce = 9 + 9 ;
+	Ponce = 9 + 9 - ( 10 - 2  * 3 ) + 2 + ( 6 - 4 ) ;
 
 }
 
 function float Banana() {
 	var float Bermea ;
-	Bermea = 9.0 + 9 ;
+	Bermea = 9.0 * 9 ;
 }
 
 main
 {
-	var bool Alex ;
+	var int Alex ;
 	var int Bermea ;
 	var float Tony ;
-	var int Oscar ;
-	Oscar = 9 ;
-	Bermea = Oscar * Oscar ;
-	Alex = 9 > 5 ;
+	Alex = true ;
 	Bermea = 7 + 2 ;
 	Tony = Bermea / 3 ;
 	Bermea = ( 3 * 3 ) - ( 2 + 1 ) ;

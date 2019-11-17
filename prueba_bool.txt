@@ -1,0 +1,26 @@
+program :
+
+var int Caca ;
+var float Carlos ;
+
+function float Apple() {
+	var float Ponce ;
+	Ponce = 9 + 9 - ( 10 - 2  * 3 ) + 2 + ( 6 - 4 ) ;
+
+}
+
+function float Banana() {
+	var float Bermea ;
+	Bermea = 9.0 * 9 ;
+}
+
+main
+{
+	var int Alex ;
+	var int Bermea ;
+	var float Tony ;
+	Alex = true ;
+	Bermea = 7 + 2 ;
+	Tony = Bermea / 3 ;
+	Bermea = ( 3 * 3 ) - ( 2 + 1 ) ;
+}

@@ -5,19 +5,51 @@ var float Carlos ;
 
 function float Apple() {
 	var float Ponce ;
-	Ponce = 9 + 9 - ( 10 - 2  * 3 ) + 2 + ( 6 - 4 ) ;
+	Ponce = 9 + 9 ;
+	while ( Ponce < 81 ){
+		Ponce = Ponce * 9 ;
+	}
+
 }
 
 function float Banana() {
 	var float Bermea ;
-	Bermea = 9.0 * 9 ;
+	Bermea = 9.0 + 9 ;
 }
 
 main
 {
+	var bool Alex ;
 	var int Bermea ;
 	var float Tony ;
-	Bermea = 7 + 2 ;
+	var int Oscar ;
+	var int Ponce ;
+	var bool Manuel ;
+	var bool Alejandra ;
+	var int Juanca ;
+	var int Tamez ;
+	Tamez = 0 ;
+	Juanca = 0 ;
+	Oscar = 9 ;
+	Bermea = Oscar * Oscar ;
+	Manuel = false ;
+	Alex = 9 < 5 ;
+	if ( Alex == Manuel ) {
+		Ponce = 1 + 1 ;
+	}
+	else {
+		if ( Oscar > 2 ) {
+			Ponce = 3 * 3 ;
+		}
+		else {
+			Ponce = 8 - 2 ;
+		}
+	}
+	while ( Juanca < 10 ) {
+		Tamez = Tamez + 2 ;
+		Juanca = Juanca + 1 ;
+	}
 	Tony = Bermea / 3 ;
-	Bermea = 3 * 3 ;
+	Bermea = ( 3 * 3 ) - ( 2 + 1 ) ;
+	Tony = 100 ;
 }

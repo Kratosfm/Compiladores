@@ -22,6 +22,8 @@ reserved = {
     'read' : 'READ',
     'void' : 'VOID',
     'main' : 'MAIN',
+    'true' : 'TRUE',
+    'false' : 'FALSE'
 }
 
 # List of tokens
@@ -29,7 +31,6 @@ tokens = [
     'ID',
     'CTE_I',
     'CTE_F',
-  	'CTE_B',
     'CTE_S',
     #'CTE_STRING',
     'PLUS',
@@ -66,15 +67,15 @@ t_DIVIDE = r'\/'
 # Comparison Operators
 t_EQUAL = r'\='
 t_SAME = r'\=='
-t_DIFFERENT = r'\[!=]'
+t_DIFFERENT = r'\!='
 t_LOWERTHAN = r'\<'
 t_MORETHAN = r'\>'
-t_MOREEQ = r'\[>=]'
-t_LOWEREQ = r'\[<=]'
+t_MOREEQ = r'\>='
+t_LOWEREQ = r'\<='
 
 # Logic Operators
-t_OR = r'\[|=]'
-t_AND = r'\[&&]'
+t_OR = r'\|='
+t_AND = r'\&&'
 
 # Symbols
 t_LPAREN = r'\('
@@ -287,14 +288,9 @@ def p_mainc2(p):
 
 def p_bloq(p):
     '''
-  	 bloq : bloqi
+  	 bloq : estat
+         | estat bloq
     '''
-
-def p_bloqi(p):
-  '''
-  	bloqi : estat
-        | estat bloqi
-  '''
 
 def p_estat(p):
   '''
@@ -313,8 +309,8 @@ def p_asign(p):
 
 def p_cond(p):
   '''
-    cond : IF LPAREN expres RPAREN LKEY bloq RKEY
-        | IF LPAREN expres RPAREN LKEY bloq RKEY ELSE LKEY bloq RKEY
+    cond : IF LPAREN expres RPAREN LKEY resif bloq RKEY finif
+        | IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif
   '''
 
 def p_escrit(p):
@@ -330,7 +326,7 @@ def p_escriti(p):
 
 def p_ciclo(p):
   '''
-    ciclo : WHILE LPAREN expres RPAREN LKEY bloq RKEY
+    ciclo : WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
   '''
 
 def p_leer(p):
@@ -347,7 +343,7 @@ def p_expres(p):
 def p_exr(p):
   '''
   	exr : ex
-    	| ex reslog rel exr
+    	| ex rel exr resrel
   '''
 
 def p_ex(p):
@@ -374,13 +370,15 @@ def p_fact(p):
 
 def p_rel(p):
   '''
-  	rel : LOWERTHAN pushop
-    	| MORETHAN pushop
-        | LOWEREQ pushop
-        | MOREEQ pushop
-        | SAME pushop
-        | DIFFERENT pushop
+  	rel : LOWERTHAN
+    	| MORETHAN
+        | LOWEREQ
+        | MOREEQ
+        | SAME
+        | DIFFERENT
   '''
+  #print(p[1])
+  cuadruplos.pushPoper(p[1])
 
 def p_log(p):
   '''
@@ -393,8 +391,9 @@ def p_var_cte(p):
   	var_cte : ID pushid
         | CTE_I pushcte
         | CTE_F pushcte
-        | CTE_B pushcte
         | CTE_S pushcte
+        | TRUE pushcte
+        | FALSE pushcte
         | fcall
         | vcall
   '''
@@ -447,7 +446,14 @@ def p_popop(p):
 def p_resolverasignacion(p):
     "resolverasignacion :"
     res = cuadruplos.resolverasignacion()
-    varsTable.update(p[-5],res)
+    if(res == 'true'):
+        resb = bool(res)
+        varsTable.update(p[-5],resb)
+    elif(res == 'false'):
+        resb = bool()
+        varsTable.update(p[-5],resb)
+    else:
+        varsTable.update(p[-5],res)
 
 def p_resfact(p):
     "resfact :"
@@ -457,10 +463,33 @@ def p_resterm(p):
     "resterm :"
     cuadruplos.resolverterm()
 
-def p_reslog(p):
-    "reslog :"
-    cuadruplos.resolverlog()
+def p_resrel(p):
+    "resrel :"
+    cuadruplos.resolverRel()
 
+def p_resif(p):
+    "resif :"
+    cuadruplos.ResolverCond()
+
+def p_reselse(p):
+    "reselse :"
+    cuadruplos.ResElse()
+
+def p_finif(p):
+    "finif :"
+    cuadruplos.finalif()
+
+def p_while1(p):
+    "while1 :"
+    cuadruplos.while1()
+
+def p_while2(p):
+    "while2 :"
+    cuadruplos.while2()
+
+def p_while3(p):
+    "while3 :"
+    cuadruplos.while3()
 
 parser = yacc.yacc()
 
@@ -470,6 +499,7 @@ s = f.read()
 
 parser.parse(s)
 
+cuadruplos.imprimirtodocuadr()
 if success == True:
     print("Archivo aprobado")
     print("VarsTable")

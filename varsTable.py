@@ -69,36 +69,124 @@ def insert(tipo, id):
 
 def update(id, value):
     if(is_local):
-        if(validar(symbol_table[func_id].dict[id].tipo, value)):
-            if (symbol_table[func_id].dict.get(id)):
-                symbol_table[func_id].dict[id].value = value
+        if (symbol_table[func_id].dict.get(id)):
+            dir = symbol_table[func_id].dict[id].value
+            if(validar(symbol_table[func_id].dict[id].tipo, value)):
+                if (symbol_table[func_id].dict[id].tipo == "int"):
+                    Memoria.global_memroy.ints[dir] = value
+                elif (symbol_table[func_id].dict[id].tipo == "float"):
+                    Memoria.global_memroy.floats[dir] = value
+                elif (symbol_table[func_id].dict[id].tipo == "bool"):
+                    Memoria.global_memroy.bools[dir] = value
+                elif (symbol_table[func_id].dict[id].tipo == "string"):
+                    Memoria.global_memroy.strings[dir] = value
+                else:
+                    symbol_table[func_id].dict[id].value = value
             else:
-                symbol_table["global"].dict[id].value = value
+                dir = symbol_table["global"].dict[id].value
+                if(validar(symbol_table["global"].dict[id].tipo, value)):
+                    if (symbol_table["global"].dict[id].tipo == "int"):
+                        Memoria.global_memroy.ints[dir] = value
+                    elif (symbol_table["global"].dict[id].tipo == "float"):
+                        Memoria.global_memroy.floats[dir] = value
+                    elif (symbol_table["global"].dict[id].tipo == "bool"):
+                        Memoria.global_memroy.bools[dir] = value
+                    elif (symbol_table["global"].dict[id].tipo == "string"):
+                        Memoria.global_memroy.strings[dir] = value
+                    else:
+                        symbol_table["global"].dict[id].value = value
     elif(is_main):
         if (symbol_table[func_id].dict.get(id)):
+            dir = symbol_table[func_id].dict[id].value
             if(validar(symbol_table[func_id].dict[id].tipo, value)):
-                symbol_table[func_id].dict[id].value = value
+                if (symbol_table[func_id].dict[id].tipo == "int"):
+                    Memoria.global_memroy.ints[dir] = value
+                elif (symbol_table[func_id].dict[id].tipo == "float"):
+                    Memoria.global_memroy.floats[dir] = value
+                elif (symbol_table[func_id].dict[id].tipo == "bool"):
+                    Memoria.global_memroy.bools[dir] = value
+                elif (symbol_table[func_id].dict[id].tipo == "string"):
+                    Memoria.global_memroy.strings[dir] = value
+                else:
+                    symbol_table[func_id].dict[id].value = value
         else:
             dir = symbol_table["global"].dict[id].value
             if(validar(symbol_table["global"].dict[id].tipo, value)):
                 if (symbol_table["global"].dict[id].tipo == "int"):
                     Memoria.global_memroy.ints[dir] = value
+                elif (symbol_table["global"].dict[id].tipo == "float"):
+                    Memoria.global_memroy.floats[dir] = value
+                elif (symbol_table["global"].dict[id].tipo == "bool"):
+                    Memoria.global_memroy.bools[dir] = value
+                elif (symbol_table["global"].dict[id].tipo == "string"):
+                    Memoria.global_memroy.strings[dir] = value
                 else:
                     symbol_table["global"].dict[id].value = value
     else:
+        print("muere")
         if(validar(symbol_table[func_id].tipo, value)):
             dir = symbol_table[id].value
             if (symbol_table[func_id].tipo == "int"):
                 Memoria.global_memroy.ints[dir] = value
             else:
-                print("Valos ", dir, value)
+                #print("Valos ", dir, value)
                 symbol_table[id].value = value
 
 def getAttributes(id):
     if (symbol_table[func_id].dict.get(id)):
-        return (symbol_table[func_id].dict[id].value)
+        dir = symbol_table[func_id].dict[id].value
+        tipo = symbol_table[func_id].dict[id].tipo
+        #return (symbol_table[func_id].dict[id].value)
+        if(tipo == "int"):
+            return (dir)
+        elif(tipo == "float"):
+            return dir
+        elif(tipo == "bool"):
+            return dir
+        elif(tipo == "string"):
+            return dir
     else:
-        return (symbol_table["global"].dict[id].value)
+        dir = symbol_table["global"].dict[id].value
+        tipo = symbol_table["global"].dict[id].tipo
+        if(tipo == "int"):
+            return (dir)
+        elif(tipo == "float"):
+            return dir
+        elif(tipo == "bool"):
+            return dir
+        elif(tipo == "string"):
+            return dir
+        else:
+            return (symbol_table["global"].dict[id].value)
+
+def getValue(id):
+    if (symbol_table[func_id].dict.get(id)):
+        dir = symbol_table[func_id].dict[id].value
+        tipo = symbol_table[func_id].dict[id].tipo
+        if(tipo == "int"):
+            return Memoria.global_memroy.ints[dir]
+        elif(tipo == "float"):
+            return Memoria.global_memroy.floats[dir]
+        elif(tipo == "string"):
+            return Memoria.global_memroy.strings[dir]
+        elif(tipo == "bool"):
+            return Memoria.global_memroy.bools[dir]
+        else:
+            print("error")
+    else:
+        dir = symbol_table["global"].dict[id].value
+        tipo = symbol_table["global"].dict[id].tipo
+        if(tipo == "int"):
+            return Memoria.global_memroy.ints[dir]
+        elif(tipo == "float"):
+            return Memoria.global_memroy.floats[dir]
+        elif(tipo == "string"):
+            return Memoria.global_memroy.strings[dir]
+        elif(tipo == "bool"):
+            return Memoria.global_memroy.bools[dir]
+        else:
+            print("error")
+            #return (symbol_table["global"].dict[id].value)
 
 def getType(id):
     return (symbol_table[id].tipo)
@@ -141,7 +229,7 @@ def insertVarInFunc(tipo, id, funt):
             dir = Memoria.global_memroy.insert_main(id,tipo)
             symbol_table[funt].dict[id] = Entry(id, tipo, dir)
         elif (funt == "global"):
-            dir = Memoria.global_memroy.insert_global(id,tipo)
+            dir = Memoria.global_memroy.insert_global(None,tipo)
             symbol_table[funt].dict[id] = Entry(id, tipo, dir)
         else:
             dir = Memoria.global_memroy.insert_local(id,tipo)

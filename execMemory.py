@@ -24,6 +24,9 @@ class Memory:
         self.floats = {}
         self.bools = {}
         self.strings = {}
+        self.constan = {}
+        self.temporalesmain = {}
+        self.temporaleslocales = {}
 
     def insert_global(self, var, tipo):
         global global_int
@@ -103,15 +106,34 @@ class Memory:
             self.strings[dir] = var
             return dir
 
-    def delete(self):
-        self.ints = {}
-        self.floats = {}
-        self.bools = {}
-        self.strings = {}
-        return
+    def insert_const(self,var,tipo):
+        global cte_int
+        global cte_float
+        global cte_string
+        global cte_bools
+        if( tipo == "int"):
+            dir = cte_int
+            cte_int = cte_int + 1
+            self.ints[dir] = var
+            return dir
+        if( tipo == "float" ):
+            dir = cte_float
+            cte_float = cte_float + 1
+            self.floats[dir] = var
+            return dir
+        if( tipo == "bool" ):
+            dir = cte_bools
+            cte_bools = cte_bools + 1
+            self.bools[dir] = var
+            return dir
+        if( tipo == "string" ):
+            dir = cte_string
+            cte_string = cte_string + 1
+            self.strings[dir] = var
+            return dir
 
     def show(self):
-        print("memoria int ",self.ints, " memoria float ",self.floats, " memoria bools ",self.bools," memoria string ",self.strings)
+        print("memoria int ",self.ints, " memoria float ",self.floats, " memoria bools ",self.bools," memoria string ",self.strings," memoria cte ", self.constan)
 
 global_memroy = Memory()
 
@@ -155,7 +177,7 @@ def BorrarBools():
 def BorrarStrings():
     arr = []
     for key in global_memroy.strings:
-        if(key >= 1100 and key <= 1299):
+        if(key >= 1200 and key <= 1299):
             arr.append(key)
     for i in arr:
         val = arr.pop()
@@ -164,3 +186,23 @@ def BorrarStrings():
 def Imprimirlocales():
     for i in local_memory:
         local_memory[i].show()
+
+def GetDir(val,tipo):
+    if tipo == "int":
+        for i,y in global_memroy.ints.items():
+            if (y == val):
+                return i
+    elif tipo == "float":
+        for i,y in global_memroy.floats.items():
+            if (y == val):
+                return i
+    elif tipo == "string":
+        for i,y in global_memroy.strings.items():
+            if (y == val):
+                return i
+    elif tipo == "bool":
+        for i,y in global_memroy.bools.items():
+            if (y == val):
+                return i
+    else:
+        print("No existe")

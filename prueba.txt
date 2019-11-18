@@ -2,57 +2,25 @@ program :
 
 var int Caca ;
 var float Carlos ;
-var int Bermea ;
+var float Bermea ;
 
 function float Apple() {
 	var float Ponce ;
 	var float Armando ;
 	Armando = 7 ;
+	Armando = 7 ;
 	Ponce = 9 + 9 ;
 	while ( Ponce < 81 ){
 		Ponce = Ponce * 9 ;
 	}
-
-}
-
-function float Banana() {
-	var float Lolo ;
-	Lolo = 9.0 + 9 ;
 }
 
 main
 {
-	var bool Alex ;
-	var float Tony ;
-	var int Oscar ;
-	var int Ponce ;
-	var bool Manuel ;
-	var bool Alejandra ;
-	var int Juanca ;
-	var int Tamez ;
-	Tamez = 0 ;
-	Caca = 0 ;
-	Juanca = 0 ;
-	Oscar = 9 ;
-	Bermea = Oscar * Oscar ;
-	Manuel = false ;
-	Alex = 9 < 5 ;
-	if ( Alex == Manuel ) {
-		Ponce = 1 + 1 ;
-	}
-	else {
-		if ( Oscar > 2 ) {
-			Ponce = 3 * 3 ;
-		}
-		else {
-			Ponce = 8 - 2 ;
-		}
-	}
-	while ( Juanca < 10 ) {
-		Tamez = Tamez + 2 ;
-		Juanca = Juanca + 1 ;
-	}
-	Tony = Bermea / 3 ;
-	Bermea = ( 3 * 3 ) - ( 2 + 1 ) ;
-	Tony = 100 ;
+	var float Ponce ;
+	Caca = 1 ;
+	Carlos = 3 ;
+	Bermea = ( Caca + Caca ) * Carlos ;
+	Caca = Caca * 9 ;
+	Ponce = Bermea / 2 ;
 }

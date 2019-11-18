@@ -12,6 +12,8 @@ ptemp = []
 avail = []
 pilacuadruplos = []
 contador = 0
+
+
 class Cuadrupl:
     def __init__(self, left, operator, right, resultado, num):
         self.left = left
@@ -19,7 +21,6 @@ class Cuadrupl:
         self.right = right
         self.resultado = resultado
         self.num = num
-
 
 def imprimirtodocuadr():
     for i in range(len(pilacuadruplos)):
@@ -30,12 +31,40 @@ def imprimircuadruplo(num,left, operator, right, resultado):
 
 def pushID(id):
     global contador
-    pilaid.append(id)
-    avail.append(varsTable.getAttributes(id))
+    pilaid.append(varsTable.getAttributes(id))
+    avail.append(varsTable.getValue(id))
     pilaTipos.append(varsTable.getTypeVar(id))
     contador = contador + 1
     #print (contador,str(pilaid)[1:-1])
     #print(contador,str(avail)[1:-1])
+
+
+# Funcion que obtiene elipo de un cte
+
+# Funcion que verifica si el CTE ya se encuentra en la memoria
+def verificarValorCte(cte,tipo):
+    if tipo == "int":
+        if(cte in Memory.global_memroy.ints.values()):
+            return True
+        else:
+            return False
+    elif tipo == "float":
+        if(cte in Memory.global_memroy.floats.values()):
+            return True
+        else:
+            return False
+    elif tipo == "bool":
+        if(cte in Memory.global_memroy.bools.values()):
+            return True
+        else:
+            return False
+    elif tipo == "string":
+        if(cte in Memory.global_memroy.strings.values()):
+            return True
+        else:
+            return False
+    else:
+        print("falla")
 
 def pushCTE(var):
     global contador
@@ -44,9 +73,55 @@ def pushCTE(var):
         avail.append(var)
         pilaid.append(var)
     else:
-        avail.append(var)
-        pilaid.append(var)
-        crearTipo(var)
+        if str(type(var)) == "<class 'float'>":
+            if (verificarValorCte(var,"float")):
+                dir = Memory.GetDir(var,"float")
+                avail.append(var)
+                pilaid.append(dir)
+                crearTipo(var)
+            else:
+                dir = Memory.global_memroy.insert_const(var,"float")
+                avail.append(var)
+                pilaid.append(dir)
+                crearTipo(var)
+        elif str(type(var)) == "<class 'int'>":
+            if (verificarValorCte(var,"int")):
+                dir = Memory.GetDir(var,"int")
+                avail.append(var)
+                pilaid.append(dir)
+                crearTipo(var)
+            else:
+                dir = Memory.global_memroy.insert_const(var,"int")
+                valor = Memory.global_memroy.ints.get(var)
+                avail.append(var)
+                pilaid.append(dir)
+                crearTipo(var)
+        elif str(type(var)) == "<class 'bool'>":
+            if (verificarValorCte(var,"bool")):
+                dir = Memory.GetDir(var,"bool")
+                avail.append(var)
+                pilaid.append(dir)
+                crearTipo(var)
+            else:
+                dir = Memory.global_memroy.insert_const(var,"bool")
+                valor = Memory.global_memroy.bools.get(var)
+                avail.append(var)
+                pilaid.append(dir)
+                crearTipo(var)
+        elif str(type(var)) == "<class 'string'>":
+            if (verificarValorCte(var,"string")):
+                dir = Memory.GetDir(var,"string")
+                avail.append(var)
+                pilaid.append(dir)
+                crearTipo(var)
+            else:
+                dir = Memory.global_memroy.insert_const(var,"string")
+                valor = Memory.global_memroy.string.get(var)
+                avail.append(var)
+                pilaid.append(dir)
+                crearTipo(var)
+        else:
+            print("bye")
     #print (contador,str(pilaid)[1:-1])
     #print(contador,str(avail)[1:-1])
 
@@ -76,7 +151,7 @@ def resolverasignacion():
             if tipo_id == "float" and tipo_res == "int":
                 valor = float(valor)
             elif tipo_id == "int" and tipo_res == "float":
-                print("error de semantica")
+                print("error de semantica 1")
                 sys.exit()
             #print (str(pilaid)[1:-1])
             #print("el id es ",valor, operator, "None", valid, len(pilacuadruplos))
@@ -113,7 +188,7 @@ def resolverterm():
                 pilacuadruplos.append(cuad)
                 #imprimircuadruplo(val_izq, operator, val_der, resultado)
             else:
-                print("error de semantica")
+                print("error de semantica 2")
                 sys.exit()
 
 
@@ -142,7 +217,7 @@ def resolverfact():
                 pilacuadruplos.append(cuad)
                 #imprimircuadruplo(val_izq, operator, val_der, resultado)
             else:
-                print("error de semantica")
+                print("error de semantica 3")
                 sys.exit()
 
 def resolverRel():
@@ -178,7 +253,7 @@ def resolverRel():
                 avail.append(resultado)
                 tip = crearTipo(resultado)
             else:
-                print("error de semantica")
+                print("error de semantica 4")
                 sys.exit()
 
 def ResolverCond():

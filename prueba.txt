@@ -2,6 +2,7 @@ program :
 
 var int Caca ;
 var float Carlos ;
+var int Bermea ;
 
 function float Apple() {
 	var float Ponce ;
@@ -13,14 +14,13 @@ function float Apple() {
 }
 
 function float Banana() {
-	var float Bermea ;
-	Bermea = 9.0 + 9 ;
+	var float Lolo ;
+	Lolo = 9.0 + 9 ;
 }
 
 main
 {
 	var bool Alex ;
-	var int Bermea ;
 	var float Tony ;
 	var int Oscar ;
 	var int Ponce ;

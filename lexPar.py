@@ -3,6 +3,7 @@ import ply.lex as lex
 import sys
 import varsTable as varsTable
 import cuadruplos as cuadruplos
+import execMemory as Memoria
 
 success = True
 
@@ -228,6 +229,7 @@ def p_function(p):
 
   '''
   varsTable.is_local = False
+  Memoria.Reiniciar()
 
 
 def p_functype(p):
@@ -247,7 +249,6 @@ def p_addInTable(p):
     varsTable.is_local = True
     varsTable.func_id = p[-1]
     varsTable.insert(varsTable.func_tipo, varsTable.func_id)
-
 
 def p_funci(p):
   '''
@@ -502,11 +503,15 @@ parser.parse(s)
 cuadruplos.imprimirtodocuadr()
 if success == True:
     print("Archivo aprobado")
-    print("VarsTable")
     #sys.exit()
 else:
     print("Archivo no aprobado")
     #sys.exit()
-print
-
+print("memoria global ")
+Memoria.global_memroy.show()
+print("memoria main ")
+Memoria.main_memory.show()
+print("VarsTable")
+print("memoria locales ")
+Memoria.Imprimirlocales()
 varsTable.show();

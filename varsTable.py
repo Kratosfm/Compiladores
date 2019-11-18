@@ -1,4 +1,5 @@
 import sys
+import execMemory as Memoria
 
 func_id = None
 func_tipo = None
@@ -51,6 +52,7 @@ def insert(tipo, id):
             print ("variable ya declarada")
             sys.exit()
         else:
+            Memoria.local_memory[id] = Memoria.Memory(id)
             symbol_table[id] = FunctionEntry(id, tipo)
     elif(is_main):
         if symbol_table.get(id):
@@ -69,22 +71,35 @@ def insert(tipo, id):
 def update(id, value):
     if(is_local):
         if(validar(symbol_table[func_id].dict[id].tipo, value)):
-            symbol_table[func_id].dict[id].value = value
+            if (symbol_table[func_id].dict.get(id)):
+                symbol_table[func_id].dict[id].value = value
+            else:
+                symbol_table["global"].dict[id].value = value
     elif(is_main):
-        if(validar(symbol_table[func_id].dict[id].tipo, value)):
-            symbol_table[func_id].dict[id].value = value
+        if (symbol_table[func_id].dict.get(id)):
+            if(validar(symbol_table[func_id].dict[id].tipo, value)):
+                symbol_table[func_id].dict[id].value = value
+        else:
+            if(validar(symbol_table["global"].dict[id].tipo, value)):
+                symbol_table["global"].dict[id].value = value
     else:
         if(validar(symbol_table[func_id].tipo, value)):
             symbol_table[id].value = value
 
 def getAttributes(id):
-    return (symbol_table[func_id].dict[id].value)
+    if (symbol_table[func_id].dict.get(id)):
+        return (symbol_table[func_id].dict[id].value)
+    else:
+        return (symbol_table["global"].dict[id].value)
 
 def getType(id):
     return (symbol_table[id].tipo)
 
 def getTypeVar(id):
-    return (symbol_table[func_id].dict[id].tipo)
+    if (symbol_table[func_id].dict.get(id)):
+        return (symbol_table[func_id].dict[id].tipo)
+    else:
+        return (symbol_table["global"].dict[id].tipo)
 
 def getTypeVar2(tipo):
     if tipo == "<class 'float'>" :
@@ -114,4 +129,12 @@ def insertVarInFunc(tipo, id, funt):
         print ("variable ya declarada")
         sys.exit()
     else:
-        symbol_table[funt].dict[id] = Entry(id, tipo)
+        if (funt == "main"):
+            dir = Memoria.main_memory.insert_main(id,tipo)
+            symbol_table[funt].dict[id] = Entry(id, tipo, dir)
+        elif (funt == "global"):
+            dir = Memoria.global_memroy.insert_global(id,tipo)
+            symbol_table[funt].dict[id] = Entry(id, tipo, dir)
+        else:
+            dir = Memoria.local_memory[funt].insert_local(id,tipo)
+            symbol_table[funt].dict[id] = Entry(id, tipo, dir)

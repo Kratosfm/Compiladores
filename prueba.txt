@@ -31,6 +31,7 @@ main
 	var int Juanca ;
 	var int Tamez ;
 	Tamez = 0 ;
+	Caca = 0 ;
 	Juanca = 0 ;
 	Oscar = 9 ;
 	Bermea = Oscar * Oscar ;

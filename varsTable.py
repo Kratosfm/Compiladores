@@ -79,11 +79,20 @@ def update(id, value):
             if(validar(symbol_table[func_id].dict[id].tipo, value)):
                 symbol_table[func_id].dict[id].value = value
         else:
+            dir = symbol_table["global"].dict[id].value
             if(validar(symbol_table["global"].dict[id].tipo, value)):
-                symbol_table["global"].dict[id].value = value
+                if (symbol_table["global"].dict[id].tipo == "int"):
+                    Memoria.global_memroy.ints[dir] = value
+                else:
+                    symbol_table["global"].dict[id].value = value
     else:
         if(validar(symbol_table[func_id].tipo, value)):
-            symbol_table[id].value = value
+            dir = symbol_table[id].value
+            if (symbol_table[func_id].tipo == "int"):
+                Memoria.global_memroy.ints[dir] = value
+            else:
+                print("Valos ", dir, value)
+                symbol_table[id].value = value
 
 def getAttributes(id):
     if (symbol_table[func_id].dict.get(id)):

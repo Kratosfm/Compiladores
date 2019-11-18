@@ -25,17 +25,6 @@ class Memory:
         self.bools = {}
         self.strings = {}
 
-    def insert(self, var,dir):
-        if( str(type(var)) == "<class 'int'>" ):
-            self.ints[dir] = var
-        if( str(type(var)) == "<class 'float'>" ):
-            self.floats[dir] = var
-        if( str(type(var)) == "<class 'bool'>" ):
-            self.bools[dir] = var
-        if( str(type(var)) == "<class 'str'>" ):
-            self.strings[dir] = var
-        return
-
     def insert_global(self, var, tipo):
         global global_int
         global global_float

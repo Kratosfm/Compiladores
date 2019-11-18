@@ -2,6 +2,7 @@ import sys
 
 import varsTable as varsTable
 import semantic_Cube as semantic
+import execMemory as Memory
 
 popper = []
 pilaid = []

@@ -52,7 +52,6 @@ def insert(tipo, id):
             print ("variable ya declarada")
             sys.exit()
         else:
-            Memoria.local_memory[id] = Memoria.Memory(id)
             symbol_table[id] = FunctionEntry(id, tipo)
     elif(is_main):
         if symbol_table.get(id):
@@ -130,11 +129,11 @@ def insertVarInFunc(tipo, id, funt):
         sys.exit()
     else:
         if (funt == "main"):
-            dir = Memoria.main_memory.insert_main(id,tipo)
+            dir = Memoria.global_memroy.insert_main(id,tipo)
             symbol_table[funt].dict[id] = Entry(id, tipo, dir)
         elif (funt == "global"):
             dir = Memoria.global_memroy.insert_global(id,tipo)
             symbol_table[funt].dict[id] = Entry(id, tipo, dir)
         else:
-            dir = Memoria.local_memory[funt].insert_local(id,tipo)
+            dir = Memoria.global_memroy.insert_local(id,tipo)
             symbol_table[funt].dict[id] = Entry(id, tipo, dir)

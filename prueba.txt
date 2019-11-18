@@ -6,6 +6,8 @@ var int Bermea ;
 
 function float Apple() {
 	var float Ponce ;
+	var float Armando ;
+	Armando = 7 ;
 	Ponce = 9 + 9 ;
 	while ( Ponce < 81 ){
 		Ponce = Ponce * 9 ;

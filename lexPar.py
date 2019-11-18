@@ -229,8 +229,12 @@ def p_function(p):
 
   '''
   varsTable.is_local = False
+  Memoria.global_memroy.show()
   Memoria.Reiniciar()
-
+  Memoria.BorrarInts()
+  Memoria.BorrarFloats()
+  Memoria.BorrarBools()
+  Memoria.BorrarStrings()
 
 def p_functype(p):
   '''
@@ -509,9 +513,4 @@ else:
     #sys.exit()
 print("memoria global ")
 Memoria.global_memroy.show()
-print("memoria main ")
-Memoria.main_memory.show()
-print("VarsTable")
-print("memoria locales ")
-Memoria.Imprimirlocales()
 varsTable.show();

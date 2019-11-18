@@ -19,8 +19,7 @@ cte_bools = 4300
 
 class Memory:
 
-    def __init__(self,name):
-        self.name = name
+    def __init__(self):
         self.ints = {}
         self.floats = {}
         self.bools = {}
@@ -125,13 +124,9 @@ class Memory:
     def show(self):
         print("memoria int ",self.ints, " memoria float ",self.floats, " memoria bools ",self.bools," memoria string ",self.strings)
 
-main_memory = Memory("main")
-global_memroy = Memory("global")
-local_memory = {}
-cte_memory = Memory("cte")
+global_memroy = Memory()
 
 def Reiniciar():
-    print("hola")
     global loc_int
     global loc_float
     global loc_bools
@@ -140,6 +135,42 @@ def Reiniciar():
     loc_float = 1100
     loc_string = 1200
     loc_bools = 1300
+
+def BorrarInts():
+    arr = []
+    for key in global_memroy.ints:
+        if(key >= 1000 and key <= 1099):
+            arr.append(key)
+    for i in arr:
+        val = arr.pop()
+        del global_memroy.ints[val]
+
+def BorrarFloats():
+    arr = []
+    for key in global_memroy.floats:
+        if(key >= 1100 and key <= 1199):
+            arr.append(key)
+    for i in arr:
+        val = arr.pop()
+        del global_memroy.floats[val]
+
+def BorrarBools():
+    arr = []
+    for key in global_memroy.bools:
+        if(key >= 1300 and key <= 1399):
+            arr.append(key)
+    for i in arr:
+        val = arr.pop()
+        del global_memroy.bools[val]
+
+def BorrarStrings():
+    arr = []
+    for key in global_memroy.strings:
+        if(key >= 1100 and key <= 1299):
+            arr.append(key)
+    for i in arr:
+        val = arr.pop()
+        del global_memroy.strings[val]
 
 def Imprimirlocales():
     for i in local_memory:

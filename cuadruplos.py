@@ -38,7 +38,6 @@ def pushID(id):
     #print (contador,str(pilaid)[1:-1])
     #print(contador,str(avail)[1:-1])
 
-
 # Funcion que obtiene elipo de un cte
 
 # Funcion que verifica si el CTE ya se encuentra en la memoria
@@ -108,7 +107,7 @@ def pushCTE(var):
                 avail.append(var)
                 pilaid.append(dir)
                 crearTipo(var)
-        elif str(type(var)) == "<class 'string'>":
+        elif str(type(var)) == "<class 'str'>":
             if (verificarValorCte(var,"string")):
                 dir = Memory.GetDir(var,"string")
                 avail.append(var)
@@ -116,7 +115,7 @@ def pushCTE(var):
                 crearTipo(var)
             else:
                 dir = Memory.global_memroy.insert_const(var,"string")
-                valor = Memory.global_memroy.string.get(var)
+                valor = Memory.global_memroy.strings.get(var)
                 avail.append(var)
                 pilaid.append(dir)
                 crearTipo(var)
@@ -142,20 +141,22 @@ def resolverasignacion():
         if popper[tam-1] == '=':
             valor = avail.pop()
             #Sacar temporal final de resultado id
-            pilaid.pop()
+            id2 = pilaid.pop()
             avail.pop()
             tipo_res = pilaTipos.pop()
             tipo_id = pilaTipos.pop()
             valid = pilaid.pop()
+            #print("id",valid,id2,valor)
             operator = popper.pop()
             if tipo_id == "float" and tipo_res == "int":
                 valor = float(valor)
+                #dir = Memory.GetDir(valor,"float")
             elif tipo_id == "int" and tipo_res == "float":
                 print("error de semantica 1")
                 sys.exit()
             #print (str(pilaid)[1:-1])
             #print("el id es ",valor, operator, "None", valid, len(pilacuadruplos))
-            cuad = Cuadrupl(valor, operator, None, valid, len(pilacuadruplos))
+            cuad = Cuadrupl(id2, operator, None, valid, len(pilacuadruplos))
             pilacuadruplos.append(cuad)
             #varsTable.update(valid,valor)
             #print(id, varsTable.getAttributes(id))
@@ -178,13 +179,15 @@ def resolverterm():
             if(tipo_resultado != "err"):
                 if(operator == '+'):
                     resultado = val_izq + val_der
+                    dir = Memory.global_memroy.insert_temporal(resultado,tipo_resultado)
                 else:
                     resultado = val_izq - val_der
+                    dir = Memory.global_memroy.insert_temporal(resultado,tipo_resultado)
                 avail.append(resultado)
-                pilaid.append(resultado)
+                pilaid.append(dir)
                 tip = crearTipo(resultado)
                 #pilaTipos.append(tip)
-                cuad = Cuadrupl(id_izq, operator, id_der, resultado, len(pilacuadruplos))
+                cuad = Cuadrupl(id_izq, operator, id_der, dir, len(pilacuadruplos))
                 pilacuadruplos.append(cuad)
                 #imprimircuadruplo(val_izq, operator, val_der, resultado)
             else:
@@ -208,12 +211,14 @@ def resolverfact():
             if(tipo_resultado != "err"):
                 if(operator == '*'):
                     resultado = val_izq * val_der
+                    dir = Memory.global_memroy.insert_temporal(resultado,tipo_resultado)
                 else:
                     resultado = val_izq / val_der
+                    dir = Memory.global_memroy.insert_temporal(resultado,tipo_resultado)
                 avail.append(resultado)
-                pilaid.append(resultado)
+                pilaid.append(dir)
                 tip = crearTipo(resultado)
-                cuad = Cuadrupl(id_izq, operator, id_der, resultado, len(pilacuadruplos))
+                cuad = Cuadrupl(id_izq, operator, id_der, dir, len(pilacuadruplos))
                 pilacuadruplos.append(cuad)
                 #imprimircuadruplo(val_izq, operator, val_der, resultado)
             else:
@@ -236,17 +241,23 @@ def resolverRel():
             if (tipo_resultado != "err"):
                 if(operator == '<'):
                     resultado = val_izq < val_der
+                    dir = Memory.global_memroy.insert_temporal(resultado,tipo_resultado)
                 elif(operator == '<='):
                     resultado = val_izq <= val_der
+                    dir = Memory.global_memroy.insert_temporal(resultado,tipo_resultado)
                 elif(operator == '>'):
                     resultado = val_izq > val_der
+                    dir = Memory.global_memroy.insert_temporal(resultado,tipo_resultado)
                 elif(operator == '>='):
                     resultado = val_izq >= val_der
+                    dir = Memory.global_memroy.insert_temporal(resultado,tipo_resultado)
                 elif(operator == '=='):
                     resultado = val_izq == val_der
+                    dir = Memory.global_memroy.insert_temporal(resultado,tipo_resultado)
                 elif(operator == '!='):
                     resultado = val_izq != val_der
-                cuad = Cuadrupl(id_izq, operator, id_der, resultado, len(pilacuadruplos))
+                    dir = Memory.global_memroy.insert_temporal(resultado,tipo_resultado)
+                cuad = Cuadrupl(id_izq, operator, id_der, dir, len(pilacuadruplos))
                 #imprimircuadruplo(val_izq, operator, val_der, resultado)
                 pilacuadruplos.append(cuad)
                 pilaid.append(resultado)
@@ -256,6 +267,7 @@ def resolverRel():
                 print("error de semantica 4")
                 sys.exit()
 
+#Condiciones
 def ResolverCond():
     global contador
     tipo = pilaTipos.pop()
@@ -304,3 +316,5 @@ def while3():
     cuad = Cuadrupl("Goto", None, None, regresa, len(pilacuadruplos))
     pilacuadruplos.append(cuad)
     fill(end,len(pilacuadruplos))
+
+#Modulos

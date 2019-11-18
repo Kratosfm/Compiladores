@@ -8,7 +8,7 @@ function float Apple() {
 	var float Ponce ;
 	var float Armando ;
 	Armando = 7 ;
-	Armando = 7 ;
+	Armando = 9 ;
 	Ponce = 9 + 9 ;
 	while ( Ponce < 81 ){
 		Ponce = Ponce * 9 ;
@@ -17,8 +17,10 @@ function float Apple() {
 
 main
 {
+	var string Lolo ;
 	var float Ponce ;
 	Caca = 1 ;
+	Lolo = "hey" ;
 	Carlos = 3 ;
 	Bermea = ( Caca + Caca ) * Carlos ;
 	Caca = Caca * 9 ;

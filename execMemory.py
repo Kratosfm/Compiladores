@@ -1,4 +1,5 @@
 import pprint
+import varsTable as varsTable
 
 loc_int = 1000
 loc_float = 1100
@@ -16,6 +17,14 @@ cte_int = 4000
 cte_float = 4100
 cte_string = 4200
 cte_bools = 4300
+tm_int = 5000
+tm_float = 5100
+tm_string = 5200
+tm_books = 5300
+tl_int = 6000
+tl_float = 6100
+tl_string = 6200
+tl_bools = 6300
 
 class Memory:
 
@@ -24,9 +33,6 @@ class Memory:
         self.floats = {}
         self.bools = {}
         self.strings = {}
-        self.constan = {}
-        self.temporalesmain = {}
-        self.temporaleslocales = {}
 
     def insert_global(self, var, tipo):
         global global_int
@@ -38,17 +44,17 @@ class Memory:
             global_int = global_int + 1
             self.ints[dir] = var
             return dir
-        if( tipo == "float" ):
+        elif( tipo == "float" ):
             dir = global_float
             global_float = global_float + 1
             self.floats[dir] = var
             return dir
-        if( tipo == "bool" ):
+        elif( tipo == "bool" ):
             dir = global_bools
             global_bools = global_bools + 1
             self.bools[dir] = var
             return dir
-        if( tipo == "string" ):
+        elif( tipo == "string" ):
             dir = global_string
             global_string = global_string + 1
             self.strings[dir] = var
@@ -64,17 +70,17 @@ class Memory:
             main_int = main_int + 1
             self.ints[dir] = var
             return dir
-        if( tipo == "float" ):
+        elif( tipo == "float" ):
             dir = main_float
             main_float = main_float + 1
             self.floats[dir] = var
             return dir
-        if( tipo == "bool" ):
+        elif( tipo == "bool" ):
             dir = main_bools
             main_bools = main_bools + 1
             self.bools[dir] = var
             return dir
-        if( tipo == "string" ):
+        elif( tipo == "string" ):
             dir = main_string
             main_string = main_string + 1
             self.strings[dir] = var
@@ -90,17 +96,17 @@ class Memory:
             loc_int = loc_int + 1
             self.ints[dir] = var
             return dir
-        if( tipo == "float" ):
+        elif( tipo == "float" ):
             dir = loc_float
             loc_float = loc_float + 1
             self.floats[dir] = var
             return dir
-        if( tipo == "bool" ):
+        elif( tipo == "bool" ):
             dir = loc_bools
             loc_bools = loc_bools + 1
             self.bools[dir] = var
             return dir
-        if( tipo == "string" ):
+        elif( tipo == "string" ):
             dir = loc_string
             loc_string = loc_string + 1
             self.strings[dir] = var
@@ -116,24 +122,74 @@ class Memory:
             cte_int = cte_int + 1
             self.ints[dir] = var
             return dir
-        if( tipo == "float" ):
+        elif( tipo == "float" ):
             dir = cte_float
             cte_float = cte_float + 1
             self.floats[dir] = var
             return dir
-        if( tipo == "bool" ):
+        elif( tipo == "bool" ):
             dir = cte_bools
             cte_bools = cte_bools + 1
             self.bools[dir] = var
             return dir
-        if( tipo == "string" ):
+        elif( tipo == "string" ):
             dir = cte_string
             cte_string = cte_string + 1
             self.strings[dir] = var
             return dir
 
+    def insert_temporal(self,var,tipo):
+        global tm_int
+        global tm_float
+        global tm_string
+        global tm_bools
+        global tl_int
+        global tl_float
+        global tl_string
+        global tl_bools
+        if( tipo == "int" and varsTable.func_id == "main"):
+            dir = tm_int
+            tm_int = tm_int + 1
+            self.ints[dir] = var
+            return dir
+        elif( tipo == "float" and varsTable.func_id == "main"):
+            dir = tm_float
+            tm_float = tm_float + 1
+            self.floats[dir] = var
+            return dir
+        elif( tipo == "bool" and varsTable.func_id == "main"):
+            dir = tm_bools
+            tm_bools = tm_bools + 1
+            self.bools[dir] = var
+            return dir
+        elif( tipo == "string" and varsTable.func_id == "main"):
+            dir = tm_books
+            tm_books = tm_books + 1
+            self.strings[dir] = var
+            return dir
+        elif( tipo == "int" and varsTable.func_id != "main"):
+            dir = tl_int
+            tl_int = tl_int + 1
+            self.ints[dir] = var
+            return dir
+        elif( tipo == "float" and varsTable.func_id != "main"):
+            dir = tl_float
+            tl_float = tl_float + 1
+            self.floats[dir] = var
+            return dir
+        elif( tipo == "bool" and varsTable.func_id != "main"):
+            dir = tl_bools
+            tl_bools = tl_bools + 1
+            self.bools[dir] = var
+            return dir
+        elif( tipo == "string" and varsTable.func_id != "main"):
+            dir = tl_string
+            tl_string = tl_string + 1
+            self.strings[dir] = var
+            return dir
+
     def show(self):
-        print("memoria int ",self.ints, " memoria float ",self.floats, " memoria bools ",self.bools," memoria string ",self.strings," memoria cte ", self.constan)
+        print("memoria int ",self.ints, " memoria float ",self.floats, " memoria bools ",self.bools," memoria string ",self.strings)
 
 global_memroy = Memory()
 
@@ -142,15 +198,23 @@ def Reiniciar():
     global loc_float
     global loc_bools
     global loc_string
+    global tl_int
+    global tl_float
+    global tl_string
+    global tl_bools
     loc_int = 1000
     loc_float = 1100
     loc_string = 1200
     loc_bools = 1300
+    tl_int = 6000
+    tl_float = 6100
+    tl_string = 6200
+    tl_bools = 6300
 
 def BorrarInts():
     arr = []
     for key in global_memroy.ints:
-        if(key >= 1000 and key <= 1099):
+        if((key >= 1000 and key <= 1099) or (key >= 6000 and key <= 6099)):
             arr.append(key)
     for i in arr:
         val = arr.pop()
@@ -159,7 +223,7 @@ def BorrarInts():
 def BorrarFloats():
     arr = []
     for key in global_memroy.floats:
-        if(key >= 1100 and key <= 1199):
+        if((key >= 1100 and key <= 1199) or (key >= 6100 and key <= 6199)):
             arr.append(key)
     for i in arr:
         val = arr.pop()
@@ -168,7 +232,7 @@ def BorrarFloats():
 def BorrarBools():
     arr = []
     for key in global_memroy.bools:
-        if(key >= 1300 and key <= 1399):
+        if((key >= 1300 and key <= 1399) or (key >= 6200 and key <= 6299)):
             arr.append(key)
     for i in arr:
         val = arr.pop()
@@ -177,7 +241,7 @@ def BorrarBools():
 def BorrarStrings():
     arr = []
     for key in global_memroy.strings:
-        if(key >= 1200 and key <= 1299):
+        if((key >= 1200 and key <= 1299) or (key >= 6300 and key <= 6399)):
             arr.append(key)
     for i in arr:
         val = arr.pop()

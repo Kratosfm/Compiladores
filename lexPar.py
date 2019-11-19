@@ -235,6 +235,9 @@ def p_function(p):
   Memoria.BorrarFloats()
   Memoria.BorrarBools()
   Memoria.BorrarStrings()
+  #cuadruplos.CrearENDPROC()
+  cuad = cuadruplos.Cuadrupl(None, "ENDPROC", None, None, len(cuadruplos.pilacuadruplos))
+  cuadruplos.pilacuadruplos.append(cuad)
 
 def p_functype(p):
   '''
@@ -253,13 +256,24 @@ def p_addInTable(p):
     varsTable.is_local = True
     varsTable.func_id = p[-1]
     varsTable.insert(varsTable.func_tipo, varsTable.func_id)
-
+#Creacion de los parametros
 def p_funci(p):
   '''
-    funci : tipo ID
-    | tipo ID COMA funci
+    funci : funcitype ID
+    | funcitype ID COMA funci
     | empty
   '''
+  print("funcion ", p[2])
+#Tipo de los parametros de funciones
+def p_funcitype(p):
+    '''
+    funcitype : INT
+    | FLOAT
+    | STRING
+    | BOOL
+    '''
+    print("funcion tipo", p[1])
+
 
 def p_localvar(p):
      '''
@@ -405,15 +419,34 @@ def p_var_cte(p):
 
 def p_fcall(p):
   '''
-  	fcall : ID LPAREN fcall1 RPAREN
-        | ID LPAREN RPAREN
+  	fcall : ID existfunc LPAREN startera fcall1 RPAREN
+        | ID existfunc LPAREN RPAREN
   '''
+#Funcion que llama a CheckExistIdFunc para verificar que exista la funcion en la tabla
+def p_existfunc(p):
+    '''existfunc :'''
+    existe = varsTable.CheckExistIdFunc(p[-1])
+    if(existe == True):
+        varsTable.fun_name = p[-1]
+    else:
+        print("funcion no declarada")
+        sys.exit()
+#Funcion que manda a llamar funcion para crear el cuadruplo de era
+def p_startera(p):
+    '''startera :'''
+    cuadruplos.generateEra(p[-3])
 
 def p_fcall1(p):
   '''
-  	fcall1 : expres
-        | expres COMA fcall1
+  	fcall1 : expres generateparam
+        | expres generateparam COMA fcall1
   '''
+
+def p_generateparam(p):
+    "generateparam :"
+    print(varsTable.fun_name,p[-1])
+    #existe = varsTable.existeID(varsTable.fun_name,p[-1])
+
 
 def p_vcall(p):
   '''

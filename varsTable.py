@@ -9,6 +9,7 @@ var_space = None
 is_local = False
 is_main = False
 is_global = False
+fun_name = None
 
 symbol_table = {}
 
@@ -196,7 +197,7 @@ def getTypeVar(id):
         return (symbol_table[func_id].dict[id].tipo)
     else:
         return (symbol_table["global"].dict[id].tipo)
-
+#Funcion para conseguir el tipo de variable y comprobarlo con el cubo semantico
 def getTypeVar2(tipo):
     if tipo == "<class 'float'>" :
         return "float"
@@ -208,6 +209,12 @@ def getTypeVar2(tipo):
         return "bool"
     else:
         return False
+#funcion para conseguir el tipo de variable y comprobarlo para modulos
+def getTypeVar3(funcion,id):
+    if (symbol_table[funcion].dict.get(id)):
+        return (symbol_table[funcion].dict[id].tipo)
+    else:
+        return (symbol_table["global"].dict[id].tipo)
 
 def show():
 #    print(symbol_table["global"].dict, symbol_table["main"].dict)
@@ -234,3 +241,19 @@ def insertVarInFunc(tipo, id, funt):
         else:
             dir = Memoria.global_memroy.insert_local(id,tipo)
             symbol_table[funt].dict[id] = Entry(id, tipo, dir)
+
+def CheckExistIdFunc(id):
+    print(id)
+    if (symbol_table.get(id)):
+        return True
+    else:
+        return False
+
+def existeID(funt,id):
+    print(funt,id)
+    tipo = symbol_table[funt].dict[id].tipo
+    print("el tipo es ",tipo)
+    if ((tipo == getTypeVar3(funt,id))):
+        print("correct")
+    else:
+        print("mal")

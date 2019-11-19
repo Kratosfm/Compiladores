@@ -12,7 +12,7 @@ ptemp = []
 avail = []
 pilacuadruplos = []
 contador = 0
-
+paramcontador = 0
 
 class Cuadrupl:
     def __init__(self, left, operator, right, resultado, num):
@@ -318,3 +318,9 @@ def while3():
     fill(end,len(pilacuadruplos))
 
 #Modulos
+#Inicializa Era
+def generateEra(id):
+    global paramcontador
+    cuad = Cuadrupl(None, "ERA", None, id, len(pilacuadruplos))
+    pilacuadruplos.append(cuad)
+    paramcontador = paramcontador + 1

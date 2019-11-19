@@ -3,8 +3,9 @@ program :
 var int Caca ;
 var float Carlos ;
 var float Bermea ;
+var bool Pregunta;
 
-function float Apple() {
+function float Apple( int Lele ) {
 	var float Ponce ;
 	var float Armando ;
 	Armando = 7 ;
@@ -20,9 +21,11 @@ main
 	var string Lolo ;
 	var float Ponce ;
 	Caca = 1 ;
-	Lolo = "hey" ;
+	Pregunta = false ;
+	Lolo = "hey" + " Ponce" ;
 	Carlos = 3 ;
 	Bermea = ( Caca + Caca ) * Carlos ;
 	Caca = Caca * 9 ;
 	Ponce = Bermea / 2 ;
+	Caca = Apple ( 1 + 1) ;
 }

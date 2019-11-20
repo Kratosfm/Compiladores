@@ -1,0 +1,52 @@
+.is-centered{
+  text-align: center;
+}
+
+.button.is-danger : active{
+    background:#9b1d38;
+}
+
+.button.is-danger : focus{
+    background:#9b1d38;
+}
+
+.is-main{
+  background-color: hsl(0, 0%, 71%);
+}
+
+.is-global{
+  margin-top: 30px;
+}
+
+.is-function{
+  background-color: blue;
+}
+
+.is-variable{
+  background-color: white;
+  color: hsl(141, 71%, 48%);
+  margin-bottom: 10px;
+}
+
+.is-function{
+  background-color: white;
+  color: #3298dc;
+}
+
+.is-loop{
+  background-color: hsl(0, 0%, 21%);
+  color: white;
+}
+
+.is-condition {
+  background-color: hsl(0, 0%, 90%);
+  color: white;
+}
+
+.is-block{
+  padding: 20px;
+}
+
+.buttons{
+  margin-bottom: 20px;
+}

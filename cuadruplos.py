@@ -324,3 +324,16 @@ def generateEra(id):
     cuad = Cuadrupl(None, "ERA", None, id, len(pilacuadruplos))
     pilacuadruplos.append(cuad)
     paramcontador = paramcontador + 1
+
+def getparam():
+    resultado = pilaid.pop()
+    #pilaTipos.pop()
+    #valor = avail.pop()
+    num = str(varsTable.param_cont)
+    cuadr = Cuadrupl(resultado,"param",None,"param"+num,len(pilacuadruplos))
+    pilacuadruplos.append(cuadr)
+    return resultado
+
+def generategosub(funct):
+    cuadr = Cuadrupl(funct,"GoSub",None,None,len(pilacuadruplos))
+    pilacuadruplos.append(cuadr)

@@ -2,34 +2,19 @@ program :
 
 var int Caca ;
 var float Carlos ;
+var float Bermea ;
+var bool Pregunta;
+var float Modulo ;
+vector int Vet [5] ;
+var int Julia ;
 
-main
-{
-	var int Tamez ;
-	var int Juanca ;
-	Tamez = 0 ;
-	Juanca = 0 ;
-	while ( Juanca < 10 ) {
-		Tamez = Tamez + 2 ;
-		Juanca = Juanca + 1 ;
-	}
-}
-
-
-
-
-
-program :
-
-var int Caca ;
-var float Carlos ;
-var int Bermea ;
-
-function float Apple() {
+function float Apple( float Lele , float Papa ) {
 	var float Ponce ;
 	var float Armando ;
 	Armando = 7 ;
+	Armando = 9 ;
 	Ponce = 9 + 9 ;
+	Caca = 200 ;
 	while ( Ponce < 81 ){
 		Ponce = Ponce * 9 ;
 	}
@@ -42,81 +27,17 @@ function float Banana() {
 
 main
 {
-	var bool Alex ;
-	var float Tony ;
-	var int Oscar ;
-	var int Ponce ;
-	var bool Manuel ;
-	var bool Alejandra ;
-	var int Juanca ;
-	var int Tamez ;
-	Tamez = 0 ;
-	Caca = 0 ;
-	Juanca = 0 ;
-	Oscar = 9 ;
-	Bermea = Oscar * Oscar ;
-	Manuel = false ;
-	Alex = 9 < 5 ;
-	if ( Alex == Manuel ) {
-		Ponce = 1 + 1 ;
-	}
-	else {
-		if ( Oscar > 2 ) {
-			Ponce = 3 * 3 ;
-		}
-		else {
-			Ponce = 8 - 2 ;
-		}
-	}
-	while ( Juanca < 10 ) {
-		Tamez = Tamez + 2 ;
-		Juanca = Juanca + 1 ;
-	}
-	Tony = Bermea / 3 ;
-	Bermea = ( 3 * 3 ) - ( 2 + 1 ) + 1 ;
-	Tony = 100 ;
-	Carlos = 10 ;
+	vector float Vet2 [10] ;
+	var string Lolo ;
+	var float Ponce ;
+	Caca = 1 ;
+	Pregunta = false ;
+	Lolo = "hey" + " Ponce" ;
+	Carlos = 3 ;
+	Bermea = ( Caca + Caca ) * Carlos ;
+	Caca = Caca * 9 ;
+	Ponce = Bermea / 2 ;
+	Modulo = Apple ( 1 + 1 , Caca ) ;
+	Julia = 1000 ;
+	Ponce = Vet [ 2 ] ;
 }
-
-
-
-
-if str(type(var)) == "<class 'float'>":
-				if (Memory.global_memroy.floats.get(var)):
-						dir = Memory.global_memroy.insert_const(var,"float")
-						avail.append(var)
-						pilaid.append(dir)
-						crearTipo(var)
-				else:
-						dir = Memory.global_memroy.floats[var]
-						avail.append(var)
-						pilaid.append(dir)
-						crearTipo(var)
-
-		elif str(type(var)) == "<class 'int'>":
-				if (Memory.global_memroy.ints.get(var)):
-						print("el int 1")
-						dir = Memory.global_memroy.ints[var]
-						avail.append(var)
-						pilaid.append(dir)
-						crearTipo(var)
-				else:
-						dir = Memory.global_memroy.insert_const(var,"int")
-						#print(Memory.global_memroy.ints.get(var))
-						valor = Memory.global_memroy.ints.get(var)
-						print(dir,var,valor)
-						avail.append(var)
-						pilaid.append(dir)
-						crearTipo(var)
-		elif str(type(var)) == "<class 'str'>":
-				dir = Memory.global_memroy.insert_const(var,"string")
-				avail.append(var)
-				pilaid.append(var)
-				crearTipo(var)
-		elif str(type(varc)) == "<class 'bool'>":
-				dir = Memory.global_memroy.insert_const(var,"bool")
-				avail.append(var)
-				pilaid.append(var)
-				crearTipo(var)
-		else:
-				print("bye")

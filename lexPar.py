@@ -213,10 +213,23 @@ def p_tipo(p):
 
 def p_vector(p):
   '''
-  	vector : VECTOR ID LBRACE CTE_I RBRACE SEMICOLON
+  	vector : VECTOR initvector INT ID LBRACE CTE_I RBRACE SEMICOLON
+    | VECTOR initvector FLOAT ID LBRACE CTE_I RBRACE SEMICOLON
+    | VECTOR initvector STRING ID LBRACE CTE_I RBRACE SEMICOLON
+    | VECTOR initvector BOOL ID LBRACE CTE_I RBRACE SEMICOLON
   '''
-  varsTable.var_id = p[1]
-  varsTable.var_space = p[4]
+  if varsTable.is_global:
+      varsTable.insertVarInFunc(p[3],p[4], "global",p[6])
+  elif varsTable.is_main:
+      print("vector main" , p[3],p[4],p[6])
+      varsTable.insertVarInFunc(p[3],p[4], "main",p[6])
+  elif varsTable.is_local:
+      varsTable.insertVarInFunc(p[3],p[4], varsTable.func_id,p[6])
+  varsTable.is_vector = False
+
+def p_initvector(p):
+    "initvector :"
+    varsTable.is_vector = True
 
 def p_function(p):
   '''
@@ -228,8 +241,11 @@ def p_function(p):
     | FUNCTION functype ID addInTable LPAREN RPAREN LKEY RKEY
 
   '''
+  #  print("lala", len(varsTable.param_table[varsTable.func_id].dict))
+  #varsTable.ImprimirParamsType()
   varsTable.is_local = False
-  Memoria.global_memroy.show()
+  varsTable.ImprimirLcalTable(varsTable.func_id)
+  Memoria.global_memroy.show()  #eliminar esta
   Memoria.Reiniciar()
   Memoria.BorrarInts()
   Memoria.BorrarFloats()
@@ -239,6 +255,7 @@ def p_function(p):
   cuad = cuadruplos.Cuadrupl(None, "ENDPROC", None, None, len(cuadruplos.pilacuadruplos))
   cuadruplos.pilacuadruplos.append(cuad)
 
+#Tipo de funciones
 def p_functype(p):
   '''
   	functype : INT
@@ -248,7 +265,7 @@ def p_functype(p):
     | VOID
   '''
   varsTable.func_tipo = p[1]
-
+#añade la funcion a la varstable
 def p_addInTable(p):
     '''
     addInTable :
@@ -256,25 +273,24 @@ def p_addInTable(p):
     varsTable.is_local = True
     varsTable.func_id = p[-1]
     varsTable.insert(varsTable.func_tipo, varsTable.func_id)
+    varsTable.InsertParam(varsTable.func_id)
 #Creacion de los parametros
 def p_funci(p):
   '''
-    funci : funcitype ID
-    | funcitype ID COMA funci
+    funci : INT ID
+    | INT ID COMA funci
+    | FLOAT ID
+    | FLOAT ID COMA funci
+    | STRING ID
+    | STRING ID COMA funci
+    | BOOL ID
+    | BOOL ID COMA funci
     | empty
   '''
-  print("funcion ", p[2])
+  #print("funcion ",p[1] ,p[2])
+  varsTable.insertVarInFunc(p[1],p[2],varsTable.func_id)
+  varsTable.InsertTypParam(p[1])
 #Tipo de los parametros de funciones
-def p_funcitype(p):
-    '''
-    funcitype : INT
-    | FLOAT
-    | STRING
-    | BOOL
-    '''
-    print("funcion tipo", p[1])
-
-
 def p_localvar(p):
      '''
      localvar : var
@@ -415,13 +431,22 @@ def p_var_cte(p):
         | FALSE pushcte
         | fcall
         | vcall
+        | asigvector
   '''
+
+def p_asigvector(p):
+    '''
+    asigvector : ID LBRACE ex RBRACE
+    '''
 
 def p_fcall(p):
   '''
-  	fcall : ID existfunc LPAREN startera fcall1 RPAREN
+  	fcall : ID existfunc LPAREN startera fcall1 RPAREN generateGoSub
         | ID existfunc LPAREN RPAREN
   '''
+  varsTable.param_cont = 0
+  varsTable.fun_name = None
+
 #Funcion que llama a CheckExistIdFunc para verificar que exista la funcion en la tabla
 def p_existfunc(p):
     '''existfunc :'''
@@ -441,12 +466,24 @@ def p_fcall1(p):
   	fcall1 : expres generateparam
         | expres generateparam COMA fcall1
   '''
+  if varsTable.param_cont == varsTable.param_table[varsTable.fun_name].num:
+      print("pasa")
+  else:
+      print("Num de var no coinciden")
+      sys.exit()
 
 def p_generateparam(p):
     "generateparam :"
-    print(varsTable.fun_name,p[-1])
+    #Paso 4 de Module Call
+    varsTable.param_cont = varsTable.param_cont + 1
+    val = cuadruplos.getparam()
+    #print("adsads",varsTable.fun_name,p[-1])
     #existe = varsTable.existeID(varsTable.fun_name,p[-1])
 
+#Paso 6 de Module Call
+def p_generateGoSub(p):
+    "generateGoSub :"
+    cuadruplos.generategosub(p[-6])
 
 def p_vcall(p):
   '''

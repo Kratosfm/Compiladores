@@ -4,20 +4,30 @@ var int Caca ;
 var float Carlos ;
 var float Bermea ;
 var bool Pregunta;
+var float Modulo ;
+vector int Vet [5] ;
+var int Julia ;
 
-function float Apple( int Lele ) {
+function float Apple( float Lele , float Papa ) {
 	var float Ponce ;
 	var float Armando ;
 	Armando = 7 ;
 	Armando = 9 ;
 	Ponce = 9 + 9 ;
+	Caca = 200 ;
 	while ( Ponce < 81 ){
 		Ponce = Ponce * 9 ;
 	}
 }
 
+function float Banana() {
+	var float Lolo ;
+	Lolo = 9.0 + 9 ;
+}
+
 main
 {
+	vector float Vet2 [10] ;
 	var string Lolo ;
 	var float Ponce ;
 	Caca = 1 ;
@@ -27,5 +37,7 @@ main
 	Bermea = ( Caca + Caca ) * Carlos ;
 	Caca = Caca * 9 ;
 	Ponce = Bermea / 2 ;
-	Caca = Apple ( 1 + 1) ;
+	Modulo = Apple ( 1 + 1 , Caca ) ;
+	Julia = 1000 ;
+	Ponce = Vet [ 2 ] ;
 }

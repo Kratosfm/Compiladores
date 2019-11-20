@@ -10,11 +10,15 @@ is_local = False
 is_main = False
 is_global = False
 fun_name = None
+is_param = False
+is_vector = False
 
 symbol_table = {}
+param_table = {}
+param_cont = 0
 
 class Entry():
-    def __init__(self, id, tipo, value = None, space = None):
+    def __init__(self, id, tipo, value = None, space = None, isParam = False):
         self.id = id
         self.tipo = tipo
         self.value = value
@@ -25,6 +29,12 @@ class FunctionEntry:
         self.id = id
         self.tipo = tipo
         self.dict = {}
+
+class Param:
+    def __init__(self,id, num = 0):
+        self.id = id
+        self.dict = []
+        self.num = num
 
 def validar(tipo, valor):
     if str(type(valor)) == "<class 'float'>" and tipo == 'float':
@@ -222,38 +232,63 @@ def show():
         if (str((type(symbol_table[i]))) == "<class 'varsTable.FunctionEntry'>"):
             print(i, getType(i) ,"{")
             for j in symbol_table[i].dict:
-                print(symbol_table[i].dict[j].id, symbol_table[i].dict[j].tipo, symbol_table[i].dict[j].value)
+                print(symbol_table[i].dict[j].id, symbol_table[i].dict[j].tipo, symbol_table[i].dict[j].value, symbol_table[i].dict[j].space)
             print("}")
         else:
             print(symbol_table[i].id, symbol_table[i].tipo, symbol_table[i].value)
 
-def insertVarInFunc(tipo, id, funt):
+def insertVarInFunc(tipo, id, funt, espacio = None):
     if (symbol_table[funt].dict.get(id) or symbol_table["global"].dict.get(id)):
         print ("variable ya declarada")
         sys.exit()
     else:
-        if (funt == "main"):
+        if (funt == "main" and is_vector == False):
             dir = Memoria.global_memroy.insert_main(id,tipo)
             symbol_table[funt].dict[id] = Entry(id, tipo, dir)
-        elif (funt == "global"):
+        elif (funt == "global" and is_vector == False):
             dir = Memoria.global_memroy.insert_global(None,tipo)
             symbol_table[funt].dict[id] = Entry(id, tipo, dir)
-        else:
-            dir = Memoria.global_memroy.insert_local(id,tipo)
+        elif (funt == "main" and is_vector == True):
+            dir = Memoria.global_memroy.insert_main(id,tipo,espacio)
             symbol_table[funt].dict[id] = Entry(id, tipo, dir)
+            symbol_table[funt].dict[id].space = espacio
+        elif (funt == "global" and is_vector == True):
+            dir = Memoria.global_memroy.insert_global(None,tipo,espacio)
+            symbol_table[funt].dict[id] = Entry(id, tipo, dir)
+            symbol_table[funt].dict[id].space = espacio
+        else:
+            if is_vector == False:
+                dir = Memoria.global_memroy.insert_local(id,tipo)
+                symbol_table[funt].dict[id] = Entry(id, tipo, dir)
+            else:
+                dir = Memoria.global_memroy.insert_local(id,tipo)
+                symbol_table[funt].dict[id] = Entry(id, tipo, dir)
+                symbol_table[funt].dict[id].space = espacio
 
 def CheckExistIdFunc(id):
-    print(id)
     if (symbol_table.get(id)):
         return True
     else:
         return False
 
 def existeID(funt,id):
-    print(funt,id)
     tipo = symbol_table[funt].dict[id].tipo
-    print("el tipo es ",tipo)
     if ((tipo == getTypeVar3(funt,id))):
         print("correct")
     else:
         print("mal")
+
+def ImprimirLcalTable(funt):
+    for i in symbol_table[funt].dict:
+        print(symbol_table[funt].dict[i].id, symbol_table[funt].dict[i].tipo, symbol_table[funt].dict[i].value)
+
+def InsertParam(funt):
+    param_table[funt] = Param(funt)
+
+def InsertTypParam(tipo):
+    param_table[func_id].dict.append(tipo)
+    param_table[func_id].num = param_table[func_id].num + 1
+
+def ImprimirParamsType():
+    for element in param_table[func_id].dict:
+        print ("hey ",element)

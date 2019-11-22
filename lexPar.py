@@ -259,6 +259,7 @@ def p_function(p):
   varsTable.is_local = False
   #varsTable.ImprimirLcalTable(varsTable.func_id)
   Memoria.global_memroy.show()  #eliminar esta
+  varsTable.param_cont = 0
   Memoria.Reiniciar()
   Memoria.BorrarInts()
   Memoria.BorrarFloats()
@@ -293,22 +294,20 @@ def p_addInTable(p):
     varsTable.func_id = p[-1]
     varsTable.insert(varsTable.func_tipo, varsTable.func_id)
     varsTable.InsertParam(varsTable.func_id)
-
     varsTable.symbol_table[varsTable.func_id].cuadno = len(cuadruplos.pilacuadruplos)
 #Creacion de los parametros
 def p_funci(p):
   '''
-    funci : INT ID
-    | INT ID COMA funci
-    | FLOAT ID
-    | FLOAT ID COMA funci
-    | STRING ID
-    | STRING ID COMA funci
-    | BOOL ID
-    | BOOL ID COMA funci
+    funci : INT ID sumparam
+    | INT ID sumparam COMA funci
+    | FLOAT ID sumparam
+    | FLOAT ID sumparam COMA funci
+    | STRING ID sumparam
+    | STRING ID sumparam COMA funci
+    | BOOL ID sumparam
+    | BOOL ID sumparam COMA funci
     | empty
   '''
-  #print("funcion ",p[1] ,p[2])
   varsTable.insertVarInFunc(p[1],p[2],varsTable.func_id)
   varsTable.InsertTypParam(p[1])
 #Tipo de los parametros de funciones
@@ -319,6 +318,14 @@ def p_localvar(p):
      | var localvar
      | vector localvar
      '''
+
+def p_sumparam(p):
+     '''
+     sumparam :
+     '''
+     varsTable.param_cont = varsTable.param_cont + 1
+     varsTable.symbol_table[varsTable.func_id].paramno = varsTable.param_cont
+     print("segardo",varsTable.param_cont)
 
 def p_return1(p):
     '''

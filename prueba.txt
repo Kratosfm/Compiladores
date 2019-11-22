@@ -9,6 +9,7 @@ function void Apple (){
 }
 
 function void Banana ( int Lala , int Lele){
+	Lala = 100 ;
 	Caca = 200 + 50 ;
 	print ( Caca ) ;
 }

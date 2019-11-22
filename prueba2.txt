@@ -39,5 +39,27 @@ main
 	Ponce = Bermea / 2 ;
 	Modulo = Apple ( 1 + 1 , Caca ) ;
 	Julia = 1000 ;
-	Ponce = Vet [ 2 ] ;
+	if ( Julia == 1000 ) {
+		Julia = 100 ;
+	}
+	else {
+		Julia = 200 ;
+	}
+	Vet [ 2 ] = Ponce ;
+	print ( 5 + 2 , 2 + 5 ) ;
+	read ( Caca ) ;
+}
+
+
+
+
+
+
+if ( Caca > 10 ) {
+	Carlos = 5 ;
+}
+else {
+	Carlos = 7 ;
+}
+print ( Carlos ) ;
 }

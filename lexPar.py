@@ -4,6 +4,7 @@ import sys
 import varsTable as varsTable
 import cuadruplos as cuadruplos
 import execMemory as Memoria
+import VM as Virtual
 
 success = True
 
@@ -24,7 +25,8 @@ reserved = {
     'void' : 'VOID',
     'main' : 'MAIN',
     'true' : 'TRUE',
-    'false' : 'FALSE'
+    'false' : 'FALSE',
+    'return' : 'RETURN'
 }
 
 # List of tokens
@@ -55,8 +57,7 @@ tokens = [
     "SEMICOLON",
     'AND',
     'OR',
-    "COLON",
-  	"RETURN"
+    "COLON"
 ]
 
 # Arithmetic Operators
@@ -146,10 +147,16 @@ while True:
 
 def p_program(p):
   '''
-  	program : PROGRAM COLON global program2 finglobal program3 MAIN main1 mainc finmain
-        | PROGRAM COLON global program2 finglobal MAIN main1 mainc finmain
-        | PROGRAM COLON MAIN main1 mainc finmain
+  	program : PROGRAM COLON gotomain global program2 finglobal program3 llenarmain MAIN main1 mainc finmain
+        | PROGRAM COLON gotomain global program2 finglobal llenarmain MAIN main1 mainc finmain
+        | PROGRAM COLON gotomain llenarmain MAIN main1 mainc finmain
   '''
+  cuad = cuadruplos.Cuadrupl(None, None, None, "ENDPROGRAM", len(cuadruplos.pilacuadruplos))
+  cuadruplos.pilacuadruplos.append(cuad)
+
+def p_gotomain(p):
+    "gotomain :"
+    cuadruplos.gotoMain()
 
 def p_program2(p):
   '''
@@ -162,6 +169,10 @@ def p_program3(p):
   	program3 : function program3
     	| function
   '''
+
+def p_llenarmain(p):
+    "llenarmain :"
+    cuadruplos.fill(0, len(cuadruplos.pilacuadruplos))
 
 def p_crear(p):
   '''
@@ -221,7 +232,6 @@ def p_vector(p):
   if varsTable.is_global:
       varsTable.insertVarInFunc(p[3],p[4], "global",p[6])
   elif varsTable.is_main:
-      print("vector main" , p[3],p[4],p[6])
       varsTable.insertVarInFunc(p[3],p[4], "main",p[6])
   elif varsTable.is_local:
       varsTable.insertVarInFunc(p[3],p[4], varsTable.func_id,p[6])
@@ -233,10 +243,10 @@ def p_initvector(p):
 
 def p_function(p):
   '''
-  	function : FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq return expres RKEY
+  	function : FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq return1 expres RKEY
     | FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar RKEY
     | FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq RKEY
-    | FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq return expres RKEY
+    | FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq return1 expres RKEY
     | FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq RKEY
     | FUNCTION functype ID addInTable LPAREN RPAREN LKEY RKEY
 
@@ -244,7 +254,7 @@ def p_function(p):
   #  print("lala", len(varsTable.param_table[varsTable.func_id].dict))
   #varsTable.ImprimirParamsType()
   varsTable.is_local = False
-  varsTable.ImprimirLcalTable(varsTable.func_id)
+  #varsTable.ImprimirLcalTable(varsTable.func_id)
   Memoria.global_memroy.show()  #eliminar esta
   Memoria.Reiniciar()
   Memoria.BorrarInts()
@@ -299,11 +309,17 @@ def p_localvar(p):
      | vector localvar
      '''
 
-def p_return(p):
+def p_return1(p):
     '''
-    return : RETURN expres
+    return1 : RETURN expres resreturn SEMICOLON
     | empty
     '''
+
+def p_resreturn(p):
+    '''
+    resreturn :
+    '''
+    
 
 def p_mainc(p):
     '''
@@ -350,14 +366,34 @@ def p_cond(p):
 
 def p_escrit(p):
   '''
-    escrit : PRINT LPAREN escriti RPAREN SEMICOLON
+    escrit : PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON
   '''
 
 def p_escriti(p):
   '''
-  	escriti : expres
-    	| expres COMA escriti
+  	escriti : expres escrit1
+    	| expres escrit2 COMA escriti
   '''
+
+def p_imprimirl(p):
+  '''
+  	imprimirl :
+  '''
+  #cuadruplos.avail.pop()
+  #print ("dasdasd",str(cuadruplos.avail)[1:-1])
+
+def p_escrit1(p):
+    '''
+    escrit1 :
+    '''
+    cuadruplos.printcuad()
+
+def p_escrit2(p):
+    '''
+    escrit2 :
+    '''
+    cuadruplos.printcuad()
+    cuadruplos.pushPoper("print")
 
 def p_ciclo(p):
   '''
@@ -366,13 +402,19 @@ def p_ciclo(p):
 
 def p_leer(p):
   '''
-  	leer : READ LPAREN ID RPAREN SEMICOLON
+  	leer : READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
   '''
+
+def p_readid(p):
+  '''
+  	readid :
+  '''
+  cuadruplos.readid()
 
 def p_expres(p):
   '''
   expres : exr
-        | exr log expres
+        | exr log expres reslog
   '''
 
 def p_exr(p):
@@ -380,6 +422,12 @@ def p_exr(p):
   	exr : ex
     	| ex rel exr resrel
   '''
+
+def p_reslog(p):
+    '''
+    reslog :
+    '''
+    cuadruplos.ResolverLog()
 
 def p_ex(p):
   '''
@@ -420,6 +468,7 @@ def p_log(p):
   	log : OR
         | AND
   '''
+  cuadruplos.pushPoper(p[1])
 
 def p_var_cte(p):
   '''
@@ -436,7 +485,7 @@ def p_var_cte(p):
 
 def p_asigvector(p):
     '''
-    asigvector : ID LBRACE ex RBRACE
+    asigvector : ID pushid LBRACE ex RBRACE
     '''
 
 def p_fcall(p):
@@ -584,3 +633,9 @@ else:
 print("memoria global ")
 Memoria.global_memroy.show()
 varsTable.show();
+print("")
+print("")
+print("VM")
+#posicion = Virtual.GoToMain(0,cuadruplos.pilacuadruplos[0])
+#Virtual.Ejecucion(posicion,cuadruplos.pilacuadruplos[posicion])
+Virtual.programa()

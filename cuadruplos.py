@@ -260,12 +260,38 @@ def resolverRel():
                 cuad = Cuadrupl(id_izq, operator, id_der, dir, len(pilacuadruplos))
                 #imprimircuadruplo(val_izq, operator, val_der, resultado)
                 pilacuadruplos.append(cuad)
-                pilaid.append(resultado)
+                pilaid.append(dir)
                 avail.append(resultado)
                 tip = crearTipo(resultado)
             else:
                 print("error de semantica 4")
                 sys.exit()
+
+def ResolverLog():
+    global contador
+    tam = len(popper)
+    if tam > 0:
+        if (popper[tam-1] == "&&" or popper[tam-1] == "||"):
+            val_der = avail.pop()
+            tipo_der = pilaTipos.pop()
+            id_der = pilaid.pop()
+            val_izq = avail.pop()
+            tipo_izq = pilaTipos.pop()
+            id_izq = pilaid.pop()
+            operator = popper.pop()
+            tipo_resultado = semantic.getReturnType(tipo_der,tipo_izq,operator)
+            if(tipo_resultado != 'error'):
+                if (operator=="||"):
+                    resultado = val_izq or val_der
+                    dir = Memory.global_memroy.insert_temporal(resultado,tipo_resultado)
+                else:
+                    resultado = val_izq and val_der
+                    dir = Memory.global_memroy.insert_temporal(resultado,tipo_resultado)
+            cuad = Cuadrupl(id_izq, operator, id_der, dir, len(pilacuadruplos))
+            pilacuadruplos.append(cuad)
+            pilaid.append(dir)
+            avail.append(resultado)
+            tip = crearTipo(resultado)    
 
 #Condiciones
 def ResolverCond():
@@ -277,13 +303,13 @@ def ResolverCond():
     else:
         resultado = avail.pop()
         id = pilaid.pop()
-        cuad = Cuadrupl("GotoF", None, None, resultado, len(pilacuadruplos))
+        cuad = Cuadrupl(id, "GotoF", None, resultado, len(pilacuadruplos))
         pilacuadruplos.append(cuad)
         pilaSaltos.append(len(pilacuadruplos)-1)
 
 def ResElse():
     global contador
-    cuad = Cuadrupl("Goto", None, None, None, len(pilacuadruplos))
+    cuad = Cuadrupl(None, "Goto", None, None, len(pilacuadruplos))
     false = pilaSaltos.pop()
     pilaSaltos.append(len(pilacuadruplos))
     pilacuadruplos.append(cuad)
@@ -305,15 +331,16 @@ def while2():
         print("error de type-mismatch")
         sys.exit()
     else:
+        id = pilaid.pop()
         resultado = avail.pop()
-        cuad = Cuadrupl("GotoF", None, None, resultado, len(pilacuadruplos)-1)
+        cuad = Cuadrupl(id, "GotoF", None, resultado, len(pilacuadruplos)-1)
         pilacuadruplos.append(cuad)
         pilaSaltos.append(len(pilacuadruplos)-1)
 
 def while3():
     end = pilaSaltos.pop()
     regresa = pilaSaltos.pop()
-    cuad = Cuadrupl("Goto", None, None, regresa, len(pilacuadruplos))
+    cuad = Cuadrupl(None, "Goto", None, regresa, len(pilacuadruplos))
     pilacuadruplos.append(cuad)
     fill(end,len(pilacuadruplos))
 
@@ -337,3 +364,34 @@ def getparam():
 def generategosub(funct):
     cuadr = Cuadrupl(funct,"GoSub",None,None,len(pilacuadruplos))
     pilacuadruplos.append(cuadr)
+
+#GotMain
+def gotoMain():
+    cuadr = Cuadrupl(None,"GoTo",None,None,len(pilacuadruplos))
+    pilacuadruplos.append(cuadr)
+
+#Generate Cuadruplos de I/O
+def printcuad():
+    tam = len(popper)
+    if tam > 0:
+        if popper[tam-1] == "print":
+            resultado = pilaid.pop()
+            pilaTipos.pop()
+            avail.pop()
+            operator = popper.pop()
+            print (str(pilaid)[1:-1])
+            print(str(avail)[1:-1])
+            print (str(popper)[1:-1])
+            cuadr = Cuadrupl(None, operator, None, resultado, len(pilacuadruplos))
+            pilacuadruplos.append(cuadr)
+
+def readid():
+    tam = len(popper)
+    if tam > 0:
+        if popper[tam-1] == "read":
+            resultado = pilaid.pop()
+            pilaTipos.pop()
+            avail.pop()
+            operator = popper.pop()
+            cuadr = Cuadrupl(None, operator, None, resultado, len(pilacuadruplos))
+            pilacuadruplos.append(cuadr)

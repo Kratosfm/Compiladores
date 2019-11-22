@@ -11,7 +11,7 @@ resultType = {
 			"<=" : 'bool',
 			"==" : 'bool',
 			"!=" : 'bool',
-			"||" : "err",
+			"|=" : "err",
 			"&&" : "err"
 		},
 		"float" : {
@@ -25,7 +25,7 @@ resultType = {
 			"<=" : "bool",
 			"==" : "bool",
 			"!=" : "bool",
-			"||" : "err",
+			"|=" : "err",
 			"&&" : "err"
 		},
 		"str" : {
@@ -39,7 +39,7 @@ resultType = {
 			"<=" : "err",
 			"==" : "err",
 			"!=" : "err",
-			"||" : "err",
+			"|=" : "err",
 			"&&" : "err"
 		},
 		"bool" : {
@@ -53,7 +53,7 @@ resultType = {
 			"<=" : "err",
 			"==" : "err",
 			"!=" : "err",
-			"||" : "err",
+			"|=" : "err",
 			"&&" : "err"
 		}
 	},
@@ -69,7 +69,7 @@ resultType = {
 			"<=" : "bool",
 			"==" : "bool",
 			"!=" : "bool",
-			"||" : "err",
+			"|=" : "err",
 			"&&" : "err"
 		},
 		"float" : {
@@ -83,7 +83,7 @@ resultType = {
 			"<=" : "bool",
 			"==" : "bool",
 			"!=" : "bool",
-			"||" : "err",
+			"|=" : "err",
 			"&&" : "err"
 		},
 		"str" : {
@@ -97,7 +97,7 @@ resultType = {
 			"<=" : "err",
 			"==" : "err",
 			"!=" : "err",
-			"||" : "err",
+			"|=" : "err",
 			"&&" : "err"
 		},
 		"bool" : {
@@ -111,7 +111,7 @@ resultType = {
 			"<=" : "err",
 			"==" : "err",
 			"!=" : "err",
-			"||" : "err",
+			"|=" : "err",
 			"&&" : "err"
 		}
 	},
@@ -127,7 +127,7 @@ resultType = {
 			"<=" : "err",
 			"==" : "err",
 			"!=" : "err",
-			"||" : "err",
+			"|=" : "err",
 			"&&" : "err"
 		},
 		"float" : {
@@ -141,7 +141,7 @@ resultType = {
 			"<=" : "err",
 			"==" : "err",
 			"!=" : "err",
-			"||" : "err",
+			"|=" : "err",
 			"&&" : "err"
 		},
 		"str" : {
@@ -155,7 +155,7 @@ resultType = {
 			"<=" : "err",
 			"==" : "bool",
 			"!=" : "bool",
-			"||" : "err",
+			"|=" : "err",
 			"&&" : "err"
 		},
 		"bool" : {
@@ -169,7 +169,7 @@ resultType = {
 			"<=" : "err",
 			"==" : "err",
 			"!=" : "err",
-			"||" : "err",
+			"|=" : "err",
 			"&&" : "err"
 		}
 	},
@@ -185,7 +185,7 @@ resultType = {
 			"<=" : "err",
 			"==" : "err",
 			"!=" : "err",
-			"||" : "err",
+			"|=" : "err",
 			"&&" : "err"
 		},
 		"float" : {
@@ -199,7 +199,7 @@ resultType = {
 			"<=" : "err",
 			"==" : "err",
 			"!=" : "err",
-			"||" : "err",
+			"|=" : "err",
 			"&&" : "err"
 		},
 		"str" : {
@@ -213,7 +213,7 @@ resultType = {
 			"<=" : "err",
 			"==" : "err",
 			"!=" : "err",
-			"||" : "err",
+			"|=" : "err",
 			"&&" : "err"
 		},
 		"bool" : {
@@ -227,7 +227,7 @@ resultType = {
 			"<=" : "err",
 			"==" : "bool",
 			"!=" : "bool",
-			"||" : "bool",
+			"|=" : "bool",
 			"&&" : "bool"
 		}
 	}
@@ -239,7 +239,7 @@ def getReturnType(op1, op2, operator):
 
 #Verify if the operator exists
 def isSymbol(sym):
-	if (sym == '+' or sym == '-' or sym == "*" or sym == "/" or sym == ">" or sym == "<" or sym == ">=" or sym == "<=" or sym == "==" or sym == "!=" or sym == "||" or sym == "&&"):
+	if (sym == '+' or sym == '-' or sym == "*" or sym == "/" or sym == ">" or sym == "<" or sym == ">=" or sym == "<=" or sym == "==" or sym == "!=" or sym == "|=" or sym == "&&"):
 		return True
 	else:
 		return False

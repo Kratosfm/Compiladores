@@ -1,35 +1,30 @@
 program :
 
-var int Caca ;
-var float Carlos ;
+var float Caca ;
+var int Carlos ;
 
-function float Apple() {
-	var float Ponce ;
-	Ponce = 9 + 9 ;
-
+function void Apple (){
+	Caca = 100 + 50 ;
+	print ( Caca ) ;
 }
 
-function float Banana() {
-	var float Bermea ;
-	Bermea = 9.0 + 9 ;
+function void Banana ( int Lala , int Lele){
+	Caca = 200 + 50 ;
+	print ( Caca ) ;
 }
 
 main
 {
-	var bool Alex ;
-	var int Bermea ;
-	var float Tony ;
-	var int Oscar ;
-	var int Ponce ;
-	var bool Manuel ;
-	var bool Alejandra ;
-	Oscar = 9 ;
-	Bermea = Oscar * Oscar ;
-	Manuel = false ;
-	Alex = 9 < 5 ;
-	if ( Alex == Manuel ) {
-		Ponce = 1 + 1 ;
+var int i ;
+var int fact ;
+var int num ;
+i = 1 ;
+fact = 1 ;
+num = 5 ;
+while ( i < num + 1 ) {
+		fact = fact * i ;
+		i = i + 1 ;
 	}
-	Tony = Bermea / 3 ;
-	Bermea = ( 3 * 3 ) - ( 2 + 1 ) ;
+print ( fact ) ;
+Banana ( i , fact) ;
 }

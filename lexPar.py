@@ -243,13 +243,16 @@ def p_initvector(p):
 
 def p_function(p):
   '''
-  	function : FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq return1 expres RKEY
+  	function : FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq return1 RKEY
+    | FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY localvar bloq RKEY
+    | FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY bloq RKEY
     | FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar RKEY
-    | FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq RKEY
-    | FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq return1 expres RKEY
-    | FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq RKEY
+    | FUNCTION pushvoid ID addInTable LPAREN RPAREN LKEY localvar RKEY
+    | FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq return1 RKEY
+    | FUNCTION pushvoid ID addInTable LPAREN RPAREN LKEY localvar bloq RKEY
+    | FUNCTION pushvoid ID addInTable  LPAREN RPAREN LKEY bloq RKEY
+    | FUNCTION functype ID addInTable LPAREN RPAREN LKEY bloq return1 RKEY
     | FUNCTION functype ID addInTable LPAREN RPAREN LKEY RKEY
-
   '''
   #  print("lala", len(varsTable.param_table[varsTable.func_id].dict))
   #varsTable.ImprimirParamsType()
@@ -272,9 +275,15 @@ def p_functype(p):
     | FLOAT
     | STRING
     | BOOL
-    | VOID
   '''
   varsTable.func_tipo = p[1]
+
+def p_pushvoid(p):
+  '''
+  	pushvoid : VOID
+  '''
+  varsTable.func_tipo = p[1]
+
 #añade la funcion a la varstable
 def p_addInTable(p):
     '''
@@ -284,6 +293,8 @@ def p_addInTable(p):
     varsTable.func_id = p[-1]
     varsTable.insert(varsTable.func_tipo, varsTable.func_id)
     varsTable.InsertParam(varsTable.func_id)
+
+    varsTable.symbol_table[varsTable.func_id].cuadno = len(cuadruplos.pilacuadruplos)
 #Creacion de los parametros
 def p_funci(p):
   '''
@@ -319,8 +330,7 @@ def p_resreturn(p):
     '''
     resreturn :
     '''
-    
-
+    print("getg")
 def p_mainc(p):
     '''
     mainc : LKEY RKEY
@@ -350,6 +360,7 @@ def p_estat(p):
         | escrit
         | ciclo
         | leer
+        | fcallvoid
   '''
 
 def p_asign(p):
@@ -491,10 +502,18 @@ def p_asigvector(p):
 def p_fcall(p):
   '''
   	fcall : ID existfunc LPAREN startera fcall1 RPAREN generateGoSub
-        | ID existfunc LPAREN RPAREN
+        | ID existfunc LPAREN startera RPAREN generateGoSub
   '''
   varsTable.param_cont = 0
   varsTable.fun_name = None
+
+
+def p_fcallvoid(p):
+    '''
+    fcallvoid : ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
+    | ID existfunc LPAREN startera RPAREN SEMICOLON
+    '''
+    cuadruplos.generategosub(p[1])
 
 #Funcion que llama a CheckExistIdFunc para verificar que exista la funcion en la tabla
 def p_existfunc(p):
@@ -532,7 +551,7 @@ def p_generateparam(p):
 #Paso 6 de Module Call
 def p_generateGoSub(p):
     "generateGoSub :"
-    cuadruplos.generategosub(p[-6])
+    cuadruplos.generategosub(p[-4])
 
 def p_vcall(p):
   '''

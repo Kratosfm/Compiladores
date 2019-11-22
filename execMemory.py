@@ -316,19 +316,19 @@ def Imprimirlocales():
 def GetDir(val,tipo):
     if tipo == "int":
         for i,y in global_memroy.ints.items():
-            if (y == val):
+            if (y == val and i >= 4000 and i < 4100):
                 return i
     elif tipo == "float":
         for i,y in global_memroy.floats.items():
-            if (y == val):
+            if (y == val and i >= 4100 and i < 4200):
                 return i
     elif tipo == "string":
         for i,y in global_memroy.strings.items():
-            if (y == val):
+            if (y == val and i >= 4200 and i < 4300):
                 return i
     elif tipo == "bool":
         for i,y in global_memroy.bools.items():
-            if (y == val):
+            if (y == val and i >= 4300 and i < 4300):
                 return i
     else:
         print("No existe")

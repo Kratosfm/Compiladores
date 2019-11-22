@@ -84,7 +84,7 @@ def pushCTE(var):
                 pilaid.append(dir)
                 crearTipo(var)
         elif str(type(var)) == "<class 'int'>":
-            if (verificarValorCte(var,"int")):
+            if (verificarValorCte(var,"int") == True):
                 dir = Memory.GetDir(var,"int")
                 avail.append(var)
                 pilaid.append(dir)
@@ -142,11 +142,10 @@ def resolverasignacion():
             valor = avail.pop()
             #Sacar temporal final de resultado id
             id2 = pilaid.pop()
-            avail.pop()
+            av = avail.pop()
             tipo_res = pilaTipos.pop()
             tipo_id = pilaTipos.pop()
             valid = pilaid.pop()
-            #print("id",valid,id2,valor)
             operator = popper.pop()
             if tipo_id == "float" and tipo_res == "int":
                 valor = float(valor)
@@ -237,6 +236,7 @@ def resolverRel():
             tipo_izq = pilaTipos.pop()
             id_izq = pilaid.pop()
             operator = popper.pop()
+            print(tipo_izq,tipo_der)
             tipo_resultado = semantic.getReturnType(tipo_der,tipo_izq,operator)
             if (tipo_resultado != "err"):
                 if(operator == '<'):
@@ -291,7 +291,7 @@ def ResolverLog():
             pilacuadruplos.append(cuad)
             pilaid.append(dir)
             avail.append(resultado)
-            tip = crearTipo(resultado)    
+            tip = crearTipo(resultado)
 
 #Condiciones
 def ResolverCond():
@@ -362,7 +362,8 @@ def getparam():
     return resultado
 
 def generategosub(funct):
-    cuadr = Cuadrupl(funct,"GoSub",None,None,len(pilacuadruplos))
+    resultado = varsTable.symbol_table[funct].cuadno
+    cuadr = Cuadrupl(funct,"GoSub",None,resultado,len(pilacuadruplos))
     pilacuadruplos.append(cuadr)
 
 #GotMain

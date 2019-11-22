@@ -21,6 +21,7 @@ def Ejecucion(num,cuadrup):
         val_izq = Memory.getValor(cuadrup.left)
         val_der = Memory.getValor(cuadrup.right)
         newVal = (val_izq + val_der)
+        #sprint(val_izq,val_der)
         Memory.updateVal(cuadrup.resultado,newVal)
         num = num + 1
         return num
@@ -107,6 +108,8 @@ def Ejecucion(num,cuadrup):
     elif(cuadrup.operator == "Goto"):
         num = cuadrup.resultado
         return num
+    #elif(cuadrup.operator == "ERA"):
+
     num = num + 1
     return num
 

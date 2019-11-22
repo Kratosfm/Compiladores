@@ -3,40 +3,28 @@ program :
 var float Caca ;
 var int Carlos ;
 
+function void Apple (){
+	Caca = 100 + 50 ;
+	print ( Caca ) ;
+}
 
-function float Apple( float Lele , float Papa ) {
-	var float Ponce ;
-	var float Armando ;
-	Armando = 7 ;
-	Armando = 9 ;
-	Ponce = 9 + 9 ;
-	Caca = 200 ;
-	while ( Ponce < 81 ){
-		Ponce = Ponce * 9 ;
-	}
-	print ( Ponce ) ;
+function void Banana ( int Lala , int Lele){
+	Caca = 200 + 50 ;
+	print ( Caca ) ;
 }
 
 main
 {
-	var float Juanca ;
-	var int Pedro ;
-	Caca = 10 + 8 ;
-	Juanca = 3;
-	if ( Caca > 10 ) {
-		Carlos = 100 ;
+var int i ;
+var int fact ;
+var int num ;
+i = 1 ;
+fact = 1 ;
+num = 5 ;
+while ( i < num + 1 ) {
+		fact = fact * i ;
+		i = i + 1 ;
 	}
-	else {
-		Carlos = 7 ;
-	}
-	print ( Carlos ) ;
-	Carlos = 5 + 5 ;
-	print ( Caca == 18 ) ;
-	print (Caca , (9 + 2) / 5 , Carlos) ;
-	Caca = Apple ( 10.0 , 5.0 ) ;
-	Pedro = 0 ;
-	while ( Pedro < 10 ) {
-		Pedro = Pedro + 1 ;
-		print ( Pedro ) ;
-	}
+print ( fact ) ;
+Banana ( i , fact) ;
 }

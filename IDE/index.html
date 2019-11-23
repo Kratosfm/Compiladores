@@ -54,16 +54,7 @@
       </div>
     </section>
 
-    <!-- <div class="buttons has-addons is-centered">
-      <button id="addInt" class="button">Entero</button>
-      <button id="addFloat" class="button">Flotante</button>
-      <button id="addString" class="button">Palabras</button>
-      <button id="addBool" class="button">Booleano</button>
-    </div>
-    <div class="">
-      <button class="button is-rounded">Operacion</button>
-    </div> -->
-
+    <!-- Modal de agregar variable global -->
     <div id="addVariableGlobalModal" class="modal">
       <div class="modal-background"></div>
       <div class="modal-card">
@@ -108,6 +99,7 @@
       </div>
     </div>
 
+    <!-- Modal de agregar funcion -->
     <div id="addFunctionModal" class="modal">
       <div class="modal-background"></div>
       <div class="modal-card">
@@ -145,8 +137,14 @@
               <h5 class="subtitle is-5" style="margin-top: 5px;">Nombre de la funcion:</h5>
             </div>
             <div class="column" style="margin-left: -50px;">
-              <input id="functionName"class="input" type="text" placeholder="Nombre">
+              <input id="functionName" class="input" type="text" placeholder="Nombre">
             </div>
+          </div>
+          <div class="">
+            <div id ="params" class="">
+
+            </div>
+            <button class="button" onclick="addParamsToModal()">Agregar parametro</button>
           </div>
         </section>
         <footer class="modal-card-foot">
@@ -156,6 +154,7 @@
       </div>
     </div>
 
+    <!-- Modal de agregar variable local -->
     <div id="addVariableLocalModal" class="modal">
       <div class="modal-background"></div>
       <div class="modal-card">
@@ -200,51 +199,8 @@
       </div>
     </div>
 
+    <!-- Modal de agregar operacion -->
     <div id="addOperacionLocalModal" class="modal">
-  <div class="modal-background"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title">Hacer una operacion dentro de la funcion</p>
-      <button class="delete" aria-label="close" onclick="hideModal()"></button>
-    </header>
-    <section class="modal-card-body">
-      <h5 class="subtitle is-5">Selecciona el tipo:</h5>
-      <div class="control">
-        <label class="radio">
-          <input id="localInt" type="radio" name="answer">
-          Entero
-        </label>
-        <label class="radio">
-          <input id="localFloat" type="radio" name="answer">
-          Flotante
-        </label>
-        <label class="radio">
-          <input id="localBool" type="radio" name="answer">
-          Booleano
-        </label>
-        <label class="radio">
-          <input id="localString" type="radio" name="answer">
-          Frase
-        </label>
-      </div>
-      <br>
-      <div class="columns">
-        <div class="column is-5">
-          <h5 class="subtitle is-5" style="margin-top: 5px;">Nombre de la variable:</h5>
-        </div>
-        <div class="column" style="margin-left: -50px;">
-          <input id="localVarName"class="input" type="text" placeholder="Nombre">
-        </div>
-      </div>
-    </section>
-    <footer class="modal-card-foot">
-      <button id="addVariableLocalButton" class="button is-success" onclick="createGlobalVariable()">Agregar Variable</button>
-      <button class="button" onclick="hideModal()">Cancelar</button>
-    </footer>
-  </div>
-</div>
-
-    <div id="addCondicionModal" class="modal">
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
@@ -252,41 +208,17 @@
           <button class="delete" aria-label="close" onclick="hideModal()"></button>
         </header>
         <section class="modal-card-body">
-          <h5 class="subtitle is-5">Selecciona el tipo:</h5>
-          <div class="control">
-            <label class="radio">
-              <input id="localInt" type="radio" name="answer">
-              Entero
-            </label>
-            <label class="radio">
-              <input id="localFloat" type="radio" name="answer">
-              Flotante
-            </label>
-            <label class="radio">
-              <input id="localBool" type="radio" name="answer">
-              Booleano
-            </label>
-            <label class="radio">
-              <input id="localString" type="radio" name="answer">
-              Frase
-            </label>
-          </div>
-          <br>
-          <div class="columns">
-            <div class="column is-5">
-              <h5 class="subtitle is-5" style="margin-top: 5px;">Nombre de la variable:</h5>
-            </div>
-            <div class="column" style="margin-left: -50px;">
-              <input id="localVarName"class="input" type="text" placeholder="Nombre">
-            </div>
-          </div>
+          <h5 class="subtitle is-5">Escribe operaciones Aqui</h5>
+          <h6 class="subtitle is-6">Usa las variables ya declaradas.</h6>
+          <textarea id="textbox" class="textarea" placeholder="ejemplo = a + b"></textarea>
         </section>
         <footer class="modal-card-foot">
-          <button id="addVariableLocalButton" class="button is-success" onclick="createGlobalVariable()">Agregar Variable</button>
+          <button id="addLocalOperator" class="button is-success" onclick="createLocalOperator()">Agregar Variable</button>
           <button class="button" onclick="hideModal()">Cancelar</button>
         </footer>
       </div>
     </div>
+
 
     <script type="text/javascript" src="./js.js"></script>
   </body>

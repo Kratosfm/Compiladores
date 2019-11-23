@@ -9,6 +9,8 @@ function void Apple (){
 }
 
 function void Banana ( int Lala , int Lele){
+	var float Tony ;
+	print ( Lala ) ;
 	Lala = 100 ;
 	Caca = 200 + 50 ;
 	print ( Caca ) ;
@@ -27,5 +29,7 @@ while ( i < num + 1 ) {
 		i = i + 1 ;
 	}
 print ( fact ) ;
-Banana ( i , fact) ;
+fact = 3 + 9 ;
+Banana ( 5 + 2 , fact) ;
+print( fact ) ;
 }

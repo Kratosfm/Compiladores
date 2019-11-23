@@ -310,6 +310,7 @@ def p_funci(p):
   '''
   varsTable.insertVarInFunc(p[1],p[2],varsTable.func_id)
   varsTable.InsertTypParam(p[1])
+  varsTable.symbol_table[varsTable.func_id].dict[p[2]].isParam = True
 #Tipo de los parametros de funciones
 def p_localvar(p):
      '''
@@ -325,7 +326,6 @@ def p_sumparam(p):
      '''
      varsTable.param_cont = varsTable.param_cont + 1
      varsTable.symbol_table[varsTable.func_id].paramno = varsTable.param_cont
-     print("segardo",varsTable.param_cont)
 
 def p_return1(p):
     '''
@@ -465,8 +465,8 @@ def p_fact(p):
   '''
   	fact : LPAREN pushop expres RPAREN popop
         | var_cte
-        | PLUS var_cte
-        | MINUS var_cte
+        | PLUS pushop var_cte
+        | MINUS pushop var_cte
   '''
 
 def p_rel(p):
@@ -564,6 +564,7 @@ def p_vcall(p):
   '''
   	vcall : ID LBRACE expres RBRACE
   '''
+  print("haha")
 
 def p_empty(p):
     '''

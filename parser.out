@@ -103,8 +103,8 @@ Rule 97    term -> fact resfact TIMES pushop term
 Rule 98    term -> fact resfact DIVIDE pushop term
 Rule 99    fact -> LPAREN pushop expres RPAREN popop
 Rule 100   fact -> var_cte
-Rule 101   fact -> PLUS var_cte
-Rule 102   fact -> MINUS var_cte
+Rule 101   fact -> PLUS pushop var_cte
+Rule 102   fact -> MINUS pushop var_cte
 Rule 103   rel -> LOWERTHAN
 Rule 104   rel -> MORETHAN
 Rule 105   rel -> LOWEREQ
@@ -246,7 +246,7 @@ program2             : 1 2 5
 program3             : 1 7
 pushcte              : 112 113 114 115 116
 pushid               : 75 76 86 111 120
-pushop               : 75 76 79 86 94 95 97 98 99
+pushop               : 75 76 79 86 94 95 97 98 99 101 102
 pushvoid             : 27 28 30 32 33
 readid               : 86
 rel                  : 91
@@ -1273,8 +1273,8 @@ state 83
     (98) term -> . fact resfact DIVIDE pushop term
     (99) fact -> . LPAREN pushop expres RPAREN popop
     (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
     (111) var_cte -> . ID pushid
     (112) var_cte -> . CTE_I pushcte
     (113) var_cte -> . CTE_F pushcte
@@ -1438,8 +1438,8 @@ state 97
     (98) term -> . fact resfact DIVIDE pushop term
     (99) fact -> . LPAREN pushop expres RPAREN popop
     (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
     (111) var_cte -> . ID pushid
     (112) var_cte -> . CTE_I pushcte
     (113) var_cte -> . CTE_F pushcte
@@ -1585,61 +1585,31 @@ state 103
 
 state 104
 
-    (101) fact -> PLUS . var_cte
-    (111) var_cte -> . ID pushid
-    (112) var_cte -> . CTE_I pushcte
-    (113) var_cte -> . CTE_F pushcte
-    (114) var_cte -> . CTE_S pushcte
-    (115) var_cte -> . TRUE pushcte
-    (116) var_cte -> . FALSE pushcte
-    (117) var_cte -> . fcall
-    (118) var_cte -> . vcall
-    (119) var_cte -> . asigvector
-    (121) fcall -> . ID existfunc LPAREN startera fcall1 RPAREN generateGoSub
-    (122) fcall -> . ID existfunc LPAREN startera RPAREN generateGoSub
-    (131) vcall -> . ID LBRACE expres RBRACE
-    (120) asigvector -> . ID pushid LBRACE ex RBRACE
+    (101) fact -> PLUS . pushop var_cte
+    (135) pushop -> .
 
-    ID              shift and go to state 108
-    CTE_I           shift and go to state 109
-    CTE_F           shift and go to state 110
-    CTE_S           shift and go to state 111
-    TRUE            shift and go to state 112
-    FALSE           shift and go to state 113
+    ID              reduce using rule 135 (pushop -> .)
+    CTE_I           reduce using rule 135 (pushop -> .)
+    CTE_F           reduce using rule 135 (pushop -> .)
+    CTE_S           reduce using rule 135 (pushop -> .)
+    TRUE            reduce using rule 135 (pushop -> .)
+    FALSE           reduce using rule 135 (pushop -> .)
 
-    var_cte                        shift and go to state 144
-    fcall                          shift and go to state 114
-    vcall                          shift and go to state 115
-    asigvector                     shift and go to state 116
+    pushop                         shift and go to state 144
 
 state 105
 
-    (102) fact -> MINUS . var_cte
-    (111) var_cte -> . ID pushid
-    (112) var_cte -> . CTE_I pushcte
-    (113) var_cte -> . CTE_F pushcte
-    (114) var_cte -> . CTE_S pushcte
-    (115) var_cte -> . TRUE pushcte
-    (116) var_cte -> . FALSE pushcte
-    (117) var_cte -> . fcall
-    (118) var_cte -> . vcall
-    (119) var_cte -> . asigvector
-    (121) fcall -> . ID existfunc LPAREN startera fcall1 RPAREN generateGoSub
-    (122) fcall -> . ID existfunc LPAREN startera RPAREN generateGoSub
-    (131) vcall -> . ID LBRACE expres RBRACE
-    (120) asigvector -> . ID pushid LBRACE ex RBRACE
+    (102) fact -> MINUS . pushop var_cte
+    (135) pushop -> .
 
-    ID              shift and go to state 108
-    CTE_I           shift and go to state 109
-    CTE_F           shift and go to state 110
-    CTE_S           shift and go to state 111
-    TRUE            shift and go to state 112
-    FALSE           shift and go to state 113
+    ID              reduce using rule 135 (pushop -> .)
+    CTE_I           reduce using rule 135 (pushop -> .)
+    CTE_F           reduce using rule 135 (pushop -> .)
+    CTE_S           reduce using rule 135 (pushop -> .)
+    TRUE            reduce using rule 135 (pushop -> .)
+    FALSE           reduce using rule 135 (pushop -> .)
 
-    var_cte                        shift and go to state 145
-    fcall                          shift and go to state 114
-    vcall                          shift and go to state 115
-    asigvector                     shift and go to state 116
+    pushop                         shift and go to state 145
 
 state 106
 
@@ -1942,8 +1912,8 @@ state 118
     (98) term -> . fact resfact DIVIDE pushop term
     (99) fact -> . LPAREN pushop expres RPAREN popop
     (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
     (111) var_cte -> . ID pushid
     (112) var_cte -> . CTE_I pushcte
     (113) var_cte -> . CTE_F pushcte
@@ -2104,8 +2074,8 @@ state 128
     (98) term -> . fact resfact DIVIDE pushop term
     (99) fact -> . LPAREN pushop expres RPAREN popop
     (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
     (111) var_cte -> . ID pushid
     (112) var_cte -> . CTE_I pushcte
     (113) var_cte -> . CTE_F pushcte
@@ -2165,8 +2135,8 @@ state 130
     (98) term -> . fact resfact DIVIDE pushop term
     (99) fact -> . LPAREN pushop expres RPAREN popop
     (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
     (111) var_cte -> . ID pushid
     (112) var_cte -> . CTE_I pushcte
     (113) var_cte -> . CTE_F pushcte
@@ -2218,8 +2188,8 @@ state 131
     (98) term -> . fact resfact DIVIDE pushop term
     (99) fact -> . LPAREN pushop expres RPAREN popop
     (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
     (111) var_cte -> . ID pushid
     (112) var_cte -> . CTE_I pushcte
     (113) var_cte -> . CTE_F pushcte
@@ -2277,8 +2247,8 @@ state 133
     (98) term -> . fact resfact DIVIDE pushop term
     (99) fact -> . LPAREN pushop expres RPAREN popop
     (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
     (111) var_cte -> . ID pushid
     (112) var_cte -> . CTE_I pushcte
     (113) var_cte -> . CTE_F pushcte
@@ -2356,8 +2326,8 @@ state 136
     (98) term -> . fact resfact DIVIDE pushop term
     (99) fact -> . LPAREN pushop expres RPAREN popop
     (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
     (111) var_cte -> . ID pushid
     (112) var_cte -> . CTE_I pushcte
     (113) var_cte -> . CTE_F pushcte
@@ -2505,47 +2475,61 @@ state 143
 
 state 144
 
-    (101) fact -> PLUS var_cte .
+    (101) fact -> PLUS pushop . var_cte
+    (111) var_cte -> . ID pushid
+    (112) var_cte -> . CTE_I pushcte
+    (113) var_cte -> . CTE_F pushcte
+    (114) var_cte -> . CTE_S pushcte
+    (115) var_cte -> . TRUE pushcte
+    (116) var_cte -> . FALSE pushcte
+    (117) var_cte -> . fcall
+    (118) var_cte -> . vcall
+    (119) var_cte -> . asigvector
+    (121) fcall -> . ID existfunc LPAREN startera fcall1 RPAREN generateGoSub
+    (122) fcall -> . ID existfunc LPAREN startera RPAREN generateGoSub
+    (131) vcall -> . ID LBRACE expres RBRACE
+    (120) asigvector -> . ID pushid LBRACE ex RBRACE
 
-    TIMES           reduce using rule 101 (fact -> PLUS var_cte .)
-    DIVIDE          reduce using rule 101 (fact -> PLUS var_cte .)
-    PLUS            reduce using rule 101 (fact -> PLUS var_cte .)
-    MINUS           reduce using rule 101 (fact -> PLUS var_cte .)
-    LOWERTHAN       reduce using rule 101 (fact -> PLUS var_cte .)
-    MORETHAN        reduce using rule 101 (fact -> PLUS var_cte .)
-    LOWEREQ         reduce using rule 101 (fact -> PLUS var_cte .)
-    MOREEQ          reduce using rule 101 (fact -> PLUS var_cte .)
-    SAME            reduce using rule 101 (fact -> PLUS var_cte .)
-    DIFFERENT       reduce using rule 101 (fact -> PLUS var_cte .)
-    OR              reduce using rule 101 (fact -> PLUS var_cte .)
-    AND             reduce using rule 101 (fact -> PLUS var_cte .)
-    RPAREN          reduce using rule 101 (fact -> PLUS var_cte .)
-    RBRACE          reduce using rule 101 (fact -> PLUS var_cte .)
-    SEMICOLON       reduce using rule 101 (fact -> PLUS var_cte .)
-    COMA            reduce using rule 101 (fact -> PLUS var_cte .)
+    ID              shift and go to state 108
+    CTE_I           shift and go to state 109
+    CTE_F           shift and go to state 110
+    CTE_S           shift and go to state 111
+    TRUE            shift and go to state 112
+    FALSE           shift and go to state 113
 
+    var_cte                        shift and go to state 183
+    fcall                          shift and go to state 114
+    vcall                          shift and go to state 115
+    asigvector                     shift and go to state 116
 
 state 145
 
-    (102) fact -> MINUS var_cte .
+    (102) fact -> MINUS pushop . var_cte
+    (111) var_cte -> . ID pushid
+    (112) var_cte -> . CTE_I pushcte
+    (113) var_cte -> . CTE_F pushcte
+    (114) var_cte -> . CTE_S pushcte
+    (115) var_cte -> . TRUE pushcte
+    (116) var_cte -> . FALSE pushcte
+    (117) var_cte -> . fcall
+    (118) var_cte -> . vcall
+    (119) var_cte -> . asigvector
+    (121) fcall -> . ID existfunc LPAREN startera fcall1 RPAREN generateGoSub
+    (122) fcall -> . ID existfunc LPAREN startera RPAREN generateGoSub
+    (131) vcall -> . ID LBRACE expres RBRACE
+    (120) asigvector -> . ID pushid LBRACE ex RBRACE
 
-    TIMES           reduce using rule 102 (fact -> MINUS var_cte .)
-    DIVIDE          reduce using rule 102 (fact -> MINUS var_cte .)
-    PLUS            reduce using rule 102 (fact -> MINUS var_cte .)
-    MINUS           reduce using rule 102 (fact -> MINUS var_cte .)
-    LOWERTHAN       reduce using rule 102 (fact -> MINUS var_cte .)
-    MORETHAN        reduce using rule 102 (fact -> MINUS var_cte .)
-    LOWEREQ         reduce using rule 102 (fact -> MINUS var_cte .)
-    MOREEQ          reduce using rule 102 (fact -> MINUS var_cte .)
-    SAME            reduce using rule 102 (fact -> MINUS var_cte .)
-    DIFFERENT       reduce using rule 102 (fact -> MINUS var_cte .)
-    OR              reduce using rule 102 (fact -> MINUS var_cte .)
-    AND             reduce using rule 102 (fact -> MINUS var_cte .)
-    RPAREN          reduce using rule 102 (fact -> MINUS var_cte .)
-    RBRACE          reduce using rule 102 (fact -> MINUS var_cte .)
-    SEMICOLON       reduce using rule 102 (fact -> MINUS var_cte .)
-    COMA            reduce using rule 102 (fact -> MINUS var_cte .)
+    ID              shift and go to state 108
+    CTE_I           shift and go to state 109
+    CTE_F           shift and go to state 110
+    CTE_S           shift and go to state 111
+    TRUE            shift and go to state 112
+    FALSE           shift and go to state 113
 
+    var_cte                        shift and go to state 184
+    fcall                          shift and go to state 114
+    vcall                          shift and go to state 115
+    asigvector                     shift and go to state 116
 
 state 146
 
@@ -2567,8 +2551,8 @@ state 146
     RBRACE          reduce using rule 96 (term -> fact resfact .)
     SEMICOLON       reduce using rule 96 (term -> fact resfact .)
     COMA            reduce using rule 96 (term -> fact resfact .)
-    TIMES           shift and go to state 183
-    DIVIDE          shift and go to state 184
+    TIMES           shift and go to state 185
+    DIVIDE          shift and go to state 186
 
 
 state 147
@@ -2592,7 +2576,7 @@ state 147
     RBRACE          reduce using rule 111 (var_cte -> ID pushid .)
     SEMICOLON       reduce using rule 111 (var_cte -> ID pushid .)
     COMA            reduce using rule 111 (var_cte -> ID pushid .)
-    LBRACE          shift and go to state 185
+    LBRACE          shift and go to state 187
 
 
 state 148
@@ -2600,7 +2584,7 @@ state 148
     (121) fcall -> ID existfunc . LPAREN startera fcall1 RPAREN generateGoSub
     (122) fcall -> ID existfunc . LPAREN startera RPAREN generateGoSub
 
-    LPAREN          shift and go to state 186
+    LPAREN          shift and go to state 188
 
 
 state 149
@@ -2618,8 +2602,8 @@ state 149
     (98) term -> . fact resfact DIVIDE pushop term
     (99) fact -> . LPAREN pushop expres RPAREN popop
     (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
     (111) var_cte -> . ID pushid
     (112) var_cte -> . CTE_I pushcte
     (113) var_cte -> . CTE_F pushcte
@@ -2644,7 +2628,7 @@ state 149
     TRUE            shift and go to state 112
     FALSE           shift and go to state 113
 
-    expres                         shift and go to state 187
+    expres                         shift and go to state 189
     exr                            shift and go to state 101
     ex                             shift and go to state 102
     term                           shift and go to state 103
@@ -2781,8 +2765,8 @@ state 155
     (98) term -> . fact resfact DIVIDE pushop term
     (99) fact -> . LPAREN pushop expres RPAREN popop
     (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
     (111) var_cte -> . ID pushid
     (112) var_cte -> . CTE_I pushcte
     (113) var_cte -> . CTE_F pushcte
@@ -2807,8 +2791,8 @@ state 155
     TRUE            shift and go to state 112
     FALSE           shift and go to state 113
 
-    escriti                        shift and go to state 188
-    expres                         shift and go to state 189
+    escriti                        shift and go to state 190
+    expres                         shift and go to state 191
     exr                            shift and go to state 101
     ex                             shift and go to state 102
     term                           shift and go to state 103
@@ -2822,7 +2806,7 @@ state 156
 
     (85) ciclo -> WHILE while1 LPAREN expres . RPAREN while2 LKEY bloq RKEY while3
 
-    RPAREN          shift and go to state 190
+    RPAREN          shift and go to state 192
 
 
 state 157
@@ -2832,7 +2816,7 @@ state 157
 
     RPAREN          reduce using rule 134 (pushid -> .)
 
-    pushid                         shift and go to state 191
+    pushid                         shift and go to state 193
 
 state 158
 
@@ -2845,7 +2829,7 @@ state 159
 
     (26) function -> FUNCTION functype ID addInTable LPAREN funci . RPAREN LKEY localvar bloq return1 RKEY
 
-    RPAREN          shift and go to state 192
+    RPAREN          shift and go to state 194
 
 
 state 160
@@ -2855,7 +2839,7 @@ state 160
     (34) function -> FUNCTION functype ID addInTable LPAREN RPAREN . LKEY bloq return1 RKEY
     (35) function -> FUNCTION functype ID addInTable LPAREN RPAREN . LKEY RKEY
 
-    LKEY            shift and go to state 193
+    LKEY            shift and go to state 195
 
 
 state 161
@@ -2863,7 +2847,7 @@ state 161
     (42) funci -> INT . ID sumparam
     (43) funci -> INT . ID sumparam COMA funci
 
-    ID              shift and go to state 194
+    ID              shift and go to state 196
 
 
 state 162
@@ -2871,7 +2855,7 @@ state 162
     (44) funci -> FLOAT . ID sumparam
     (45) funci -> FLOAT . ID sumparam COMA funci
 
-    ID              shift and go to state 195
+    ID              shift and go to state 197
 
 
 state 163
@@ -2879,7 +2863,7 @@ state 163
     (46) funci -> STRING . ID sumparam
     (47) funci -> STRING . ID sumparam COMA funci
 
-    ID              shift and go to state 196
+    ID              shift and go to state 198
 
 
 state 164
@@ -2887,7 +2871,7 @@ state 164
     (48) funci -> BOOL . ID sumparam
     (49) funci -> BOOL . ID sumparam COMA funci
 
-    ID              shift and go to state 197
+    ID              shift and go to state 199
 
 
 state 165
@@ -2902,7 +2886,7 @@ state 166
     (27) function -> FUNCTION pushvoid ID addInTable LPAREN funci . RPAREN LKEY localvar bloq RKEY
     (28) function -> FUNCTION pushvoid ID addInTable LPAREN funci . RPAREN LKEY bloq RKEY
 
-    RPAREN          shift and go to state 198
+    RPAREN          shift and go to state 200
 
 
 state 167
@@ -2911,7 +2895,7 @@ state 167
     (32) function -> FUNCTION pushvoid ID addInTable LPAREN RPAREN . LKEY localvar bloq RKEY
     (33) function -> FUNCTION pushvoid ID addInTable LPAREN RPAREN . LKEY bloq RKEY
 
-    LKEY            shift and go to state 199
+    LKEY            shift and go to state 201
 
 
 state 168
@@ -2985,27 +2969,27 @@ state 172
 
     SEMICOLON       reduce using rule 137 (resolverasignacion -> .)
 
-    resolverasignacion             shift and go to state 200
+    resolverasignacion             shift and go to state 202
 
 state 173
 
     (76) asign -> ID pushid LBRACE exr RBRACE . EQUAL pushop expres SEMICOLON
 
-    EQUAL           shift and go to state 201
+    EQUAL           shift and go to state 203
 
 
 state 174
 
     (123) fcallvoid -> ID existfunc LPAREN startera fcall1 . RPAREN SEMICOLON
 
-    RPAREN          shift and go to state 202
+    RPAREN          shift and go to state 204
 
 
 state 175
 
     (124) fcallvoid -> ID existfunc LPAREN startera RPAREN . SEMICOLON
 
-    SEMICOLON       shift and go to state 203
+    SEMICOLON       shift and go to state 205
 
 
 state 176
@@ -3017,13 +3001,13 @@ state 176
     COMA            reduce using rule 129 (generateparam -> .)
     RPAREN          reduce using rule 129 (generateparam -> .)
 
-    generateparam                  shift and go to state 204
+    generateparam                  shift and go to state 206
 
 state 177
 
     (99) fact -> LPAREN pushop expres . RPAREN popop
 
-    RPAREN          shift and go to state 205
+    RPAREN          shift and go to state 207
 
 
 state 178
@@ -3038,7 +3022,7 @@ state 178
     WHILE           reduce using rule 141 (resif -> .)
     READ            reduce using rule 141 (resif -> .)
 
-    resif                          shift and go to state 206
+    resif                          shift and go to state 208
 
 state 179
 
@@ -3050,7 +3034,7 @@ state 179
     COMA            reduce using rule 92 (reslog -> .)
     RBRACE          reduce using rule 92 (reslog -> .)
 
-    reslog                         shift and go to state 207
+    reslog                         shift and go to state 209
 
 state 180
 
@@ -3064,7 +3048,7 @@ state 180
     SEMICOLON       reduce using rule 140 (resrel -> .)
     COMA            reduce using rule 140 (resrel -> .)
 
-    resrel                         shift and go to state 208
+    resrel                         shift and go to state 210
 
 state 181
 
@@ -3081,7 +3065,7 @@ state 181
     TRUE            reduce using rule 135 (pushop -> .)
     FALSE           reduce using rule 135 (pushop -> .)
 
-    pushop                         shift and go to state 209
+    pushop                         shift and go to state 211
 
 state 182
 
@@ -3098,9 +3082,53 @@ state 182
     TRUE            reduce using rule 135 (pushop -> .)
     FALSE           reduce using rule 135 (pushop -> .)
 
-    pushop                         shift and go to state 210
+    pushop                         shift and go to state 212
 
 state 183
+
+    (101) fact -> PLUS pushop var_cte .
+
+    TIMES           reduce using rule 101 (fact -> PLUS pushop var_cte .)
+    DIVIDE          reduce using rule 101 (fact -> PLUS pushop var_cte .)
+    PLUS            reduce using rule 101 (fact -> PLUS pushop var_cte .)
+    MINUS           reduce using rule 101 (fact -> PLUS pushop var_cte .)
+    LOWERTHAN       reduce using rule 101 (fact -> PLUS pushop var_cte .)
+    MORETHAN        reduce using rule 101 (fact -> PLUS pushop var_cte .)
+    LOWEREQ         reduce using rule 101 (fact -> PLUS pushop var_cte .)
+    MOREEQ          reduce using rule 101 (fact -> PLUS pushop var_cte .)
+    SAME            reduce using rule 101 (fact -> PLUS pushop var_cte .)
+    DIFFERENT       reduce using rule 101 (fact -> PLUS pushop var_cte .)
+    OR              reduce using rule 101 (fact -> PLUS pushop var_cte .)
+    AND             reduce using rule 101 (fact -> PLUS pushop var_cte .)
+    RPAREN          reduce using rule 101 (fact -> PLUS pushop var_cte .)
+    RBRACE          reduce using rule 101 (fact -> PLUS pushop var_cte .)
+    SEMICOLON       reduce using rule 101 (fact -> PLUS pushop var_cte .)
+    COMA            reduce using rule 101 (fact -> PLUS pushop var_cte .)
+
+
+state 184
+
+    (102) fact -> MINUS pushop var_cte .
+
+    TIMES           reduce using rule 102 (fact -> MINUS pushop var_cte .)
+    DIVIDE          reduce using rule 102 (fact -> MINUS pushop var_cte .)
+    PLUS            reduce using rule 102 (fact -> MINUS pushop var_cte .)
+    MINUS           reduce using rule 102 (fact -> MINUS pushop var_cte .)
+    LOWERTHAN       reduce using rule 102 (fact -> MINUS pushop var_cte .)
+    MORETHAN        reduce using rule 102 (fact -> MINUS pushop var_cte .)
+    LOWEREQ         reduce using rule 102 (fact -> MINUS pushop var_cte .)
+    MOREEQ          reduce using rule 102 (fact -> MINUS pushop var_cte .)
+    SAME            reduce using rule 102 (fact -> MINUS pushop var_cte .)
+    DIFFERENT       reduce using rule 102 (fact -> MINUS pushop var_cte .)
+    OR              reduce using rule 102 (fact -> MINUS pushop var_cte .)
+    AND             reduce using rule 102 (fact -> MINUS pushop var_cte .)
+    RPAREN          reduce using rule 102 (fact -> MINUS pushop var_cte .)
+    RBRACE          reduce using rule 102 (fact -> MINUS pushop var_cte .)
+    SEMICOLON       reduce using rule 102 (fact -> MINUS pushop var_cte .)
+    COMA            reduce using rule 102 (fact -> MINUS pushop var_cte .)
+
+
+state 185
 
     (97) term -> fact resfact TIMES . pushop term
     (135) pushop -> .
@@ -3115,9 +3143,9 @@ state 183
     TRUE            reduce using rule 135 (pushop -> .)
     FALSE           reduce using rule 135 (pushop -> .)
 
-    pushop                         shift and go to state 211
+    pushop                         shift and go to state 213
 
-state 184
+state 186
 
     (98) term -> fact resfact DIVIDE . pushop term
     (135) pushop -> .
@@ -3132,9 +3160,9 @@ state 184
     TRUE            reduce using rule 135 (pushop -> .)
     FALSE           reduce using rule 135 (pushop -> .)
 
-    pushop                         shift and go to state 212
+    pushop                         shift and go to state 214
 
-state 185
+state 187
 
     (120) asigvector -> ID pushid LBRACE . ex RBRACE
     (93) ex -> . term resterm
@@ -3145,8 +3173,8 @@ state 185
     (98) term -> . fact resfact DIVIDE pushop term
     (99) fact -> . LPAREN pushop expres RPAREN popop
     (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
     (111) var_cte -> . ID pushid
     (112) var_cte -> . CTE_I pushcte
     (113) var_cte -> . CTE_F pushcte
@@ -3171,7 +3199,7 @@ state 185
     TRUE            shift and go to state 112
     FALSE           shift and go to state 113
 
-    ex                             shift and go to state 213
+    ex                             shift and go to state 215
     term                           shift and go to state 103
     fact                           shift and go to state 106
     var_cte                        shift and go to state 107
@@ -3179,7 +3207,7 @@ state 185
     vcall                          shift and go to state 115
     asigvector                     shift and go to state 116
 
-state 186
+state 188
 
     (121) fcall -> ID existfunc LPAREN . startera fcall1 RPAREN generateGoSub
     (122) fcall -> ID existfunc LPAREN . startera RPAREN generateGoSub
@@ -3196,23 +3224,23 @@ state 186
     TRUE            reduce using rule 126 (startera -> .)
     FALSE           reduce using rule 126 (startera -> .)
 
-    startera                       shift and go to state 214
+    startera                       shift and go to state 216
 
-state 187
+state 189
 
     (131) vcall -> ID LBRACE expres . RBRACE
 
-    RBRACE          shift and go to state 215
+    RBRACE          shift and go to state 217
 
 
-state 188
+state 190
 
     (79) escrit -> PRINT pushop LPAREN imprimirl escriti . RPAREN SEMICOLON
 
-    RPAREN          shift and go to state 216
+    RPAREN          shift and go to state 218
 
 
-state 189
+state 191
 
     (80) escriti -> expres . escrit1
     (81) escriti -> expres . escrit2 COMA escriti
@@ -3222,35 +3250,35 @@ state 189
     RPAREN          reduce using rule 83 (escrit1 -> .)
     COMA            reduce using rule 84 (escrit2 -> .)
 
-    escrit1                        shift and go to state 217
-    escrit2                        shift and go to state 218
+    escrit1                        shift and go to state 219
+    escrit2                        shift and go to state 220
 
-state 190
+state 192
 
     (85) ciclo -> WHILE while1 LPAREN expres RPAREN . while2 LKEY bloq RKEY while3
     (145) while2 -> .
 
     LKEY            reduce using rule 145 (while2 -> .)
 
-    while2                         shift and go to state 219
+    while2                         shift and go to state 221
 
-state 191
+state 193
 
     (86) leer -> READ pushop LPAREN ID pushid . readid RPAREN SEMICOLON
     (87) readid -> .
 
     RPAREN          reduce using rule 87 (readid -> .)
 
-    readid                         shift and go to state 220
+    readid                         shift and go to state 222
 
-state 192
+state 194
 
     (26) function -> FUNCTION functype ID addInTable LPAREN funci RPAREN . LKEY localvar bloq return1 RKEY
 
-    LKEY            shift and go to state 221
+    LKEY            shift and go to state 223
 
 
-state 193
+state 195
 
     (29) function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY . localvar RKEY
     (31) function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY . localvar bloq return1 RKEY
@@ -3283,7 +3311,7 @@ state 193
     (123) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     (124) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
 
-    RKEY            shift and go to state 223
+    RKEY            shift and go to state 225
     VAR             shift and go to state 11
     VECTOR          shift and go to state 12
     ID              shift and go to state 62
@@ -3292,10 +3320,10 @@ state 193
     WHILE           shift and go to state 65
     READ            shift and go to state 66
 
-    localvar                       shift and go to state 222
-    bloq                           shift and go to state 224
-    var                            shift and go to state 225
-    vector                         shift and go to state 226
+    localvar                       shift and go to state 224
+    bloq                           shift and go to state 226
+    var                            shift and go to state 227
+    vector                         shift and go to state 228
     estat                          shift and go to state 53
     asign                          shift and go to state 56
     cond                           shift and go to state 57
@@ -3304,32 +3332,10 @@ state 193
     leer                           shift and go to state 60
     fcallvoid                      shift and go to state 61
 
-state 194
+state 196
 
     (42) funci -> INT ID . sumparam
     (43) funci -> INT ID . sumparam COMA funci
-    (55) sumparam -> .
-
-    COMA            reduce using rule 55 (sumparam -> .)
-    RPAREN          reduce using rule 55 (sumparam -> .)
-
-    sumparam                       shift and go to state 227
-
-state 195
-
-    (44) funci -> FLOAT ID . sumparam
-    (45) funci -> FLOAT ID . sumparam COMA funci
-    (55) sumparam -> .
-
-    COMA            reduce using rule 55 (sumparam -> .)
-    RPAREN          reduce using rule 55 (sumparam -> .)
-
-    sumparam                       shift and go to state 228
-
-state 196
-
-    (46) funci -> STRING ID . sumparam
-    (47) funci -> STRING ID . sumparam COMA funci
     (55) sumparam -> .
 
     COMA            reduce using rule 55 (sumparam -> .)
@@ -3339,8 +3345,8 @@ state 196
 
 state 197
 
-    (48) funci -> BOOL ID . sumparam
-    (49) funci -> BOOL ID . sumparam COMA funci
+    (44) funci -> FLOAT ID . sumparam
+    (45) funci -> FLOAT ID . sumparam COMA funci
     (55) sumparam -> .
 
     COMA            reduce using rule 55 (sumparam -> .)
@@ -3350,13 +3356,35 @@ state 197
 
 state 198
 
+    (46) funci -> STRING ID . sumparam
+    (47) funci -> STRING ID . sumparam COMA funci
+    (55) sumparam -> .
+
+    COMA            reduce using rule 55 (sumparam -> .)
+    RPAREN          reduce using rule 55 (sumparam -> .)
+
+    sumparam                       shift and go to state 231
+
+state 199
+
+    (48) funci -> BOOL ID . sumparam
+    (49) funci -> BOOL ID . sumparam COMA funci
+    (55) sumparam -> .
+
+    COMA            reduce using rule 55 (sumparam -> .)
+    RPAREN          reduce using rule 55 (sumparam -> .)
+
+    sumparam                       shift and go to state 232
+
+state 200
+
     (27) function -> FUNCTION pushvoid ID addInTable LPAREN funci RPAREN . LKEY localvar bloq RKEY
     (28) function -> FUNCTION pushvoid ID addInTable LPAREN funci RPAREN . LKEY bloq RKEY
 
-    LKEY            shift and go to state 231
+    LKEY            shift and go to state 233
 
 
-state 199
+state 201
 
     (30) function -> FUNCTION pushvoid ID addInTable LPAREN RPAREN LKEY . localvar RKEY
     (32) function -> FUNCTION pushvoid ID addInTable LPAREN RPAREN LKEY . localvar bloq RKEY
@@ -3396,10 +3424,10 @@ state 199
     WHILE           shift and go to state 65
     READ            shift and go to state 66
 
-    localvar                       shift and go to state 232
-    bloq                           shift and go to state 233
-    var                            shift and go to state 225
-    vector                         shift and go to state 226
+    localvar                       shift and go to state 234
+    bloq                           shift and go to state 235
+    var                            shift and go to state 227
+    vector                         shift and go to state 228
     estat                          shift and go to state 53
     asign                          shift and go to state 56
     cond                           shift and go to state 57
@@ -3408,14 +3436,14 @@ state 199
     leer                           shift and go to state 60
     fcallvoid                      shift and go to state 61
 
-state 200
+state 202
 
     (75) asign -> ID pushid EQUAL pushop expres resolverasignacion . SEMICOLON
 
-    SEMICOLON       shift and go to state 234
+    SEMICOLON       shift and go to state 236
 
 
-state 201
+state 203
 
     (76) asign -> ID pushid LBRACE exr RBRACE EQUAL . pushop expres SEMICOLON
     (135) pushop -> .
@@ -3430,16 +3458,16 @@ state 201
     TRUE            reduce using rule 135 (pushop -> .)
     FALSE           reduce using rule 135 (pushop -> .)
 
-    pushop                         shift and go to state 235
+    pushop                         shift and go to state 237
 
-state 202
+state 204
 
     (123) fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN . SEMICOLON
 
-    SEMICOLON       shift and go to state 236
+    SEMICOLON       shift and go to state 238
 
 
-state 203
+state 205
 
     (124) fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .
 
@@ -3452,16 +3480,16 @@ state 203
     RETURN          reduce using rule 124 (fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .)
 
 
-state 204
+state 206
 
     (127) fcall1 -> expres generateparam .
     (128) fcall1 -> expres generateparam . COMA fcall1
 
     RPAREN          reduce using rule 127 (fcall1 -> expres generateparam .)
-    COMA            shift and go to state 237
+    COMA            shift and go to state 239
 
 
-state 205
+state 207
 
     (99) fact -> LPAREN pushop expres RPAREN . popop
     (136) popop -> .
@@ -3483,9 +3511,9 @@ state 205
     SEMICOLON       reduce using rule 136 (popop -> .)
     COMA            reduce using rule 136 (popop -> .)
 
-    popop                          shift and go to state 238
+    popop                          shift and go to state 240
 
-state 206
+state 208
 
     (77) cond -> IF LPAREN expres RPAREN LKEY resif . bloq RKEY finif
     (78) cond -> IF LPAREN expres RPAREN LKEY resif . bloq RKEY ELSE LKEY reselse bloq RKEY finif
@@ -3513,7 +3541,7 @@ state 206
     WHILE           shift and go to state 65
     READ            shift and go to state 66
 
-    bloq                           shift and go to state 239
+    bloq                           shift and go to state 241
     estat                          shift and go to state 53
     asign                          shift and go to state 56
     cond                           shift and go to state 57
@@ -3522,7 +3550,7 @@ state 206
     leer                           shift and go to state 60
     fcallvoid                      shift and go to state 61
 
-state 207
+state 209
 
     (89) expres -> exr log expres reslog .
 
@@ -3532,7 +3560,7 @@ state 207
     RBRACE          reduce using rule 89 (expres -> exr log expres reslog .)
 
 
-state 208
+state 210
 
     (91) exr -> ex rel exr resrel .
 
@@ -3544,7 +3572,7 @@ state 208
     COMA            reduce using rule 91 (exr -> ex rel exr resrel .)
 
 
-state 209
+state 211
 
     (94) ex -> term resterm PLUS pushop . ex
     (93) ex -> . term resterm
@@ -3555,8 +3583,8 @@ state 209
     (98) term -> . fact resfact DIVIDE pushop term
     (99) fact -> . LPAREN pushop expres RPAREN popop
     (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
     (111) var_cte -> . ID pushid
     (112) var_cte -> . CTE_I pushcte
     (113) var_cte -> . CTE_F pushcte
@@ -3582,14 +3610,14 @@ state 209
     FALSE           shift and go to state 113
 
     term                           shift and go to state 103
-    ex                             shift and go to state 240
+    ex                             shift and go to state 242
     fact                           shift and go to state 106
     var_cte                        shift and go to state 107
     fcall                          shift and go to state 114
     vcall                          shift and go to state 115
     asigvector                     shift and go to state 116
 
-state 210
+state 212
 
     (95) ex -> term resterm MINUS pushop . ex
     (93) ex -> . term resterm
@@ -3600,8 +3628,8 @@ state 210
     (98) term -> . fact resfact DIVIDE pushop term
     (99) fact -> . LPAREN pushop expres RPAREN popop
     (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
     (111) var_cte -> . ID pushid
     (112) var_cte -> . CTE_I pushcte
     (113) var_cte -> . CTE_F pushcte
@@ -3627,90 +3655,8 @@ state 210
     FALSE           shift and go to state 113
 
     term                           shift and go to state 103
-    ex                             shift and go to state 241
+    ex                             shift and go to state 243
     fact                           shift and go to state 106
-    var_cte                        shift and go to state 107
-    fcall                          shift and go to state 114
-    vcall                          shift and go to state 115
-    asigvector                     shift and go to state 116
-
-state 211
-
-    (97) term -> fact resfact TIMES pushop . term
-    (96) term -> . fact resfact
-    (97) term -> . fact resfact TIMES pushop term
-    (98) term -> . fact resfact DIVIDE pushop term
-    (99) fact -> . LPAREN pushop expres RPAREN popop
-    (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
-    (111) var_cte -> . ID pushid
-    (112) var_cte -> . CTE_I pushcte
-    (113) var_cte -> . CTE_F pushcte
-    (114) var_cte -> . CTE_S pushcte
-    (115) var_cte -> . TRUE pushcte
-    (116) var_cte -> . FALSE pushcte
-    (117) var_cte -> . fcall
-    (118) var_cte -> . vcall
-    (119) var_cte -> . asigvector
-    (121) fcall -> . ID existfunc LPAREN startera fcall1 RPAREN generateGoSub
-    (122) fcall -> . ID existfunc LPAREN startera RPAREN generateGoSub
-    (131) vcall -> . ID LBRACE expres RBRACE
-    (120) asigvector -> . ID pushid LBRACE ex RBRACE
-
-    LPAREN          shift and go to state 99
-    PLUS            shift and go to state 104
-    MINUS           shift and go to state 105
-    ID              shift and go to state 108
-    CTE_I           shift and go to state 109
-    CTE_F           shift and go to state 110
-    CTE_S           shift and go to state 111
-    TRUE            shift and go to state 112
-    FALSE           shift and go to state 113
-
-    fact                           shift and go to state 106
-    term                           shift and go to state 242
-    var_cte                        shift and go to state 107
-    fcall                          shift and go to state 114
-    vcall                          shift and go to state 115
-    asigvector                     shift and go to state 116
-
-state 212
-
-    (98) term -> fact resfact DIVIDE pushop . term
-    (96) term -> . fact resfact
-    (97) term -> . fact resfact TIMES pushop term
-    (98) term -> . fact resfact DIVIDE pushop term
-    (99) fact -> . LPAREN pushop expres RPAREN popop
-    (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
-    (111) var_cte -> . ID pushid
-    (112) var_cte -> . CTE_I pushcte
-    (113) var_cte -> . CTE_F pushcte
-    (114) var_cte -> . CTE_S pushcte
-    (115) var_cte -> . TRUE pushcte
-    (116) var_cte -> . FALSE pushcte
-    (117) var_cte -> . fcall
-    (118) var_cte -> . vcall
-    (119) var_cte -> . asigvector
-    (121) fcall -> . ID existfunc LPAREN startera fcall1 RPAREN generateGoSub
-    (122) fcall -> . ID existfunc LPAREN startera RPAREN generateGoSub
-    (131) vcall -> . ID LBRACE expres RBRACE
-    (120) asigvector -> . ID pushid LBRACE ex RBRACE
-
-    LPAREN          shift and go to state 99
-    PLUS            shift and go to state 104
-    MINUS           shift and go to state 105
-    ID              shift and go to state 108
-    CTE_I           shift and go to state 109
-    CTE_F           shift and go to state 110
-    CTE_S           shift and go to state 111
-    TRUE            shift and go to state 112
-    FALSE           shift and go to state 113
-
-    fact                           shift and go to state 106
-    term                           shift and go to state 243
     var_cte                        shift and go to state 107
     fcall                          shift and go to state 114
     vcall                          shift and go to state 115
@@ -3718,12 +3664,94 @@ state 212
 
 state 213
 
-    (120) asigvector -> ID pushid LBRACE ex . RBRACE
+    (97) term -> fact resfact TIMES pushop . term
+    (96) term -> . fact resfact
+    (97) term -> . fact resfact TIMES pushop term
+    (98) term -> . fact resfact DIVIDE pushop term
+    (99) fact -> . LPAREN pushop expres RPAREN popop
+    (100) fact -> . var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
+    (111) var_cte -> . ID pushid
+    (112) var_cte -> . CTE_I pushcte
+    (113) var_cte -> . CTE_F pushcte
+    (114) var_cte -> . CTE_S pushcte
+    (115) var_cte -> . TRUE pushcte
+    (116) var_cte -> . FALSE pushcte
+    (117) var_cte -> . fcall
+    (118) var_cte -> . vcall
+    (119) var_cte -> . asigvector
+    (121) fcall -> . ID existfunc LPAREN startera fcall1 RPAREN generateGoSub
+    (122) fcall -> . ID existfunc LPAREN startera RPAREN generateGoSub
+    (131) vcall -> . ID LBRACE expres RBRACE
+    (120) asigvector -> . ID pushid LBRACE ex RBRACE
 
-    RBRACE          shift and go to state 244
+    LPAREN          shift and go to state 99
+    PLUS            shift and go to state 104
+    MINUS           shift and go to state 105
+    ID              shift and go to state 108
+    CTE_I           shift and go to state 109
+    CTE_F           shift and go to state 110
+    CTE_S           shift and go to state 111
+    TRUE            shift and go to state 112
+    FALSE           shift and go to state 113
 
+    fact                           shift and go to state 106
+    term                           shift and go to state 244
+    var_cte                        shift and go to state 107
+    fcall                          shift and go to state 114
+    vcall                          shift and go to state 115
+    asigvector                     shift and go to state 116
 
 state 214
+
+    (98) term -> fact resfact DIVIDE pushop . term
+    (96) term -> . fact resfact
+    (97) term -> . fact resfact TIMES pushop term
+    (98) term -> . fact resfact DIVIDE pushop term
+    (99) fact -> . LPAREN pushop expres RPAREN popop
+    (100) fact -> . var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
+    (111) var_cte -> . ID pushid
+    (112) var_cte -> . CTE_I pushcte
+    (113) var_cte -> . CTE_F pushcte
+    (114) var_cte -> . CTE_S pushcte
+    (115) var_cte -> . TRUE pushcte
+    (116) var_cte -> . FALSE pushcte
+    (117) var_cte -> . fcall
+    (118) var_cte -> . vcall
+    (119) var_cte -> . asigvector
+    (121) fcall -> . ID existfunc LPAREN startera fcall1 RPAREN generateGoSub
+    (122) fcall -> . ID existfunc LPAREN startera RPAREN generateGoSub
+    (131) vcall -> . ID LBRACE expres RBRACE
+    (120) asigvector -> . ID pushid LBRACE ex RBRACE
+
+    LPAREN          shift and go to state 99
+    PLUS            shift and go to state 104
+    MINUS           shift and go to state 105
+    ID              shift and go to state 108
+    CTE_I           shift and go to state 109
+    CTE_F           shift and go to state 110
+    CTE_S           shift and go to state 111
+    TRUE            shift and go to state 112
+    FALSE           shift and go to state 113
+
+    fact                           shift and go to state 106
+    term                           shift and go to state 245
+    var_cte                        shift and go to state 107
+    fcall                          shift and go to state 114
+    vcall                          shift and go to state 115
+    asigvector                     shift and go to state 116
+
+state 215
+
+    (120) asigvector -> ID pushid LBRACE ex . RBRACE
+
+    RBRACE          shift and go to state 246
+
+
+state 216
 
     (121) fcall -> ID existfunc LPAREN startera . fcall1 RPAREN generateGoSub
     (122) fcall -> ID existfunc LPAREN startera . RPAREN generateGoSub
@@ -3741,8 +3769,8 @@ state 214
     (98) term -> . fact resfact DIVIDE pushop term
     (99) fact -> . LPAREN pushop expres RPAREN popop
     (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
     (111) var_cte -> . ID pushid
     (112) var_cte -> . CTE_I pushcte
     (113) var_cte -> . CTE_F pushcte
@@ -3757,7 +3785,7 @@ state 214
     (131) vcall -> . ID LBRACE expres RBRACE
     (120) asigvector -> . ID pushid LBRACE ex RBRACE
 
-    RPAREN          shift and go to state 246
+    RPAREN          shift and go to state 248
     LPAREN          shift and go to state 99
     PLUS            shift and go to state 104
     MINUS           shift and go to state 105
@@ -3768,7 +3796,7 @@ state 214
     TRUE            shift and go to state 112
     FALSE           shift and go to state 113
 
-    fcall1                         shift and go to state 245
+    fcall1                         shift and go to state 247
     expres                         shift and go to state 176
     exr                            shift and go to state 101
     ex                             shift and go to state 102
@@ -3779,7 +3807,7 @@ state 214
     vcall                          shift and go to state 115
     asigvector                     shift and go to state 116
 
-state 215
+state 217
 
     (131) vcall -> ID LBRACE expres RBRACE .
 
@@ -3801,42 +3829,42 @@ state 215
     COMA            reduce using rule 131 (vcall -> ID LBRACE expres RBRACE .)
 
 
-state 216
+state 218
 
     (79) escrit -> PRINT pushop LPAREN imprimirl escriti RPAREN . SEMICOLON
 
-    SEMICOLON       shift and go to state 247
+    SEMICOLON       shift and go to state 249
 
 
-state 217
+state 219
 
     (80) escriti -> expres escrit1 .
 
     RPAREN          reduce using rule 80 (escriti -> expres escrit1 .)
 
 
-state 218
+state 220
 
     (81) escriti -> expres escrit2 . COMA escriti
 
-    COMA            shift and go to state 248
-
-
-state 219
-
-    (85) ciclo -> WHILE while1 LPAREN expres RPAREN while2 . LKEY bloq RKEY while3
-
-    LKEY            shift and go to state 249
-
-
-state 220
-
-    (86) leer -> READ pushop LPAREN ID pushid readid . RPAREN SEMICOLON
-
-    RPAREN          shift and go to state 250
+    COMA            shift and go to state 250
 
 
 state 221
+
+    (85) ciclo -> WHILE while1 LPAREN expres RPAREN while2 . LKEY bloq RKEY while3
+
+    LKEY            shift and go to state 251
+
+
+state 222
+
+    (86) leer -> READ pushop LPAREN ID pushid readid . RPAREN SEMICOLON
+
+    RPAREN          shift and go to state 252
+
+
+state 223
 
     (26) function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY . localvar bloq return1 RKEY
     (51) localvar -> . var
@@ -3852,11 +3880,11 @@ state 221
     VAR             shift and go to state 11
     VECTOR          shift and go to state 12
 
-    localvar                       shift and go to state 251
-    var                            shift and go to state 225
-    vector                         shift and go to state 226
+    localvar                       shift and go to state 253
+    var                            shift and go to state 227
+    vector                         shift and go to state 228
 
-state 222
+state 224
 
     (29) function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar . RKEY
     (31) function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar . bloq return1 RKEY
@@ -3878,14 +3906,14 @@ state 222
     (123) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     (124) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
 
-    RKEY            shift and go to state 252
+    RKEY            shift and go to state 254
     ID              shift and go to state 62
     IF              shift and go to state 63
     PRINT           shift and go to state 64
     WHILE           shift and go to state 65
     READ            shift and go to state 66
 
-    bloq                           shift and go to state 253
+    bloq                           shift and go to state 255
     estat                          shift and go to state 53
     asign                          shift and go to state 56
     cond                           shift and go to state 57
@@ -3894,7 +3922,7 @@ state 222
     leer                           shift and go to state 60
     fcallvoid                      shift and go to state 61
 
-state 223
+state 225
 
     (35) function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY RKEY .
 
@@ -3902,20 +3930,20 @@ state 223
     MAIN            reduce using rule 35 (function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY RKEY .)
 
 
-state 224
+state 226
 
     (34) function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY bloq . return1 RKEY
     (56) return1 -> . RETURN expres resreturn SEMICOLON
     (57) return1 -> . empty
     (132) empty -> .
 
-    RETURN          shift and go to state 255
+    RETURN          shift and go to state 257
     RKEY            reduce using rule 132 (empty -> .)
 
-    return1                        shift and go to state 254
-    empty                          shift and go to state 256
+    return1                        shift and go to state 256
+    empty                          shift and go to state 258
 
-state 225
+state 227
 
     (51) localvar -> var .
     (53) localvar -> var . localvar
@@ -3938,11 +3966,11 @@ state 225
     VAR             shift and go to state 11
     VECTOR          shift and go to state 12
 
-    var                            shift and go to state 225
-    localvar                       shift and go to state 257
-    vector                         shift and go to state 226
+    var                            shift and go to state 227
+    localvar                       shift and go to state 259
+    vector                         shift and go to state 228
 
-state 226
+state 228
 
     (52) localvar -> vector .
     (54) localvar -> vector . localvar
@@ -3965,47 +3993,47 @@ state 226
     VAR             shift and go to state 11
     VECTOR          shift and go to state 12
 
-    vector                         shift and go to state 226
-    localvar                       shift and go to state 258
-    var                            shift and go to state 225
+    vector                         shift and go to state 228
+    localvar                       shift and go to state 260
+    var                            shift and go to state 227
 
-state 227
+state 229
 
     (42) funci -> INT ID sumparam .
     (43) funci -> INT ID sumparam . COMA funci
 
     RPAREN          reduce using rule 42 (funci -> INT ID sumparam .)
-    COMA            shift and go to state 259
-
-
-state 228
-
-    (44) funci -> FLOAT ID sumparam .
-    (45) funci -> FLOAT ID sumparam . COMA funci
-
-    RPAREN          reduce using rule 44 (funci -> FLOAT ID sumparam .)
-    COMA            shift and go to state 260
-
-
-state 229
-
-    (46) funci -> STRING ID sumparam .
-    (47) funci -> STRING ID sumparam . COMA funci
-
-    RPAREN          reduce using rule 46 (funci -> STRING ID sumparam .)
     COMA            shift and go to state 261
 
 
 state 230
 
-    (48) funci -> BOOL ID sumparam .
-    (49) funci -> BOOL ID sumparam . COMA funci
+    (44) funci -> FLOAT ID sumparam .
+    (45) funci -> FLOAT ID sumparam . COMA funci
 
-    RPAREN          reduce using rule 48 (funci -> BOOL ID sumparam .)
+    RPAREN          reduce using rule 44 (funci -> FLOAT ID sumparam .)
     COMA            shift and go to state 262
 
 
 state 231
+
+    (46) funci -> STRING ID sumparam .
+    (47) funci -> STRING ID sumparam . COMA funci
+
+    RPAREN          reduce using rule 46 (funci -> STRING ID sumparam .)
+    COMA            shift and go to state 263
+
+
+state 232
+
+    (48) funci -> BOOL ID sumparam .
+    (49) funci -> BOOL ID sumparam . COMA funci
+
+    RPAREN          reduce using rule 48 (funci -> BOOL ID sumparam .)
+    COMA            shift and go to state 264
+
+
+state 233
 
     (27) function -> FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY . localvar bloq RKEY
     (28) function -> FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY . bloq RKEY
@@ -4044,10 +4072,10 @@ state 231
     WHILE           shift and go to state 65
     READ            shift and go to state 66
 
-    localvar                       shift and go to state 263
-    bloq                           shift and go to state 264
-    var                            shift and go to state 225
-    vector                         shift and go to state 226
+    localvar                       shift and go to state 265
+    bloq                           shift and go to state 266
+    var                            shift and go to state 227
+    vector                         shift and go to state 228
     estat                          shift and go to state 53
     asign                          shift and go to state 56
     cond                           shift and go to state 57
@@ -4056,7 +4084,7 @@ state 231
     leer                           shift and go to state 60
     fcallvoid                      shift and go to state 61
 
-state 232
+state 234
 
     (30) function -> FUNCTION pushvoid ID addInTable LPAREN RPAREN LKEY localvar . RKEY
     (32) function -> FUNCTION pushvoid ID addInTable LPAREN RPAREN LKEY localvar . bloq RKEY
@@ -4078,14 +4106,14 @@ state 232
     (123) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     (124) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
 
-    RKEY            shift and go to state 265
+    RKEY            shift and go to state 267
     ID              shift and go to state 62
     IF              shift and go to state 63
     PRINT           shift and go to state 64
     WHILE           shift and go to state 65
     READ            shift and go to state 66
 
-    bloq                           shift and go to state 266
+    bloq                           shift and go to state 268
     estat                          shift and go to state 53
     asign                          shift and go to state 56
     cond                           shift and go to state 57
@@ -4094,14 +4122,14 @@ state 232
     leer                           shift and go to state 60
     fcallvoid                      shift and go to state 61
 
-state 233
+state 235
 
     (33) function -> FUNCTION pushvoid ID addInTable LPAREN RPAREN LKEY bloq . RKEY
 
-    RKEY            shift and go to state 267
+    RKEY            shift and go to state 269
 
 
-state 234
+state 236
 
     (75) asign -> ID pushid EQUAL pushop expres resolverasignacion SEMICOLON .
 
@@ -4114,7 +4142,7 @@ state 234
     RETURN          reduce using rule 75 (asign -> ID pushid EQUAL pushop expres resolverasignacion SEMICOLON .)
 
 
-state 235
+state 237
 
     (76) asign -> ID pushid LBRACE exr RBRACE EQUAL pushop . expres SEMICOLON
     (88) expres -> . exr
@@ -4129,8 +4157,8 @@ state 235
     (98) term -> . fact resfact DIVIDE pushop term
     (99) fact -> . LPAREN pushop expres RPAREN popop
     (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
     (111) var_cte -> . ID pushid
     (112) var_cte -> . CTE_I pushcte
     (113) var_cte -> . CTE_F pushcte
@@ -4156,7 +4184,7 @@ state 235
     FALSE           shift and go to state 113
 
     exr                            shift and go to state 101
-    expres                         shift and go to state 268
+    expres                         shift and go to state 270
     ex                             shift and go to state 102
     term                           shift and go to state 103
     fact                           shift and go to state 106
@@ -4165,7 +4193,7 @@ state 235
     vcall                          shift and go to state 115
     asigvector                     shift and go to state 116
 
-state 236
+state 238
 
     (123) fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .
 
@@ -4178,7 +4206,7 @@ state 236
     RETURN          reduce using rule 123 (fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .)
 
 
-state 237
+state 239
 
     (128) fcall1 -> expres generateparam COMA . fcall1
     (127) fcall1 -> . expres generateparam
@@ -4195,8 +4223,8 @@ state 237
     (98) term -> . fact resfact DIVIDE pushop term
     (99) fact -> . LPAREN pushop expres RPAREN popop
     (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
     (111) var_cte -> . ID pushid
     (112) var_cte -> . CTE_I pushcte
     (113) var_cte -> . CTE_F pushcte
@@ -4222,7 +4250,7 @@ state 237
     FALSE           shift and go to state 113
 
     expres                         shift and go to state 176
-    fcall1                         shift and go to state 269
+    fcall1                         shift and go to state 271
     exr                            shift and go to state 101
     ex                             shift and go to state 102
     term                           shift and go to state 103
@@ -4232,7 +4260,7 @@ state 237
     vcall                          shift and go to state 115
     asigvector                     shift and go to state 116
 
-state 238
+state 240
 
     (99) fact -> LPAREN pushop expres RPAREN popop .
 
@@ -4254,15 +4282,15 @@ state 238
     COMA            reduce using rule 99 (fact -> LPAREN pushop expres RPAREN popop .)
 
 
-state 239
+state 241
 
     (77) cond -> IF LPAREN expres RPAREN LKEY resif bloq . RKEY finif
     (78) cond -> IF LPAREN expres RPAREN LKEY resif bloq . RKEY ELSE LKEY reselse bloq RKEY finif
 
-    RKEY            shift and go to state 270
+    RKEY            shift and go to state 272
 
 
-state 240
+state 242
 
     (94) ex -> term resterm PLUS pushop ex .
 
@@ -4280,7 +4308,7 @@ state 240
     COMA            reduce using rule 94 (ex -> term resterm PLUS pushop ex .)
 
 
-state 241
+state 243
 
     (95) ex -> term resterm MINUS pushop ex .
 
@@ -4298,7 +4326,7 @@ state 241
     COMA            reduce using rule 95 (ex -> term resterm MINUS pushop ex .)
 
 
-state 242
+state 244
 
     (97) term -> fact resfact TIMES pushop term .
 
@@ -4318,7 +4346,7 @@ state 242
     COMA            reduce using rule 97 (term -> fact resfact TIMES pushop term .)
 
 
-state 243
+state 245
 
     (98) term -> fact resfact DIVIDE pushop term .
 
@@ -4338,7 +4366,7 @@ state 243
     COMA            reduce using rule 98 (term -> fact resfact DIVIDE pushop term .)
 
 
-state 244
+state 246
 
     (120) asigvector -> ID pushid LBRACE ex RBRACE .
 
@@ -4360,14 +4388,14 @@ state 244
     COMA            reduce using rule 120 (asigvector -> ID pushid LBRACE ex RBRACE .)
 
 
-state 245
+state 247
 
     (121) fcall -> ID existfunc LPAREN startera fcall1 . RPAREN generateGoSub
 
-    RPAREN          shift and go to state 271
+    RPAREN          shift and go to state 273
 
 
-state 246
+state 248
 
     (122) fcall -> ID existfunc LPAREN startera RPAREN . generateGoSub
     (130) generateGoSub -> .
@@ -4389,9 +4417,9 @@ state 246
     SEMICOLON       reduce using rule 130 (generateGoSub -> .)
     COMA            reduce using rule 130 (generateGoSub -> .)
 
-    generateGoSub                  shift and go to state 272
+    generateGoSub                  shift and go to state 274
 
-state 247
+state 249
 
     (79) escrit -> PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON .
 
@@ -4404,7 +4432,7 @@ state 247
     RETURN          reduce using rule 79 (escrit -> PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON .)
 
 
-state 248
+state 250
 
     (81) escriti -> expres escrit2 COMA . escriti
     (80) escriti -> . expres escrit1
@@ -4421,8 +4449,8 @@ state 248
     (98) term -> . fact resfact DIVIDE pushop term
     (99) fact -> . LPAREN pushop expres RPAREN popop
     (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
     (111) var_cte -> . ID pushid
     (112) var_cte -> . CTE_I pushcte
     (113) var_cte -> . CTE_F pushcte
@@ -4447,8 +4475,8 @@ state 248
     TRUE            shift and go to state 112
     FALSE           shift and go to state 113
 
-    expres                         shift and go to state 189
-    escriti                        shift and go to state 273
+    expres                         shift and go to state 191
+    escriti                        shift and go to state 275
     exr                            shift and go to state 101
     ex                             shift and go to state 102
     term                           shift and go to state 103
@@ -4458,52 +4486,9 @@ state 248
     vcall                          shift and go to state 115
     asigvector                     shift and go to state 116
 
-state 249
-
-    (85) ciclo -> WHILE while1 LPAREN expres RPAREN while2 LKEY . bloq RKEY while3
-    (67) bloq -> . estat
-    (68) bloq -> . estat bloq
-    (69) estat -> . asign
-    (70) estat -> . cond
-    (71) estat -> . escrit
-    (72) estat -> . ciclo
-    (73) estat -> . leer
-    (74) estat -> . fcallvoid
-    (75) asign -> . ID pushid EQUAL pushop expres resolverasignacion SEMICOLON
-    (76) asign -> . ID pushid LBRACE exr RBRACE EQUAL pushop expres SEMICOLON
-    (77) cond -> . IF LPAREN expres RPAREN LKEY resif bloq RKEY finif
-    (78) cond -> . IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif
-    (79) escrit -> . PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON
-    (85) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
-    (86) leer -> . READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
-    (123) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
-    (124) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
-
-    ID              shift and go to state 62
-    IF              shift and go to state 63
-    PRINT           shift and go to state 64
-    WHILE           shift and go to state 65
-    READ            shift and go to state 66
-
-    bloq                           shift and go to state 274
-    estat                          shift and go to state 53
-    asign                          shift and go to state 56
-    cond                           shift and go to state 57
-    escrit                         shift and go to state 58
-    ciclo                          shift and go to state 59
-    leer                           shift and go to state 60
-    fcallvoid                      shift and go to state 61
-
-state 250
-
-    (86) leer -> READ pushop LPAREN ID pushid readid RPAREN . SEMICOLON
-
-    SEMICOLON       shift and go to state 275
-
-
 state 251
 
-    (26) function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar . bloq return1 RKEY
+    (85) ciclo -> WHILE while1 LPAREN expres RPAREN while2 LKEY . bloq RKEY while3
     (67) bloq -> . estat
     (68) bloq -> . estat bloq
     (69) estat -> . asign
@@ -4539,33 +4524,76 @@ state 251
 
 state 252
 
+    (86) leer -> READ pushop LPAREN ID pushid readid RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 277
+
+
+state 253
+
+    (26) function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar . bloq return1 RKEY
+    (67) bloq -> . estat
+    (68) bloq -> . estat bloq
+    (69) estat -> . asign
+    (70) estat -> . cond
+    (71) estat -> . escrit
+    (72) estat -> . ciclo
+    (73) estat -> . leer
+    (74) estat -> . fcallvoid
+    (75) asign -> . ID pushid EQUAL pushop expres resolverasignacion SEMICOLON
+    (76) asign -> . ID pushid LBRACE exr RBRACE EQUAL pushop expres SEMICOLON
+    (77) cond -> . IF LPAREN expres RPAREN LKEY resif bloq RKEY finif
+    (78) cond -> . IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif
+    (79) escrit -> . PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON
+    (85) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
+    (86) leer -> . READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
+    (123) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
+    (124) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
+
+    ID              shift and go to state 62
+    IF              shift and go to state 63
+    PRINT           shift and go to state 64
+    WHILE           shift and go to state 65
+    READ            shift and go to state 66
+
+    bloq                           shift and go to state 278
+    estat                          shift and go to state 53
+    asign                          shift and go to state 56
+    cond                           shift and go to state 57
+    escrit                         shift and go to state 58
+    ciclo                          shift and go to state 59
+    leer                           shift and go to state 60
+    fcallvoid                      shift and go to state 61
+
+state 254
+
     (29) function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar RKEY .
 
     FUNCTION        reduce using rule 29 (function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar RKEY .)
     MAIN            reduce using rule 29 (function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar RKEY .)
 
 
-state 253
+state 255
 
     (31) function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq . return1 RKEY
     (56) return1 -> . RETURN expres resreturn SEMICOLON
     (57) return1 -> . empty
     (132) empty -> .
 
-    RETURN          shift and go to state 255
+    RETURN          shift and go to state 257
     RKEY            reduce using rule 132 (empty -> .)
 
-    return1                        shift and go to state 277
-    empty                          shift and go to state 256
+    return1                        shift and go to state 279
+    empty                          shift and go to state 258
 
-state 254
+state 256
 
     (34) function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY bloq return1 . RKEY
 
-    RKEY            shift and go to state 278
+    RKEY            shift and go to state 280
 
 
-state 255
+state 257
 
     (56) return1 -> RETURN . expres resreturn SEMICOLON
     (88) expres -> . exr
@@ -4580,8 +4608,8 @@ state 255
     (98) term -> . fact resfact DIVIDE pushop term
     (99) fact -> . LPAREN pushop expres RPAREN popop
     (100) fact -> . var_cte
-    (101) fact -> . PLUS var_cte
-    (102) fact -> . MINUS var_cte
+    (101) fact -> . PLUS pushop var_cte
+    (102) fact -> . MINUS pushop var_cte
     (111) var_cte -> . ID pushid
     (112) var_cte -> . CTE_I pushcte
     (113) var_cte -> . CTE_F pushcte
@@ -4606,7 +4634,7 @@ state 255
     TRUE            shift and go to state 112
     FALSE           shift and go to state 113
 
-    expres                         shift and go to state 279
+    expres                         shift and go to state 281
     exr                            shift and go to state 101
     ex                             shift and go to state 102
     term                           shift and go to state 103
@@ -4616,14 +4644,14 @@ state 255
     vcall                          shift and go to state 115
     asigvector                     shift and go to state 116
 
-state 256
+state 258
 
     (57) return1 -> empty .
 
     RKEY            reduce using rule 57 (return1 -> empty .)
 
 
-state 257
+state 259
 
     (53) localvar -> var localvar .
 
@@ -4635,7 +4663,7 @@ state 257
     READ            reduce using rule 53 (localvar -> var localvar .)
 
 
-state 258
+state 260
 
     (54) localvar -> vector localvar .
 
@@ -4647,55 +4675,9 @@ state 258
     READ            reduce using rule 54 (localvar -> vector localvar .)
 
 
-state 259
-
-    (43) funci -> INT ID sumparam COMA . funci
-    (42) funci -> . INT ID sumparam
-    (43) funci -> . INT ID sumparam COMA funci
-    (44) funci -> . FLOAT ID sumparam
-    (45) funci -> . FLOAT ID sumparam COMA funci
-    (46) funci -> . STRING ID sumparam
-    (47) funci -> . STRING ID sumparam COMA funci
-    (48) funci -> . BOOL ID sumparam
-    (49) funci -> . BOOL ID sumparam COMA funci
-    (50) funci -> . empty
-    (132) empty -> .
-
-    INT             shift and go to state 161
-    FLOAT           shift and go to state 162
-    STRING          shift and go to state 163
-    BOOL            shift and go to state 164
-    RPAREN          reduce using rule 132 (empty -> .)
-
-    funci                          shift and go to state 280
-    empty                          shift and go to state 165
-
-state 260
-
-    (45) funci -> FLOAT ID sumparam COMA . funci
-    (42) funci -> . INT ID sumparam
-    (43) funci -> . INT ID sumparam COMA funci
-    (44) funci -> . FLOAT ID sumparam
-    (45) funci -> . FLOAT ID sumparam COMA funci
-    (46) funci -> . STRING ID sumparam
-    (47) funci -> . STRING ID sumparam COMA funci
-    (48) funci -> . BOOL ID sumparam
-    (49) funci -> . BOOL ID sumparam COMA funci
-    (50) funci -> . empty
-    (132) empty -> .
-
-    INT             shift and go to state 161
-    FLOAT           shift and go to state 162
-    STRING          shift and go to state 163
-    BOOL            shift and go to state 164
-    RPAREN          reduce using rule 132 (empty -> .)
-
-    funci                          shift and go to state 281
-    empty                          shift and go to state 165
-
 state 261
 
-    (47) funci -> STRING ID sumparam COMA . funci
+    (43) funci -> INT ID sumparam COMA . funci
     (42) funci -> . INT ID sumparam
     (43) funci -> . INT ID sumparam COMA funci
     (44) funci -> . FLOAT ID sumparam
@@ -4718,7 +4700,7 @@ state 261
 
 state 262
 
-    (49) funci -> BOOL ID sumparam COMA . funci
+    (45) funci -> FLOAT ID sumparam COMA . funci
     (42) funci -> . INT ID sumparam
     (43) funci -> . INT ID sumparam COMA funci
     (44) funci -> . FLOAT ID sumparam
@@ -4740,6 +4722,52 @@ state 262
     empty                          shift and go to state 165
 
 state 263
+
+    (47) funci -> STRING ID sumparam COMA . funci
+    (42) funci -> . INT ID sumparam
+    (43) funci -> . INT ID sumparam COMA funci
+    (44) funci -> . FLOAT ID sumparam
+    (45) funci -> . FLOAT ID sumparam COMA funci
+    (46) funci -> . STRING ID sumparam
+    (47) funci -> . STRING ID sumparam COMA funci
+    (48) funci -> . BOOL ID sumparam
+    (49) funci -> . BOOL ID sumparam COMA funci
+    (50) funci -> . empty
+    (132) empty -> .
+
+    INT             shift and go to state 161
+    FLOAT           shift and go to state 162
+    STRING          shift and go to state 163
+    BOOL            shift and go to state 164
+    RPAREN          reduce using rule 132 (empty -> .)
+
+    funci                          shift and go to state 284
+    empty                          shift and go to state 165
+
+state 264
+
+    (49) funci -> BOOL ID sumparam COMA . funci
+    (42) funci -> . INT ID sumparam
+    (43) funci -> . INT ID sumparam COMA funci
+    (44) funci -> . FLOAT ID sumparam
+    (45) funci -> . FLOAT ID sumparam COMA funci
+    (46) funci -> . STRING ID sumparam
+    (47) funci -> . STRING ID sumparam COMA funci
+    (48) funci -> . BOOL ID sumparam
+    (49) funci -> . BOOL ID sumparam COMA funci
+    (50) funci -> . empty
+    (132) empty -> .
+
+    INT             shift and go to state 161
+    FLOAT           shift and go to state 162
+    STRING          shift and go to state 163
+    BOOL            shift and go to state 164
+    RPAREN          reduce using rule 132 (empty -> .)
+
+    funci                          shift and go to state 285
+    empty                          shift and go to state 165
+
+state 265
 
     (27) function -> FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY localvar . bloq RKEY
     (67) bloq -> . estat
@@ -4766,7 +4794,7 @@ state 263
     WHILE           shift and go to state 65
     READ            shift and go to state 66
 
-    bloq                           shift and go to state 284
+    bloq                           shift and go to state 286
     estat                          shift and go to state 53
     asign                          shift and go to state 56
     cond                           shift and go to state 57
@@ -4775,14 +4803,14 @@ state 263
     leer                           shift and go to state 60
     fcallvoid                      shift and go to state 61
 
-state 264
+state 266
 
     (28) function -> FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY bloq . RKEY
 
-    RKEY            shift and go to state 285
+    RKEY            shift and go to state 287
 
 
-state 265
+state 267
 
     (30) function -> FUNCTION pushvoid ID addInTable LPAREN RPAREN LKEY localvar RKEY .
 
@@ -4790,14 +4818,14 @@ state 265
     MAIN            reduce using rule 30 (function -> FUNCTION pushvoid ID addInTable LPAREN RPAREN LKEY localvar RKEY .)
 
 
-state 266
+state 268
 
     (32) function -> FUNCTION pushvoid ID addInTable LPAREN RPAREN LKEY localvar bloq . RKEY
 
-    RKEY            shift and go to state 286
+    RKEY            shift and go to state 288
 
 
-state 267
+state 269
 
     (33) function -> FUNCTION pushvoid ID addInTable LPAREN RPAREN LKEY bloq RKEY .
 
@@ -4805,27 +4833,27 @@ state 267
     MAIN            reduce using rule 33 (function -> FUNCTION pushvoid ID addInTable LPAREN RPAREN LKEY bloq RKEY .)
 
 
-state 268
+state 270
 
     (76) asign -> ID pushid LBRACE exr RBRACE EQUAL pushop expres . SEMICOLON
 
-    SEMICOLON       shift and go to state 287
+    SEMICOLON       shift and go to state 289
 
 
-state 269
+state 271
 
     (128) fcall1 -> expres generateparam COMA fcall1 .
 
     RPAREN          reduce using rule 128 (fcall1 -> expres generateparam COMA fcall1 .)
 
 
-state 270
+state 272
 
     (77) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY . finif
     (78) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY . ELSE LKEY reselse bloq RKEY finif
     (143) finif -> .
 
-    ELSE            shift and go to state 289
+    ELSE            shift and go to state 291
     ID              reduce using rule 143 (finif -> .)
     IF              reduce using rule 143 (finif -> .)
     PRINT           reduce using rule 143 (finif -> .)
@@ -4834,9 +4862,9 @@ state 270
     RKEY            reduce using rule 143 (finif -> .)
     RETURN          reduce using rule 143 (finif -> .)
 
-    finif                          shift and go to state 288
+    finif                          shift and go to state 290
 
-state 271
+state 273
 
     (121) fcall -> ID existfunc LPAREN startera fcall1 RPAREN . generateGoSub
     (130) generateGoSub -> .
@@ -4858,9 +4886,9 @@ state 271
     SEMICOLON       reduce using rule 130 (generateGoSub -> .)
     COMA            reduce using rule 130 (generateGoSub -> .)
 
-    generateGoSub                  shift and go to state 290
+    generateGoSub                  shift and go to state 292
 
-state 272
+state 274
 
     (122) fcall -> ID existfunc LPAREN startera RPAREN generateGoSub .
 
@@ -4882,21 +4910,21 @@ state 272
     COMA            reduce using rule 122 (fcall -> ID existfunc LPAREN startera RPAREN generateGoSub .)
 
 
-state 273
+state 275
 
     (81) escriti -> expres escrit2 COMA escriti .
 
     RPAREN          reduce using rule 81 (escriti -> expres escrit2 COMA escriti .)
 
 
-state 274
+state 276
 
     (85) ciclo -> WHILE while1 LPAREN expres RPAREN while2 LKEY bloq . RKEY while3
 
-    RKEY            shift and go to state 291
+    RKEY            shift and go to state 293
 
 
-state 275
+state 277
 
     (86) leer -> READ pushop LPAREN ID pushid readid RPAREN SEMICOLON .
 
@@ -4909,27 +4937,27 @@ state 275
     RETURN          reduce using rule 86 (leer -> READ pushop LPAREN ID pushid readid RPAREN SEMICOLON .)
 
 
-state 276
+state 278
 
     (26) function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq . return1 RKEY
     (56) return1 -> . RETURN expres resreturn SEMICOLON
     (57) return1 -> . empty
     (132) empty -> .
 
-    RETURN          shift and go to state 255
+    RETURN          shift and go to state 257
     RKEY            reduce using rule 132 (empty -> .)
 
-    return1                        shift and go to state 292
-    empty                          shift and go to state 256
+    return1                        shift and go to state 294
+    empty                          shift and go to state 258
 
-state 277
+state 279
 
     (31) function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq return1 . RKEY
 
-    RKEY            shift and go to state 293
+    RKEY            shift and go to state 295
 
 
-state 278
+state 280
 
     (34) function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY bloq return1 RKEY .
 
@@ -4937,51 +4965,51 @@ state 278
     MAIN            reduce using rule 34 (function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY bloq return1 RKEY .)
 
 
-state 279
+state 281
 
     (56) return1 -> RETURN expres . resreturn SEMICOLON
     (58) resreturn -> .
 
     SEMICOLON       reduce using rule 58 (resreturn -> .)
 
-    resreturn                      shift and go to state 294
+    resreturn                      shift and go to state 296
 
-state 280
+state 282
 
     (43) funci -> INT ID sumparam COMA funci .
 
     RPAREN          reduce using rule 43 (funci -> INT ID sumparam COMA funci .)
 
 
-state 281
+state 283
 
     (45) funci -> FLOAT ID sumparam COMA funci .
 
     RPAREN          reduce using rule 45 (funci -> FLOAT ID sumparam COMA funci .)
 
 
-state 282
+state 284
 
     (47) funci -> STRING ID sumparam COMA funci .
 
     RPAREN          reduce using rule 47 (funci -> STRING ID sumparam COMA funci .)
 
 
-state 283
+state 285
 
     (49) funci -> BOOL ID sumparam COMA funci .
 
     RPAREN          reduce using rule 49 (funci -> BOOL ID sumparam COMA funci .)
 
 
-state 284
+state 286
 
     (27) function -> FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY localvar bloq . RKEY
 
-    RKEY            shift and go to state 295
+    RKEY            shift and go to state 297
 
 
-state 285
+state 287
 
     (28) function -> FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY bloq RKEY .
 
@@ -4989,7 +5017,7 @@ state 285
     MAIN            reduce using rule 28 (function -> FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY bloq RKEY .)
 
 
-state 286
+state 288
 
     (32) function -> FUNCTION pushvoid ID addInTable LPAREN RPAREN LKEY localvar bloq RKEY .
 
@@ -4997,7 +5025,7 @@ state 286
     MAIN            reduce using rule 32 (function -> FUNCTION pushvoid ID addInTable LPAREN RPAREN LKEY localvar bloq RKEY .)
 
 
-state 287
+state 289
 
     (76) asign -> ID pushid LBRACE exr RBRACE EQUAL pushop expres SEMICOLON .
 
@@ -5010,7 +5038,7 @@ state 287
     RETURN          reduce using rule 76 (asign -> ID pushid LBRACE exr RBRACE EQUAL pushop expres SEMICOLON .)
 
 
-state 288
+state 290
 
     (77) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY finif .
 
@@ -5023,14 +5051,14 @@ state 288
     RETURN          reduce using rule 77 (cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY finif .)
 
 
-state 289
+state 291
 
     (78) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE . LKEY reselse bloq RKEY finif
 
-    LKEY            shift and go to state 296
+    LKEY            shift and go to state 298
 
 
-state 290
+state 292
 
     (121) fcall -> ID existfunc LPAREN startera fcall1 RPAREN generateGoSub .
 
@@ -5052,7 +5080,7 @@ state 290
     COMA            reduce using rule 121 (fcall -> ID existfunc LPAREN startera fcall1 RPAREN generateGoSub .)
 
 
-state 291
+state 293
 
     (85) ciclo -> WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY . while3
     (146) while3 -> .
@@ -5065,16 +5093,16 @@ state 291
     RKEY            reduce using rule 146 (while3 -> .)
     RETURN          reduce using rule 146 (while3 -> .)
 
-    while3                         shift and go to state 297
+    while3                         shift and go to state 299
 
-state 292
+state 294
 
     (26) function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq return1 . RKEY
 
-    RKEY            shift and go to state 298
+    RKEY            shift and go to state 300
 
 
-state 293
+state 295
 
     (31) function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq return1 RKEY .
 
@@ -5082,14 +5110,14 @@ state 293
     MAIN            reduce using rule 31 (function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq return1 RKEY .)
 
 
-state 294
+state 296
 
     (56) return1 -> RETURN expres resreturn . SEMICOLON
 
-    SEMICOLON       shift and go to state 299
+    SEMICOLON       shift and go to state 301
 
 
-state 295
+state 297
 
     (27) function -> FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY localvar bloq RKEY .
 
@@ -5097,7 +5125,7 @@ state 295
     MAIN            reduce using rule 27 (function -> FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY localvar bloq RKEY .)
 
 
-state 296
+state 298
 
     (78) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY . reselse bloq RKEY finif
     (142) reselse -> .
@@ -5108,9 +5136,9 @@ state 296
     WHILE           reduce using rule 142 (reselse -> .)
     READ            reduce using rule 142 (reselse -> .)
 
-    reselse                        shift and go to state 300
+    reselse                        shift and go to state 302
 
-state 297
+state 299
 
     (85) ciclo -> WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3 .
 
@@ -5123,7 +5151,7 @@ state 297
     RETURN          reduce using rule 85 (ciclo -> WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3 .)
 
 
-state 298
+state 300
 
     (26) function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq return1 RKEY .
 
@@ -5131,14 +5159,14 @@ state 298
     MAIN            reduce using rule 26 (function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq return1 RKEY .)
 
 
-state 299
+state 301
 
     (56) return1 -> RETURN expres resreturn SEMICOLON .
 
     RKEY            reduce using rule 56 (return1 -> RETURN expres resreturn SEMICOLON .)
 
 
-state 300
+state 302
 
     (78) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse . bloq RKEY finif
     (67) bloq -> . estat
@@ -5165,7 +5193,7 @@ state 300
     WHILE           shift and go to state 65
     READ            shift and go to state 66
 
-    bloq                           shift and go to state 301
+    bloq                           shift and go to state 303
     estat                          shift and go to state 53
     asign                          shift and go to state 56
     cond                           shift and go to state 57
@@ -5174,14 +5202,14 @@ state 300
     leer                           shift and go to state 60
     fcallvoid                      shift and go to state 61
 
-state 301
+state 303
 
     (78) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq . RKEY finif
 
-    RKEY            shift and go to state 302
+    RKEY            shift and go to state 304
 
 
-state 302
+state 304
 
     (78) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY . finif
     (143) finif -> .
@@ -5194,9 +5222,9 @@ state 302
     RKEY            reduce using rule 143 (finif -> .)
     RETURN          reduce using rule 143 (finif -> .)
 
-    finif                          shift and go to state 303
+    finif                          shift and go to state 305
 
-state 303
+state 305
 
     (78) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif .
 

@@ -42,22 +42,38 @@ def pushID(id):
 # Funcion que verifica si el CTE ya se encuentra en la memoria
 def verificarValorCte(cte,tipo):
     if tipo == "int":
-        if(cte in Memory.global_memroy.ints.values()):
+        dir = 0
+        for key1, val in Memory.global_memroy.ints.items():
+            if val == cte:
+                dir = key1
+        if( dir >= 4000 and dir < 4100):
             return True
         else:
             return False
     elif tipo == "float":
-        if(cte in Memory.global_memroy.floats.values()):
+        dir = 0
+        for key1, val in Memory.global_memroy.floats.items():
+            if val == cte:
+                dir = key1
+        if( dir >= 4100 and dir < 4200):
             return True
         else:
             return False
     elif tipo == "bool":
-        if(cte in Memory.global_memroy.bools.values()):
+        dir = 0
+        for key1, val in Memory.global_memroy.bools.items():
+            if val == cte:
+                dir = key1
+        if( dir >= 4300 and dir < 4400):
             return True
         else:
             return False
     elif tipo == "string":
-        if(cte in Memory.global_memroy.strings.values()):
+        dir = 0
+        for key1, val in Memory.global_memroy.strings.items():
+            if val == cte:
+                dir = key1
+        if( dir >= 4200 and dir < 4300):
             return True
         else:
             return False
@@ -235,7 +251,6 @@ def resolverRel():
             tipo_izq = pilaTipos.pop()
             id_izq = pilaid.pop()
             operator = popper.pop()
-            print(tipo_izq,tipo_der)
             tipo_resultado = semantic.getReturnType(tipo_der,tipo_izq,operator)
             if (tipo_resultado != "err"):
                 if(operator == '<'):
@@ -346,6 +361,9 @@ def while3():
 #Modulos
 #Inicializa Era
 def generateEra(id):
+    #print ("id",str(pilaid)[1:-1])
+    #print("valor",str(avail)[1:-1])
+    #print ("operador",str(popper)[1:-1])
     cuad = Cuadrupl(None, "ERA", None, id, len(pilacuadruplos))
     pilacuadruplos.append(cuad)
 
@@ -377,9 +395,9 @@ def printcuad():
             pilaTipos.pop()
             avail.pop()
             operator = popper.pop()
-            print (str(pilaid)[1:-1])
-            print(str(avail)[1:-1])
-            print (str(popper)[1:-1])
+            #print ("id",str(pilaid)[1:-1])
+            #print("valor",str(avail)[1:-1])
+            #print ("operador",str(popper)[1:-1])
             cuadr = Cuadrupl(None, operator, None, resultado, len(pilacuadruplos))
             pilacuadruplos.append(cuadr)
 

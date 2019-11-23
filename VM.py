@@ -4,6 +4,7 @@ import execMemory as Memory
 import sys
 
 resbol = None
+func_id = None
 
 def programa():
     pos = GoToMain(0,cuadruplos.pilacuadruplos[0])
@@ -108,10 +109,14 @@ def Ejecucion(num,cuadrup):
     elif(cuadrup.operator == "Goto"):
         num = cuadrup.resultado
         return num
-    #elif(cuadrup.operator == "ERA"):
-
+    elif(cuadrup.operator == "ERA"):
+        func_id = cuadrup.resultado
+        num = num + 1
+        return num
     num = num + 1
     return num
+
+#def Funciones (num,cuadrup,func_id):
 
 
 def GoToMain (num,cuadrup):

@@ -26,7 +26,7 @@ class Entry():
         self.isParam = isParam
 
 class FunctionEntry:
-    def __init__(self, id, tipo, cuadno = 0, paramno = 0):
+    def __init__(self, id, tipo, cuadno = 0, paramno = 0, returno = 0):
         self.id = id
         self.tipo = tipo
         self.dict = {}
@@ -261,7 +261,7 @@ def insertVarInFunc(tipo, id, funt, espacio = None):
             symbol_table[funt].dict[id].space = espacio
         else:
             if is_vector == False:
-                dir = Memoria.global_memroy.insert_local(id,tipo)
+                dir = Memoria.global_memroy.insert_local(0,tipo)
                 symbol_table[funt].dict[id] = Entry(id, tipo, dir)
             else:
                 dir = Memoria.global_memroy.insert_local(id,tipo)

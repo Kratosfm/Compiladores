@@ -359,6 +359,17 @@ def while3():
     fill(end,len(pilacuadruplos))
 
 #Modulos
+
+def generateReturn():
+    tam = len(popper)
+    if tam > 0:
+        if popper[tam-1] == "return":
+            operator = popper.pop()
+            resultado = pilaid.pop()
+            avail.pop()
+            pilaTipos.pop()
+            cuad = Cuadrupl("None",operator,None,resultado,len(pilacuadruplos))
+            pilacuadruplos.append(cuad)
 #Inicializa Era
 def generateEra(id):
     #print ("id",str(pilaid)[1:-1])

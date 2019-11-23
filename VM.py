@@ -120,10 +120,12 @@ def Ejecucion(num,cuadrup):
     elif(cuadrup.operator == "GoSub"):
         num = cuadrup.resultado
         last_pos = cuadrup.num + 1
-        print("Tony",last_pos)
         return num
     elif(cuadrup.operator == "ENDPROC"):
         num = last_pos
+        cont_param = 0
+        arrparam.clear()
+        arrparam2.clear()
         return num
     elif(cuadrup.operator == "ERA"):
         func_id = cuadrup.resultado

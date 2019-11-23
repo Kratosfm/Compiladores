@@ -341,7 +341,7 @@ def getValor(dir):
         valor = global_memroy.floats[dir]
         return valor
     elif((dir >= 1200 and dir < 1300) or (dir >= 2200 and dir < 2300 ) or (dir >= 3200 and dir < 3300) or (dir >= 4200 and dir < 4300) or (dir >= 5200 and dir < 5300) or (dir >= 6200 and dir < 6300)):
-        valor = global_memroy.floats[dir]
+        valor = global_memroy.strings[dir]
         return valor
     elif((dir >= 1300 and dir < 1400) or (dir >= 2300 and dir < 2400 ) or (dir >= 3300 and dir < 3400) or (dir >= 4300 and dir < 4400) or (dir >= 5300 and dir < 5400) or (dir >= 6300 and dir < 6400)):
         valor = global_memroy.bools[dir]

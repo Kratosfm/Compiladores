@@ -16,11 +16,22 @@ function void Banana ( int Lala , int Lele){
 	print ( Caca ) ;
 }
 
+function int Cherry ( int Julia ) {
+	while ( Julia < 100 ) {
+		Julia = Julia + 2 ;
+	}
+print( Julia ) ;
+return Julia ;
+}
+
+
 main
 {
 var int i ;
 var int fact ;
 var int num ;
+var string Cabella ;
+Cabella = "POPO" ;
 i = 1 ;
 fact = 1 ;
 num = 5 ;
@@ -30,5 +41,6 @@ while ( i < num + 1 ) {
 	}
 fact = 3 + 9 ;
 Banana ( 5 + 2 , fact) ;
-print( fact ) ;
+print ( "LELE" ) ;
+i = Cherry ( 1 ) ;
 }

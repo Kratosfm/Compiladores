@@ -40,3 +40,19 @@ main
 		print ( Pedro ) ;
 	}
 }
+
+
+
+
+
+function void Cherry ( int Tony ) {
+	while ( Tony < 100 ) {
+		Tony = Tony + 2 ;
+	}
+print( Tony ) ;
+}
+
+
+
+
+Cherry( 1 ) ;

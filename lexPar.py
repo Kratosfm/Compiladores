@@ -244,6 +244,7 @@ def p_initvector(p):
 def p_function(p):
   '''
   	function : FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq return1 RKEY
+    | FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY bloq return1 RKEY
     | FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY localvar bloq RKEY
     | FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY bloq RKEY
     | FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar RKEY
@@ -259,12 +260,13 @@ def p_function(p):
   varsTable.is_local = False
   #varsTable.ImprimirLcalTable(varsTable.func_id)
   Memoria.global_memroy.show()  #eliminar esta
-  varsTable.param_cont = 0
+  #varsTable.ImprimirLcalTable(p[3])
   Memoria.Reiniciar()
   Memoria.BorrarInts()
   Memoria.BorrarFloats()
   Memoria.BorrarBools()
   Memoria.BorrarStrings()
+  varsTable.param_cont = 0
   #cuadruplos.CrearENDPROC()
   cuad = cuadruplos.Cuadrupl(None, "ENDPROC", None, None, len(cuadruplos.pilacuadruplos))
   cuadruplos.pilacuadruplos.append(cuad)
@@ -329,9 +331,10 @@ def p_sumparam(p):
 
 def p_return1(p):
     '''
-    return1 : RETURN expres resreturn SEMICOLON
+    return1 : RETURN pushop expres resreturn SEMICOLON
     | empty
     '''
+    cuadruplos.generateReturn()
 
 def p_resreturn(p):
     '''
@@ -368,11 +371,13 @@ def p_estat(p):
         | ciclo
         | leer
         | fcallvoid
+
   '''
 
 def p_asign(p):
   '''
-    asign : ID pushid EQUAL pushop expres resolverasignacion SEMICOLON
+    asign : ID pushid EQUAL pushop fcall resolverasignacion
+        | ID pushid EQUAL pushop expres resolverasignacion SEMICOLON
         | ID pushid LBRACE exr RBRACE EQUAL pushop expres SEMICOLON
   '''
 
@@ -497,7 +502,7 @@ def p_var_cte(p):
         | TRUE pushcte
         | FALSE pushcte
         | fcall
-        | vcall
+        | fcallvoid
         | asigvector
   '''
 
@@ -508,10 +513,12 @@ def p_asigvector(p):
 
 def p_fcall(p):
   '''
-  	fcall : ID existfunc LPAREN startera fcall1 RPAREN generateGoSub
-        | ID existfunc LPAREN startera RPAREN generateGoSub
+  	fcall : ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
+        | ID existfunc LPAREN startera RPAREN SEMICOLON
   '''
+  print("yolo")
   varsTable.param_cont = 0
+  cuadruplos.generategosub(p[1])
   varsTable.fun_name = None
 
 
@@ -520,6 +527,8 @@ def p_fcallvoid(p):
     fcallvoid : ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     | ID existfunc LPAREN startera RPAREN SEMICOLON
     '''
+    print("aqui",p[1])
+    varsTable.param_cont = 0
     cuadruplos.generategosub(p[1])
 
 #Funcion que llama a CheckExistIdFunc para verificar que exista la funcion en la tabla
@@ -554,17 +563,6 @@ def p_generateparam(p):
     val = cuadruplos.getparam()
     #print("adsads",varsTable.fun_name,p[-1])
     #existe = varsTable.existeID(varsTable.fun_name,p[-1])
-
-#Paso 6 de Module Call
-def p_generateGoSub(p):
-    "generateGoSub :"
-    cuadruplos.generategosub(p[-4])
-
-def p_vcall(p):
-  '''
-  	vcall : ID LBRACE expres RBRACE
-  '''
-  print("haha")
 
 def p_empty(p):
     '''

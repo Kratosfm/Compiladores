@@ -267,20 +267,20 @@ def insertVarInFunc(tipo, id, funt, espacio = None):
                 dir = Memoria.global_memroy.insert_local(id,tipo)
                 symbol_table[funt].dict[id] = Entry(id, tipo, dir)
                 symbol_table[funt].dict[id].space = espacio
-
+#checa si una funcion ya existe con ese id
 def CheckExistIdFunc(id):
     if (symbol_table.get(id)):
         return True
     else:
         return False
-
+#Checa si el id existe en una variable dentro de la funcion (funt)
 def existeID(funt,id):
     tipo = symbol_table[funt].dict[id].tipo
     if ((tipo == getTypeVar3(funt,id))):
         print("correct")
     else:
         print("mal")
-
+#Imprime la funcion donde es llamada
 def ImprimirLcalTable(funt):
     for i in symbol_table[funt].dict:
         print(symbol_table[funt].dict[i].id, symbol_table[funt].dict[i].tipo, symbol_table[funt].dict[i].value)

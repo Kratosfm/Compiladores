@@ -657,12 +657,13 @@ if success == True:
 else:
     print("Archivo no aprobado")
     #sys.exit()
-print("memoria global ")
-Memoria.global_memroy.show()
-varsTable.show();
-print("")
-print("")
+#print("memoria global ")
+#Memoria.global_memroy.show()
+#varsTable.show();
 print("VM")
 #posicion = Virtual.GoToMain(0,cuadruplos.pilacuadruplos[0])
 #Virtual.Ejecucion(posicion,cuadruplos.pilacuadruplos[posicion])
 Virtual.programa()
+print("despues de VM")
+Memoria.global_memroy.show()
+varsTable.show();

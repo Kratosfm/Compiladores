@@ -28,7 +28,6 @@ while ( i < num + 1 ) {
 		fact = fact * i ;
 		i = i + 1 ;
 	}
-print ( fact ) ;
 fact = 3 + 9 ;
 Banana ( 5 + 2 , fact) ;
 print( fact ) ;

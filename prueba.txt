@@ -21,7 +21,7 @@ function int Apple ( int Rey ) {
 }
 
 function int Didi ( int Kevin , int Eva) {
-	Kevin = Kevin + 1 ;
+	Kevin = Kevin + 10 ;
 	return Kevin ;
 }
 
@@ -33,6 +33,9 @@ main
 	Banana () ;
 	i = Didi ( 2 , 3) ;
 	print ("cuarto", i ) ;
+	print ("extra", i) ;
+	i = 7 ;
 	b = Apple ( 100 ) ;
+	print ("extra", i) ;
 	print ("sexto", b) ;
 }

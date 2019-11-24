@@ -12,10 +12,6 @@ arrparam = []
 #arreglo que almacena los tipos de los parametros
 arrparam2 =[]
 last_pos = 0
-numreturni = 7000
-numreturnf = 7000
-numreturns = 7000
-numreturnb = 7000
 
 
 def programa():
@@ -28,23 +24,19 @@ def programa():
 def Ejecucion(num,cuadrup):
     global cont_param
     global last_pos
-    global numreturni
-    global numreturnf
-    global numreturns
-    global numreturnb
     global func_id
     if (cuadrup.operator == "="):
         if (func_id != None):
             if(varsTable.symbol_table[func_id].isReturn == True):
                 newVal = Memory.getValor(cuadrup.left)
                 Memory.updateVal(cuadrup.resultado,newVal)
-                print("Se recibe dir en funcion", cuadrup.left, "con valor",Memory.getValor(cuadrup.left),"en", cuadrup.resultado, "con", Memory.getValor(cuadrup.resultado),"en",func_id)
+                #print("Se recibe dir en funcion", cuadrup.left, "con valor",Memory.getValor(cuadrup.left),"en", cuadrup.resultado, "con", Memory.getValor(cuadrup.resultado),"en",func_id)
         else:
             newVal = Memory.getValor(cuadrup.left)
             Memory.updateVal(cuadrup.resultado,newVal)
-            print("Se recibe dir", cuadrup.left, "con valor",Memory.getValor(cuadrup.left),"en", cuadrup.resultado, "con", Memory.getValor(cuadrup.resultado),"en",func_id)
-        num = num + 1
-        return num
+            #print("Se recibe dir", cuadrup.left, "con valor",Memory.getValor(cuadrup.left),"en", cuadrup.resultado, "con", Memory.getValor(cuadrup.resultado),"en",func_id)
+            num = num + 1
+            return num
 
     elif(cuadrup.operator == "+"):
         val_izq = Memory.getValor(cuadrup.left)
@@ -186,17 +178,20 @@ def Ejecucion(num,cuadrup):
         newVal = Memory.getValor(cuadrup.resultado)
         tipo = Memory.GetTipo(cuadrup.resultado)
         Memory.updateVal(cuadrup.resultado,newVal)
-        print("Semental",newVal,cuadrup.resultado,tipo)
+        dirRet = varsTable.symbol_table[func_id].returno
+        #print("Semental",newVal,cuadrup.resultado,tipo)
         if (tipo == "int"):
-            Memory.global_memroy.ints[numreturni] = newVal
-            Memory.updateVal(numreturni,newVal)
-            numreturni = numreturni + 1
+            Memory.global_memroy.ints[dirRet] = newVal
+            Memory.updateVal(dirRet,newVal)
         elif (tipo == "float"):
-            numreturnf = numreturnf + 1
+            Memory.global_memroy.ints[dirRet] = newVal
+            Memory.updateVal(dirRet,newVal)
         elif (tipo == "string"):
-            numreturns = numreturns + 1
+            Memory.global_memroy.ints[dirRet] = newVal
+            Memory.updateVal(dirRet,newVal)
         elif (tipo == "bool"):
-            numreturnb = numreturnb + 1
+            Memory.global_memroy.ints[dirRet] = newVal
+            Memory.updateVal(dirRet,newVal)
         num = num + 1
         return num
     num = num + 1

@@ -6,14 +6,11 @@ MainVars = {}
 MainVectors = {}
 
 paramCounter = 0;
-is_inside = "";
 
 /* -------- Funciones de modales -------- */
 
 function hideModal(){
   paramCounter = 0
-  is_inside = ""
-  console.log("Se activo hideModal");
   var modal = document.querySelector('.is-active');
   if(modal != null){
       modal.classList.toggle('is-active');
@@ -43,20 +40,18 @@ function addCondicionModal(id){
   var button = document.getElementById('addLocalCondition');
   onClickFunc = 'createLocalCondition("'+ id +'")'
   button.setAttribute("onclick", onClickFunc)
+  // butonElse = document.getElementById("addElseButton");
+  // onClickButtonFunc = 'addElseToModal("'+ id +'")'
+  // butonElse.setAttribute("onclick", onClickButtonFunc)
   var modal = document.getElementById('addConditionLocalModal');
   modal.classList.toggle('is-active');
 }
 
-function addVectorLocalModal(){
-  var modal = document.getElementById('addVectorLocalModal');
-  modal.classList.toggle('is-active');
-}
-
-function addOperacionLocalModal(id){
-  var button = document.getElementById('addLocalOperator');
-  onClickFunc = 'createLocalOperator("'+ id +'")'
+function addLoopLocalModal(id){
+  var button = document.getElementById('addLocalLoop');
+  onClickFunc = 'createLocalLoop("'+ id +'")'
   button.setAttribute("onclick", onClickFunc)
-  var modal = document.getElementById('addOperacionLocalModal');
+  var modal = document.getElementById('addLoopLocalModal');
   modal.classList.toggle('is-active');
 }
 
@@ -187,14 +182,22 @@ function createLocalVar(func_name){
 }
 
 function createLocalCondition(route){
-  var local_cond = "if ("
-  local_cond += document.getElementById("conditionInput").value
-  local_cond += "){"
+  var local_cond_if = "if ("
+  local_cond_if += document.getElementById("conditionInput").value
+  local_cond_if += "){"
   path = getPath(route);
+  elseFlag = document.getElementById("elseYes").checked
+  if(elseFlag){
+    var local_cond_else = "else{"
+  }
+
   var auxRoute ;
 
   if(path[1] == null){
-    GlobalFuncs[path[0]].oper["if"+ GlobalFuncs[path[0]].cond] = {header: local_cond, oper:{}}
+    GlobalFuncs[path[0]].oper["if" + GlobalFuncs[path[0]].cond] = {header: local_cond_if, oper:{}}
+    if(elseFlag){
+      GlobalFuncs[path[0]].oper["else" + GlobalFuncs[path[0]].cond]= {header: local_cond_else, oper:{}}
+    }
   }
   else{
     path.forEach(function(key, index){
@@ -205,23 +208,50 @@ function createLocalCondition(route){
         auxRoute = auxRoute[key].oper
       }
       else{
-        auxRoute["if"+ GlobalFuncs[path[0]].cond] = {header: local_cond, oper:{}}
+        auxRoute["if"+ GlobalFuncs[path[0]].cond] = {header: local_cond_if, oper:{}}
+        GlobalFuncs = addToDict(auxRoute, index, GlobalFuncs, path, 0)
+        if(elseFlag){
+          auxRoute["else"+ GlobalFuncs[path[0]].cond] = {header: local_cond_else, oper:{}}
+        }
+      }
+    })
+  }
+  if(elseFlag){
+    addLocalCondition(route, true)
+  }
+  else {
+    addLocalCondition(route, false)
+  }
+  return ;
+}
+
+function createLocalLoop(route){
+  var local_loop = "while ("
+  local_loop += document.getElementById("loopInput").value
+  local_loop += "){"
+  path = getPath(route);
+
+  var auxRoute ;
+
+  if(path[1] == null){
+    GlobalFuncs[path[0]].oper["while" + GlobalFuncs[path[0]].loop] = {header: local_loop, oper:{}}
+  }
+  else{
+    path.forEach(function(key, index){
+      if(index == 0){
+        auxRoute = GlobalFuncs[key].oper
+      }
+      else if (key != null) {
+        auxRoute = auxRoute[key].oper
+      }
+      else{
+        auxRoute["while"+ GlobalFuncs[path[0]].loop] = {header: local_loop, oper:{}}
         GlobalFuncs = addToDict(auxRoute, index, GlobalFuncs, path, 0)
       }
     })
   }
-  route = route + ">if"+ GlobalFuncs[path[0]].cond
-  addLocalCondition(route)
+  addLocalLoop(route)
   return ;
-}
-
-function createLocalOperator(route){
-  operation = document.getElementById("textbox").value
-  tree = getPath(route)
-  //GlobalFuncs[tree[0]].oper[]
-}
-
-function createLocalVector(route){
 
 }
 
@@ -289,7 +319,7 @@ function addFunction(func_name){
 
   var buttonLoop = document.createElement("button");
   buttonLoop.classList.add("button", "is-dark");
-  onClickFunc = 'addLoop("' + func_name + '")'
+  onClickFunc = 'addLoopLocalModal("' + func_name + '")'
   buttonLoop.setAttribute("onclick", onClickFunc)
   buttonText = document.createTextNode("Ciclo");
   buttonLoop.appendChild(buttonText)
@@ -333,6 +363,7 @@ function addFunction(func_name){
 }
 
 function editFunction(func_name){
+  $("#" + funcName).empty()
   var editVar = document.getElementById("name" + func_name)
   editVar.innerHTML = GlobalFuncs[func_name].header + "("
   params = GlobalFuncs[func_name].params
@@ -365,23 +396,48 @@ function editLocalVar(func_name, variable){
   return ;
 }
 
-function addLocalCondition(route){
+function addLocalCondition(route, elseFlag){
   var path = getPath(route)
+
+
+  if(elseFlag){
+    divElseHTML = addElseCondition(route + ">else" + GlobalFuncs[path[0]].cond)
+  }
+  divIfHTML = addIfCondition(route + ">if" + GlobalFuncs[path[0]].cond)
+
+  var divUnifyHTML = document.createElement("div");
+  divUnifyHTML.classList.add("is-condition");
+  divUnifyHTML.appendChild(divIfHTML)
+  if(elseFlag){
+    divUnifyHTML.appendChild(divElseHTML)
+  }
+
+  document.getElementById(route).appendChild(divUnifyHTML);
+  GlobalFuncs[path[0]].cond = GlobalFuncs[path[0]].cond + 1
+  hideModal()
+}
+
+function addIfCondition(route){
+  path = getPath(route)
 
   var divHeadCondHTML = document.createElement("div");
   divHeadCondHTML.classList.add("is-condition");
   divHeadCondHTML.setAttribute("id", "head:" + route);
-  var headerText ;
+  var pointer ;
+  var headerText = "test"
+  console.log(path);
   path.forEach(function(value, index){
     if(index == 0 ){
-      headerText = GlobalFuncs[value].oper
-      console.log("in 0 :" , headerText);
+      pointer = GlobalFuncs[value].oper
     }
     else if(value != null){
-      headerText = headerText[value]
+      headerText = pointer[value].header
+      pointer = pointer[value].oper
+    }
+    else{
     }
   })
-  headerText = headerText.header
+
   var varHtml = document.createTextNode(headerText);
   divHeadCondHTML.appendChild(varHtml);
 
@@ -393,7 +449,7 @@ function addLocalCondition(route){
 
   var buttons = document.createElement("div");
   buttons.classList.add("buttons", "has-addons", "is-centered");
-  buttons.setAttribute("style", "margin-bottom: 15px;")
+  buttons.setAttribute("style", "margin-top: 15px;")
 
   var buttonOperation = document.createElement("button");
   buttonOperation.classList.add("button", "is-primary")
@@ -421,35 +477,90 @@ function addLocalCondition(route){
   buttons.appendChild(buttonLoop);
   divButtonsHTML.appendChild(buttons)
 
-  var divUnifyHTML = document.createElement("div");
-  divUnifyHTML.classList.add("is-condition");
-  divUnifyHTML.appendChild(divHeadCondHTML)
-  divUnifyHTML.appendChild(divBloqHTML)
-  divUnifyHTML.appendChild(divButtonsHTML)
+  var divKeyHTML = document.createElement("div")
+  var varHtml2 = document.createTextNode("}")
+  divKeyHTML.setAttribute("style", "margin-bottom: 15px;")
+  divKeyHTML.appendChild(varHtml2)
 
-  appendId = getWhereToAppend(route)
-  document.getElementById(appendId).appendChild(divUnifyHTML);
-  GlobalFuncs[path[0]].cond = GlobalFuncs[path[0]].cond + 1
-  hideModal()
+  divReturn = document.createElement("div")
+  divReturn.appendChild(divHeadCondHTML)
+  divReturn.appendChild(divButtonsHTML)
+  divReturn.appendChild(divBloqHTML)
+  divReturn.appendChild(divKeyHTML)
+
+
+  return divReturn;
+
 }
 
-function addLocalOperator(func_name){
-  console.log("op in func", func_name);
+function addElseCondition(route){
+  path = getPath(route)
+
+  var divHeadCondHTML = document.createElement("div");
+  divHeadCondHTML.classList.add("is-condition");
+  divHeadCondHTML.setAttribute("id", "head:" + route);
+
+  var varHtml = document.createTextNode("else{");
+  divHeadCondHTML.appendChild(varHtml);
+
+  var divBloqHTML = document.createElement("div");
+  divBloqHTML.classList.add("is-condition");
+  divBloqHTML.setAttribute("id", route);
+
+  var divButtonsHTML = document.createElement("div");
+
+  var buttons = document.createElement("div");
+  buttons.classList.add("buttons", "has-addons", "is-centered");
+  buttons.setAttribute("style", "margin-top: 15px;")
+
+  var buttonOperation = document.createElement("button");
+  buttonOperation.classList.add("button", "is-primary")
+  onClickFunc = 'addOperacionLocalModal("' + route + '")'
+  buttonOperation.setAttribute("onclick", onClickFunc)
+  buttonText = document.createTextNode("Operacion");
+  buttonOperation.appendChild(buttonText);
+
+  var buttonCondicion = document.createElement("button");
+  buttonCondicion.classList.add("button", "is-light");
+  onClickFunc = 'addCondicionModal("' + route + '")'
+  buttonCondicion.setAttribute("onclick", onClickFunc)
+  buttonText = document.createTextNode("Condicion");
+  buttonCondicion.appendChild(buttonText)
+
+  var buttonLoop = document.createElement("button");
+  buttonLoop.classList.add("button", "is-dark");
+  onClickFunc = 'addLoop("' + route + '")'
+  buttonLoop.setAttribute("onclick", onClickFunc)
+  buttonText = document.createTextNode("Ciclo");
+  buttonLoop.appendChild(buttonText)
+
+  buttons.appendChild(buttonOperation);
+  buttons.appendChild(buttonCondicion);
+  buttons.appendChild(buttonLoop);
+  divButtonsHTML.appendChild(buttons)
+
+  var divKeyHTML = document.createElement("div")
+  var varHtml2 = document.createTextNode("}")
+  divKeyHTML.setAttribute("style", "margin-bottom: 15px;")
+  divKeyHTML.appendChild(varHtml2)
+
+  divReturn = document.createElement("div")
+  divReturn.appendChild(divHeadCondHTML)
+  divReturn.appendChild(divButtonsHTML)
+  divReturn.appendChild(divBloqHTML)
+  divReturn.appendChild(divKeyHTML)
+
+  return divReturn;
+
 }
 
-function addLocalVector(func_name){
-  console.log("vector in func", func_name);
+function addLocalLoop(route){
+  path = getPath(route)
+  console.log(path);
+  GlobalFuncs[path[0]].loop = GlobalFuncs[path[0]].loop + 1
 }
 
-function addLoop(id){
-  console.log("loop",id);
-}
-
-function addReturn(id){
-  console.log("return",id);
-}
-
-/* -------- Funciones que se llaman en tiepo real -------- */
+/* -------- Funciones que se llaman en tiempo real -------- */
 
 function addParamsToModal(){
   paramCounter = paramCounter + 1;
@@ -485,6 +596,9 @@ function addParamsToModal(){
   return ;
 }
 
+
+/* -------- Funciones extras -------- */
+
 function getPath(id){
   generations = []
   pivote = 0
@@ -499,7 +613,7 @@ function getPath(id){
   return generations
 }
 
-function getWhereToAppend(id){
+/* function getWhereToAppend(id){
   appendHere = ""
   pivote = 0
   for (i in id){
@@ -509,7 +623,7 @@ function getWhereToAppend(id){
     }
   }
   return appendHere
-}
+} */
 
 var testDic = {
   func2: {
@@ -541,8 +655,6 @@ function addToDict(objectToAdd, indexFinal, dict, path, count){
 // function clearTexbox(){
 //   $("#textbox").val("")
 // }
-
-/* -------- Funciones extras -------- */
 
 // let dropdown = document.querySelector('.dropdown');
 // dropdown.addEventListener('click', function(event) {

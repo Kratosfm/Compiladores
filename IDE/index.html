@@ -224,7 +224,7 @@
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Hacer una condicion dentro de la funcion</p>
+          <p class="modal-card-title">Hacer condicion</p>
           <button class="delete" aria-label="close" onclick="hideModal()"></button>
         </header>
         <section class="modal-card-body">
@@ -236,9 +236,47 @@
               <input id="conditionInput" class="input" type="text" placeholder="a == 0">
             </div>
           </div>
+          <div class="">
+            <h5 class="subtitle is-5">Agregar "Else" ?</h5>
+            <div class="control">
+              <label class="radio">
+                <input id="elseYes" type="radio" name="else">
+                Si
+              </label>
+              <label class="radio">
+                <input id="elseNo" type="radio" name="else">
+                No
+              </label>
+            </div>
+          </div>
         </section>
         <footer class="modal-card-foot">
           <button id="addLocalCondition" class="button is-success" onclick="createLocalCondition()">Agregar condicion</button>
+          <button class="button" onclick="hideModal()">Cancelar</button>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Modal de agregar ciclo -->
+    <div id="addLoopLocalModal" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Crear ciclo</p>
+          <button class="delete" aria-label="close" onclick="hideModal()"></button>
+        </header>
+        <section class="modal-card-body">
+          <div class="columns">
+            <div class="column is-5">
+              <h5 class="subtitle is-5" style="margin-top: 5px;">Condicion a cumplir: </h5>
+            </div>
+            <div class="column" style="margin-left: -50px;">
+              <input id="loopInput" class="input" type="text" placeholder="b < 10">
+            </div>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <button id="addLocalLoop" class="button is-success" onclick="createLocalCondition()">Agregar ciclo</button>
           <button class="button" onclick="hideModal()">Cancelar</button>
         </footer>
       </div>

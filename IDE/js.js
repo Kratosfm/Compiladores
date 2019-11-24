@@ -250,10 +250,10 @@ function createLocalLoop(route){
       }
     })
   }
-  addLocalLoop(route)
+  addLocalLoop(route + ">while" + GlobalFuncs[path[0]].loop)
   return ;
-
 }
+
 
 /* -------- Variables para agregar en el html -------- */
 
@@ -377,6 +377,40 @@ function editFunction(func_name){
   return;
 }
 
+function addParamsToModal(){
+  paramCounter = paramCounter + 1;
+  var paramDiv = '<h5 class="subtitle is-5">Selecciona el tipo del parametro:</h5>'+
+  '<div class="control">'+
+    '<label class="radio">'+
+      '<input id="' + ("paramInt" + paramCounter) + '" class="radio-param"type="radio" name="type' + paramCounter +'">'+
+      'Entero'+
+    '</label>'+
+    '<label class="radio">'+
+      '<input id="' + ("paramFloat" + paramCounter) + '" class="radio-param"type="radio" name="type' + paramCounter +'">'+
+      'Flotante'+
+    '</label>'+
+    '<label class="radio">'+
+      '<input id="' + ("paramBool" + paramCounter) + '" class="radio-param"type="radio" name="type' + paramCounter +'">'+
+      'Booleano'+
+    '</label>'+
+    '<label class="radio">'+
+      '<input id="' + ("paramString" + paramCounter) + '" class="radio-param"type="radio" name="type' + paramCounter +'">'+
+      'Frase'+
+    '</label>'+
+  '</div>'+
+  '<br>'+
+  '<div class="columns">'+
+    '<div class="column is-5">'+
+      '<h5 class="subtitle is-5" style="margin-top: 5px;">Nombre del parametro:</h5>'+
+    '</div>'+
+    '<div class="column" style="margin-left: -50px;">'+
+      '<input id="' + ("paramName" + paramCounter) + '" class="input" type="text" placeholder="Nombre">'+
+    '</div>'+
+  '</div>"'
+  $(paramDiv).appendTo("#params")
+  return ;
+}
+
 function addLocalVar(func_name, varname){
   var divVarHTML = document.createElement("div");
   divVarHTML.classList.add("is-variable");
@@ -418,13 +452,12 @@ function addLocalCondition(route, elseFlag){
 }
 
 function addIfCondition(route){
-  path = getPath(route)
-
+  path = getPath(route);
   var divHeadCondHTML = document.createElement("div");
   divHeadCondHTML.classList.add("is-condition");
   divHeadCondHTML.setAttribute("id", "head:" + route);
   var pointer ;
-  var headerText = "test"
+  var headerText = "";
   console.log(path);
   path.forEach(function(value, index){
     if(index == 0 ){
@@ -433,8 +466,6 @@ function addIfCondition(route){
     else if(value != null){
       headerText = pointer[value].header
       pointer = pointer[value].oper
-    }
-    else{
     }
   })
 
@@ -467,7 +498,7 @@ function addIfCondition(route){
 
   var buttonLoop = document.createElement("button");
   buttonLoop.classList.add("button", "is-dark");
-  onClickFunc = 'addLoop("' + route + '")'
+  onClickFunc = 'addLoopLocalModal("' + route + '")'
   buttonLoop.setAttribute("onclick", onClickFunc)
   buttonText = document.createTextNode("Ciclo");
   buttonLoop.appendChild(buttonText)
@@ -529,7 +560,7 @@ function addElseCondition(route){
 
   var buttonLoop = document.createElement("button");
   buttonLoop.classList.add("button", "is-dark");
-  onClickFunc = 'addLoop("' + route + '")'
+  onClickFunc = 'addLoopLocalModal("' + route + '")'
   buttonLoop.setAttribute("onclick", onClickFunc)
   buttonText = document.createTextNode("Ciclo");
   buttonLoop.appendChild(buttonText)
@@ -556,44 +587,79 @@ function addElseCondition(route){
 
 function addLocalLoop(route){
   path = getPath(route)
-  console.log(path);
+
+  var divHeadLoopHTML = document.createElement("div");
+  divHeadLoopHTML.classList.add("is-loop");
+  divHeadLoopHTML.setAttribute("id", "head:" + route);
+
+  var pointer ;
+  var headerText = "";
+  path.forEach(function(value, index){
+    if(index == 0 ){
+      pointer = GlobalFuncs[value].oper
+    }
+    else if(value != null){
+      headerText = pointer[value].header
+      pointer = pointer[value].oper
+    }
+    else{
+    }
+  })
+
+  var varHtml = document.createTextNode(headerText);
+  divHeadLoopHTML.appendChild(varHtml);
+
+  var divBloqHTML = document.createElement("div");
+  divBloqHTML.classList.add("is-loop");
+  divBloqHTML.setAttribute("id", route);
+
+  var divButtonsHTML = document.createElement("div");
+
+  var buttons = document.createElement("div");
+  buttons.classList.add("buttons", "has-addons", "is-centered");
+  buttons.setAttribute("style", "margin-top: 15px;")
+
+  var buttonOperation = document.createElement("button");
+  buttonOperation.classList.add("button", "is-primary")
+  onClickFunc = 'addOperacionLocalModal("' + route + '")'
+  buttonOperation.setAttribute("onclick", onClickFunc)
+  buttonText = document.createTextNode("Operacion");
+  buttonOperation.appendChild(buttonText);
+
+  var buttonCondicion = document.createElement("button");
+  buttonCondicion.classList.add("button", "is-light");
+  onClickFunc = 'addCondicionModal("' + route + '")'
+  buttonCondicion.setAttribute("onclick", onClickFunc)
+  buttonText = document.createTextNode("Condicion");
+  buttonCondicion.appendChild(buttonText)
+
+  var buttonLoop = document.createElement("button");
+  buttonLoop.classList.add("button", "is-dark");
+  onClickFunc = 'addLoopLocalModal("' + route + '")'
+  buttonLoop.setAttribute("onclick", onClickFunc)
+  buttonText = document.createTextNode("Ciclo");
+  buttonLoop.appendChild(buttonText)
+
+  buttons.appendChild(buttonOperation);
+  buttons.appendChild(buttonCondicion);
+  buttons.appendChild(buttonLoop);
+  divButtonsHTML.appendChild(buttons)
+
+  var divKeyHTML = document.createElement("div")
+  var varHtml2 = document.createTextNode("}")
+  divKeyHTML.setAttribute("style", "margin-bottom: 15px;")
+  divKeyHTML.appendChild(varHtml2)
+
+  var divUnifyHTML = document.createElement("div");
+  divUnifyHTML.classList.add("is-loop");
+  divUnifyHTML.appendChild(divHeadLoopHTML)
+  divUnifyHTML.appendChild(divButtonsHTML)
+  divUnifyHTML.appendChild(divBloqHTML)
+  divUnifyHTML.appendChild(divKeyHTML)
+
+  document.getElementById(getWhereToAppend(route)).appendChild(divUnifyHTML);
   GlobalFuncs[path[0]].loop = GlobalFuncs[path[0]].loop + 1
-}
-
-/* -------- Funciones que se llaman en tiempo real -------- */
-
-function addParamsToModal(){
-  paramCounter = paramCounter + 1;
-  var paramDiv = '<h5 class="subtitle is-5">Selecciona el tipo del parametro:</h5>'+
-  '<div class="control">'+
-    '<label class="radio">'+
-      '<input id="' + ("paramInt" + paramCounter) + '" class="radio-param"type="radio" name="type' + paramCounter +'">'+
-      'Entero'+
-    '</label>'+
-    '<label class="radio">'+
-      '<input id="' + ("paramFloat" + paramCounter) + '" class="radio-param"type="radio" name="type' + paramCounter +'">'+
-      'Flotante'+
-    '</label>'+
-    '<label class="radio">'+
-      '<input id="' + ("paramBool" + paramCounter) + '" class="radio-param"type="radio" name="type' + paramCounter +'">'+
-      'Booleano'+
-    '</label>'+
-    '<label class="radio">'+
-      '<input id="' + ("paramString" + paramCounter) + '" class="radio-param"type="radio" name="type' + paramCounter +'">'+
-      'Frase'+
-    '</label>'+
-  '</div>'+
-  '<br>'+
-  '<div class="columns">'+
-    '<div class="column is-5">'+
-      '<h5 class="subtitle is-5" style="margin-top: 5px;">Nombre del parametro:</h5>'+
-    '</div>'+
-    '<div class="column" style="margin-left: -50px;">'+
-      '<input id="' + ("paramName" + paramCounter) + '" class="input" type="text" placeholder="Nombre">'+
-    '</div>'+
-  '</div>"'
-  $(paramDiv).appendTo("#params")
-  return ;
+  hideModal();
 }
 
 
@@ -613,7 +679,7 @@ function getPath(id){
   return generations
 }
 
-/* function getWhereToAppend(id){
+function getWhereToAppend(id){
   appendHere = ""
   pivote = 0
   for (i in id){
@@ -623,7 +689,7 @@ function getPath(id){
     }
   }
   return appendHere
-} */
+}
 
 var testDic = {
   func2: {
@@ -651,13 +717,3 @@ function addToDict(objectToAdd, indexFinal, dict, path, count){
     return dict
   }
 }
-
-// function clearTexbox(){
-//   $("#textbox").val("")
-// }
-
-// let dropdown = document.querySelector('.dropdown');
-// dropdown.addEventListener('click', function(event) {
-//     event.stopPropagation();
-//     dropdown.classList.toggle('is-active');
-// });

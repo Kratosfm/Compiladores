@@ -34,8 +34,8 @@
 }
 
 .is-loop{
-  background-color: hsl(0, 0%, 21%);
-  color: white;
+  background-color: white;
+  color: hsl(0, 0%, 21%);
 }
 
 .is-condition {

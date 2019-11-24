@@ -378,7 +378,7 @@ def p_estat(p):
 
 def p_asign(p):
   '''
-    asign : ID pushid EQUAL pushop fcall resolverasignacion
+    asign : ID pushid EQUAL pushop fcall SEMICOLON
         | ID pushid EQUAL pushop expres resolverasignacion SEMICOLON
         | ID pushid LBRACE exr RBRACE EQUAL pushop expres SEMICOLON
   '''
@@ -503,8 +503,6 @@ def p_var_cte(p):
         | CTE_S pushcte
         | TRUE pushcte
         | FALSE pushcte
-        | fcall
-        | fcallvoid
         | asigvector
   '''
 
@@ -515,11 +513,12 @@ def p_asigvector(p):
 
 def p_fcall(p):
   '''
-  	fcall : ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
-        | ID existfunc LPAREN startera RPAREN SEMICOLON
+  	fcall : ID existfunc LPAREN startera fcall1 RPAREN
+        | ID existfunc LPAREN startera RPAREN
   '''
   varsTable.param_cont = 0
   cuadruplos.generategosub(p[1])
+  cuadruplos.funcasign(p[1])
   varsTable.UpdateParam()
   varsTable.arrparam.clear()
   varsTable.fun_name = None

@@ -4,10 +4,10 @@ var int i ;
 var int a ;
 var int b ;
 
-function int Cherry ( int Julia , float Rocio ) {
+function int Cherry ( int Julia , int Rocio ) {
 	Julia = Julia + 1 ;
 	print ("primero", Julia ) ;
-	return Julia ;
+	return Rocio ;
 }
 
 function void Banana (){
@@ -16,11 +16,11 @@ function void Banana (){
 
 function int Apple ( int Rey ) {
 	Rey = 3 * 8 ;
-	print ("cuarto", Rey) ;
+	print ("quinto", Rey) ;
 	return Rey ;
 }
 
-function int Didi ( int Kevin ) {
+function int Didi ( int Kevin , int Eva) {
 	Kevin = Kevin + 1 ;
 	return Kevin ;
 }
@@ -28,11 +28,11 @@ function int Didi ( int Kevin ) {
 main
 {
 	i = 1 + 5 ;
- 	a = Cherry ( 2 , 3.0 ) ;
+ 	a = Cherry ( 2 , 4 ) ;
 	print ( "segundo", a ) ;
 	Banana () ;
-	i = Didi ( 2 ) ;
-	print ("quinto", i ) ;
+	i = Didi ( 2 , 3) ;
+	print ("cuarto", i ) ;
 	b = Apple ( 100 ) ;
 	print ("sexto", b) ;
 }

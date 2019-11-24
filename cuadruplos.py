@@ -168,9 +168,6 @@ def resolverasignacion():
             elif tipo_id == "int" and tipo_res == "float":
                 print("error de semantica 1")
                 sys.exit()
-            #print (str(pilaid)[1:-1])
-
-            #print("el id es ",valor, operator, "None", valid, len(pilacuadruplos))
             if(valid >= 7000) :
                 print("dasdas",valid,varsTable.func_id)
                 cuad = Cuadrupl(valid, operator, None, id2, len(pilacuadruplos))
@@ -371,19 +368,24 @@ def generateReturn():
     tam = len(popper)
     if tam > 0:
         if popper[tam-1] == "return":
+            #print ("LELE0",contador,str(pilaid)[1:-1])
+            #print("LELE0",contador,str(avail)[1:-1])
+            #print ("LELE",contador,str(popper)[1:-1])
             operator = popper.pop()
             resultado = pilaid.pop()
             valor = avail.pop()
             tipo = pilaTipos.pop()
-            print("semental2",valor)
+            val = Memory.getValor(resultado)
             dir = Memory.global_memroy.insert_returns(valor,tipo)
-            print("YES",valor,resultado,dir)
+            print("YES",valor,resultado,dir,val)
             cuad = Cuadrupl("None",operator,None,resultado,len(pilacuadruplos))
             pilacuadruplos.append(cuad)
             #esto puede fallar
-            pilaid.append(dir)
-            pilaTipos.append(tipo)
-            avail.append(valor)
+            varsTable.symbol_table[varsTable.func_id].returno = dir
+            varsTable.symbol_table[varsTable.func_id].isReturn = True
+            #print ("LELE",contador,str(pilaid)[1:-1])
+            #print("LELE",contador,str(avail)[1:-1])
+            #print ("LELE",contador,str(popper)[1:-1])
 #Inicializa Era
 def generateEra(id):
     cuad = Cuadrupl(None, "ERA", None, id, len(pilacuadruplos))
@@ -402,6 +404,32 @@ def generategosub(funct):
     resultado = varsTable.symbol_table[funct].cuadno
     cuadr = Cuadrupl(funct,"GoSub",None,resultado,len(pilacuadruplos))
     pilacuadruplos.append(cuadr)
+
+def funcasign(id):
+    tipo = varsTable.symbol_table[id].tipo
+    tam = len(popper)
+    if tam > 0:
+        if (popper[tam-1] == "="):
+            valor = avail.pop()
+            valid = pilaid.pop()
+            tipo_res = pilaTipos.pop()
+            operator = popper.pop()
+            id2 = varsTable.symbol_table[id].returno
+            tipo_id = Memory.GetTipo(id2)
+            #print("sdsdsd",valor,id2,av,valid)
+            if tipo_id == "float" and tipo_res == "int":
+                valor = float(valor)
+                #dir = Memory.GetDir(valor,"float")
+            elif tipo_id == "int" and tipo_res == "float":
+                print("error de semantica 1")
+                sys.exit()
+            cuad = Cuadrupl(id2, operator, None, valid, len(pilacuadruplos))
+            pilacuadruplos.append(cuad)
+            return valor
+        else:
+            print("falla")
+            sys.exit()
+
 
 #GotMain
 def gotoMain():

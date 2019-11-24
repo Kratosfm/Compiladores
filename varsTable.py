@@ -27,12 +27,14 @@ class Entry():
         self.isParam = isParam
 
 class FunctionEntry:
-    def __init__(self, id, tipo, cuadno = 0, paramno = 0, returno = 0):
+    def __init__(self, id, tipo, cuadno = 0, paramno = 0, returno = 0, isReturn = False):
         self.id = id
         self.tipo = tipo
         self.dict = {}
         self.cuadno = cuadno
         self.paramno = paramno
+        self.returno = returno
+        self.isReturn = isReturn
 
 class Param:
     def __init__(self,id, num = 0):
@@ -234,7 +236,7 @@ def show():
 #    print(symbol_table["global"].dict, symbol_table["main"].dict)
     for i in symbol_table:
         if (str((type(symbol_table[i]))) == "<class 'varsTable.FunctionEntry'>"):
-            print(i, getType(i), symbol_table[i].cuadno,symbol_table[i].paramno,"{")
+            print(i, getType(i), symbol_table[i].cuadno,symbol_table[i].paramno,symbol_table[i].returno,"{")
             for j in symbol_table[i].dict:
                 print(symbol_table[i].dict[j].id, symbol_table[i].dict[j].tipo, symbol_table[i].dict[j].value, symbol_table[i].dict[j].space, symbol_table[i].dict[j].isParam)
             print("}")

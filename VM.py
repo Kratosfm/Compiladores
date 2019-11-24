@@ -6,6 +6,7 @@ import sys
 resbol = None
 cont_param = 0
 func_id = None
+val_return = None
 #arreglo que almacena las direcciones de los parametros
 arrparam = []
 #arreglo que almacena los tipos de los parametros
@@ -31,10 +32,17 @@ def Ejecucion(num,cuadrup):
     global numreturnf
     global numreturns
     global numreturnb
+    global func_id
     if (cuadrup.operator == "="):
-        newVal = Memory.getValor(cuadrup.left)
-        Memory.updateVal(cuadrup.resultado,newVal)
-        print("Se recibe dir", cuadrup.left, "con valor",Memory.getValor(cuadrup.left),"en", cuadrup.resultado)
+        if (func_id != None):
+            if(varsTable.symbol_table[func_id].isReturn == True):
+                newVal = Memory.getValor(cuadrup.left)
+                Memory.updateVal(cuadrup.resultado,newVal)
+                print("Se recibe dir en funcion", cuadrup.left, "con valor",Memory.getValor(cuadrup.left),"en", cuadrup.resultado, "con", Memory.getValor(cuadrup.resultado),"en",func_id)
+        else:
+            newVal = Memory.getValor(cuadrup.left)
+            Memory.updateVal(cuadrup.resultado,newVal)
+            print("Se recibe dir", cuadrup.left, "con valor",Memory.getValor(cuadrup.left),"en", cuadrup.resultado, "con", Memory.getValor(cuadrup.resultado),"en",func_id)
         num = num + 1
         return num
 
@@ -145,7 +153,6 @@ def Ejecucion(num,cuadrup):
     elif(cuadrup.operator == "GoSub"):
         num = cuadrup.resultado
         last_pos = cuadrup.num + 1
-        func_id = None
         return num
 
     elif(cuadrup.operator == "ENDPROC"):
@@ -179,7 +186,7 @@ def Ejecucion(num,cuadrup):
         newVal = Memory.getValor(cuadrup.resultado)
         tipo = Memory.GetTipo(cuadrup.resultado)
         Memory.updateVal(cuadrup.resultado,newVal)
-        #print("Semental",newVal,cuadrup.resultado,tipo)
+        print("Semental",newVal,cuadrup.resultado,tipo)
         if (tipo == "int"):
             Memory.global_memroy.ints[numreturni] = newVal
             Memory.updateVal(numreturni,newVal)

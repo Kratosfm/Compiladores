@@ -1,46 +1,38 @@
 program :
 
-var float Caca ;
-var int Carlos ;
+var int i ;
+var int a ;
+var int b ;
 
-function void Apple (){
-	Caca = 100 + 50 ;
-	print ( Caca ) ;
+function int Cherry ( int Julia , float Rocio ) {
+	Julia = Julia + 1 ;
+	print ("primero", Julia ) ;
+	return Julia ;
 }
 
-function void Banana ( int Lala , int Lele){
-	var float Tony ;
-	print ( Lala ) ;
-	Lala = 100 ;
-	Caca = 200 + 50 ;
-	print ( Caca ) ;
+function void Banana (){
+	print ( "tercero", i ) ;
 }
 
-function int Cherry ( int Julia ) {
-	while ( Julia < 100 ) {
-		Julia = Julia + 2 ;
-	}
-print( Julia ) ;
-return Julia ;
+function int Apple ( int Rey ) {
+	Rey = 3 * 8 ;
+	print ("cuarto", Rey) ;
+	return Rey ;
 }
 
+function int Didi ( int Kevin ) {
+	Kevin = Kevin + 1 ;
+	return Kevin ;
+}
 
 main
 {
-var int i ;
-var int fact ;
-var int num ;
-var string Cabella ;
-Cabella = "POPO" ;
-i = 1 ;
-fact = 1 ;
-num = 5 ;
-while ( i < num + 1 ) {
-		fact = fact * i ;
-		i = i + 1 ;
-	}
-fact = 3 + 9 ;
-Banana ( 5 + 2 , fact) ;
-print ( "LELE" ) ;
-i = Cherry ( 1 ) ;
+	i = 1 + 5 ;
+ 	a = Cherry ( 2 , 3.0 ) ;
+	print ( "segundo", a ) ;
+	Banana () ;
+	i = Didi ( 2 ) ;
+	print ("quinto", i ) ;
+	b = Apple ( 100 ) ;
+	print ("sexto", b) ;
 }

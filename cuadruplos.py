@@ -169,12 +169,19 @@ def resolverasignacion():
                 print("error de semantica 1")
                 sys.exit()
             #print (str(pilaid)[1:-1])
+
             #print("el id es ",valor, operator, "None", valid, len(pilacuadruplos))
-            cuad = Cuadrupl(id2, operator, None, valid, len(pilacuadruplos))
-            pilacuadruplos.append(cuad)
+            if(valid >= 7000) :
+                print("dasdas",valid,varsTable.func_id)
+                cuad = Cuadrupl(valid, operator, None, id2, len(pilacuadruplos))
+                pilacuadruplos.append(cuad)
+                return av
+            else:
+                cuad = Cuadrupl(id2, operator, None, valid, len(pilacuadruplos))
+                pilacuadruplos.append(cuad)
+                return valor
             #varsTable.update(valid,valor)
             #print(id, varsTable.getAttributes(id))
-            return valor
 
 def resolverterm():
     global contador
@@ -366,22 +373,26 @@ def generateReturn():
         if popper[tam-1] == "return":
             operator = popper.pop()
             resultado = pilaid.pop()
-            avail.pop()
-            pilaTipos.pop()
+            valor = avail.pop()
+            tipo = pilaTipos.pop()
+            print("semental2",valor)
+            dir = Memory.global_memroy.insert_returns(valor,tipo)
+            print("YES",valor,resultado,dir)
             cuad = Cuadrupl("None",operator,None,resultado,len(pilacuadruplos))
             pilacuadruplos.append(cuad)
+            #esto puede fallar
+            pilaid.append(dir)
+            pilaTipos.append(tipo)
+            avail.append(valor)
 #Inicializa Era
 def generateEra(id):
-    #print ("id",str(pilaid)[1:-1])
-    #print("valor",str(avail)[1:-1])
-    #print ("operador",str(popper)[1:-1])
     cuad = Cuadrupl(None, "ERA", None, id, len(pilacuadruplos))
     pilacuadruplos.append(cuad)
 
 def getparam():
     resultado = pilaid.pop()
-    #pilaTipos.pop()
-    #valor = avail.pop()
+    pilaTipos.pop()
+    valor = avail.pop()
     num = str(varsTable.param_cont)
     cuadr = Cuadrupl(resultado,"param",None,"param"+num,len(pilacuadruplos))
     pilacuadruplos.append(cuadr)
@@ -406,9 +417,6 @@ def printcuad():
             pilaTipos.pop()
             avail.pop()
             operator = popper.pop()
-            #print ("id",str(pilaid)[1:-1])
-            #print("valor",str(avail)[1:-1])
-            #print ("operador",str(popper)[1:-1])
             cuadr = Cuadrupl(None, operator, None, resultado, len(pilacuadruplos))
             pilacuadruplos.append(cuadr)
 

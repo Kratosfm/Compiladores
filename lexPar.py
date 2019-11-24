@@ -266,6 +266,7 @@ def p_function(p):
   Memoria.BorrarFloats()
   Memoria.BorrarBools()
   Memoria.BorrarStrings()
+
   varsTable.param_cont = 0
   #cuadruplos.CrearENDPROC()
   cuad = cuadruplos.Cuadrupl(None, "ENDPROC", None, None, len(cuadruplos.pilacuadruplos))
@@ -341,6 +342,7 @@ def p_resreturn(p):
     resreturn :
     '''
     print("getg")
+    print (str(cuadruplos.pilaid)[1:-1])
 def p_mainc(p):
     '''
     mainc : LKEY RKEY
@@ -516,20 +518,20 @@ def p_fcall(p):
   	fcall : ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
         | ID existfunc LPAREN startera RPAREN SEMICOLON
   '''
-  print("yolo")
   varsTable.param_cont = 0
   cuadruplos.generategosub(p[1])
+  varsTable.UpdateParam()
+  varsTable.arrparam.clear()
   varsTable.fun_name = None
-
 
 def p_fcallvoid(p):
     '''
     fcallvoid : ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     | ID existfunc LPAREN startera RPAREN SEMICOLON
     '''
-    print("aqui",p[1])
     varsTable.param_cont = 0
     cuadruplos.generategosub(p[1])
+    varsTable.fun_name = None
 
 #Funcion que llama a CheckExistIdFunc para verificar que exista la funcion en la tabla
 def p_existfunc(p):
@@ -561,8 +563,7 @@ def p_generateparam(p):
     #Paso 4 de Module Call
     varsTable.param_cont = varsTable.param_cont + 1
     val = cuadruplos.getparam()
-    #print("adsads",varsTable.fun_name,p[-1])
-    #existe = varsTable.existeID(varsTable.fun_name,p[-1])
+    varsTable.arrparam.append(val)
 
 def p_empty(p):
     '''

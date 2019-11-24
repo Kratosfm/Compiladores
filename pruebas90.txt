@@ -1,0 +1,30 @@
+program :
+
+var int Caca ;
+
+function int fib ( int num ) {
+   var int x ;
+	 var int y ;
+	 var int z ;
+	 var int i;
+   x = 0;
+   y = 1;
+   z = 0;
+   i = 0;
+   while (i < num - 1) {
+      print ( x ) ;
+      z = x + y;
+      x = y;
+      y = z;
+      i = i + 1;
+   }
+   return x;
+}
+
+main {
+   var int num ;
+	 var int res ;
+	 num = 10 ;
+   res = fib ( num ) ;
+   print(res);
+}

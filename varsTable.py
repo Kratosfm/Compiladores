@@ -16,6 +16,7 @@ is_vector = False
 symbol_table = {}
 param_table = {}
 param_cont = 0
+arrparam = []
 
 class Entry():
     def __init__(self, id, tipo, value = None, space = None, isParam = False):
@@ -292,6 +293,17 @@ def InsertTypParam(tipo):
     param_table[func_id].dict.append(tipo)
     param_table[func_id].num = param_table[func_id].num + 1
 
-def ImprimirParamsType():
-    for element in param_table[func_id].dict:
-        print ("hey ",element)
+def UpdateParam():
+    #for i in symbol_table[func_id]
+    if(symbol_table[fun_name].paramno > 0):
+        cont = 1
+        tam = len(arrparam)
+        for i in symbol_table[fun_name].dict:
+            if(symbol_table[fun_name].dict[i].isParam == True):
+                    dirval = symbol_table[fun_name].dict[i].value
+                    valor = Memoria.getValor(arrparam[tam-cont])
+                    Memoria.updateVal(dirval,valor)
+                    #print("yoe",fun_name,symbol_table[fun_name].dict[i].id,dirval,valor)
+                    cont = cont + 1
+    else:
+        print("LE")

@@ -25,6 +25,11 @@ tl_int = 6000
 tl_float = 6100
 tl_string = 6200
 tl_bools = 6300
+ret_int = 7000
+ret_float = 7100
+ret_string = 7200
+ret_bools = 7300
+
 
 class Memory:
 
@@ -199,6 +204,32 @@ class Memory:
             self.strings[dir] = var
             return dir
 
+    def insert_returns(self, var, tipo, Space = None):
+        global ret_int
+        global ret_float
+        global ret_string
+        global ret_bools
+        if( tipo == "int" and varsTable.is_vector == False):
+            dir = ret_int
+            ret_int = ret_int + 1
+            self.ints[dir] = var
+            return dir
+        elif( tipo == "float" and varsTable.is_vector == False):
+            dir = ret_float
+            ret_float = ret_float + 1
+            self.floats[dir] = var
+            return dir
+        elif( tipo == "bool" and varsTable.is_vector == False):
+            dir = ret_bools
+            ret_bools = ret_bools + 1
+            self.bools[dir] = var
+            return dir
+        elif( tipo == "string" and varsTable.is_vector == False):
+            dir = ret_string
+            ret_string = ret_string + 1
+            self.strings[dir] = var
+            return dir
+
     def insert_temporal(self,var,tipo):
         global tm_int
         global tm_float
@@ -334,32 +365,45 @@ def GetDir(val,tipo):
         print("No existe")
 
 def getValor(dir):
-    if((dir >= 1000 and dir < 1100) or (dir >= 2000 and dir < 2100 ) or (dir >= 3000 and dir < 3100) or (dir >= 4000 and dir < 4100) or (dir >= 5000 and dir < 5100) or (dir >= 6000 and dir < 6100)):
+    if((dir >= 1000 and dir < 1100) or (dir >= 2000 and dir < 2100 ) or (dir >= 3000 and dir < 3100) or (dir >= 4000 and dir < 4100) or (dir >= 5000 and dir < 5100) or (dir >= 6000 and dir < 6100) or (dir >= 7000 and dir < 7100)):
         valor = global_memroy.ints[dir]
         return valor
-    elif((dir >= 1100 and dir < 1200) or (dir >= 2100 and dir < 2200 ) or (dir >= 3100 and dir < 3200) or (dir >= 4100 and dir < 4200) or (dir >= 5100 and dir < 5200) or (dir >= 6100 and dir < 6200)):
+    elif((dir >= 1100 and dir < 1200) or (dir >= 2100 and dir < 2200 ) or (dir >= 3100 and dir < 3200) or (dir >= 4100 and dir < 4200) or (dir >= 5100 and dir < 5200) or (dir >= 6100 and dir < 6200) or (dir >= 7100 and dir < 7200)):
         valor = global_memroy.floats[dir]
         return valor
-    elif((dir >= 1200 and dir < 1300) or (dir >= 2200 and dir < 2300 ) or (dir >= 3200 and dir < 3300) or (dir >= 4200 and dir < 4300) or (dir >= 5200 and dir < 5300) or (dir >= 6200 and dir < 6300)):
+    elif((dir >= 1200 and dir < 1300) or (dir >= 2200 and dir < 2300 ) or (dir >= 3200 and dir < 3300) or (dir >= 4200 and dir < 4300) or (dir >= 5200 and dir < 5300) or (dir >= 6200 and dir < 6300) or (dir >= 7200 and dir < 7300)):
         valor = global_memroy.strings[dir]
         return valor
-    elif((dir >= 1300 and dir < 1400) or (dir >= 2300 and dir < 2400 ) or (dir >= 3300 and dir < 3400) or (dir >= 4300 and dir < 4400) or (dir >= 5300 and dir < 5400) or (dir >= 6300 and dir < 6400)):
+    elif((dir >= 1300 and dir < 1400) or (dir >= 2300 and dir < 2400 ) or (dir >= 3300 and dir < 3400) or (dir >= 4300 and dir < 4400) or (dir >= 5300 and dir < 5400) or (dir >= 6300 and dir < 6400) or (dir >= 7300 and dir < 7400)):
         valor = global_memroy.bools[dir]
         return valor
 
 def updateVal(dir,valor):
-    if((dir >= 1000 and dir < 1100) or (dir >= 2000 and dir < 2100 ) or (dir >= 3000 and dir < 3100) or (dir >= 4000 and dir < 4100) or (dir >= 5000 and dir < 5100) or (dir >= 6000 and dir < 6100)):
+    if((dir >= 1000 and dir < 1100) or (dir >= 2000 and dir < 2100 ) or (dir >= 3000 and dir < 3100) or (dir >= 4000 and dir < 4100) or (dir >= 5000 and dir < 5100) or (dir >= 6000 and dir < 6100) or (dir >= 7000 and dir < 7100)):
         global_memroy.ints[dir] = valor
         #print(dir,global_memroy.ints[dir])
 
-    elif((dir >= 1100 and dir < 1200) or (dir >= 2100 and dir < 2200 ) or (dir >= 3100 and dir < 3200) or (dir >= 4100 and dir < 4200) or (dir >= 5100 and dir < 5200) or (dir >= 6100 and dir < 6200)):
+    elif((dir >= 1100 and dir < 1200) or (dir >= 2100 and dir < 2200 ) or (dir >= 3100 and dir < 3200) or (dir >= 4100 and dir < 4200) or (dir >= 5100 and dir < 5200) or (dir >= 6100 and dir < 6200) or (dir >= 7100 and dir < 7200)):
         global_memroy.floats[dir] = valor
         #print(dir,global_memroy.floats[dir])
 
-    elif((dir >= 1200 and dir < 1300) or (dir >= 2200 and dir < 2300 ) or (dir >= 3200 and dir < 3300) or (dir >= 4200 and dir < 4300) or (dir >= 5200 and dir < 5300) or (dir >= 6200 and dir < 6300)):
+    elif((dir >= 1200 and dir < 1300) or (dir >= 2200 and dir < 2300 ) or (dir >= 3200 and dir < 3300) or (dir >= 4200 and dir < 4300) or (dir >= 5200 and dir < 5300) or (dir >= 6200 and dir < 6300) or (dir >= 7200 and dir < 7300)):
         global_memroy.strings[dir] = valor
         #print(dir,global_memroy.strings[dir])
 
-    elif((dir >= 1300 and dir < 1400) or (dir >= 2300 and dir < 2400 ) or (dir >= 3300 and dir < 3400) or (dir >= 4300 and dir < 4400) or (dir >= 5300 and dir < 5400) or (dir >= 6300 and dir < 6400)):
+    elif((dir >= 1300 and dir < 1400) or (dir >= 2300 and dir < 2400 ) or (dir >= 3300 and dir < 3400) or (dir >= 4300 and dir < 4400) or (dir >= 5300 and dir < 5400) or (dir >= 6300 and dir < 6400) or (dir >= 7300 and dir < 7400)):
         global_memroy.bools[dir] = valor
         #print(dir,global_memroy.bools[dir])
+def GetTipo(dir):
+    if((dir >= 1000 and dir < 1100) or (dir >= 2000 and dir < 2100 ) or (dir >= 3000 and dir < 3100) or (dir >= 4000 and dir < 4100) or (dir >= 5000 and dir < 5100) or (dir >= 6000 and dir < 6100) or (dir >= 7000 and dir < 7100)):
+        valor = global_memroy.ints[dir]
+        return "int"
+    elif((dir >= 1100 and dir < 1200) or (dir >= 2100 and dir < 2200 ) or (dir >= 3100 and dir < 3200) or (dir >= 4100 and dir < 4200) or (dir >= 5100 and dir < 5200) or (dir >= 6100 and dir < 6200) or (dir >= 7100 and dir < 7200)):
+        valor = global_memroy.floats[dir]
+        return "float"
+    elif((dir >= 1200 and dir < 1300) or (dir >= 2200 and dir < 2300 ) or (dir >= 3200 and dir < 3300) or (dir >= 4200 and dir < 4300) or (dir >= 5200 and dir < 5300) or (dir >= 6200 and dir < 6300) or (dir >= 7200 and dir < 7300)):
+        valor = global_memroy.strings[dir]
+        return "string"
+    elif((dir >= 1300 and dir < 1400) or (dir >= 2300 and dir < 2400 ) or (dir >= 3300 and dir < 3400) or (dir >= 4300 and dir < 4400) or (dir >= 5300 and dir < 5400) or (dir >= 6300 and dir < 6400) or (dir >= 7300 and dir < 7400)):
+        valor = global_memroy.bools[dir]
+        return "bool"

@@ -210,7 +210,7 @@
         <section class="modal-card-body">
           <h5 class="subtitle is-5">Escribe operaciones Aqui</h5>
           <h6 class="subtitle is-6">Usa las variables ya declaradas.</h6>
-          <textarea id="textbox" class="textarea" placeholder="ejemplo = a + b"></textarea>
+          <textarea id="textbox" class="textarea" placeholder="ejemplo = a + funcName(param1)"></textarea>
         </section>
         <footer class="modal-card-foot">
           <button id="addLocalOperator" class="button is-success" onclick="createLocalOperator()">Agregar Variable</button>
@@ -219,6 +219,30 @@
       </div>
     </div>
 
+    <!-- Modal de agregar condicion -->
+    <div id="addConditionLocalModal" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Hacer una condicion dentro de la funcion</p>
+          <button class="delete" aria-label="close" onclick="hideModal()"></button>
+        </header>
+        <section class="modal-card-body">
+          <div class="columns">
+            <div class="column is-5">
+              <h5 class="subtitle is-5" style="margin-top: 5px;">Condicion a cumplir: </h5>
+            </div>
+            <div class="column" style="margin-left: -50px;">
+              <input id="conditionInput" class="input" type="text" placeholder="a == 0">
+            </div>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <button id="addLocalCondition" class="button is-success" onclick="createLocalCondition()">Agregar condicion</button>
+          <button class="button" onclick="hideModal()">Cancelar</button>
+        </footer>
+      </div>
+    </div>
 
     <script type="text/javascript" src="./js.js"></script>
   </body>

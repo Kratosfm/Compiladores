@@ -66,22 +66,22 @@ class Memory:
             return dir
         elif( tipo == "int" and varsTable.is_vector == True):
             dir = global_int
-            global_int = global_int + Space + 1
+            global_int = global_int + Space
             self.ints[dir] = var
             return dir
         elif( tipo == "float" and varsTable.is_vector == True):
             dir = global_float
-            global_float = global_float + Space + 1
+            global_float = global_float + Space
             self.floats[dir] = var
             return dir
         elif( tipo == "bool" and varsTable.is_vector == True):
             dir = global_bools
-            global_bools = global_bools + Space + 1
+            global_bools = global_bools + Space
             self.bools[dir] = var
             return dir
         elif( tipo == "string" and varsTable.is_vector == True):
             dir = global_string
-            global_string = global_string + Space + 1
+            global_string = global_string + Space
             self.strings[dir] = var
             return dir
 
@@ -112,22 +112,22 @@ class Memory:
             return dir
         elif( tipo == "int" and varsTable.is_vector == True):
             dir = main_int
-            main_int = main_int + Space + 1
+            main_int = main_int + Space
             self.ints[dir] = var
             return dir
         elif( tipo == "float" and varsTable.is_vector == True):
             dir = main_float
-            main_float = main_float + Space + 1
+            main_float = main_float + Space
             self.floats[dir] = var
             return dir
         elif( tipo == "bool" and varsTable.is_vector == True):
             dir = main_bools
-            main_bools = main_bools + Space + 1
+            main_bools = main_bools + Space
             self.bools[dir] = var
             return dir
         elif( tipo == "string" and varsTable.is_vector == True):
             dir = main_string
-            main_string = main_string + Space + 1
+            main_string = main_string + Space
             self.strings[dir] = var
             return dir
 
@@ -159,22 +159,22 @@ class Memory:
             return dir
         elif( tipo == "int" and varsTable.is_vector == True):
             dir = loc_int
-            loc_int = loc_int + Space + 1
+            loc_int = loc_int + Space
             self.ints[dir] = var
             return dir
         elif( tipo == "float" and varsTable.is_vector == True):
             dir = loc_float
-            loc_float = loc_float + Space + 1
+            loc_float = loc_float + Space
             self.floats[dir] = var
             return dir
         elif( tipo == "bool" and varsTable.is_vector == True):
             dir = loc_bools
-            loc_bools = loc_bools + Space + 1
+            loc_bools = loc_bools + Space
             self.bools[dir] = var
             return dir
         elif( tipo == "string" and varsTable.is_vector == True):
             dir = loc_string
-            loc_string = loc_string + Space + 1
+            loc_string = loc_string + Space
             self.strings[dir] = var
             return dir
 

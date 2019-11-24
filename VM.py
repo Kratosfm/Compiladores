@@ -11,14 +11,14 @@ val_return = None
 arrparam = []
 #arreglo que almacena los tipos de los parametros
 arrparam2 =[]
-last_pos = 0
+last_pos = []
 
 
 def programa():
     pos = GoToMain(0,cuadruplos.pilacuadruplos[0])
     while(cuadruplos.pilacuadruplos[pos].resultado != "ENDPROGRAM"):
         pos = Ejecucion(pos,cuadruplos.pilacuadruplos[pos])
-    print ("YOLE",Memory.global_memroy.ints[7000],Memory.global_memroy.ints[7001],Memory.global_memroy.ints[7002])
+    print
 
 
 def Ejecucion(num,cuadrup):
@@ -144,11 +144,12 @@ def Ejecucion(num,cuadrup):
 
     elif(cuadrup.operator == "GoSub"):
         num = cuadrup.resultado
-        last_pos = cuadrup.num + 1
+        last_pos.append(cuadrup.num + 1)
         return num
 
     elif(cuadrup.operator == "ENDPROC"):
-        num = last_pos
+        num = last_pos.pop()
+        #print("dasd",last_pos)
         cont_param = 0
         arrparam.clear()
         arrparam2.clear()

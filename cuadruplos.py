@@ -368,9 +368,6 @@ def generateReturn():
     tam = len(popper)
     if tam > 0:
         if popper[tam-1] == "return":
-            #print ("LELE0",contador,str(pilaid)[1:-1])
-            #print("LELE0",contador,str(avail)[1:-1])
-            #print ("LELE",contador,str(popper)[1:-1])
             operator = popper.pop()
             resultado = pilaid.pop()
             valor = avail.pop()
@@ -383,9 +380,7 @@ def generateReturn():
             #esto puede fallar
             varsTable.symbol_table[varsTable.func_id].returno = dir
             varsTable.symbol_table[varsTable.func_id].isReturn = True
-            #print ("LELE",contador,str(pilaid)[1:-1])
-            #print("LELE",contador,str(avail)[1:-1])
-            #print ("LELE",contador,str(popper)[1:-1])
+
 #Inicializa Era
 def generateEra(id):
     cuad = Cuadrupl(None, "ERA", None, id, len(pilacuadruplos))

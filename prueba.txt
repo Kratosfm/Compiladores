@@ -1,41 +1,20 @@
 program :
 
-var int i ;
-var int a ;
-var int b ;
+var int Caca ;
 
-function int Cherry ( int Julia , int Rocio ) {
-	Julia = Julia + 1 ;
-	print ("primero", Julia ) ;
-	return Rocio ;
-}
-
-function void Banana (){
-	print ( "tercero", i ) ;
-}
-
-function int Apple ( int Rey ) {
-	Rey = 3 * 8 ;
-	print ("quinto", Rey) ;
-	return Rey ;
-}
-
-function int Didi ( int Kevin , int Eva) {
-	Kevin = Kevin + 10 ;
-	return Kevin ;
+function int Apple ( int pa){
+	if (pa < 10){
+		print(pa);
+		Apple(pa + 1);
+	}
+	return pa ;
 }
 
 main
 {
-	i = 1 + 5 ;
- 	a = Cherry ( 2 , 4 ) ;
-	print ( "segundo", a ) ;
-	Banana () ;
-	i = Didi ( 2 , 3) ;
-	print ("cuarto", i ) ;
-	print ("extra", i) ;
-	i = 7 ;
-	b = Apple ( 100 ) ;
-	print ("extra", i) ;
-	print ("sexto", b) ;
+	vector int ARR [7] ;
+	var int Louis ;
+	Louis = 100 ;
+	Caca = Apple ( 1 );
+	print ("Resultado",Caca) ;
 }

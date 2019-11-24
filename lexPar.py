@@ -551,11 +551,11 @@ def p_fcall1(p):
   	fcall1 : expres generateparam
         | expres generateparam COMA fcall1
   '''
-  if varsTable.param_cont == varsTable.param_table[varsTable.fun_name].num:
-      print("pasa")
-  else:
-      print("Num de var no coinciden")
-      sys.exit()
+ # if varsTable.param_cont == varsTable.param_table[varsTable.fun_name].num:
+#      print("pasa")
+#  else:
+     # print("Num de var no coinciden")
+      #sys.exit()
 
 def p_generateparam(p):
     "generateparam :"
@@ -662,6 +662,9 @@ print("VM")
 #posicion = Virtual.GoToMain(0,cuadruplos.pilacuadruplos[0])
 #Virtual.Ejecucion(posicion,cuadruplos.pilacuadruplos[posicion])
 Virtual.programa()
+print("")
 print("despues de VM")
-Memoria.global_memroy.show()
 varsTable.show();
+Memoria.global_memroy.show()
+
+#varsTable.show();

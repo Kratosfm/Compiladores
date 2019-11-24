@@ -25,7 +25,7 @@ class Entry():
         self.value = value
         self.space = space
         self.isParam = isParam
-
+#Cambiar returno por una pila para almacenar en recursividad
 class FunctionEntry:
     def __init__(self, id, tipo, cuadno = 0, paramno = 0, returno = 0, isReturn = False):
         self.id = id

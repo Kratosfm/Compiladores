@@ -199,26 +199,6 @@
       </div>
     </div>
 
-    <!-- Modal de agregar operacion -->
-    <div id="addOperacionLocalModal" class="modal">
-      <div class="modal-background"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">Hacer una operacion dentro de la funcion</p>
-          <button class="delete" aria-label="close" onclick="hideModal()"></button>
-        </header>
-        <section class="modal-card-body">
-          <h5 class="subtitle is-5">Escribe operaciones Aqui</h5>
-          <h6 class="subtitle is-6">Usa las variables ya declaradas.</h6>
-          <textarea id="textbox" class="textarea" placeholder="ejemplo = a + funcName(param1)"></textarea>
-        </section>
-        <footer class="modal-card-foot">
-          <button id="addLocalOperator" class="button is-success" onclick="createLocalOperator()">Agregar Variable</button>
-          <button class="button" onclick="hideModal()">Cancelar</button>
-        </footer>
-      </div>
-    </div>
-
     <!-- Modal de agregar condicion -->
     <div id="addConditionLocalModal" class="modal">
       <div class="modal-background"></div>
@@ -277,6 +257,26 @@
         </section>
         <footer class="modal-card-foot">
           <button id="addLocalLoop" class="button is-success" onclick="createLocalCondition()">Agregar ciclo</button>
+          <button class="button" onclick="hideModal()">Cancelar</button>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Modal de agregar operacion -->
+    <div id="addOperacionLocalModal" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Hacer una operacion dentro de la funcion</p>
+          <button class="delete" aria-label="close" onclick="hideModal()"></button>
+        </header>
+        <section class="modal-card-body">
+          <h5 class="subtitle is-5">Escribe operaciones Aqui</h5>
+          <h6 class="subtitle is-6">Usa las variables ya declaradas.</h6>
+          <textarea id="textbox" class="textarea" placeholder="ejemplo = a + funcName(param1)"></textarea>
+        </section>
+        <footer class="modal-card-foot">
+          <button id="addLocalOperator" class="button is-success" onclick="createLocalOperator()">Agregar Variable</button>
           <button class="button" onclick="hideModal()">Cancelar</button>
         </footer>
       </div>

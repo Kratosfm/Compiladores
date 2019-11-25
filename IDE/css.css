@@ -43,6 +43,11 @@
   color: purple;
 }
 
+.is-op{
+  background-color: white;
+  color: pink;
+}
+
 .is-block{
   padding: 20px;
 }

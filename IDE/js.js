@@ -55,6 +55,14 @@ function addLoopLocalModal(id){
   modal.classList.toggle('is-active');
 }
 
+function addOperacionLocalModal(id){
+  var button = document.getElementById('addLocalOperator');
+  onClickFunc = 'createLocalOperator("'+ id +'")'
+  button.setAttribute("onclick", onClickFunc)
+  var modal = document.getElementById('addOperacionLocalModal');
+  modal.classList.toggle('is-active');
+}
+
 /* -------- Funciones para crear globales en el codigo y run -------- */
 function execute(){
   console.log(GlobalFuncs);
@@ -108,25 +116,26 @@ function createFunction(){
   function_var += functionName
   if(GlobalFuncs[functionName] != undefined){
     GlobalFuncs[functionName].header = function_var
-    GlobalFuncs[functionName].params = {}
     GlobalFuncs[functionName].oper = {}
     GlobalFuncs[functionName].cond = 0
     GlobalFuncs[functionName].loop = 0
-    createParams(functionName)
+    GlobalFuncs[functionName].operat = 0
+    createParams(functionName, function_var)
     editFunction(functionName);
     return;
   }
-  GlobalFuncs[functionName] = {header: function_var}
-  GlobalFuncs[functionName].params = {}
+  GlobalFuncs[functionName] = {}
   GlobalFuncs[functionName].oper = {}
   GlobalFuncs[functionName].cond = 0
   GlobalFuncs[functionName].loop = 0
-  createParams(functionName)
+  GlobalFuncs[functionName].operat = 0
+  createParams(functionName, function_var)
   addFunction(functionName)
   return ;
 }
 
-function createParams(func_name){
+function createParams(func_name, header){
+  header += '('
   param_var = ""
   for(i = 1; i <= paramCounter; i++){
     if(document.getElementById("paramInt" + i).checked == true){
@@ -146,11 +155,10 @@ function createParams(func_name){
     if(i != paramCounter){
       param_var += " ,"
     }
-    if(GlobalFuncs[func_name].params[param_Name] != undefined){
-      GlobalFuncs[func_name].params[param_Name] = param_var
-    }
-    GlobalFuncs[func_name].params[param_Name] = param_var
+    header += param_var
   }
+  header += "){"
+  GlobalFuncs[func_name].header = header
   return ;
 }
 
@@ -254,6 +262,32 @@ function createLocalLoop(route){
   return ;
 }
 
+function createLocalOperator(route){
+  local_op = document.getElementById("textbox").value
+  path = getPath(route);
+
+  var auxRoute ;
+
+  if(path[1] == null){
+    GlobalFuncs[path[0]].oper["op" + GlobalFuncs[path[0]].operat] = local_op
+  }
+  else{
+    path.forEach(function(key, index){
+      if(index == 0){
+        auxRoute = GlobalFuncs[key].oper
+      }
+      else if (key != null) {
+        auxRoute = auxRoute[key].oper
+      }
+      else{
+        auxRoute["op"+ GlobalFuncs[path[0]].operat] = local_op
+        GlobalFuncs = addToDict(auxRoute, index, GlobalFuncs, path, 0)
+      }
+    })
+  }
+  addLocalOperator(route + ">op" + GlobalFuncs[path[0]].operat, local_op)
+  return ;
+}
 
 /* -------- Variables para agregar en el html -------- */
 
@@ -339,17 +373,15 @@ function addFunction(func_name){
   buttons.appendChild(buttonReturn);
   divButtonsHTML.appendChild(buttons)
 
+  var divKeyHTML = document.createElement("div")
+  var varHtml2 = document.createTextNode("}")
+  divKeyHTML.setAttribute("style", "margin-bottom: 15px;")
+  divKeyHTML.appendChild(varHtml2)
+
   var divUnifyHTML = document.createElement("div");
   divUnifyHTML.classList.add("is-function");
 
-  headerText = GlobalFuncs[func_name].header + "(";
-  params = GlobalFuncs[func_name].params
-
-  for (i in params){
-    headerText += params[i];
-  }
-
-  headerText += ")";
+  headerText = GlobalFuncs[func_name].header
 
   var varHtml = document.createTextNode(headerText);
   divFuncHTML.appendChild(varHtml)
@@ -357,22 +389,17 @@ function addFunction(func_name){
   divUnifyHTML.appendChild(divFuncHTML)
   divUnifyHTML.appendChild(divBloqHTML)
   divUnifyHTML.appendChild(divButtonsHTML)
+  divUnifyHTML.appendChild(divKeyHTML)
+
   document.getElementById("divFuncs").appendChild(divUnifyHTML);
   hideModal();
   return ;
 }
 
 function editFunction(func_name){
-  $("#" + funcName).empty()
+  $("#" + func_name).empty()
   var editVar = document.getElementById("name" + func_name)
-  editVar.innerHTML = GlobalFuncs[func_name].header + "("
-  params = GlobalFuncs[func_name].params
-
-  for (i in params){
-    editVar.innerHTML += params[i];
-  }
-
-  editVar.innerHTML += ")";
+  editVar.innerHTML = GlobalFuncs[func_name].header
   hideModal();
   return;
 }
@@ -662,6 +689,25 @@ function addLocalLoop(route){
   hideModal();
 }
 
+function addLocalOperator(route, value){
+  path = getPath(route)
+
+  var divOperatorValueHTML = document.createElement("div");
+  divOperatorValueHTML.classList.add("is-op");
+  divOperatorValueHTML.setAttribute("id", route);
+
+
+  var varHtml = document.createTextNode(value + " ;");
+  divOperatorValueHTML.appendChild(varHtml);
+
+  var divUnifyHTML = document.createElement("div");
+  divUnifyHTML.classList.add("is-op");
+  divUnifyHTML.appendChild(divOperatorValueHTML)
+
+  document.getElementById(getWhereToAppend(route)).appendChild(divUnifyHTML);
+  GlobalFuncs[path[0]].operat = GlobalFuncs[path[0]].operar + 1
+  hideModal();
+}
 
 /* -------- Funciones extras -------- */
 

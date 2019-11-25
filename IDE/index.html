@@ -33,17 +33,22 @@
             </div>
           </div>
 
-          <div id="main" class="is-main is-centered">
+          <!-- MAIN -->
+          <div id="mainDiv" class="is-main is-centered">
             <h1 class="title is-5">Codigo Principal</h1>
+            <div id="main" class="is-block">
+
+            </div>
             <div class="buttons has-addons is-centered">
-              <button id="addVariableMain" class="button is-success" onclick="">Variable</button>
-              <button id="addOperacion" class="button is-primary" onclick="">Operacion</button>
-              <button id="addVectorMain" class="button is-warning" onclick="">Vector</button>
-              <button id="addCondicionMain" class="button is-light" onclick="addCondition">Condicion</button>
-              <button id="addLocalMain" class="button is-dark" onclick="addLoop">Ciclo</button>
+              <button id="addVariableMain" class="button is-success" onclick="addVariableMainModal()">Variable</button>
+              <button id="addOperacionMain" class="button is-primary" onclick="addOperacionMainModal('main')">Operacion</button>
+              <button id="addVectorMain" class="button is-warning" onclick="()">Vector</button>
+              <button id="addCondicionMain" class="button is-light" onclick="addConditionMainModal('main')">Condicion</button>
+              <button id="addLocalMain" class="button is-dark" onclick="('main')">Ciclo</button>
             </div>
           </div>
 
+          <!-- Botones Globales -->
           <div class="buttons has-addons is-centered is-global">
             <button id="addVariableGlobal" class="button is-success" onclick="addVariableGlobalModal()">Variable</button>
             <button id="addFunction" class="button is-info" onclick="addFunctionModal()">Function</button>
@@ -351,6 +356,110 @@
         </footer>
       </div>
     </div>
+
+    <!-- Modal de agregar variable main -->
+    <div id="addVariableMainModal" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Agregar Variable al Main</p>
+          <button class="delete" aria-label="close" onclick="hideModal()"></button>
+        </header>
+        <section class="modal-card-body">
+          <h5 class="subtitle is-5">Selecciona el tipo:</h5>
+          <div class="control">
+            <label class="radio">
+              <input id="mainInt" type="radio" name="answerMain">
+              Entero
+            </label>
+            <label class="radio">
+              <input id="mainFloat" type="radio" name="answerMain">
+              Flotante
+            </label>
+            <label class="radio">
+              <input id="mainBool" type="radio" name="answerMain">
+              Booleano
+            </label>
+            <label class="radio">
+              <input id="mainString" type="radio" name="answerMain">
+              Frase
+            </label>
+          </div>
+          <br>
+          <div class="columns">
+            <div class="column is-5">
+              <h5 class="subtitle is-5" style="margin-top: 5px;">Nombre de la variable:</h5>
+            </div>
+            <div class="column" style="margin-left: -50px;">
+              <input id="VarNameMain"class="input" type="text" placeholder="Nombre">
+            </div>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success" onclick="createMainVariable()">Agregar Variable</button>
+          <button class="button" onclick="hideModal()">Cancelar</button>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Modal de agregar condicion Main-->
+    <div id="addConditionMainModal" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Hacer condicion</p>
+          <button class="delete" aria-label="close" onclick="hideModal()"></button>
+        </header>
+        <section class="modal-card-body">
+          <div class="columns">
+            <div class="column is-5">
+              <h5 class="subtitle is-5" style="margin-top: 5px;">Condicion a cumplir: </h5>
+            </div>
+            <div class="column" style="margin-left: -50px;">
+              <input id="conditionInputMain" class="input" type="text" placeholder="a == 0">
+            </div>
+          </div>
+          <div class="">
+            <h5 class="subtitle is-5">Agregar "Else" ?</h5>
+            <div class="control">
+              <label class="radio">
+                <input id="elseYesMain" type="radio" name="elseMain">
+                Si
+              </label>
+              <label class="radio">
+                <input id="elseNo" type="radio" name="elseMain">
+                No
+              </label>
+            </div>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <button id="addMainCondition" class="button is-success" onclick="()">Agregar condicion</button>
+          <button class="button" onclick="hideModal()">Cancelar</button>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Modal de agregar operacion -->
+    <div id="addOperacionMainModal" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Hacer una operacion dentro de la funcion</p>
+          <button class="delete" aria-label="close" onclick="hideModal()"></button>
+        </header>
+        <section class="modal-card-body">
+          <h5 class="subtitle is-5">Escribe operaciones Aqui</h5>
+          <h6 class="subtitle is-6">Usa las variables ya declaradas.</h6>
+          <textarea id="textboxMain" class="textarea" placeholder="ejemplo = a + funcName(param1)"></textarea>
+        </section>
+        <footer class="modal-card-foot">
+          <button id="addMainOperator" class="button is-success" onclick="createMainOperator()">Agregar Variable</button>
+          <button class="button" onclick="hideModal()">Cancelar</button>
+        </footer>
+      </div>
+    </div>
+
 
     <script type="text/javascript" src="./js.js"></script>
   </body>

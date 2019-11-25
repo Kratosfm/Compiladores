@@ -2,7 +2,13 @@ GlobalVars = {}
 GlobalFuncs = {}
 GlobalVectors = {}
 
-MainVars = {}
+MainBloq = {
+  header: "main{",
+  oper: {},
+  cond: 0,
+  loop: 0,
+  operat: 0
+}
 MainVectors = {}
 
 paramCounter = 0;
@@ -71,9 +77,34 @@ function addReturnModal(id){
   modal.classList.toggle('is-active');
 }
 
+function addVariableMainModal(){
+  var modal = document.getElementById('addVariableMainModal');
+  modal.classList.toggle('is-active');
+}
+
+function addConditionMainModal(id){
+  var button = document.getElementById('addMainCondition')
+  onClickFunc = 'createMainCondition("'+ id +'")'
+  button.setAttribute("onclick", onClickFunc)
+  // butonElse = document.getElementById("addElseButton");
+  // onClickButtonFunc = 'addElseToModal("'+ id +'")'
+  // butonElse.setAttribute("onclick", onClickButtonFunc)
+  var modal = document.getElementById('addConditionMainModal');
+  modal.classList.toggle('is-active');
+}
+
+function addOperacionMainModal(id){
+  var button = document.getElementById('addMainOperator');
+  onClickFunc = 'createMainOperator("'+ id +'")'
+  button.setAttribute("onclick", onClickFunc)
+  var modal = document.getElementById('addOperacionMainModal');
+  modal.classList.toggle('is-active');
+}
+
 /* -------- Funciones para crear globales en el codigo y run -------- */
 function execute(){
   console.log(GlobalFuncs);
+  console.log(MainBloq);
 }
 
 function createGlobalVariable(){
@@ -300,9 +331,108 @@ function createLocalOperator(route){
 function createReturn(func_name){
   var expresion = document.getElementById("returnInput").value;
   var local_return = "return " + expresion + " ;"
-  console.log(expresion);
   GlobalFuncs[func_name].return = local_return
   addLocalReturn(func_name, local_return);
+  return ;
+}
+
+function createMainVariable(){
+  var main_var = "var "
+  if(document.getElementById("mainInt").checked == true){
+    main_var += "int "
+  }
+  if(document.getElementById("mainFloat").checked == true){
+    main_var += "float "
+  }
+  if(document.getElementById("mainBool").checked == true){
+    main_var += "bool "
+  }
+  if(document.getElementById("mainString").checked == true){
+    main_var += "string "
+  }
+  varName = document.getElementById("VarNameMain").value
+  main_var += varName
+  main_var += " ;"
+
+  if(MainBloq.oper[varName] != undefined){
+    MainBloq.oper[varName] = main_var
+    editMainVar(varName)
+  }
+  else {
+    MainBloq.oper[varName] = main_var
+    addMainVar(varName);
+  }
+  return ;
+}
+
+function createMainCondition(route){
+  var main_cond_if = "if ("
+  main_cond_if += document.getElementById("conditionInputMain").value
+  main_cond_if += "){"
+  path = getPath(route);
+  elseFlag = document.getElementById("elseYesMain").checked
+  if(elseFlag){
+    var main_cond_else = "else{"
+  }
+
+  var auxRoute ;
+
+  if(path[1] == null){
+    MainBloq.oper["if" + MainBloq.cond] = {header: main_cond_if, oper:{}}
+    if(elseFlag){
+      MainBloq.oper["else" + MainBloq.cond]= {header: main_cond_else, oper:{}}
+    }
+  }
+  else{
+    path.forEach(function(key, index){
+      if(index == 0){
+        auxRoute = MainBloq.oper
+      }
+      else if (key != null) {
+        auxRoute = auxRoute[key].oper
+      }
+      else{
+        auxRoute["if"+ MainBloq.cond] = {header: main_cond_if, oper:{}}
+        MainBloq = addToDict(auxRoute, index, MainBloq, path, 0)
+        if(elseFlag){
+          auxRoute["else"+ MainBloq.cond] = {header: main_cond_else, oper:{}}
+        }
+      }
+    })
+  }
+  if(elseFlag){
+    addMainCondition(route, true)
+  }
+  else {
+    addMainCondition(route, false)
+  }
+  return ;
+}
+
+function createMainOperator(route){
+  main_op = document.getElementById("textboxMain").value
+  path = getPath(route);
+
+  var auxRoute ;
+
+  if(path[1] == null){
+    MainBloq.oper["op" + MainBloq.operat] = main_op
+  }
+  else{
+    path.forEach(function(key, index){
+      if(index == 0){
+        auxRoute = MainBloq.oper
+      }
+      else if (key != null) {
+        auxRoute = auxRoute[key].oper
+      }
+      else{
+        auxRoute["op"+ MainBloq.operat] = main_op
+        MainBloq = addToDict(auxRoute, index, MainBloq, path, 0)
+      }
+    })
+  }
+  addMainOperator(route + ">op" + GlobalFuncs.operat, main_op)
   return ;
 }
 
@@ -502,7 +632,6 @@ function addIfCondition(route){
   divHeadCondHTML.setAttribute("id", "head:" + route);
   var pointer ;
   var headerText = "";
-  console.log(path);
   path.forEach(function(value, index){
     if(index == 0 ){
       pointer = GlobalFuncs[value].oper
@@ -734,6 +863,199 @@ function addLocalReturn(route, value){
   hideModal()
 }
 
+function addMainVar(varname){
+  var divVarHTML = document.createElement("div");
+  divVarHTML.classList.add("is-variable");
+  id = "main>" + varname
+  divVarHTML.setAttribute("id", id)
+  var varHtml = document.createTextNode(MainBloq.oper[varname]);
+  divVarHTML.appendChild(varHtml);
+  document.getElementById("main").appendChild(divVarHTML);
+  hideModal();
+  return ;
+}
+
+function editMainVar(varname){
+  var editVar = document.getElementById("main>" + varname);
+  editVar.innerHTML = MainBloq.oper[varname]
+  hideModal();
+  return ;
+}
+
+function addMainCondition(route, elseFlag){
+  var path = getPath(route)
+
+
+  if(elseFlag){
+    divElseHTML = addElseConditionMain(route + ">else" + MainBloq.cond)
+  }
+  divIfHTML = addIfConditionMain(route + ">if" + MainBloq.cond)
+
+  var divUnifyHTML = document.createElement("div");
+  divUnifyHTML.classList.add("is-condition");
+  divUnifyHTML.appendChild(divIfHTML)
+  if(elseFlag){
+    divUnifyHTML.appendChild(divElseHTML)
+  }
+
+  document.getElementById(route).appendChild(divUnifyHTML);
+  MainBloq.cond = MainBloq.cond + 1
+  hideModal()
+}
+
+function addIfConditionMain(route){
+  path = getPath(route);
+  var divHeadCondHTML = document.createElement("div");
+  divHeadCondHTML.classList.add("is-condition");
+  divHeadCondHTML.setAttribute("id", "head:" + route);
+  var pointer ;
+  var headerText = "";
+  path.forEach(function(value, index){
+    if(index == 0 ){
+      pointer = MainBloq.oper
+    }
+    else if(value != null){
+      headerText = pointer[value].header
+      pointer = pointer[value].oper
+    }
+  })
+
+  var varHtml = document.createTextNode(headerText);
+  divHeadCondHTML.appendChild(varHtml);
+
+  var divBloqHTML = document.createElement("div");
+  divBloqHTML.classList.add("is-condition");
+  divBloqHTML.setAttribute("id", route);
+
+  var divButtonsHTML = document.createElement("div");
+
+  var buttons = document.createElement("div");
+  buttons.classList.add("buttons", "has-addons", "is-centered");
+  buttons.setAttribute("style", "margin-top: 15px;")
+
+  var buttonOperation = document.createElement("button");
+  buttonOperation.classList.add("button", "is-primary")
+  onClickFunc = 'addOperacionMainModal("' + route + '")'
+  buttonOperation.setAttribute("onclick", onClickFunc)
+  buttonText = document.createTextNode("Operacion");
+  buttonOperation.appendChild(buttonText);
+
+  var buttonCondicion = document.createElement("button");
+  buttonCondicion.classList.add("button", "is-light");
+  onClickFunc = 'addConditionMainModal("' + route + '")'
+  buttonCondicion.setAttribute("onclick", onClickFunc)
+  buttonText = document.createTextNode("Condicion");
+  buttonCondicion.appendChild(buttonText)
+
+  var buttonLoop = document.createElement("button");
+  buttonLoop.classList.add("button", "is-dark");
+  onClickFunc = 'addLoopLocalModal("' + route + '")'
+  buttonLoop.setAttribute("onclick", onClickFunc)
+  buttonText = document.createTextNode("Ciclo");
+  buttonLoop.appendChild(buttonText)
+
+  buttons.appendChild(buttonOperation);
+  buttons.appendChild(buttonCondicion);
+  buttons.appendChild(buttonLoop);
+  divButtonsHTML.appendChild(buttons)
+
+  var divKeyHTML = document.createElement("div")
+  var varHtml2 = document.createTextNode("}")
+  divKeyHTML.setAttribute("style", "margin-bottom: 15px;")
+  divKeyHTML.appendChild(varHtml2)
+
+  divReturn = document.createElement("div")
+  divReturn.appendChild(divHeadCondHTML)
+  divReturn.appendChild(divButtonsHTML)
+  divReturn.appendChild(divBloqHTML)
+  divReturn.appendChild(divKeyHTML)
+
+
+  return divReturn;
+
+}
+
+function addElseConditionMain(route){
+  path = getPath(route)
+
+  var divHeadCondHTML = document.createElement("div");
+  divHeadCondHTML.classList.add("is-condition");
+  divHeadCondHTML.setAttribute("id", "head:" + route);
+
+  var varHtml = document.createTextNode("else{");
+  divHeadCondHTML.appendChild(varHtml);
+
+  var divBloqHTML = document.createElement("div");
+  divBloqHTML.classList.add("is-condition");
+  divBloqHTML.setAttribute("id", route);
+
+  var divButtonsHTML = document.createElement("div");
+
+  var buttons = document.createElement("div");
+  buttons.classList.add("buttons", "has-addons", "is-centered");
+  buttons.setAttribute("style", "margin-top: 15px;")
+
+  var buttonOperation = document.createElement("button");
+  buttonOperation.classList.add("button", "is-primary")
+  onClickFunc = 'addOperacionMainModal("' + route + '")'
+  buttonOperation.setAttribute("onclick", onClickFunc)
+  buttonText = document.createTextNode("Operacion");
+  buttonOperation.appendChild(buttonText);
+
+  var buttonCondicion = document.createElement("button");
+  buttonCondicion.classList.add("button", "is-light");
+  onClickFunc = 'addConditionMainModal("' + route + '")'
+  buttonCondicion.setAttribute("onclick", onClickFunc)
+  buttonText = document.createTextNode("Condicion");
+  buttonCondicion.appendChild(buttonText)
+
+  var buttonLoop = document.createElement("button");
+  buttonLoop.classList.add("button", "is-dark");
+  onClickFunc = 'addLoopLocalModal("' + route + '")'
+  buttonLoop.setAttribute("onclick", onClickFunc)
+  buttonText = document.createTextNode("Ciclo");
+  buttonLoop.appendChild(buttonText)
+
+  buttons.appendChild(buttonOperation);
+  buttons.appendChild(buttonCondicion);
+  buttons.appendChild(buttonLoop);
+  divButtonsHTML.appendChild(buttons)
+
+  var divKeyHTML = document.createElement("div")
+  var varHtml2 = document.createTextNode("}")
+  divKeyHTML.setAttribute("style", "margin-bottom: 15px;")
+  divKeyHTML.appendChild(varHtml2)
+
+  divReturn = document.createElement("div")
+  divReturn.appendChild(divHeadCondHTML)
+  divReturn.appendChild(divButtonsHTML)
+  divReturn.appendChild(divBloqHTML)
+  divReturn.appendChild(divKeyHTML)
+
+  return divReturn;
+
+}
+
+function addMainOperator(route, value){
+  path = getPath(route)
+
+  var divOperatorValueHTML = document.createElement("div");
+  divOperatorValueHTML.classList.add("is-op");
+  divOperatorValueHTML.setAttribute("id", route);
+
+
+  var varHtml = document.createTextNode(value + " ;");
+  divOperatorValueHTML.appendChild(varHtml);
+
+  var divUnifyHTML = document.createElement("div");
+  divUnifyHTML.classList.add("is-op");
+  divUnifyHTML.appendChild(divOperatorValueHTML)
+
+  document.getElementById(getWhereToAppend(route)).appendChild(divUnifyHTML);
+  MainBloq.operat = MainBloq.operar + 1
+  hideModal();
+}
+
 /* -------- Funciones extras -------- */
 
 function getPath(id){
@@ -784,7 +1106,13 @@ function addToDict(objectToAdd, indexFinal, dict, path, count){
     return objectToAdd;
   }
   else{
-    dict[path[count]].oper = addToDict(objectToAdd, indexFinal-1, dict[path[count]].oper, path,(count+1))
-    return dict
+    if(path[count] == 'main'){
+      dict.oper = addToDict(objectToAdd, indexFinal-1, dict.oper, path,(count+1))
+      return dict
+    }
+    else{
+      dict[path[count]].oper = addToDict(objectToAdd, indexFinal-1, dict[path[count]].oper, path,(count+1))
+      return dict
+    }
   }
 }

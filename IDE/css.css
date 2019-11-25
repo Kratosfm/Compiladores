@@ -48,6 +48,11 @@
   color: pink;
 }
 
+.is-return{
+  background-color: white;
+  color: #EA2C55;
+}
+
 .is-block{
   padding: 20px;
 }

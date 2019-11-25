@@ -63,6 +63,14 @@ function addOperacionLocalModal(id){
   modal.classList.toggle('is-active');
 }
 
+function addReturnModal(id){
+  var button = document.getElementById('addLocalReturn');
+  onClickFunc = 'createReturn("'+ id +'")'
+  button.setAttribute("onclick", onClickFunc)
+  var modal = document.getElementById('addReturnModal');
+  modal.classList.toggle('is-active');
+}
+
 /* -------- Funciones para crear globales en el codigo y run -------- */
 function execute(){
   console.log(GlobalFuncs);
@@ -289,6 +297,15 @@ function createLocalOperator(route){
   return ;
 }
 
+function createReturn(func_name){
+  var expresion = document.getElementById("returnInput").value;
+  var local_return = "return " + expresion + " ;"
+  console.log(expresion);
+  GlobalFuncs[func_name].return = local_return
+  addLocalReturn(func_name, local_return);
+  return ;
+}
+
 /* -------- Variables para agregar en el html -------- */
 
 function addGlobalVar(variable){
@@ -360,7 +377,7 @@ function addFunction(func_name){
 
   var buttonReturn = document.createElement("button");
   buttonReturn.classList.add("button", "is-danger");
-  onClickFunc = 'addReturn("' + func_name + '")'
+  onClickFunc = 'addReturnModal("' + func_name + '")'
   buttonReturn.setAttribute("onclick", onClickFunc)
   buttonText = document.createTextNode("Regresa");
   buttonReturn.appendChild(buttonText)
@@ -707,6 +724,14 @@ function addLocalOperator(route, value){
   document.getElementById(getWhereToAppend(route)).appendChild(divUnifyHTML);
   GlobalFuncs[path[0]].operat = GlobalFuncs[path[0]].operar + 1
   hideModal();
+}
+
+function addLocalReturn(route, value){
+  html = '<div id="return'+ route +'" class="is-return">'
+  html += value
+  html += '</div>'
+  $(html).appendTo("#" + route)
+  hideModal()
 }
 
 /* -------- Funciones extras -------- */

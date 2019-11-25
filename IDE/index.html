@@ -99,6 +99,51 @@
       </div>
     </div>
 
+    <!-- Modal de agregar vector global -->
+    <!-- <div id="addVariableGlobalModal" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Agregar Variable Global</p>
+          <button class="delete" aria-label="close" onclick="hideModal()"></button>
+        </header>
+        <section class="modal-card-body">
+          <h5 class="subtitle is-5">Selecciona el tipo:</h5>
+          <div class="control">
+            <label class="radio">
+              <input id="globalInt" type="radio" name="answer">
+              Entero
+            </label>
+            <label class="radio">
+              <input id="globalFloat" type="radio" name="answer">
+              Flotante
+            </label>
+            <label class="radio">
+              <input id="globalBool" type="radio" name="answer">
+              Booleano
+            </label>
+            <label class="radio">
+              <input id="globalString" type="radio" name="answer">
+              Frase
+            </label>
+          </div>
+          <br>
+          <div class="columns">
+            <div class="column is-5">
+              <h5 class="subtitle is-5" style="margin-top: 5px;">Nombre de la variable:</h5>
+            </div>
+            <div class="column" style="margin-left: -50px;">
+              <input id="globalVarName"class="input" type="text" placeholder="Nombre">
+            </div>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success" onclick="createGlobalVariable()">Agregar Variable</button>
+          <button class="button" onclick="hideModal()">Cancelar</button>
+        </footer>
+      </div>
+    </div> -->
+
     <!-- Modal de agregar funcion -->
     <div id="addFunctionModal" class="modal">
       <div class="modal-background"></div>
@@ -277,6 +322,31 @@
         </section>
         <footer class="modal-card-foot">
           <button id="addLocalOperator" class="button is-success" onclick="createLocalOperator()">Agregar Variable</button>
+          <button class="button" onclick="hideModal()">Cancelar</button>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Modal de agregar return -->
+    <div id="addReturnModal" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Crear ciclo</p>
+          <button class="delete" aria-label="close" onclick="hideModal()"></button>
+        </header>
+        <section class="modal-card-body">
+          <div class="columns">
+            <div class="column is-5">
+              <h5 class="subtitle is-5" style="margin-top: 5px;">Expresion a retornar: </h5>
+            </div>
+            <div class="column" style="margin-left: -50px;">
+              <input id="returnInput" class="input" type="text" placeholder="b < 10">
+            </div>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <button id="addLocalReturn" class="button is-success" onclick="createLocalCondition()">Agregar ciclo</button>
           <button class="button" onclick="hideModal()">Cancelar</button>
         </footer>
       </div>

@@ -90,7 +90,7 @@ Rule 84    imprimirl -> <empty>
 Rule 85    escrit1 -> <empty>
 Rule 86    escrit2 -> <empty>
 Rule 87    ciclo -> WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
-Rule 88    leer -> READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
+Rule 88    leer -> READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON
 Rule 89    readid -> <empty>
 Rule 90    expres -> exr
 Rule 91    expres -> exr log expres reslog
@@ -245,7 +245,7 @@ pushcte              : 114 115 116 117 118
 pushid               : 76 77 78 88 113 120
 pushop               : 57 76 77 78 81 88 96 97 99 100 101 103 104
 pushvoid             : 28 29 31 33 34
-readid               : 88
+readid               : 88 88
 rel                  : 93
 reselse              : 80
 resfact              : 98 99 100
@@ -682,7 +682,7 @@ state 33
     (80) cond -> . IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif
     (81) escrit -> . PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON
     (87) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
-    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
+    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON
     (123) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     (124) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
 
@@ -872,7 +872,7 @@ state 52
     (80) cond -> . IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif
     (81) escrit -> . PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON
     (87) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
-    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
+    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON
     (123) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     (124) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
 
@@ -911,7 +911,7 @@ state 53
     (80) cond -> . IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif
     (81) escrit -> . PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON
     (87) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
-    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
+    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON
     (123) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     (124) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
 
@@ -1109,7 +1109,7 @@ state 65
 
 state 66
 
-    (88) leer -> READ . pushop LPAREN ID pushid readid RPAREN SEMICOLON
+    (88) leer -> READ . pushop LPAREN ID pushid readid RPAREN readid SEMICOLON
     (133) pushop -> .
 
     LPAREN          reduce using rule 133 (pushop -> .)
@@ -1324,7 +1324,7 @@ state 85
 
 state 86
 
-    (88) leer -> READ pushop . LPAREN ID pushid readid RPAREN SEMICOLON
+    (88) leer -> READ pushop . LPAREN ID pushid readid RPAREN readid SEMICOLON
 
     LPAREN          shift and go to state 117
 
@@ -1883,7 +1883,7 @@ state 116
 
 state 117
 
-    (88) leer -> READ pushop LPAREN . ID pushid readid RPAREN SEMICOLON
+    (88) leer -> READ pushop LPAREN . ID pushid readid RPAREN readid SEMICOLON
 
     ID              shift and go to state 153
 
@@ -2634,7 +2634,7 @@ state 152
 
 state 153
 
-    (88) leer -> READ pushop LPAREN ID . pushid readid RPAREN SEMICOLON
+    (88) leer -> READ pushop LPAREN ID . pushid readid RPAREN readid SEMICOLON
     (132) pushid -> .
 
     RPAREN          reduce using rule 132 (pushid -> .)
@@ -3089,7 +3089,7 @@ state 188
 
 state 189
 
-    (88) leer -> READ pushop LPAREN ID pushid . readid RPAREN SEMICOLON
+    (88) leer -> READ pushop LPAREN ID pushid . readid RPAREN readid SEMICOLON
     (89) readid -> .
 
     RPAREN          reduce using rule 89 (readid -> .)
@@ -3134,7 +3134,7 @@ state 191
     (80) cond -> . IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif
     (81) escrit -> . PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON
     (87) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
-    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
+    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON
     (123) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     (124) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
 
@@ -3240,7 +3240,7 @@ state 197
     (80) cond -> . IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif
     (81) escrit -> . PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON
     (87) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
-    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
+    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON
     (123) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     (124) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
 
@@ -3381,7 +3381,7 @@ state 206
     (80) cond -> . IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif
     (81) escrit -> . PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON
     (87) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
-    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
+    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON
     (123) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     (124) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
 
@@ -3602,7 +3602,7 @@ state 217
 
 state 218
 
-    (88) leer -> READ pushop LPAREN ID pushid readid . RPAREN SEMICOLON
+    (88) leer -> READ pushop LPAREN ID pushid readid . RPAREN readid SEMICOLON
 
     RPAREN          shift and go to state 247
 
@@ -3635,7 +3635,7 @@ state 219
     (80) cond -> . IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif
     (81) escrit -> . PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON
     (87) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
-    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
+    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON
     (123) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     (124) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
 
@@ -3678,7 +3678,7 @@ state 220
     (80) cond -> . IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif
     (81) escrit -> . PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON
     (87) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
-    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
+    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON
     (123) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     (124) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
 
@@ -3837,7 +3837,7 @@ state 229
     (80) cond -> . IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif
     (81) escrit -> . PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON
     (87) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
-    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
+    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON
     (123) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     (124) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
 
@@ -3880,7 +3880,7 @@ state 230
     (80) cond -> . IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif
     (81) escrit -> . PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON
     (87) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
-    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
+    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON
     (123) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     (124) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
 
@@ -4249,7 +4249,7 @@ state 246
     (80) cond -> . IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif
     (81) escrit -> . PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON
     (87) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
-    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
+    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON
     (123) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     (124) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
 
@@ -4270,10 +4270,12 @@ state 246
 
 state 247
 
-    (88) leer -> READ pushop LPAREN ID pushid readid RPAREN . SEMICOLON
+    (88) leer -> READ pushop LPAREN ID pushid readid RPAREN . readid SEMICOLON
+    (89) readid -> .
 
-    SEMICOLON       shift and go to state 272
+    SEMICOLON       reduce using rule 89 (readid -> .)
 
+    readid                         shift and go to state 272
 
 state 248
 
@@ -4293,7 +4295,7 @@ state 248
     (80) cond -> . IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif
     (81) escrit -> . PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON
     (87) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
-    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
+    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON
     (123) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     (124) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
 
@@ -4511,7 +4513,7 @@ state 261
     (80) cond -> . IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif
     (81) escrit -> . PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON
     (87) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
-    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
+    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON
     (123) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     (124) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
 
@@ -4656,15 +4658,9 @@ state 271
 
 state 272
 
-    (88) leer -> READ pushop LPAREN ID pushid readid RPAREN SEMICOLON .
+    (88) leer -> READ pushop LPAREN ID pushid readid RPAREN readid . SEMICOLON
 
-    ID              reduce using rule 88 (leer -> READ pushop LPAREN ID pushid readid RPAREN SEMICOLON .)
-    IF              reduce using rule 88 (leer -> READ pushop LPAREN ID pushid readid RPAREN SEMICOLON .)
-    PRINT           reduce using rule 88 (leer -> READ pushop LPAREN ID pushid readid RPAREN SEMICOLON .)
-    WHILE           reduce using rule 88 (leer -> READ pushop LPAREN ID pushid readid RPAREN SEMICOLON .)
-    READ            reduce using rule 88 (leer -> READ pushop LPAREN ID pushid readid RPAREN SEMICOLON .)
-    RKEY            reduce using rule 88 (leer -> READ pushop LPAREN ID pushid readid RPAREN SEMICOLON .)
-    RETURN          reduce using rule 88 (leer -> READ pushop LPAREN ID pushid readid RPAREN SEMICOLON .)
+    SEMICOLON       shift and go to state 291
 
 
 state 273
@@ -4677,21 +4673,21 @@ state 273
     RETURN          shift and go to state 253
     RKEY            reduce using rule 130 (empty -> .)
 
-    return1                        shift and go to state 291
+    return1                        shift and go to state 292
     empty                          shift and go to state 254
 
 state 274
 
     (27) function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY bloq return1 . RKEY
 
-    RKEY            shift and go to state 292
+    RKEY            shift and go to state 293
 
 
 state 275
 
     (32) function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq return1 . RKEY
 
-    RKEY            shift and go to state 293
+    RKEY            shift and go to state 294
 
 
 state 276
@@ -4738,7 +4734,7 @@ state 277
     TRUE            shift and go to state 112
     FALSE           shift and go to state 113
 
-    expres                         shift and go to state 294
+    expres                         shift and go to state 295
     exr                            shift and go to state 101
     ex                             shift and go to state 102
     term                           shift and go to state 103
@@ -4778,7 +4774,7 @@ state 282
 
     (28) function -> FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY localvar bloq . RKEY
 
-    RKEY            shift and go to state 295
+    RKEY            shift and go to state 296
 
 
 state 283
@@ -4801,7 +4797,7 @@ state 285
 
     (121) fcall -> ID existfunc LPAREN startera fcall1 . RPAREN
 
-    RPAREN          shift and go to state 296
+    RPAREN          shift and go to state 297
 
 
 state 286
@@ -4841,7 +4837,7 @@ state 289
 
     (80) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE . LKEY reselse bloq RKEY finif
 
-    LKEY            shift and go to state 297
+    LKEY            shift and go to state 298
 
 
 state 290
@@ -4857,16 +4853,29 @@ state 290
     RKEY            reduce using rule 144 (while3 -> .)
     RETURN          reduce using rule 144 (while3 -> .)
 
-    while3                         shift and go to state 298
+    while3                         shift and go to state 299
 
 state 291
 
-    (26) function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq return1 . RKEY
+    (88) leer -> READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON .
 
-    RKEY            shift and go to state 299
+    ID              reduce using rule 88 (leer -> READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON .)
+    IF              reduce using rule 88 (leer -> READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON .)
+    PRINT           reduce using rule 88 (leer -> READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON .)
+    WHILE           reduce using rule 88 (leer -> READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON .)
+    READ            reduce using rule 88 (leer -> READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON .)
+    RKEY            reduce using rule 88 (leer -> READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON .)
+    RETURN          reduce using rule 88 (leer -> READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON .)
 
 
 state 292
+
+    (26) function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq return1 . RKEY
+
+    RKEY            shift and go to state 300
+
+
+state 293
 
     (27) function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY bloq return1 RKEY .
 
@@ -4874,7 +4883,7 @@ state 292
     MAIN            reduce using rule 27 (function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY bloq return1 RKEY .)
 
 
-state 293
+state 294
 
     (32) function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq return1 RKEY .
 
@@ -4882,16 +4891,16 @@ state 293
     MAIN            reduce using rule 32 (function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq return1 RKEY .)
 
 
-state 294
+state 295
 
     (57) return1 -> RETURN pushop expres . resreturn SEMICOLON
     (59) resreturn -> .
 
     SEMICOLON       reduce using rule 59 (resreturn -> .)
 
-    resreturn                      shift and go to state 300
+    resreturn                      shift and go to state 301
 
-state 295
+state 296
 
     (28) function -> FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY localvar bloq RKEY .
 
@@ -4899,14 +4908,14 @@ state 295
     MAIN            reduce using rule 28 (function -> FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY localvar bloq RKEY .)
 
 
-state 296
+state 297
 
     (121) fcall -> ID existfunc LPAREN startera fcall1 RPAREN .
 
     SEMICOLON       reduce using rule 121 (fcall -> ID existfunc LPAREN startera fcall1 RPAREN .)
 
 
-state 297
+state 298
 
     (80) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY . reselse bloq RKEY finif
     (140) reselse -> .
@@ -4917,9 +4926,9 @@ state 297
     WHILE           reduce using rule 140 (reselse -> .)
     READ            reduce using rule 140 (reselse -> .)
 
-    reselse                        shift and go to state 301
+    reselse                        shift and go to state 302
 
-state 298
+state 299
 
     (87) ciclo -> WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3 .
 
@@ -4932,7 +4941,7 @@ state 298
     RETURN          reduce using rule 87 (ciclo -> WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3 .)
 
 
-state 299
+state 300
 
     (26) function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq return1 RKEY .
 
@@ -4940,14 +4949,14 @@ state 299
     MAIN            reduce using rule 26 (function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq return1 RKEY .)
 
 
-state 300
+state 301
 
     (57) return1 -> RETURN pushop expres resreturn . SEMICOLON
 
-    SEMICOLON       shift and go to state 302
+    SEMICOLON       shift and go to state 303
 
 
-state 301
+state 302
 
     (80) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse . bloq RKEY finif
     (68) bloq -> . estat
@@ -4965,7 +4974,7 @@ state 301
     (80) cond -> . IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif
     (81) escrit -> . PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON
     (87) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
-    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
+    (88) leer -> . READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON
     (123) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     (124) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
 
@@ -4975,7 +4984,7 @@ state 301
     WHILE           shift and go to state 65
     READ            shift and go to state 66
 
-    bloq                           shift and go to state 303
+    bloq                           shift and go to state 304
     estat                          shift and go to state 53
     asign                          shift and go to state 56
     cond                           shift and go to state 57
@@ -4984,21 +4993,21 @@ state 301
     leer                           shift and go to state 60
     fcallvoid                      shift and go to state 61
 
-state 302
+state 303
 
     (57) return1 -> RETURN pushop expres resreturn SEMICOLON .
 
     RKEY            reduce using rule 57 (return1 -> RETURN pushop expres resreturn SEMICOLON .)
 
 
-state 303
+state 304
 
     (80) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq . RKEY finif
 
-    RKEY            shift and go to state 304
+    RKEY            shift and go to state 305
 
 
-state 304
+state 305
 
     (80) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY . finif
     (141) finif -> .
@@ -5011,9 +5020,9 @@ state 304
     RKEY            reduce using rule 141 (finif -> .)
     RETURN          reduce using rule 141 (finif -> .)
 
-    finif                          shift and go to state 305
+    finif                          shift and go to state 306
 
-state 305
+state 306
 
     (80) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif .
 

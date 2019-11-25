@@ -235,6 +235,7 @@ def p_vector(p):
       varsTable.insertVarInFunc(p[3],p[4], "main",p[6])
   elif varsTable.is_local:
       varsTable.insertVarInFunc(p[3],p[4], varsTable.func_id,p[6])
+     # varsTable.symbol_table[varsTable.fun_name].dict[p[4]].space = p[6]
   varsTable.is_vector = False
 
 def p_initvector(p):
@@ -404,8 +405,8 @@ def p_imprimirl(p):
   '''
   	imprimirl :
   '''
-  #cuadruplos.avail.pop()
-  #print ("dasdasd",str(cuadruplos.avail)[1:-1])
+  #cuadruplos.pilaVal.pop()
+  #print ("dasdasd",str(cuadruplos.pilaVal)[1:-1])
 
 def p_escrit1(p):
     '''
@@ -427,7 +428,7 @@ def p_ciclo(p):
 
 def p_leer(p):
   '''
-  	leer : READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
+  	leer : READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON
   '''
 
 def p_readid(p):

@@ -1,5 +1,6 @@
 program :
 
+vector int ARR2 [7] ;
 var int Caca ;
 
 function int Apple ( int pa){
@@ -12,9 +13,10 @@ function int Apple ( int pa){
 
 main
 {
-	vector int ARR [7] ;
+	vector float ARR [7] ;
 	var int Louis ;
 	Louis = 100 ;
 	Caca = Apple ( 1 );
 	print ("Resultado",Caca) ;
+	read(Caca) ;
 }

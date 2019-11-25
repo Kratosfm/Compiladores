@@ -19,12 +19,13 @@ param_cont = 0
 arrparam = []
 
 class Entry():
-    def __init__(self, id, tipo, value = None, space = None, isParam = False):
+    def __init__(self, id, tipo, value = None, space = None, isParam = False, dirs = []):
         self.id = id
         self.tipo = tipo
         self.value = value
         self.space = space
         self.isParam = isParam
+        self.dirs = dirs
 #Cambiar returno por una pila para almacenar en recursividad
 class FunctionEntry:
     def __init__(self, id, tipo, cuadno = 0, paramno = 0, returno = 0, isReturn = False):
@@ -258,10 +259,12 @@ def insertVarInFunc(tipo, id, funt, espacio = None):
             dir = Memoria.global_memroy.insert_main(id,tipo,espacio)
             symbol_table[funt].dict[id] = Entry(id, tipo, dir)
             symbol_table[funt].dict[id].space = espacio
+            Llenado(id,tipo,dir,espacio,funt)
         elif (funt == "global" and is_vector == True):
             dir = Memoria.global_memroy.insert_global(None,tipo,espacio)
             symbol_table[funt].dict[id] = Entry(id, tipo, dir)
             symbol_table[funt].dict[id].space = espacio
+            Llenado(id,tipo,dir,espacio,funt)
         else:
             if is_vector == False:
                 dir = Memoria.global_memroy.insert_local(0,tipo)
@@ -309,3 +312,29 @@ def UpdateParam():
                     cont = cont + 1
     else:
         print("LE")
+
+def Llenado(id,tipo,dir,espacio,funt):
+    i = 0
+    dir2 = 0
+    while ( i < espacio ):
+        if ( funt == "global"):
+            if ( i == 0):
+                dir2 = dir
+                Memoria.updateVal(dir,0)
+            else:
+                dir2 = Memoria.global_memroy.insert_global(None,tipo)
+        elif ( funt == "main"):
+            if ( i == 0):
+                dir2 = dir
+                Memoria.updateVal(dir,0)
+            else:
+                dir2 = Memoria.global_memroy.insert_main(None,tipo)
+        else:
+            if ( i == 0):
+                dir2 = dir
+                Memoria.updateVal(dir,0)
+            else:
+                dir2 = Memoria.global_memroy.insert_local(None,tipo)
+        symbol_table[funt].dict[id].dirs.append(dir2)
+        print("pureba",i,dir2)
+        i = i + 1

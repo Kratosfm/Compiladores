@@ -44,44 +44,24 @@ class Memory:
         global global_float
         global global_string
         global global_bools
-        if( tipo == "int" and varsTable.is_vector == False):
+        if( tipo == "int"):
             dir = global_int
             global_int = global_int + 1
             self.ints[dir] = var
             return dir
-        elif( tipo == "float" and varsTable.is_vector == False):
+        elif( tipo == "float"):
             dir = global_float
             global_float = global_float + 1
             self.floats[dir] = var
             return dir
-        elif( tipo == "bool" and varsTable.is_vector == False):
+        elif( tipo == "bool" ):
             dir = global_bools
             global_bools = global_bools + 1
             self.bools[dir] = var
             return dir
-        elif( tipo == "string" and varsTable.is_vector == False):
+        elif( tipo == "string" ):
             dir = global_string
             global_string = global_string + 1
-            self.strings[dir] = var
-            return dir
-        elif( tipo == "int" and varsTable.is_vector == True):
-            dir = global_int
-            global_int = global_int + Space
-            self.ints[dir] = var
-            return dir
-        elif( tipo == "float" and varsTable.is_vector == True):
-            dir = global_float
-            global_float = global_float + Space
-            self.floats[dir] = var
-            return dir
-        elif( tipo == "bool" and varsTable.is_vector == True):
-            dir = global_bools
-            global_bools = global_bools + Space
-            self.bools[dir] = var
-            return dir
-        elif( tipo == "string" and varsTable.is_vector == True):
-            dir = global_string
-            global_string = global_string + Space
             self.strings[dir] = var
             return dir
 
@@ -90,44 +70,24 @@ class Memory:
         global main_float
         global main_bools
         global main_string
-        if( tipo == "int" and varsTable.is_vector == False):
+        if( tipo == "int"):
             dir = main_int
             main_int = main_int + 1
             self.ints[dir] = var
             return dir
-        elif( tipo == "float" and varsTable.is_vector == False):
+        elif( tipo == "float"):
             dir = main_float
             main_float = main_float + 1
             self.floats[dir] = var
             return dir
-        elif( tipo == "bool" and varsTable.is_vector == False):
+        elif( tipo == "bool"):
             dir = main_bools
             main_bools = main_bools + 1
             self.bools[dir] = var
             return dir
-        elif( tipo == "string" and varsTable.is_vector == False):
+        elif( tipo == "string"):
             dir = main_string
             main_string = main_string + 1
-            self.strings[dir] = var
-            return dir
-        elif( tipo == "int" and varsTable.is_vector == True):
-            dir = main_int
-            main_int = main_int + Space
-            self.ints[dir] = var
-            return dir
-        elif( tipo == "float" and varsTable.is_vector == True):
-            dir = main_float
-            main_float = main_float + Space
-            self.floats[dir] = var
-            return dir
-        elif( tipo == "bool" and varsTable.is_vector == True):
-            dir = main_bools
-            main_bools = main_bools + Space
-            self.bools[dir] = var
-            return dir
-        elif( tipo == "string" and varsTable.is_vector == True):
-            dir = main_string
-            main_string = main_string + Space
             self.strings[dir] = var
             return dir
 
@@ -137,44 +97,24 @@ class Memory:
         global loc_float
         global loc_bools
         global loc_string
-        if( tipo == "int" and varsTable.is_vector == False):
+        if( tipo == "int"):
             dir = loc_int
             loc_int = loc_int + 1
             self.ints[dir] = var
             return dir
-        elif( tipo == "float" and varsTable.is_vector == False):
+        elif( tipo == "float"):
             dir = loc_float
             loc_float = loc_float + 1
             self.floats[dir] = var
             return dir
-        elif( tipo == "bool" and varsTable.is_vector == False):
+        elif( tipo == "bool"):
             dir = loc_bools
             loc_bools = loc_bools + 1
             self.bools[dir] = var
             return dir
-        elif( tipo == "string" and varsTable.is_vector == False):
+        elif( tipo == "string"):
             dir = loc_string
             loc_string = loc_string + 1
-            self.strings[dir] = var
-            return dir
-        elif( tipo == "int" and varsTable.is_vector == True):
-            dir = loc_int
-            loc_int = loc_int + Space
-            self.ints[dir] = var
-            return dir
-        elif( tipo == "float" and varsTable.is_vector == True):
-            dir = loc_float
-            loc_float = loc_float + Space
-            self.floats[dir] = var
-            return dir
-        elif( tipo == "bool" and varsTable.is_vector == True):
-            dir = loc_bools
-            loc_bools = loc_bools + Space
-            self.bools[dir] = var
-            return dir
-        elif( tipo == "string" and varsTable.is_vector == True):
-            dir = loc_string
-            loc_string = loc_string + Space
             self.strings[dir] = var
             return dir
 

@@ -1,30 +1,23 @@
 program :
 
-var float Caca ;
-var int Carlos ;
-
-function void Apple (){
-	Caca = 100 + 50 ;
-	print ( Caca ) ;
-}
-
-function void Banana ( int Lala , int Lele){
-	Caca = 200 + 50 ;
-	print ( Caca ) ;
+var int Caca ;
+vector int ARR [7] ;
+function int Apple ( int pa){
+	if (pa < 10){
+		print(pa);
+		Apple(pa + 1);
+	}
+	return pa ;
 }
 
 main
 {
-var int i ;
-var int fact ;
-var int num ;
-i = 1 ;
-fact = 1 ;
-num = 5 ;
-while ( i < num + 1 ) {
-		fact = fact * i ;
-		i = i + 1 ;
-	}
-print ( fact ) ;
-Banana ( i , fact) ;
+	vector int ARR2 [3] ;
+	var int Louis ;
+	Louis = 100 ;
+	Caca = Apple ( 1 );
+	print ("Resultado",Caca) ;
+	read(Caca) ;
+	ARR2 [1] = 5 ;
+	ARR [2] = 100 ;
 }

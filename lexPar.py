@@ -235,6 +235,7 @@ def p_vector(p):
       varsTable.insertVarInFunc(p[3],p[4], "main",p[6])
   elif varsTable.is_local:
       varsTable.insertVarInFunc(p[3],p[4], varsTable.func_id,p[6])
+     # varsTable.symbol_table[varsTable.fun_name].dict[p[4]].space = p[6]
   varsTable.is_vector = False
 
 def p_initvector(p):
@@ -244,6 +245,7 @@ def p_initvector(p):
 def p_function(p):
   '''
   	function : FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq return1 RKEY
+    | FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY bloq return1 RKEY
     | FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY localvar bloq RKEY
     | FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY bloq RKEY
     | FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar RKEY
@@ -259,11 +261,14 @@ def p_function(p):
   varsTable.is_local = False
   #varsTable.ImprimirLcalTable(varsTable.func_id)
   Memoria.global_memroy.show()  #eliminar esta
+  #varsTable.ImprimirLcalTable(p[3])
   Memoria.Reiniciar()
   Memoria.BorrarInts()
   Memoria.BorrarFloats()
   Memoria.BorrarBools()
   Memoria.BorrarStrings()
+
+  varsTable.param_cont = 0
   #cuadruplos.CrearENDPROC()
   cuad = cuadruplos.Cuadrupl(None, "ENDPROC", None, None, len(cuadruplos.pilacuadruplos))
   cuadruplos.pilacuadruplos.append(cuad)
@@ -293,24 +298,23 @@ def p_addInTable(p):
     varsTable.func_id = p[-1]
     varsTable.insert(varsTable.func_tipo, varsTable.func_id)
     varsTable.InsertParam(varsTable.func_id)
-
     varsTable.symbol_table[varsTable.func_id].cuadno = len(cuadruplos.pilacuadruplos)
 #Creacion de los parametros
 def p_funci(p):
   '''
-    funci : INT ID
-    | INT ID COMA funci
-    | FLOAT ID
-    | FLOAT ID COMA funci
-    | STRING ID
-    | STRING ID COMA funci
-    | BOOL ID
-    | BOOL ID COMA funci
+    funci : INT ID sumparam
+    | INT ID sumparam COMA funci
+    | FLOAT ID sumparam
+    | FLOAT ID sumparam COMA funci
+    | STRING ID sumparam
+    | STRING ID sumparam COMA funci
+    | BOOL ID sumparam
+    | BOOL ID sumparam COMA funci
     | empty
   '''
-  #print("funcion ",p[1] ,p[2])
   varsTable.insertVarInFunc(p[1],p[2],varsTable.func_id)
   varsTable.InsertTypParam(p[1])
+  varsTable.symbol_table[varsTable.func_id].dict[p[2]].isParam = True
 #Tipo de los parametros de funciones
 def p_localvar(p):
      '''
@@ -320,17 +324,26 @@ def p_localvar(p):
      | vector localvar
      '''
 
+def p_sumparam(p):
+     '''
+     sumparam :
+     '''
+     varsTable.param_cont = varsTable.param_cont + 1
+     varsTable.symbol_table[varsTable.func_id].paramno = varsTable.param_cont
+
 def p_return1(p):
     '''
-    return1 : RETURN expres resreturn SEMICOLON
+    return1 : RETURN pushop expres resreturn SEMICOLON
     | empty
     '''
+    cuadruplos.generateReturn()
 
 def p_resreturn(p):
     '''
     resreturn :
     '''
     print("getg")
+    print (str(cuadruplos.pilaid)[1:-1])
 def p_mainc(p):
     '''
     mainc : LKEY RKEY
@@ -361,12 +374,14 @@ def p_estat(p):
         | ciclo
         | leer
         | fcallvoid
+
   '''
 
 def p_asign(p):
   '''
-    asign : ID pushid EQUAL pushop expres resolverasignacion SEMICOLON
-        | ID pushid LBRACE exr RBRACE EQUAL pushop expres SEMICOLON
+    asign : ID pushid EQUAL pushop fcall SEMICOLON
+        | ID pushid EQUAL pushop expres resolverasignacion SEMICOLON
+        | ID pushid LBRACE exr RBRACE EQUAL pushop expres resasignvec SEMICOLON
   '''
 
 def p_cond(p):
@@ -390,8 +405,8 @@ def p_imprimirl(p):
   '''
   	imprimirl :
   '''
-  #cuadruplos.avail.pop()
-  #print ("dasdasd",str(cuadruplos.avail)[1:-1])
+  #cuadruplos.pilaVal.pop()
+  #print ("dasdasd",str(cuadruplos.pilaVal)[1:-1])
 
 def p_escrit1(p):
     '''
@@ -413,7 +428,7 @@ def p_ciclo(p):
 
 def p_leer(p):
   '''
-  	leer : READ pushop LPAREN ID pushid readid RPAREN SEMICOLON
+  	leer : READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON
   '''
 
 def p_readid(p):
@@ -458,8 +473,8 @@ def p_fact(p):
   '''
   	fact : LPAREN pushop expres RPAREN popop
         | var_cte
-        | PLUS var_cte
-        | MINUS var_cte
+        | PLUS pushop var_cte
+        | MINUS pushop var_cte
   '''
 
 def p_rel(p):
@@ -489,8 +504,6 @@ def p_var_cte(p):
         | CTE_S pushcte
         | TRUE pushcte
         | FALSE pushcte
-        | fcall
-        | vcall
         | asigvector
   '''
 
@@ -501,19 +514,24 @@ def p_asigvector(p):
 
 def p_fcall(p):
   '''
-  	fcall : ID existfunc LPAREN startera fcall1 RPAREN generateGoSub
-        | ID existfunc LPAREN startera RPAREN generateGoSub
+  	fcall : ID existfunc LPAREN startera fcall1 RPAREN
+        | ID existfunc LPAREN startera RPAREN
   '''
   varsTable.param_cont = 0
+  cuadruplos.generategosub(p[1])
+  cuadruplos.funcasign(p[1])
+  varsTable.UpdateParam()
+  varsTable.arrparam.clear()
   varsTable.fun_name = None
-
 
 def p_fcallvoid(p):
     '''
     fcallvoid : ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
     | ID existfunc LPAREN startera RPAREN SEMICOLON
     '''
+    varsTable.param_cont = 0
     cuadruplos.generategosub(p[1])
+    varsTable.fun_name = None
 
 #Funcion que llama a CheckExistIdFunc para verificar que exista la funcion en la tabla
 def p_existfunc(p):
@@ -534,29 +552,18 @@ def p_fcall1(p):
   	fcall1 : expres generateparam
         | expres generateparam COMA fcall1
   '''
-  if varsTable.param_cont == varsTable.param_table[varsTable.fun_name].num:
-      print("pasa")
-  else:
-      print("Num de var no coinciden")
-      sys.exit()
+ # if varsTable.param_cont == varsTable.param_table[varsTable.fun_name].num:
+#      print("pasa")
+#  else:
+     # print("Num de var no coinciden")
+      #sys.exit()
 
 def p_generateparam(p):
     "generateparam :"
     #Paso 4 de Module Call
     varsTable.param_cont = varsTable.param_cont + 1
     val = cuadruplos.getparam()
-    #print("adsads",varsTable.fun_name,p[-1])
-    #existe = varsTable.existeID(varsTable.fun_name,p[-1])
-
-#Paso 6 de Module Call
-def p_generateGoSub(p):
-    "generateGoSub :"
-    cuadruplos.generategosub(p[-4])
-
-def p_vcall(p):
-  '''
-  	vcall : ID LBRACE expres RBRACE
-  '''
+    varsTable.arrparam.append(val)
 
 def p_empty(p):
     '''
@@ -597,6 +604,19 @@ def p_resolverasignacion(p):
         varsTable.update(p[-5],resb)
     else:
         varsTable.update(p[-5],res)
+
+def p_resasignvec(p):
+    "resasignvec :"
+    res = cuadruplos.resasignvec(p[-8])
+    if(res == 'true'):
+        resb = bool(res)
+        varsTable.update(p[-8],resb)
+    elif(res == 'false'):
+        resb = bool()
+        varsTable.update(p[-8],resb)
+    else:
+        print("RES",res)
+        varsTable.update(p[-8],res)
 
 def p_resfact(p):
     "resfact :"
@@ -649,12 +669,16 @@ if success == True:
 else:
     print("Archivo no aprobado")
     #sys.exit()
-print("memoria global ")
-Memoria.global_memroy.show()
-varsTable.show();
-print("")
-print("")
+#print("memoria global ")
+#Memoria.global_memroy.show()
+#varsTable.show();
 print("VM")
 #posicion = Virtual.GoToMain(0,cuadruplos.pilacuadruplos[0])
 #Virtual.Ejecucion(posicion,cuadruplos.pilacuadruplos[posicion])
 Virtual.programa()
+print("")
+print("despues de VM")
+varsTable.show();
+Memoria.global_memroy.show()
+
+#varsTable.show();

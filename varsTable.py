@@ -16,6 +16,7 @@ is_vector = False
 symbol_table = {}
 param_table = {}
 param_cont = 0
+arrparam = []
 
 class Entry():
     def __init__(self, id, tipo, value = None, space = None, isParam = False):
@@ -23,13 +24,18 @@ class Entry():
         self.tipo = tipo
         self.value = value
         self.space = space
-
+        self.isParam = isParam
+        self.dirs = []
+#Cambiar returno por una pila para almacenar en recursividad
 class FunctionEntry:
-    def __init__(self, id, tipo, cuadno = 0, paramno = 0):
+    def __init__(self, id, tipo, cuadno = 0, paramno = 0, returno = 0, isReturn = False):
         self.id = id
         self.tipo = tipo
         self.dict = {}
         self.cuadno = cuadno
+        self.paramno = paramno
+        self.returno = returno
+        self.isReturn = isReturn
 
 class Param:
     def __init__(self,id, num = 0):
@@ -231,9 +237,9 @@ def show():
 #    print(symbol_table["global"].dict, symbol_table["main"].dict)
     for i in symbol_table:
         if (str((type(symbol_table[i]))) == "<class 'varsTable.FunctionEntry'>"):
-            print(i, getType(i), symbol_table[i].cuadno,"{")
+            print(i, getType(i), symbol_table[i].cuadno,symbol_table[i].paramno,symbol_table[i].returno,"{")
             for j in symbol_table[i].dict:
-                print(symbol_table[i].dict[j].id, symbol_table[i].dict[j].tipo, symbol_table[i].dict[j].value, symbol_table[i].dict[j].space)
+                print(symbol_table[i].dict[j].id, symbol_table[i].dict[j].tipo, symbol_table[i].dict[j].value, symbol_table[i].dict[j].space, symbol_table[i].dict[j].isParam,symbol_table[i].dict[j].space,symbol_table[i].dict[j].dirs)
             print("}")
         else:
             print(symbol_table[i].id, symbol_table[i].tipo, symbol_table[i].value)
@@ -253,32 +259,36 @@ def insertVarInFunc(tipo, id, funt, espacio = None):
             dir = Memoria.global_memroy.insert_main(id,tipo,espacio)
             symbol_table[funt].dict[id] = Entry(id, tipo, dir)
             symbol_table[funt].dict[id].space = espacio
+            Llenado(id,tipo,dir,espacio,funt)
+            #symbol_table[funt].dict[id].dirs.clear()
         elif (funt == "global" and is_vector == True):
             dir = Memoria.global_memroy.insert_global(None,tipo,espacio)
             symbol_table[funt].dict[id] = Entry(id, tipo, dir)
             symbol_table[funt].dict[id].space = espacio
+            Llenado(id,tipo,dir,espacio,funt)
         else:
             if is_vector == False:
-                dir = Memoria.global_memroy.insert_local(id,tipo)
+                dir = Memoria.global_memroy.insert_local(0,tipo)
                 symbol_table[funt].dict[id] = Entry(id, tipo, dir)
             else:
                 dir = Memoria.global_memroy.insert_local(id,tipo)
                 symbol_table[funt].dict[id] = Entry(id, tipo, dir)
                 symbol_table[funt].dict[id].space = espacio
-
+                Llenado(id,tipo,dir,espacio,funt)
+#checa si una funcion ya existe con ese id
 def CheckExistIdFunc(id):
     if (symbol_table.get(id)):
         return True
     else:
         return False
-
+#Checa si el id existe en una variable dentro de la funcion (funt)
 def existeID(funt,id):
     tipo = symbol_table[funt].dict[id].tipo
     if ((tipo == getTypeVar3(funt,id))):
         print("correct")
     else:
         print("mal")
-
+#Imprime la funcion donde es llamada
 def ImprimirLcalTable(funt):
     for i in symbol_table[funt].dict:
         print(symbol_table[funt].dict[i].id, symbol_table[funt].dict[i].tipo, symbol_table[funt].dict[i].value)
@@ -290,6 +300,44 @@ def InsertTypParam(tipo):
     param_table[func_id].dict.append(tipo)
     param_table[func_id].num = param_table[func_id].num + 1
 
-def ImprimirParamsType():
-    for element in param_table[func_id].dict:
-        print ("hey ",element)
+def UpdateParam():
+    #for i in symbol_table[func_id]
+    if(symbol_table[fun_name].paramno > 0):
+        cont = 1
+        tam = len(arrparam)
+        for i in symbol_table[fun_name].dict:
+            if(symbol_table[fun_name].dict[i].isParam == True):
+                    dirval = symbol_table[fun_name].dict[i].value
+                    valor = Memoria.getValor(arrparam[tam-cont])
+                    Memoria.updateVal(dirval,valor)
+                    #print("yoe",fun_name,symbol_table[fun_name].dict[i].id,dirval,valor)
+                    cont = cont + 1
+    else:
+        print("LE")
+
+def Llenado(id,tipo,dir,espacio,funt):
+    i = 0
+    dir2 = 0
+    while ( i < espacio ):
+        print(id,funt)
+        if ( funt == "global"):
+            if ( i == 0):
+                dir2 = dir
+                Memoria.updateVal(dir,0)
+            else:
+                dir2 = Memoria.global_memroy.insert_global(None,tipo)
+        elif ( funt == "main"):
+            if ( i == 0):
+                dir2 = dir
+                Memoria.updateVal(dir,0)
+            else:
+                dir2 = Memoria.global_memroy.insert_main(None,tipo)
+        else:
+            if ( i == 0):
+                dir2 = dir
+                Memoria.updateVal(dir,0)
+            else:
+                dir2 = Memoria.global_memroy.insert_local(None,tipo)
+        symbol_table[funt].dict[id].dirs.append(dir2)
+        print("LLENADO",id,symbol_table[funt].dict[id].dirs)
+        i = i + 1

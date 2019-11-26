@@ -128,15 +128,16 @@ function execute(){
 
   json_to_send = {data: file}
   $.ajax({
-    url: "http://localhost:3000/compile/",
-    type: "get",
+    url: "http://localhost:3000/compile",
+    type: "Post",
     data: JSON.stringify(json_to_send),
     headers: {
       'Content-Type': 'application/json'
     },
-    //dataType: "json",
+    //dataType: "JSON",
     success: function(data) {
-      console.log(data)
+      $('<h5 id="result" class="subtitle is-5">'+ data.response +'</h5>').appendTo("#result")
+      console.log(data.response);
     },
     error: function(err) {
       console.log(err)

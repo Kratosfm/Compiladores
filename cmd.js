@@ -14,16 +14,16 @@ var cmd = function(){
 };
 
 var compile = function(req, res){
-  fs.writeFile('prueba2.txt', req.body.data, function (err) {
-    if (err) throw err;
+  fs.writeFile('prueba.txt', req.body.data, function (err) {
+    if (err){res.send("BIG ERROR")};
   });
   execute("python3 lexPar.py", function(compilation){
-    res.send(compilation)
+    res.send({"response": compilation})
   });
 }
 
 router.all('*', cors());
-router.get('/compile', compile);
+router.post('/compile', compile);
 router.get('*', function(req, res) {
   res.send({
     error: 'This route does not exist... But at least you have internet conecction!'

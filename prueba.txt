@@ -1,19 +1,6 @@
-program :
-
-main
-{
-	vector int Arr[5];
-	var int i ;
-	i = 0;
-	while ( i < 5){
-	Arr [i] = i + 1 ;
-	i = i + 1;
-	}
-	Arr [0] = 6 ;
-	Arr [1] = 10;
-	Arr [2] = 9;
-	Arr [3] = 8;
-	Arr [4] = 7;
-	find (Arr[i]);
-	sort (Arr[]);
-}
+program: 
+main{
+var int entero ;
+entero = 3 ;
+print(entero ) ;
+} 

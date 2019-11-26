@@ -12,14 +12,11 @@
 
 .is-main{
   background-color: hsl(0, 0%, 71%);
+  padding-left: 15px;
 }
 
 .is-global{
   margin-top: 30px;
-}
-
-.is-function{
-  background-color: blue;
 }
 
 .is-variable{
@@ -31,21 +28,24 @@
 .is-function{
   background-color: white;
   color: #3298dc;
+  padding-left: 15px;
 }
 
 .is-loop{
   background-color: white;
   color: hsl(0, 0%, 21%);
+  padding-left: 15px;
 }
 
 .is-condition {
   background-color: white;
   color: purple;
+  padding-left: 15px;
 }
 
 .is-op{
   background-color: white;
-  color: pink;
+  color: orange;
 }
 
 .is-return{

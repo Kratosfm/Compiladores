@@ -13,38 +13,38 @@
         <div class="column is-half is-offset-one-quarter ">
 
           <!-- VARIABLES GLOBALES -->
-          <div class="is-centered has-background-success is-block">
+          <div class=" has-background-success is-block">
             <div id="divVariablesGlobales">
 
             </div>
           </div>
 
           <!-- VECTORES GLOBALES -->
-          <div id="" class="is-centered has-background-warning is-block">
+          <div id="" class=" has-background-warning is-block">
             <div id="divVectoresGlobales" class="">
 
             </div>
           </div>
 
           <!-- FUNCIONES -->
-          <div id="" class="is-centered has-background-info is-block">
+          <div id="" class=" has-background-info is-block">
             <div id="divFuncs" class="">
 
             </div>
           </div>
 
           <!-- MAIN -->
-          <div id="mainDiv" class="is-main is-centered">
+          <div id="mainDiv" class="is-main">
             <h1 class="title is-5">Codigo Principal</h1>
             <div id="main" class="is-block">
 
             </div>
-            <div class="buttons has-addons is-centered">
+            <div class="buttons has-addons">
               <button id="addVariableMain" class="button is-success" onclick="addVariableMainModal()">Variable</button>
               <button id="addOperacionMain" class="button is-primary" onclick="addOperacionMainModal('main')">Operacion</button>
               <button id="addVectorMain" class="button is-warning" onclick="()">Vector</button>
               <button id="addCondicionMain" class="button is-light" onclick="addConditionMainModal('main')">Condicion</button>
-              <button id="addLocalMain" class="button is-dark" onclick="('main')">Ciclo</button>
+              <button id="addLoopMain" class="button is-dark" onclick="addLoopMainModal('main')">Ciclo</button>
             </div>
           </div>
 
@@ -402,7 +402,7 @@
       </div>
     </div>
 
-    <!-- Modal de agregar condicion Main-->
+    <!-- Modal de agregar condicion main-->
     <div id="addConditionMainModal" class="modal">
       <div class="modal-background"></div>
       <div class="modal-card">
@@ -440,7 +440,7 @@
       </div>
     </div>
 
-    <!-- Modal de agregar operacion -->
+    <!-- Modal de agregar operacion main-->
     <div id="addOperacionMainModal" class="modal">
       <div class="modal-background"></div>
       <div class="modal-card">
@@ -460,6 +460,30 @@
       </div>
     </div>
 
+    <!-- Modal de agregar ciclo -->
+    <div id="addLoopMainModal" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Crear ciclo</p>
+          <button class="delete" aria-label="close" onclick="hideModal()"></button>
+        </header>
+        <section class="modal-card-body">
+          <div class="columns">
+            <div class="column is-5">
+              <h5 class="subtitle is-5" style="margin-top: 5px;">Condicion a cumplir: </h5>
+            </div>
+            <div class="column" style="margin-left: -50px;">
+              <input id="loopInputMain" class="input" type="text" placeholder="b < 10">
+            </div>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <button id="addMainLoop" class="button is-success" onclick="createLocalCondition()">Agregar ciclo</button>
+          <button class="button" onclick="hideModal()">Cancelar</button>
+        </footer>
+      </div>
+    </div>
 
     <script type="text/javascript" src="./js.js"></script>
   </body>

@@ -101,6 +101,14 @@ function addOperacionMainModal(id){
   modal.classList.toggle('is-active');
 }
 
+function addLoopMainModal(id){
+  var button = document.getElementById('addMainLoop');
+  onClickFunc = 'createMainLoop("'+ id +'")'
+  button.setAttribute("onclick", onClickFunc)
+  var modal = document.getElementById('addLoopMainModal');
+  modal.classList.toggle('is-active');
+}
+
 /* -------- Funciones para crear globales en el codigo y run -------- */
 function execute(){
   console.log(GlobalFuncs);
@@ -436,6 +444,35 @@ function createMainOperator(route){
   return ;
 }
 
+function createMainLoop(route){
+  var local_loop = "while ("
+  local_loop += document.getElementById("loopInputMain").value
+  local_loop += "){"
+  path = getPath(route);
+
+  var auxRoute ;
+
+  if(path[1] == null){
+    MainBloq.oper["while" + MainBloq.loop] = {header: local_loop, oper:{}}
+  }
+  else{
+    path.forEach(function(key, index){
+      if(index == 0){
+        auxRoute = MainBloq.oper
+      }
+      else if (key != null) {
+        auxRoute = auxRoute[key].oper
+      }
+      else{
+        auxRoute["while"+ MainBloq.loop] = {header: local_loop, oper:{}}
+        MainBloq = addToDict(auxRoute, index, MainBloq, path, 0)
+      }
+    })
+  }
+  addMainLoop(route + ">while" + MainBloq.loop)
+  return ;
+}
+
 /* -------- Variables para agregar en el html -------- */
 
 function addGlobalVar(variable){
@@ -467,7 +504,7 @@ function addFunction(func_name){
   divFuncHTML.setAttribute("id", "name" + func_name);
 
   var buttons = document.createElement("div");
-  buttons.classList.add("buttons", "has-addons", "is-centered");
+  buttons.classList.add("buttons", "has-addons");
   buttons.setAttribute("style", "margin-bottom: 15px;")
 
   var buttonVariable = document.createElement("button");
@@ -652,7 +689,7 @@ function addIfCondition(route){
   var divButtonsHTML = document.createElement("div");
 
   var buttons = document.createElement("div");
-  buttons.classList.add("buttons", "has-addons", "is-centered");
+  buttons.classList.add("buttons", "has-addons");
   buttons.setAttribute("style", "margin-top: 15px;")
 
   var buttonOperation = document.createElement("button");
@@ -714,7 +751,7 @@ function addElseCondition(route){
   var divButtonsHTML = document.createElement("div");
 
   var buttons = document.createElement("div");
-  buttons.classList.add("buttons", "has-addons", "is-centered");
+  buttons.classList.add("buttons", "has-addons");
   buttons.setAttribute("style", "margin-top: 15px;")
 
   var buttonOperation = document.createElement("button");
@@ -789,7 +826,7 @@ function addLocalLoop(route){
   var divButtonsHTML = document.createElement("div");
 
   var buttons = document.createElement("div");
-  buttons.classList.add("buttons", "has-addons", "is-centered");
+  buttons.classList.add("buttons", "has-addons");
   buttons.setAttribute("style", "margin-top: 15px;")
 
   var buttonOperation = document.createElement("button");
@@ -930,7 +967,7 @@ function addIfConditionMain(route){
   var divButtonsHTML = document.createElement("div");
 
   var buttons = document.createElement("div");
-  buttons.classList.add("buttons", "has-addons", "is-centered");
+  buttons.classList.add("buttons", "has-addons");
   buttons.setAttribute("style", "margin-top: 15px;")
 
   var buttonOperation = document.createElement("button");
@@ -949,7 +986,7 @@ function addIfConditionMain(route){
 
   var buttonLoop = document.createElement("button");
   buttonLoop.classList.add("button", "is-dark");
-  onClickFunc = 'addLoopLocalModal("' + route + '")'
+  onClickFunc = 'addLoopMainModal("' + route + '")'
   buttonLoop.setAttribute("onclick", onClickFunc)
   buttonText = document.createTextNode("Ciclo");
   buttonLoop.appendChild(buttonText)
@@ -992,7 +1029,7 @@ function addElseConditionMain(route){
   var divButtonsHTML = document.createElement("div");
 
   var buttons = document.createElement("div");
-  buttons.classList.add("buttons", "has-addons", "is-centered");
+  buttons.classList.add("buttons", "has-addons");
   buttons.setAttribute("style", "margin-top: 15px;")
 
   var buttonOperation = document.createElement("button");
@@ -1011,7 +1048,7 @@ function addElseConditionMain(route){
 
   var buttonLoop = document.createElement("button");
   buttonLoop.classList.add("button", "is-dark");
-  onClickFunc = 'addLoopLocalModal("' + route + '")'
+  onClickFunc = 'addLoopMainModal("' + route + '")'
   buttonLoop.setAttribute("onclick", onClickFunc)
   buttonText = document.createTextNode("Ciclo");
   buttonLoop.appendChild(buttonText)
@@ -1052,7 +1089,84 @@ function addMainOperator(route, value){
   divUnifyHTML.appendChild(divOperatorValueHTML)
 
   document.getElementById(getWhereToAppend(route)).appendChild(divUnifyHTML);
-  MainBloq.operat = MainBloq.operar + 1
+  MainBloq.operat = MainBloq.operat + 1
+  hideModal();
+}
+
+function addMainLoop(route){
+  path = getPath(route)
+
+  var divHeadLoopHTML = document.createElement("div");
+  divHeadLoopHTML.classList.add("is-loop");
+  divHeadLoopHTML.setAttribute("id", "head:" + route);
+
+  var pointer ;
+  var headerText = "";
+  path.forEach(function(value, index){
+    if(index == 0 ){
+      pointer = MainBloq.oper
+    }
+    else if(value != null){
+      headerText = pointer[value].header
+      pointer = pointer[value].oper
+    }
+    else{
+    }
+  })
+
+  var varHtml = document.createTextNode(headerText);
+  divHeadLoopHTML.appendChild(varHtml);
+
+  var divBloqHTML = document.createElement("div");
+  divBloqHTML.classList.add("is-loop");
+  divBloqHTML.setAttribute("id", route);
+
+  var divButtonsHTML = document.createElement("div");
+
+  var buttons = document.createElement("div");
+  buttons.classList.add("buttons", "has-addons");
+  buttons.setAttribute("style", "margin-top: 15px;")
+
+  var buttonOperation = document.createElement("button");
+  buttonOperation.classList.add("button", "is-primary")
+  onClickFunc = 'addOperacionMainModal("' + route + '")'
+  buttonOperation.setAttribute("onclick", onClickFunc)
+  buttonText = document.createTextNode("Operacion");
+  buttonOperation.appendChild(buttonText);
+
+  var buttonCondicion = document.createElement("button");
+  buttonCondicion.classList.add("button", "is-light");
+  onClickFunc = 'addConditionMainModal("' + route + '")'
+  buttonCondicion.setAttribute("onclick", onClickFunc)
+  buttonText = document.createTextNode("Condicion");
+  buttonCondicion.appendChild(buttonText)
+
+  var buttonLoop = document.createElement("button");
+  buttonLoop.classList.add("button", "is-dark");
+  onClickFunc = 'addLoopMainModal("' + route + '")'
+  buttonLoop.setAttribute("onclick", onClickFunc)
+  buttonText = document.createTextNode("Ciclo");
+  buttonLoop.appendChild(buttonText)
+
+  buttons.appendChild(buttonOperation);
+  buttons.appendChild(buttonCondicion);
+  buttons.appendChild(buttonLoop);
+  divButtonsHTML.appendChild(buttons)
+
+  var divKeyHTML = document.createElement("div")
+  var varHtml2 = document.createTextNode("}")
+  divKeyHTML.setAttribute("style", "margin-bottom: 15px;")
+  divKeyHTML.appendChild(varHtml2)
+
+  var divUnifyHTML = document.createElement("div");
+  divUnifyHTML.classList.add("is-loop");
+  divUnifyHTML.appendChild(divHeadLoopHTML)
+  divUnifyHTML.appendChild(divButtonsHTML)
+  divUnifyHTML.appendChild(divBloqHTML)
+  divUnifyHTML.appendChild(divKeyHTML)
+
+  document.getElementById(getWhereToAppend(route)).appendChild(divUnifyHTML);
+  MainBloq.loop = MainBloq.loop + 1
   hideModal();
 }
 
@@ -1082,23 +1196,6 @@ function getWhereToAppend(id){
     }
   }
   return appendHere
-}
-
-var testDic = {
-  func2: {
-    header: "Head of Funciton",
-    oper: {
-      if0: {
-        header: "Aqui queremos llegar",
-        oper: {
-          // if1: {
-          //     header: "Esto queremos agregar",
-          //     oper: {}
-          // }
-        }
-      }
-    }
-  }
 }
 
 function addToDict(objectToAdd, indexFinal, dict, path, count){

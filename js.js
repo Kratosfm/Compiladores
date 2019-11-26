@@ -1,7 +1,5 @@
 GlobalVars = {}
 GlobalFuncs = {}
-GlobalVectors = {}
-
 MainBloq = {
   header: "main{",
   oper: {},
@@ -9,7 +7,6 @@ MainBloq = {
   loop: 0,
   operat: 0
 }
-MainVectors = {}
 
 paramCounter = 0;
 
@@ -111,8 +108,40 @@ function addLoopMainModal(id){
 
 /* -------- Funciones para crear globales en el codigo y run -------- */
 function execute(){
-  console.log(GlobalFuncs);
-  console.log(MainBloq);
+  file = "program: \n"
+
+  for( i in GlobalVars){
+    file += GlobalVars[i] + "\n";
+  }
+
+  for( i in GlobalFuncs){
+    file += getCodeFromDict(GlobalFuncs[i])
+  }
+  if(file[file.length-2] == "{"){
+    file += "}\n"
+  }
+  file += getCodeFromDict(MainBloq);
+  if(file[file.length-2] == "{"){
+    file += "}\n"
+  }
+
+
+  json_to_send = {data: file}
+  $.ajax({
+    url: "http://localhost:3000/compile/",
+    type: "get",
+    data: JSON.stringify(json_to_send),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    //dataType: "json",
+    success: function(data) {
+      console.log(data)
+    },
+    error: function(err) {
+      console.log(err)
+    }
+  })
 }
 
 function createGlobalVariable(){
@@ -311,6 +340,7 @@ function createLocalLoop(route){
 
 function createLocalOperator(route){
   local_op = document.getElementById("textbox").value
+  local_op += " ;"
   path = getPath(route);
 
   var auxRoute ;
@@ -419,6 +449,7 @@ function createMainCondition(route){
 
 function createMainOperator(route){
   main_op = document.getElementById("textboxMain").value
+  main_op += " ;"
   path = getPath(route);
 
   var auxRoute ;
@@ -880,7 +911,7 @@ function addLocalOperator(route, value){
   divOperatorValueHTML.setAttribute("id", route);
 
 
-  var varHtml = document.createTextNode(value + " ;");
+  var varHtml = document.createTextNode(value);
   divOperatorValueHTML.appendChild(varHtml);
 
   var divUnifyHTML = document.createElement("div");
@@ -1081,7 +1112,7 @@ function addMainOperator(route, value){
   divOperatorValueHTML.setAttribute("id", route);
 
 
-  var varHtml = document.createTextNode(value + " ;");
+  var varHtml = document.createTextNode(value);
   divOperatorValueHTML.appendChild(varHtml);
 
   var divUnifyHTML = document.createElement("div");
@@ -1212,4 +1243,33 @@ function addToDict(objectToAdd, indexFinal, dict, path, count){
       return dict
     }
   }
+}
+
+function getCodeFromVars(){
+  code = "" ;
+  for( i in GlobalVars){
+    code += GlobalVars[i] + "\n"
+  }
+  return code
+}
+
+function getCodeFromDict(dict){
+  var file = ""
+  var flag = false;
+  if(dict.header != undefined){
+    file += dict.header + "\n";
+  }
+  for(i in dict){
+    if(typeof(dict[i]) == "object"){
+      file += getCodeFromDict(dict[i]);
+    }
+    else if((typeof dict[i]) == "string" && i != "header"){
+      flag = true
+      file += dict[i] + "\n"
+    }
+  }
+  if(flag){
+    file += "} \n"
+  }
+  return file
 }

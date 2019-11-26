@@ -193,13 +193,9 @@ def resasignvec(id):
             tipo_id = pilaTipos.pop()
             valid = pilaid.pop()
 
-            #Necesarios sacar son los del id
-            id3=pilaid.pop()
-            tip3=pilaTipos.pop()
-            val3=pilaVal.pop()
-            funt = Memory.GetTFunc(id3)
-            #print("LALALA",valor,id2,av,valid,id,id3,val3)
-            valid = varsTable.symbol_table[funt].dict[id].dirs[av]
+            #print("LALALA",valor,id2,av,valid,id)
+            dir = varsTable.symbol_table["main"].dict[id].dirs[av]
+            #print("LALALA",valor,id2,av,valid,id,dir)
             #print("SDA",varsTable.symbol_table[funt].dict[id].dirs[av],id)
             operator = popper.pop()
             if tipo_id == "float" and tipo_res == "int":
@@ -214,7 +210,7 @@ def resasignvec(id):
                 pilacuadruplos.append(cuad)
                 return av
             else:
-                cuad = Cuadrupl(id2, operator, None, valid, len(pilacuadruplos))
+                cuad = Cuadrupl(id2, operator, None, dir, len(pilacuadruplos))
                 pilacuadruplos.append(cuad)
                 return valor
 
@@ -231,7 +227,7 @@ def resolverterm():
             tipo_izq = pilaTipos.pop()
             operator = popper.pop()
             #print(operator)
-            print (tipo_der,tipo_izq,str(type(id_der)),str(type(id_izq)))
+            #print (tipo_der,tipo_izq,str(type(id_der)),str(type(id_izq)))
             tipo_resultado = semantic.getReturnType(tipo_der,tipo_izq,operator)
             if(tipo_resultado != "err"):
                 if(operator == '+'):
@@ -294,9 +290,9 @@ def resolverRel():
             tipo_izq = pilaTipos.pop()
             id_izq = pilaid.pop()
             operator = popper.pop()
-            print (tipo_izq,tipo_der)
+            #print (tipo_izq,tipo_der)
             tipo_resultado = semantic.getReturnType(tipo_der,tipo_izq,operator)
-            print("tip",tipo_resultado)
+            #print("tip",tipo_resultado)
             if (tipo_resultado != "err"):
                 if(operator == '<'):
                     resultado = val_izq < val_der

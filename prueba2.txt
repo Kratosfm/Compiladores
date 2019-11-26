@@ -83,3 +83,23 @@ print ( x + 2 ) ;
 i = Cherry ( 8 + 3 , 2 ) ;
 print ( i ) ;
 }
+
+
+
+
+program :
+
+main
+{
+	vector int Arr[5];
+	var int i ;
+	i = 0;
+	i = i + 1;
+	Arr [0] = 6 ;
+	Arr [1] = 10;
+	Arr [2] = 9;
+	Arr [3] = 8;
+	Arr [4] = 7;
+	find (Arr[i]);
+	sort (Arr[]);
+}

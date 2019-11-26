@@ -373,7 +373,7 @@ def p_asign(p):
   '''
     asign : ID pushid EQUAL pushop fcall SEMICOLON
         | ID pushid EQUAL pushop expres resolverasignacion SEMICOLON
-        | ID pushid LBRACE exr RBRACE EQUAL pushop expres resasignvec SEMICOLON
+        | ID LBRACE exr RBRACE EQUAL pushop expres resasignvec SEMICOLON
   '''
 
 def p_cond(p):
@@ -602,16 +602,16 @@ def p_resolverasignacion(p):
 
 def p_resasignvec(p):
     "resasignvec :"
-    res = cuadruplos.resasignvec(p[-8])
+    res = cuadruplos.resasignvec(p[-7])
     if(res == 'true'):
         resb = bool(res)
-        varsTable.update(p[-8],resb)
+        varsTable.update(p[-7],resb)
     elif(res == 'false'):
         resb = bool()
-        varsTable.update(p[-8],resb)
+        varsTable.update(p[-7],resb)
     else:
-        print("RES",res)
-        varsTable.update(p[-8],res)
+        #print("RES",res)
+        varsTable.update(p[-7],res)
 
 def p_resfact(p):
     "resfact :"
@@ -657,23 +657,24 @@ s = f.read()
 
 parser.parse(s)
 
-cuadruplos.imprimirtodocuadr()
 if success == True:
     print("Archivo aprobado")
     #sys.exit()
 else:
     print("Archivo no aprobado")
     #sys.exit()
+#cuadruplos.imprimirtodocuadr()
 #print("memoria global ")
 #Memoria.global_memroy.show()
 #varsTable.show();
+print("")
 print("VM")
 #posicion = Virtual.GoToMain(0,cuadruplos.pilacuadruplos[0])
 #Virtual.Ejecucion(posicion,cuadruplos.pilacuadruplos[posicion])
 Virtual.programa()
-print("")
-print("despues de VM")
-varsTable.show();
-Memoria.global_memroy.show()
-
+#print("")
+#print("Vars Table")
 #varsTable.show();
+#print("")
+#print("Memoriac")
+#Memoria.global_memroy.show()

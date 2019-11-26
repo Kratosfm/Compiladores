@@ -28,7 +28,7 @@ resultType = {
 			"|=" : "err",
 			"&&" : "err"
 		},
-		"str" : {
+		"string" : {
 			"+" : "err",
 			"-" : "err",
 			"*" : "err",
@@ -86,7 +86,7 @@ resultType = {
 			"|=" : "err",
 			"&&" : "err"
 		},
-		"str" : {
+		"string" : {
 			"+" : "err",
 			"-" : "err",
 			"*" : "err",
@@ -115,7 +115,7 @@ resultType = {
 			"&&" : "err"
 		}
 	},
-	"str" : {
+	"string" : {
 		"int" : {
 			"+" : "err",
 			"-" : "err",
@@ -144,8 +144,8 @@ resultType = {
 			"|=" : "err",
 			"&&" : "err"
 		},
-		"str" : {
-			"+" : "str",
+		"string" : {
+			"+" : "string",
 			"-" : "err",
 			"*" : "err",
 			"/" : "err",
@@ -202,7 +202,7 @@ resultType = {
 			"|=" : "err",
 			"&&" : "err"
 		},
-		"str" : {
+		"string" : {
 			"+" : "err",
 			"-" : "err",
 			"*" : "err",

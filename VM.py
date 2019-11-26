@@ -18,7 +18,13 @@ def programa():
     pos = GoToMain(0,cuadruplos.pilacuadruplos[0])
     while(cuadruplos.pilacuadruplos[pos].resultado != "ENDPROGRAM"):
         pos = Ejecucion(pos,cuadruplos.pilacuadruplos[pos])
-    print
+    Memory.Reiniciar()
+    Memory.BorrarInts()
+    Memory.BorrarBools()
+    Memory.BorrarFloats()
+    Memory.BorrarStrings()
+    #No se porque no se elimina el 1000
+    #Memory.global_memroy.ints.pop(1000)
 
 
 def Ejecucion(num,cuadrup):
@@ -73,7 +79,16 @@ def Ejecucion(num,cuadrup):
 
     elif(cuadrup.operator == "print"):
         res = Memory.getValor(cuadrup.resultado)
-        print(res)
+        print(res,str(type(res)))
+        num = num + 1
+        return num
+
+    elif(cuadrup.operator == "read"):
+        newVal = input()
+        #tipo = str(get_type(valor))
+
+
+        Memory.updateVal(cuadrup.resultado,newVal)
         num = num + 1
         return num
 
@@ -143,8 +158,22 @@ def Ejecucion(num,cuadrup):
         return num
 
     elif(cuadrup.operator == "GoSub"):
+        #print("")
+        #print("antes 1")
+        #Impresionm de memoria antes del reinicio
+        #Memory.global_memroy.show()
         num = cuadrup.resultado
         last_pos.append(cuadrup.num + 1)
+        Memory.Reiniciar()
+        Memory.BorrarInts()
+        Memory.BorrarBools()
+        Memory.BorrarFloats()
+        Memory.BorrarStrings()
+        ##Impresionm de memoria despues del reinicio
+        #print("")
+        #print("despues 2")
+        #print("")
+        Memory.global_memroy.show()
         return num
 
     elif(cuadrup.operator == "ENDPROC"):

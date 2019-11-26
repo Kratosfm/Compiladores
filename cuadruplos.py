@@ -168,11 +168,11 @@ def resolverasignacion():
             elif tipo_id == "int" and tipo_res == "float":
                 print("error de semantica 1")
                 sys.exit()
-            if(valid >= 7000) :
-                print("dasdas",valid,varsTable.func_id)
-                cuad = Cuadrupl(valid, operator, None, id2, len(pilacuadruplos))
-                pilacuadruplos.append(cuad)
-                return av
+            #if(valid >= 7000) :
+            #    print("dasdas",valid,varsTable.func_id)
+            #    cuad = Cuadrupl(valid, operator, None, id2, len(pilacuadruplos))
+            #    pilacuadruplos.append(cuad)
+            #    return av
             else:
                 cuad = Cuadrupl(id2, operator, None, valid, len(pilacuadruplos))
                 pilacuadruplos.append(cuad)
@@ -184,7 +184,6 @@ def resasignvec(id):
     global contador
     tam = len(popper)
     if tam > 0:
-
         if popper[tam-1] == '=':
             valor = pilaVal.pop()
             #Sacar temporal final de resultado id
@@ -232,6 +231,7 @@ def resolverterm():
             tipo_izq = pilaTipos.pop()
             operator = popper.pop()
             #print(operator)
+            print (tipo_der,tipo_izq,str(type(id_der)),str(type(id_izq)))
             tipo_resultado = semantic.getReturnType(tipo_der,tipo_izq,operator)
             if(tipo_resultado != "err"):
                 if(operator == '+'):
@@ -294,7 +294,9 @@ def resolverRel():
             tipo_izq = pilaTipos.pop()
             id_izq = pilaid.pop()
             operator = popper.pop()
+            print (tipo_izq,tipo_der)
             tipo_resultado = semantic.getReturnType(tipo_der,tipo_izq,operator)
+            print("tip",tipo_resultado)
             if (tipo_resultado != "err"):
                 if(operator == '<'):
                     resultado = val_izq < val_der

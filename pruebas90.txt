@@ -25,6 +25,7 @@ main {
    var int num ;
 	 var int res ;
 	 num = 10 ;
+   print(num)
    res = fib ( num ) ;
    print(res);
 }

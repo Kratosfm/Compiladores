@@ -99,12 +99,12 @@ t_CTE_S = r'\"([^\\\n]|(\\.))*?\"'
 tokens = tokens + list(reserved.values())
 
 def t_CTE_F(t):
-    r'\d+\.\d+'
+    r'[+-]?\d+\.\d+'
     t.value = float(t.value)
     return t
 
 def t_CTE_I(t):
-    r'\d+'
+    r'[+-]?\d+'
     t.value = int(t.value)
     return t
 
@@ -149,6 +149,7 @@ def p_program(p):
   '''
   	program : PROGRAM COLON gotomain global program2 finglobal program3 llenarmain MAIN main1 mainc finmain
         | PROGRAM COLON gotomain global program2 finglobal llenarmain MAIN main1 mainc finmain
+        | PROGRAM COLON gotomain global finglobal program3 llenarmain MAIN main1 mainc finmain
         | PROGRAM COLON gotomain llenarmain MAIN main1 mainc finmain
   '''
   cuad = cuadruplos.Cuadrupl(None, None, None, "ENDPROGRAM", len(cuadruplos.pilacuadruplos))
@@ -182,6 +183,7 @@ def p_crear(p):
 
 def p_global(p):
     "global :"
+    varsTable.exist_GLOBAL = True
     varsTable.is_global = True
     varsTable.func_id = "global"
     varsTable.insert(None, "global")
@@ -221,13 +223,11 @@ def p_tipo(p):
         | BOOL
   '''
   varsTable.var_tipo = p[1]
+  p[0] = p[1]
 
 def p_vector(p):
   '''
-  	vector : VECTOR initvector INT ID LBRACE CTE_I RBRACE SEMICOLON
-    | VECTOR initvector FLOAT ID LBRACE CTE_I RBRACE SEMICOLON
-    | VECTOR initvector STRING ID LBRACE CTE_I RBRACE SEMICOLON
-    | VECTOR initvector BOOL ID LBRACE CTE_I RBRACE SEMICOLON
+  	vector : VECTOR initvector tipo ID LBRACE CTE_I RBRACE SEMICOLON
   '''
   if varsTable.is_global:
       varsTable.insertVarInFunc(p[3],p[4], "global",p[6])
@@ -302,15 +302,8 @@ def p_addInTable(p):
 #Creacion de los parametros
 def p_funci(p):
   '''
-    funci : INT ID sumparam
-    | INT ID sumparam COMA funci
-    | FLOAT ID sumparam
-    | FLOAT ID sumparam COMA funci
-    | STRING ID sumparam
-    | STRING ID sumparam COMA funci
-    | BOOL ID sumparam
-    | BOOL ID sumparam COMA funci
-    | empty
+    funci : tipo ID sumparam
+    | tipo ID sumparam COMA funci
   '''
   varsTable.insertVarInFunc(p[1],p[2],varsTable.func_id)
   varsTable.InsertTypParam(p[1])
@@ -347,17 +340,9 @@ def p_resreturn(p):
 def p_mainc(p):
     '''
     mainc : LKEY RKEY
+    | LKEY localvar bloq RKEY
+    | LKEY localvar RKEY
     | LKEY bloq RKEY
-    | LKEY mainc2 bloq RKEY
-    | LKEY mainc2 RKEY
-    '''
-
-def p_mainc2(p):
-    '''
-    mainc2 : var
-    | var mainc2
-    | vector
-    | vector mainc2
     '''
 
 def p_bloq(p):
@@ -392,7 +377,7 @@ def p_cond(p):
 
 def p_escrit(p):
   '''
-    escrit : PRINT pushop LPAREN imprimirl escriti RPAREN SEMICOLON
+    escrit : PRINT pushop LPAREN escriti RPAREN SEMICOLON
   '''
 
 def p_escriti(p):
@@ -400,13 +385,6 @@ def p_escriti(p):
   	escriti : expres escrit1
     	| expres escrit2 COMA escriti
   '''
-
-def p_imprimirl(p):
-  '''
-  	imprimirl :
-  '''
-  #cuadruplos.pilaVal.pop()
-  #print ("dasdasd",str(cuadruplos.pilaVal)[1:-1])
 
 def p_escrit1(p):
     '''
@@ -428,7 +406,7 @@ def p_ciclo(p):
 
 def p_leer(p):
   '''
-  	leer : READ pushop LPAREN ID pushid readid RPAREN readid SEMICOLON
+  	leer : READ pushop LPAREN ID pushid RPAREN readid SEMICOLON
   '''
 
 def p_readid(p):

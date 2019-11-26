@@ -12,6 +12,7 @@ is_global = False
 fun_name = None
 is_param = False
 is_vector = False
+exist_GLOBAL = False
 
 symbol_table = {}
 param_table = {}
@@ -28,7 +29,7 @@ class Entry():
         self.dirs = []
 #Cambiar returno por una pila para almacenar en recursividad
 class FunctionEntry:
-    def __init__(self, id, tipo, cuadno = 0, paramno = 0, returno = 0, isReturn = False):
+    def __init__( self, id, tipo, cuadno = 0, paramno = 0, returno = 0, isReturn = False ):
         self.id = id
         self.tipo = tipo
         self.dict = {}
@@ -221,7 +222,7 @@ def getTypeVar2(tipo):
     if tipo == "<class 'int'>" :
         return "int"
     if tipo == "<class 'str'>" :
-        return "str"
+        return "string"
     if tipo == "<class 'bool'>" :
         return "bool"
     else:
@@ -245,36 +246,68 @@ def show():
             print(symbol_table[i].id, symbol_table[i].tipo, symbol_table[i].value)
 
 def insertVarInFunc(tipo, id, funt, espacio = None):
-    if (symbol_table[funt].dict.get(id) or symbol_table["global"].dict.get(id)):
-        print ("variable ya declarada")
-        sys.exit()
-    else:
-        if (funt == "main" and is_vector == False):
-            dir = Memoria.global_memroy.insert_main(id,tipo)
-            symbol_table[funt].dict[id] = Entry(id, tipo, dir)
-        elif (funt == "global" and is_vector == False):
-            dir = Memoria.global_memroy.insert_global(None,tipo)
-            symbol_table[funt].dict[id] = Entry(id, tipo, dir)
-        elif (funt == "main" and is_vector == True):
-            dir = Memoria.global_memroy.insert_main(id,tipo,espacio)
-            symbol_table[funt].dict[id] = Entry(id, tipo, dir)
-            symbol_table[funt].dict[id].space = espacio
-            Llenado(id,tipo,dir,espacio,funt)
-            #symbol_table[funt].dict[id].dirs.clear()
-        elif (funt == "global" and is_vector == True):
-            dir = Memoria.global_memroy.insert_global(None,tipo,espacio)
-            symbol_table[funt].dict[id] = Entry(id, tipo, dir)
-            symbol_table[funt].dict[id].space = espacio
-            Llenado(id,tipo,dir,espacio,funt)
+    if(exist_GLOBAL == True):
+        if (symbol_table[funt].dict.get(id) or symbol_table["global"].dict.get(id)):
+            print ("variable ya declarada")
+            sys.exit()
         else:
-            if is_vector == False:
-                dir = Memoria.global_memroy.insert_local(0,tipo)
+            if (funt == "main" and is_vector == False):
+                dir = Memoria.global_memroy.insert_main(id,tipo)
                 symbol_table[funt].dict[id] = Entry(id, tipo, dir)
-            else:
-                dir = Memoria.global_memroy.insert_local(id,tipo)
+            elif (funt == "global" and is_vector == False):
+                dir = Memoria.global_memroy.insert_global(None,tipo)
+                symbol_table[funt].dict[id] = Entry(id, tipo, dir)
+            elif (funt == "main" and is_vector == True):
+                dir = Memoria.global_memroy.insert_main(id,tipo,espacio)
                 symbol_table[funt].dict[id] = Entry(id, tipo, dir)
                 symbol_table[funt].dict[id].space = espacio
                 Llenado(id,tipo,dir,espacio,funt)
+                #symbol_table[funt].dict[id].dirs.clear()
+            elif (funt == "global" and is_vector == True):
+                dir = Memoria.global_memroy.insert_global(None,tipo,espacio)
+                symbol_table[funt].dict[id] = Entry(id, tipo, dir)
+                symbol_table[funt].dict[id].space = espacio
+                Llenado(id,tipo,dir,espacio,funt)
+            else:
+                if is_vector == False:
+                    dir = Memoria.global_memroy.insert_local(0,tipo)
+                    symbol_table[funt].dict[id] = Entry(id, tipo, dir)
+                else:
+                    dir = Memoria.global_memroy.insert_local(id,tipo)
+                    symbol_table[funt].dict[id] = Entry(id, tipo, dir)
+                    symbol_table[funt].dict[id].space = espacio
+                    Llenado(id,tipo,dir,espacio,funt)
+    else:
+        if (symbol_table[funt].dict.get(id)):
+            print ("variable ya declarada")
+            sys.exit()
+        else:
+            if (funt == "main" and is_vector == False):
+                dir = Memoria.global_memroy.insert_main(id,tipo)
+                symbol_table[funt].dict[id] = Entry(id, tipo, dir)
+            elif (funt == "global" and is_vector == False):
+                dir = Memoria.global_memroy.insert_global(None,tipo)
+                symbol_table[funt].dict[id] = Entry(id, tipo, dir)
+            elif (funt == "main" and is_vector == True):
+                dir = Memoria.global_memroy.insert_main(id,tipo,espacio)
+                symbol_table[funt].dict[id] = Entry(id, tipo, dir)
+                symbol_table[funt].dict[id].space = espacio
+                Llenado(id,tipo,dir,espacio,funt)
+                #symbol_table[funt].dict[id].dirs.clear()
+            elif (funt == "global" and is_vector == True):
+                dir = Memoria.global_memroy.insert_global(None,tipo,espacio)
+                symbol_table[funt].dict[id] = Entry(id, tipo, dir)
+                symbol_table[funt].dict[id].space = espacio
+                Llenado(id,tipo,dir,espacio,funt)
+            else:
+                if is_vector == False:
+                    dir = Memoria.global_memroy.insert_local(0,tipo)
+                    symbol_table[funt].dict[id] = Entry(id, tipo, dir)
+                else:
+                    dir = Memoria.global_memroy.insert_local(id,tipo)
+                    symbol_table[funt].dict[id] = Entry(id, tipo, dir)
+                    symbol_table[funt].dict[id].space = espacio
+                    Llenado(id,tipo,dir,espacio,funt)
 #checa si una funcion ya existe con ese id
 def CheckExistIdFunc(id):
     if (symbol_table.get(id)):
@@ -319,7 +352,6 @@ def Llenado(id,tipo,dir,espacio,funt):
     i = 0
     dir2 = 0
     while ( i < espacio ):
-        print(id,funt)
         if ( funt == "global"):
             if ( i == 0):
                 dir2 = dir
@@ -339,5 +371,5 @@ def Llenado(id,tipo,dir,espacio,funt):
             else:
                 dir2 = Memoria.global_memroy.insert_local(None,tipo)
         symbol_table[funt].dict[id].dirs.append(dir2)
-        print("LLENADO",id,symbol_table[funt].dict[id].dirs)
+        #print("LLENADO",id,symbol_table[funt].dict[id].dirs)
         i = i + 1

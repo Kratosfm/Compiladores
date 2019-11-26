@@ -1,6 +1,7 @@
 import cuadruplos as cuadruplos
 import varsTable as varsTable
 import execMemory as Memory
+import operator
 import sys
 
 resbol = None
@@ -37,6 +38,14 @@ def Ejecucion(num,cuadrup):
                 newVal = Memory.getValor(cuadrup.left)
                 Memory.updateVal(cuadrup.resultado,newVal)
                 #print("Se recibe dir en funcion", cuadrup.left, "con valor",Memory.getValor(cuadrup.left),"en", cuadrup.resultado, "con", Memory.getValor(cuadrup.resultado),"en",func_id)
+        #elif (varsTable.symbol_table["main"].dict["Arr"].isVector == True):
+        #    newVal = Memory.getValor(cuadrup.left)
+        #    newVal2 = Memory.getValor(cuadrup.resultado)
+        #    dir2 = varsTable.symbol_table["main"].dict["Arr"].dirs[newVal2]
+        #    print("sa",newVal,cuadrup.left,cuadrup.resultado,dir2,newVal2)
+        #    Memory.updateVal(cuadrup.resultado,newVal)
+        #    num = num + 1
+        #    return num
         else:
             newVal = Memory.getValor(cuadrup.left)
             Memory.updateVal(cuadrup.resultado,newVal)
@@ -79,16 +88,27 @@ def Ejecucion(num,cuadrup):
 
     elif(cuadrup.operator == "print"):
         res = Memory.getValor(cuadrup.resultado)
-        print(res,str(type(res)))
+        print(res)
         num = num + 1
         return num
 
     elif(cuadrup.operator == "read"):
         newVal = input()
         #tipo = str(get_type(valor))
-
-
         Memory.updateVal(cuadrup.resultado,newVal)
+        num = num + 1
+        return num
+
+    elif(cuadrup.operator == "find"):
+        res = Memory.getValor(cuadrup.resultado)
+        print("El valor del arreglo en la posicion es", res)
+        num = num + 1
+        return num
+
+    elif(cuadrup.operator == "sort"):
+        acomodar(cuadrup.resultado)
+        #res = Memory.getValor(cuadrup.resultado)
+        #print("El valor del arreglo en la posicion es", res)
         num = num + 1
         return num
 
@@ -232,3 +252,25 @@ def Ejecucion(num,cuadrup):
 
 def GoToMain (num,cuadrup):
     return cuadrup.resultado
+
+def acomodar(id):
+    arraux = {}
+    arrfin = []
+    i = 0
+    x = 0
+    tam = len(varsTable.symbol_table["main"].dict[id].dirs)
+    while ( i < tam):
+        dir = varsTable.symbol_table["main"].dict[id].dirs[i]
+        val = Memory.getValor(dir)
+        arraux[dir] = val
+        i = i + 1
+    varsTable.symbol_table["main"].dict[id].dirs.clear()
+    for key, value in sorted(arraux.items(), key=lambda item: item[1]):
+        arrfin.append(key)
+        #imprime bonito el sort
+        #print("%s: %s" % (key, value))
+    while ( x < tam):
+        varsTable.symbol_table["main"].dict[id].dirs.append(arrfin.pop(0))
+        x = x + 1
+    print(varsTable.symbol_table["main"].dict[id].dirs)
+    #arraux.append(varsTable.symbol_table["main"].dict[id].dirs.pop())

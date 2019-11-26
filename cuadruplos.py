@@ -494,3 +494,29 @@ def readid():
             operator = popper.pop()
             cuadr = Cuadrupl(None, operator, None, resultado, len(pilacuadruplos))
             pilacuadruplos.append(cuadr)
+
+def generateFind(id):
+    tam = len(popper)
+    if tam > 0:
+        if popper[-1] == "find":
+            dirpos = pilaid.pop()
+            pilaTipos.pop
+            pos = pilaVal.pop()
+            operator = popper.pop()
+            if ( pos <  len(varsTable.symbol_table[varsTable.func_id].dict[id].dirs)):
+                dirvec = varsTable.symbol_table[varsTable.func_id].dict[id].dirs[pos]
+                cuadr = Cuadrupl(id, operator, dirpos, dirvec,len(pilacuadruplos))
+                pilacuadruplos.append(cuadr)
+            else:
+                print("Se sale del rango del arreglo")
+                sys.exit()
+
+def generateSort(id):
+    tam = len(popper)
+    if tam > 0:
+        if popper[-1] == "sort":
+            #arraux.append(varsTable.symbol_table[varsTable.func_id].dict[id].dirs.pop())
+            operator = popper.pop()
+            #dirvec = varsTable.symbol_table[varsTable.func_id].dict[id].dirs[pos]
+            cuadr = Cuadrupl(None, operator, None, id,len(pilacuadruplos))
+            pilacuadruplos.append(cuadr)

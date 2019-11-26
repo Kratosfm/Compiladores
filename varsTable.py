@@ -20,13 +20,14 @@ param_cont = 0
 arrparam = []
 
 class Entry():
-    def __init__(self, id, tipo, value = None, space = None, isParam = False):
+    def __init__(self, id, tipo, value = None, space = None, isParam = False, isvector = False):
         self.id = id
         self.tipo = tipo
         self.value = value
         self.space = space
         self.isParam = isParam
         self.dirs = []
+        self.isVector = isvector
 #Cambiar returno por una pila para almacenar en recursividad
 class FunctionEntry:
     def __init__( self, id, tipo, cuadno = 0, paramno = 0, returno = 0, isReturn = False ):
@@ -240,7 +241,7 @@ def show():
         if (str((type(symbol_table[i]))) == "<class 'varsTable.FunctionEntry'>"):
             print(i, getType(i), symbol_table[i].cuadno,symbol_table[i].paramno,symbol_table[i].returno,"{")
             for j in symbol_table[i].dict:
-                print(symbol_table[i].dict[j].id, symbol_table[i].dict[j].tipo, symbol_table[i].dict[j].value, symbol_table[i].dict[j].space, symbol_table[i].dict[j].isParam,symbol_table[i].dict[j].space,symbol_table[i].dict[j].dirs)
+                print(symbol_table[i].dict[j].id, symbol_table[i].dict[j].tipo, symbol_table[i].dict[j].value, symbol_table[i].dict[j].space, symbol_table[i].dict[j].isParam,symbol_table[i].dict[j].dirs)
             print("}")
         else:
             print(symbol_table[i].id, symbol_table[i].tipo, symbol_table[i].value)

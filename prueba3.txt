@@ -1,34 +1,30 @@
 program :
 
-var int Caca ;
-vector int ARR [7] ;
-
-function int Apple ( int pa ){
-	var int Alex ;
-	var float Trova ;
-	var string Calle ;
-	Calle = "LELE" ;
-	Trova = 100.2 ;
-	Alex = 7 + 2;
-	if (pa < 10){
-		print(pa);
-		Apple(pa + 1);
-	}
-	return pa ;
+var string wacho;
+vector int arr[4];
+function int Apple (int a, float b){
+	var int Caca ;
+	Caca = 2 ;
+	print (Caca) ;
+	return Caca ;
 }
 
 main
 {
-	vector int ARR2 [3] ;
-	var int Louis ;
-	Caca = 7 + 7 ;
-	print (Caca);
-	ARR2 [1] = 5 ;
-	ARR [2] = 100 ;
-	Caca = Apple ( 1 );
-	print ("Cuantos fibonacci",Caca) ;
-	Caca = Caca + Caca ;
-	print (Caca);
-	print (Caca) ;
-	print(Caca);
+var int Caca ;
+var int Caca2 ;
+vector float Caca3 [10] ;
+Caca2 = 3 ;
+Caca = 2 ;
+wacho = "hols";
+if (wacho == "hols" && Caca2 == 3){
+	print("entro wacho");
+}
+else{
+	print("no entro");
+}
+arr[2] = 10 ;
+print (Caca + Caca2) ;
+Caca2 = Apple (3,2.9);
+print("despues",Caca2);
 }

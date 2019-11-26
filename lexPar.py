@@ -26,7 +26,9 @@ reserved = {
     'main' : 'MAIN',
     'true' : 'TRUE',
     'false' : 'FALSE',
-    'return' : 'RETURN'
+    'return' : 'RETURN',
+    'find' : 'FIND',
+    'sort' : 'SORT'
 }
 
 # List of tokens
@@ -231,10 +233,13 @@ def p_vector(p):
   '''
   if varsTable.is_global:
       varsTable.insertVarInFunc(p[3],p[4], "global",p[6])
+      varsTable.symbol_table["global"].dict[p[4]].isVector = True
   elif varsTable.is_main:
       varsTable.insertVarInFunc(p[3],p[4], "main",p[6])
+      varsTable.symbol_table["main"].dict[p[4]].isVector = True
   elif varsTable.is_local:
       varsTable.insertVarInFunc(p[3],p[4], varsTable.func_id,p[6])
+      varsTable.symbol_table[varsTable.func_id].dict[p[4]].isVector = True
      # varsTable.symbol_table[varsTable.fun_name].dict[p[4]].space = p[6]
   varsTable.is_vector = False
 
@@ -359,6 +364,8 @@ def p_estat(p):
         | ciclo
         | leer
         | fcallvoid
+        | findvec
+        | sorti
 
   '''
 
@@ -484,6 +491,16 @@ def p_var_cte(p):
         | FALSE pushcte
         | asigvector
   '''
+
+def p_findvec(p):
+    '''findvec : FIND pushop LPAREN ID LBRACE ex RBRACE RPAREN SEMICOLON
+    '''
+    cuadruplos.generateFind(p[4])
+
+def p_sorti(p):
+    '''sorti : SORT pushop LPAREN ID LBRACE RBRACE RPAREN SEMICOLON
+    '''
+    cuadruplos.generateSort(p[4])
 
 def p_asigvector(p):
     '''

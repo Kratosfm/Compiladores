@@ -1,30 +1,16 @@
 program :
 
-var string wacho;
-vector int arr[4];
-function int Apple (int a, float b){
-	var int Caca ;
-	Caca = 2 ;
-	print (Caca) ;
-	return Caca ;
-}
-
 main
 {
-var int Caca ;
-var int Caca2 ;
-vector float Caca3 [10] ;
-Caca2 = 3 ;
-Caca = 2 ;
-wacho = "hols";
-if (wacho == "hols" && Caca2 == 3){
-	print("entro wacho");
-}
-else{
-	print("no entro");
-}
-arr[2] = 10 ;
-print (Caca + Caca2) ;
-Caca2 = Apple (3,2.9);
-print("despues",Caca2);
+	vector int Arr[5];
+	var int i ;
+	i = 0;
+	i = i + 1;
+	Arr [0] = 6 ;
+	Arr [1] = 10;
+	Arr [2] = 9;
+	Arr [3] = 8;
+	Arr [4] = 7;
+	find (Arr[i]);
+	sort (Arr[]);
 }

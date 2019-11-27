@@ -49,10 +49,17 @@ def Ejecucion(num,cuadrup):
         #    return num
         else:
             newVal = Memory.getValor(cuadrup.left)
-            Memory.updateVal(cuadrup.resultado,newVal)
+            tipo1 = Memory.GetTipo(cuadrup.resultado)
+            tipo2 = Memory.GetTipo(cuadrup.left)
+            if(tipo1 == tipo2):
+                Memory.updateVal(cuadrup.resultado,newVal)
+                num = num + 1
+                return num
+            else:
+                print("error de tipos")
+                sys.exit()
             #print("Se recibe dir", cuadrup.left, "con valor",Memory.getValor(cuadrup.left),"en", cuadrup.resultado, "con", Memory.getValor(cuadrup.resultado),"en",func_id)
-            num = num + 1
-            return num
+
 
     elif(cuadrup.operator == "+"):
         val_izq = Memory.getValor(cuadrup.left)

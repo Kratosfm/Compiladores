@@ -1,26 +1,41 @@
 program :
 
-var float Caca ;
-var int Carlos ;
+var int Caca ;
 
-function int Cherry ( int Julia , int Rocio ) {
-Julia = Rocio + Rocio ;
-Julia = Julia + 9 ;
-print( Julia ) ;
-return Julia ;
+function int fib ( int num ) {
+   var int x ;
+	 var int y ;
+	 var int z ;
+	 var int i;
+   x = 0;
+   y = 1;
+   z = 0;
+   i = 0;
+   while (i < num - 1) {
+      print ( x ) ;
+      z = x + y;
+      x = y;
+      y = z;
+      i = i + 1;
+   }
+   return x;
 }
 
-main
-{
-var int i ;
-var int x ;
+function void auto ( int num ) {
+	print("Void", num);
+}
 
-i = 3 ;
-x = 2 + ( 9 * 5 ) - 7 ;
-print ( x ) ;
-i = Cherry ( 8 + 3 , 2 + 2 ) ;
-print ( i ) ;
-print ( x + 2 ) ;
-i = Cherry ( 8 + 3 , 2 ) ;
-print ( i ) ;
+main {
+   var int num ;
+	 var int res ;
+   var int lel ;
+	 num = "string" ;
+   res = fib ( num ) ;
+   print(res);
+   if(8 > 5){
+    print(res);
+    lel = -5 ;
+    print(lel);
+   }
+
 }

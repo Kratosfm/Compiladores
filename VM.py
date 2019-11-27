@@ -178,27 +178,19 @@ def Ejecucion(num,cuadrup):
         return num
 
     elif(cuadrup.operator == "GoSub"):
-        #print("")
-        #print("antes 1")
-        #Impresionm de memoria antes del reinicio
-        #Memory.global_memroy.show()
         num = cuadrup.resultado
         last_pos.append(cuadrup.num + 1)
-        Memory.Reiniciar()
-        Memory.BorrarInts()
-        Memory.BorrarBools()
-        Memory.BorrarFloats()
-        Memory.BorrarStrings()
-        ##Impresionm de memoria despues del reinicio
-        #print("")
-        #print("despues 2")
-        #print("")
-        Memory.global_memroy.show()
         return num
 
     elif(cuadrup.operator == "ENDPROC"):
         num = last_pos.pop()
-        #print("dasd",last_pos)
+        #Memory.global_memroy.show()
+        Memory.BorrarInts()
+        Memory.BorrarBools()
+        Memory.BorrarFloats()
+        Memory.BorrarStrings()
+        Memory.Reiniciar()
+        #Memory.global_memroy.show()
         cont_param = 0
         arrparam.clear()
         arrparam2.clear()

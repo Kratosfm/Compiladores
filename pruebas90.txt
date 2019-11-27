@@ -21,11 +21,16 @@ function int fib ( int num ) {
    return x;
 }
 
+function void auto ( int num ) {
+	print("Void", num);
+}
+
 main {
    var int num ;
 	 var int res ;
 	 num = 10 ;
-   print(num)
+   print(num) ;
    res = fib ( num ) ;
    print(res);
+	 auto ( res ) ;
 }

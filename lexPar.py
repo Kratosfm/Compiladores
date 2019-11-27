@@ -265,7 +265,7 @@ def p_function(p):
   #varsTable.ImprimirParamsType()
   varsTable.is_local = False
   #varsTable.ImprimirLcalTable(varsTable.func_id)
-  Memoria.global_memroy.show()  #eliminar esta
+  #Memoria.global_memroy.show()  #eliminar esta
   #varsTable.ImprimirLcalTable(p[3])
   Memoria.Reiniciar()
   Memoria.BorrarInts()
@@ -340,7 +340,6 @@ def p_resreturn(p):
     '''
     resreturn :
     '''
-    print("getg")
     print (str(cuadruplos.pilaid)[1:-1])
 def p_mainc(p):
     '''
@@ -663,7 +662,7 @@ if success == True:
 else:
     print("Archivo no aprobado")
     #sys.exit()
-#cuadruplos.imprimirtodocuadr()
+cuadruplos.imprimirtodocuadr()
 #print("memoria global ")
 #Memoria.global_memroy.show()
 #varsTable.show();

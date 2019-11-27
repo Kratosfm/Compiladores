@@ -1,6 +1,34 @@
-program: 
-main{
-var int entero ;
-entero = 3 ;
-print(entero ) ;
-} 
+program :
+
+function int fib ( int num ) {
+   var int x ;
+	 var int y ;
+	 var int z ;
+	 var int i;
+   x = 0;
+   y = 1;
+   z = 0;
+   i = 0;
+   while (i < num - 1) {
+      print ( x ) ;
+      z = x + y;
+      x = y;
+      y = z;
+      i = i + 1;
+   }
+   return x;
+}
+
+function void auto ( int num ) {
+	print("Void", num);
+}
+
+main {
+   var int num ;
+	 var int res ;
+	 num = 10 ;
+   print(num) ;
+   res = fib ( num ) ;
+   print(res);
+	 auto ( res ) ;
+}

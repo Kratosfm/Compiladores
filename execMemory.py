@@ -249,7 +249,8 @@ def BorrarInts():
     for key in global_memroy.ints:
         if((key >= 1000 and key <= 1099) or (key >= 6000 and key <= 6099)):
             arr.append(key)
-    for i in arr:
+    tam = len (arr)
+    for i in range (tam):
         val = arr.pop()
         del global_memroy.ints[val]
 
@@ -258,7 +259,8 @@ def BorrarFloats():
     for key in global_memroy.floats:
         if((key >= 1100 and key <= 1199) or (key >= 6100 and key <= 6199)):
             arr.append(key)
-    for i in arr:
+    tam = len (arr)
+    for i in range (tam):
         val = arr.pop()
         del global_memroy.floats[val]
 
@@ -267,16 +269,18 @@ def BorrarBools():
     for key in global_memroy.bools:
         if((key >= 1300 and key <= 1399) or (key >= 6200 and key <= 6299)):
             arr.append(key)
-    for i in arr:
+    tam = len (arr)
+    for i in range (tam):
         val = arr.pop()
         del global_memroy.bools[val]
 
 def BorrarStrings():
     arr = []
     for key in global_memroy.strings:
-        if((key >= 1200 and key <= 1299) or (key >= 6300 and key <= 6399)):
+        if((key >= 1200 and key <= 1299) or (key >= 6200 and key <= 6299)):
             arr.append(key)
-    for i in arr:
+    tam = len (arr)
+    for i in range (tam):
         val = arr.pop()
         del global_memroy.strings[val]
 

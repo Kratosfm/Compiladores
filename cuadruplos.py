@@ -411,7 +411,7 @@ def generateReturn():
             tipo = pilaTipos.pop()
             val = Memory.getValor(resultado)
             dir = Memory.global_memroy.insert_returns(valor,tipo)
-            print("YES",valor,resultado,dir,val)
+            #print("YES",valor,resultado,dir,val)
             cuad = Cuadrupl("None",operator,None,resultado,len(pilacuadruplos))
             pilacuadruplos.append(cuad)
             #esto puede fallar

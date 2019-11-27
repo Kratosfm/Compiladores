@@ -1,41 +1,26 @@
-program :
-
-var int Caca ;
-
-function int fib ( int num ) {
-   var int x ;
-	 var int y ;
-	 var int z ;
-	 var int i;
-   x = 0;
-   y = 1;
-   z = 0;
-   i = 0;
-   while (i < num - 1) {
-      print ( x ) ;
-      z = x + y;
-      x = y;
-      y = z;
-      i = i + 1;
-   }
-   return x;
+program:
+function int fib(int num){
+var int z ;
+var int y ;
+var int x ;
+var int i ;
+x = 0 ;
+y = 1 ;
+z = 0 ;
+i = 0 ;
+while (i < num - 1){
+print ( x ) ;
+z = x + y ;
+x = y ;
+y = z ;
+i = i + 1 ;
 }
-
-function void auto ( int num ) {
-	print("Void", num);
+return x ;
 }
-
-main {
-   var int num ;
-	 var int res ;
-   var int lel ;
-	 num = "string" ;
-   res = fib ( num ) ;
-   print(res);
-   if(8 > 5){
-    print(res);
-    lel = -5 ;
-    print(lel);
-   }
-
+main{
+var int num ;
+var int res ;
+num = 10 ;
+res = fib ( num ) ;
+print ( res ) ;
 }

@@ -62,10 +62,13 @@ def Ejecucion(num,cuadrup):
 
 
     elif(cuadrup.operator == "+"):
+        #print("hey")
+        #Memory.global_memroy.show()
         val_izq = Memory.getValor(cuadrup.left)
         val_der = Memory.getValor(cuadrup.right)
         newVal = (val_izq + val_der)
-        #sprint(val_izq,val_der)
+        #Memory.global_memroy.show()
+        #print(cuadrup.left,cuadrup.right)
         Memory.updateVal(cuadrup.resultado,newVal)
         num = num + 1
         return num
@@ -204,11 +207,11 @@ def Ejecucion(num,cuadrup):
     elif(cuadrup.operator == "ENDPROC"):
         num = last_pos.pop()
         #Memory.global_memroy.show()
-        #Memory.BorrarInts()
-        #Memory.BorrarBools()
-        #Memory.BorrarFloats()
-        #Memory.BorrarStrings()
-        #Memory.Reiniciar()
+        Memory.BorrarInts()
+        Memory.BorrarBools()
+        Memory.BorrarFloats()
+        Memory.BorrarStrings()
+        Memory.Reiniciar()
         #Memory.global_memroy.show()
         cont_param = 0
         arrparam.clear()

@@ -309,6 +309,7 @@ def GetDir(val,tipo):
         print("No existe")
 
 def getValor(dir):
+    #global_memroy.show()
     if((dir >= 1000 and dir < 1100) or (dir >= 2000 and dir < 2100 ) or (dir >= 3000 and dir < 3100) or (dir >= 4000 and dir < 4100) or (dir >= 5000 and dir < 5100) or (dir >= 6000 and dir < 6100) or (dir >= 7000 and dir < 7100)):
         valor = global_memroy.ints[dir]
         return valor

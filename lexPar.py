@@ -664,7 +664,7 @@ if success == True:
 else:
     print("Archivo no aprobado")
     #sys.exit()
-cuadruplos.imprimirtodocuadr()
+#cuadruplos.imprimirtodocuadr()
 #print("memoria global ")
 #Memoria.global_memroy.show()
 #varsTable.show();

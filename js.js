@@ -137,6 +137,7 @@ function execute(){
     },
     //dataType: "JSON",
     success: function(data) {
+      console.log(data);
       $('<h5 id="" class="subtitle is-5">'+ data.response +'</h5>').appendTo("#result")
       console.log(data.response);
     },

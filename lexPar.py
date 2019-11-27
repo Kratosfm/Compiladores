@@ -525,8 +525,8 @@ def p_fcallvoid(p):
     '''
     varsTable.param_cont = 0
     cuadruplos.generategosub(p[1])
-    varsTable.arrparam.clear()
     varsTable.UpdateParam()
+    varsTable.arrparam.clear()
     varsTable.fun_name = None
 
 #Funcion que llama a CheckExistIdFunc para verificar que exista la funcion en la tabla
@@ -664,7 +664,7 @@ if success == True:
 else:
     print("Archivo no aprobado")
     #sys.exit()
-cuadruplos.imprimirtodocuadr()
+#cuadruplos.imprimirtodocuadr()
 #print("memoria global ")
 #Memoria.global_memroy.show()
 #varsTable.show();

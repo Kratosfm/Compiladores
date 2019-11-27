@@ -1,26 +1,14 @@
 program: 
-function int fib(int num){
-var int z ;
-var int y ;
-var int x ;
-var int i ;
-x = 0 ;
-y = 1 ;
-z = 0 ;
-i = 0 ;
-while (i < num - 1){
-print ( x ) ;
-z = x + y ;
-x = y ;
-y = z ;
-i = i + 1 ;
+var int varint ;
+function void func(int x){
+if (x > 5){
+varint = 3 ;
 } 
-return x ;
+else{
+varint = 1 ;
+} 
 } 
 main{
-var int num ;
-var int res ;
-num = 10 ;
-res = fib ( num ) ;
-print ( res ) ;
+func(6) ;
+print ( varint ) ;
 } 

@@ -108,6 +108,7 @@ function addLoopMainModal(id){
 
 /* -------- Funciones para crear globales en el codigo y run -------- */
 function execute(){
+
   file = "program: \n"
 
   for( i in GlobalVars){
@@ -136,7 +137,7 @@ function execute(){
     },
     //dataType: "JSON",
     success: function(data) {
-      $('<h5 id="result" class="subtitle is-5">'+ data.response +'</h5>').appendTo("#result")
+      $('<h5 id="" class="subtitle is-5">'+ data.response +'</h5>').appendTo("#result")
       console.log(data.response);
     },
     error: function(err) {
@@ -173,7 +174,7 @@ function createGlobalVariable(){
 }
 
 function createFunction(){
-  var function_var = "Function "
+  var function_var = "function "
   if(document.getElementById("functionInt").checked == true){
     function_var += "int "
   }
@@ -920,7 +921,7 @@ function addLocalOperator(route, value){
   divUnifyHTML.appendChild(divOperatorValueHTML)
 
   document.getElementById(getWhereToAppend(route)).appendChild(divUnifyHTML);
-  GlobalFuncs[path[0]].operat = GlobalFuncs[path[0]].operar + 1
+  GlobalFuncs[path[0]].operat = GlobalFuncs[path[0]].operat + 1
   hideModal();
 }
 
@@ -1259,6 +1260,7 @@ function getCodeFromDict(dict){
   var flag = false;
   if(dict.header != undefined){
     file += dict.header + "\n";
+    flag = true;
   }
   for(i in dict){
     if(typeof(dict[i]) == "object"){
@@ -1270,7 +1272,10 @@ function getCodeFromDict(dict){
     }
   }
   if(flag){
-    file += "} \n"
+    if(dict.header != undefined){
+      console.log("se agrega en", dict.header);
+      file += "} \n"
+    }
   }
   return file
 }

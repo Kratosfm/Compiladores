@@ -1,6 +1,7 @@
 import cuadruplos as cuadruplos
 import varsTable as varsTable
 import execMemory as Memory
+from ast import literal_eval
 import operator
 import sys
 
@@ -94,7 +95,18 @@ def Ejecucion(num,cuadrup):
 
     elif(cuadrup.operator == "read"):
         newVal = input()
-        #tipo = str(get_type(valor))
+        tipo = str(get_type(newVal))
+        if (tipo == "<class 'int'>"):
+            tipo = "int"
+            newVal = int(newVal)
+        elif (tipo == "<class 'float'>"):
+            tipo = "float"
+            newVal = float(newVal)
+        elif (newVal == 'true' or newVal == 'false'):
+            tipo = "bool"
+            newVal = bool(newVal)
+        else:
+            tipo = "string"
         Memory.updateVal(cuadrup.resultado,newVal)
         num = num + 1
         return num
@@ -185,11 +197,11 @@ def Ejecucion(num,cuadrup):
     elif(cuadrup.operator == "ENDPROC"):
         num = last_pos.pop()
         #Memory.global_memroy.show()
-        Memory.BorrarInts()
-        Memory.BorrarBools()
-        Memory.BorrarFloats()
-        Memory.BorrarStrings()
-        Memory.Reiniciar()
+        #Memory.BorrarInts()
+        #Memory.BorrarBools()
+        #Memory.BorrarFloats()
+        #Memory.BorrarStrings()
+        #Memory.Reiniciar()
         #Memory.global_memroy.show()
         cont_param = 0
         arrparam.clear()
@@ -266,3 +278,10 @@ def acomodar(id):
         x = x + 1
     print(varsTable.symbol_table["main"].dict[id].dirs)
     #arraux.append(varsTable.symbol_table["main"].dict[id].dirs.pop())
+
+def get_type(newVal):
+    try:
+        return type(literal_eval(newVal))
+    except (ValueError, SyntaxError):
+        # A string, so return str
+        return str

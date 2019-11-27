@@ -59,7 +59,7 @@ tokens = [
     "SEMICOLON",
     'AND',
     'OR',
-    "COLON"
+    "COLON",
 ]
 
 # Arithmetic Operators

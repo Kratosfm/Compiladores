@@ -112,39 +112,40 @@ Rule 106   var_cte -> FALSE pushcte
 Rule 107   var_cte -> asigvector
 Rule 108   findvec -> FIND pushop LPAREN ID LBRACE ex RBRACE RPAREN SEMICOLON
 Rule 109   sorti -> SORT pushop LPAREN ID LBRACE RBRACE RPAREN SEMICOLON
-Rule 110   asigvector -> ID pushid LBRACE ex RBRACE
-Rule 111   fcall -> ID existfunc LPAREN startera fcall1 RPAREN
-Rule 112   fcall -> ID existfunc LPAREN startera RPAREN
-Rule 113   fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
-Rule 114   fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON
-Rule 115   existfunc -> <empty>
-Rule 116   startera -> <empty>
-Rule 117   fcall1 -> expres generateparam
-Rule 118   fcall1 -> expres generateparam COMA fcall1
-Rule 119   generateparam -> <empty>
-Rule 120   empty -> <empty>
-Rule 121   pushcte -> <empty>
-Rule 122   pushid -> <empty>
-Rule 123   pushop -> <empty>
-Rule 124   popop -> <empty>
-Rule 125   resolverasignacion -> <empty>
-Rule 126   resasignvec -> <empty>
-Rule 127   resfact -> <empty>
-Rule 128   resterm -> <empty>
-Rule 129   resrel -> <empty>
-Rule 130   resif -> <empty>
-Rule 131   reselse -> <empty>
-Rule 132   finif -> <empty>
-Rule 133   while1 -> <empty>
-Rule 134   while2 -> <empty>
-Rule 135   while3 -> <empty>
+Rule 110   asigvector -> ID pushid LBRACE pushop ex RBRACE verificatam
+Rule 111   verificatam -> <empty>
+Rule 112   fcall -> ID existfunc LPAREN startera fcall1 RPAREN
+Rule 113   fcall -> ID existfunc LPAREN startera RPAREN
+Rule 114   fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
+Rule 115   fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON
+Rule 116   existfunc -> <empty>
+Rule 117   startera -> <empty>
+Rule 118   fcall1 -> expres generateparam
+Rule 119   fcall1 -> expres generateparam COMA fcall1
+Rule 120   generateparam -> <empty>
+Rule 121   empty -> <empty>
+Rule 122   pushcte -> <empty>
+Rule 123   pushid -> <empty>
+Rule 124   pushop -> <empty>
+Rule 125   popop -> <empty>
+Rule 126   resolverasignacion -> <empty>
+Rule 127   resasignvec -> <empty>
+Rule 128   resfact -> <empty>
+Rule 129   resterm -> <empty>
+Rule 130   resrel -> <empty>
+Rule 131   resif -> <empty>
+Rule 132   reselse -> <empty>
+Rule 133   finif -> <empty>
+Rule 134   while1 -> <empty>
+Rule 135   while2 -> <empty>
+Rule 136   while3 -> <empty>
 
 Terminals, with rules where they appear
 
 AND                  : 100
 BOOL                 : 21 38
 COLON                : 1 2 3 4
-COMA                 : 42 72 118
+COMA                 : 42 72 119
 CTE_F                : 103
 CTE_I                : 22 102
 CTE_S                : 104
@@ -156,14 +157,14 @@ FALSE                : 106
 FIND                 : 108
 FLOAT                : 19 36
 FUNCTION             : 24 25 26 27 28 29 30 31 32 33 34
-ID                   : 17 22 24 25 26 27 28 29 30 31 32 33 34 41 42 65 66 67 76 101 108 109 110 111 112 113 114
+ID                   : 17 22 24 25 26 27 28 29 30 31 32 33 34 41 42 65 66 67 76 101 108 109 110 112 113 114 115
 IF                   : 68 69
 INT                  : 18 35
 LBRACE               : 22 67 108 109 110
 LKEY                 : 24 25 26 27 28 29 30 31 32 33 34 51 52 53 54 68 69 69 75
 LOWEREQ              : 95
 LOWERTHAN            : 93
-LPAREN               : 24 25 26 27 28 29 30 31 32 33 34 68 69 70 75 76 89 108 109 111 112 113 114
+LPAREN               : 24 25 26 27 28 29 30 31 32 33 34 68 69 70 75 76 89 108 109 112 113 114 115
 MAIN                 : 1 2 3 4
 MINUS                : 85 92
 MOREEQ               : 96
@@ -176,9 +177,9 @@ RBRACE               : 22 67 108 109 110
 READ                 : 76
 RETURN               : 48
 RKEY                 : 24 25 26 27 28 29 30 31 32 33 34 51 52 53 54 68 69 69 75
-RPAREN               : 24 25 26 27 28 29 30 31 32 33 34 68 69 70 75 76 89 108 109 111 112 113 114
+RPAREN               : 24 25 26 27 28 29 30 31 32 33 34 68 69 70 75 76 89 108 109 112 113 114 115
 SAME                 : 97
-SEMICOLON            : 17 22 48 65 66 67 70 76 108 109 113 114
+SEMICOLON            : 17 22 48 65 66 67 70 76 108 109 114 115
 SORT                 : 109
 STRING               : 20 37
 TIMES                : 87
@@ -205,12 +206,12 @@ escrit2              : 72
 escriti              : 70 72
 estat                : 55 56
 ex                   : 80 81 84 85 108 110
-existfunc            : 111 112 113 114
-expres               : 48 66 67 68 69 71 72 75 79 89 117 118
+existfunc            : 112 113 114 115
+expres               : 48 66 67 68 69 71 72 75 79 89 118 119
 exr                  : 67 78 79 81
 fact                 : 86 87 88
 fcall                : 65
-fcall1               : 111 113 118
+fcall1               : 112 114 119
 fcallvoid            : 62
 findvec              : 63
 finglobal            : 1 2 3
@@ -219,7 +220,7 @@ finmain              : 1 2 3 4
 funci                : 24 25 26 27 42
 function             : 8 9
 functype             : 24 25 28 30 33 34
-generateparam        : 117 118
+generateparam        : 118 119
 global               : 1 2 3
 gotomain             : 1 2 3 4
 initvector           : 22
@@ -235,7 +236,7 @@ program2             : 1 2 6
 program3             : 1 3 8
 pushcte              : 102 103 104 105 106
 pushid               : 65 66 76 101 110
-pushop               : 48 65 66 67 70 76 84 85 87 88 89 91 92 108 109
+pushop               : 48 65 66 67 70 76 84 85 87 88 89 91 92 108 109 110
 pushvoid             : 26 27 29 31 32
 readid               : 76
 rel                  : 81
@@ -250,13 +251,14 @@ resreturn            : 48
 resterm              : 83 84 85
 return1              : 24 25 30 33
 sorti                : 64
-startera             : 111 112 113 114
+startera             : 112 113 114 115
 sumparam             : 41 42
 term                 : 83 84 85 87 88
 tipo                 : 17 22 41 42
 var                  : 11 43 45
 var_cte              : 90 91 92
 vector               : 12 44 46
+verificatam          : 110
 while1               : 75
 while2               : 75
 while3               : 75
@@ -761,8 +763,8 @@ state 41
     (70) escrit -> . PRINT pushop LPAREN escriti RPAREN SEMICOLON
     (75) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
     (76) leer -> . READ pushop LPAREN ID pushid RPAREN readid SEMICOLON
-    (113) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
-    (114) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
+    (114) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
+    (115) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
     (108) findvec -> . FIND pushop LPAREN ID LBRACE ex RBRACE RPAREN SEMICOLON
     (109) sorti -> . SORT pushop LPAREN ID LBRACE RBRACE RPAREN SEMICOLON
 
@@ -904,8 +906,8 @@ state 51
     (70) escrit -> . PRINT pushop LPAREN escriti RPAREN SEMICOLON
     (75) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
     (76) leer -> . READ pushop LPAREN ID pushid RPAREN readid SEMICOLON
-    (113) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
-    (114) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
+    (114) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
+    (115) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
     (108) findvec -> . FIND pushop LPAREN ID LBRACE ex RBRACE RPAREN SEMICOLON
     (109) sorti -> . SORT pushop LPAREN ID LBRACE RBRACE RPAREN SEMICOLON
 
@@ -1010,8 +1012,8 @@ state 55
     (70) escrit -> . PRINT pushop LPAREN escriti RPAREN SEMICOLON
     (75) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
     (76) leer -> . READ pushop LPAREN ID pushid RPAREN readid SEMICOLON
-    (113) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
-    (114) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
+    (114) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
+    (115) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
     (108) findvec -> . FIND pushop LPAREN ID LBRACE ex RBRACE RPAREN SEMICOLON
     (109) sorti -> . SORT pushop LPAREN ID LBRACE RBRACE RPAREN SEMICOLON
 
@@ -1041,14 +1043,14 @@ state 56
     (65) asign -> ID . pushid EQUAL pushop fcall SEMICOLON
     (66) asign -> ID . pushid EQUAL pushop expres resolverasignacion SEMICOLON
     (67) asign -> ID . LBRACE exr RBRACE EQUAL pushop expres resasignvec SEMICOLON
-    (113) fcallvoid -> ID . existfunc LPAREN startera fcall1 RPAREN SEMICOLON
-    (114) fcallvoid -> ID . existfunc LPAREN startera RPAREN SEMICOLON
-    (122) pushid -> .
-    (115) existfunc -> .
+    (114) fcallvoid -> ID . existfunc LPAREN startera fcall1 RPAREN SEMICOLON
+    (115) fcallvoid -> ID . existfunc LPAREN startera RPAREN SEMICOLON
+    (123) pushid -> .
+    (116) existfunc -> .
 
     LBRACE          shift and go to state 84
-    EQUAL           reduce using rule 122 (pushid -> .)
-    LPAREN          reduce using rule 115 (existfunc -> .)
+    EQUAL           reduce using rule 123 (pushid -> .)
+    LPAREN          reduce using rule 116 (existfunc -> .)
 
     pushid                         shift and go to state 83
     existfunc                      shift and go to state 85
@@ -1184,45 +1186,45 @@ state 65
 state 66
 
     (70) escrit -> PRINT . pushop LPAREN escriti RPAREN SEMICOLON
-    (123) pushop -> .
+    (124) pushop -> .
 
-    LPAREN          reduce using rule 123 (pushop -> .)
+    LPAREN          reduce using rule 124 (pushop -> .)
 
     pushop                         shift and go to state 87
 
 state 67
 
     (75) ciclo -> WHILE . while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
-    (133) while1 -> .
+    (134) while1 -> .
 
-    LPAREN          reduce using rule 133 (while1 -> .)
+    LPAREN          reduce using rule 134 (while1 -> .)
 
     while1                         shift and go to state 88
 
 state 68
 
     (76) leer -> READ . pushop LPAREN ID pushid RPAREN readid SEMICOLON
-    (123) pushop -> .
+    (124) pushop -> .
 
-    LPAREN          reduce using rule 123 (pushop -> .)
+    LPAREN          reduce using rule 124 (pushop -> .)
 
     pushop                         shift and go to state 89
 
 state 69
 
     (108) findvec -> FIND . pushop LPAREN ID LBRACE ex RBRACE RPAREN SEMICOLON
-    (123) pushop -> .
+    (124) pushop -> .
 
-    LPAREN          reduce using rule 123 (pushop -> .)
+    LPAREN          reduce using rule 124 (pushop -> .)
 
     pushop                         shift and go to state 90
 
 state 70
 
     (109) sorti -> SORT . pushop LPAREN ID LBRACE RBRACE RPAREN SEMICOLON
-    (123) pushop -> .
+    (124) pushop -> .
 
-    LPAREN          reduce using rule 123 (pushop -> .)
+    LPAREN          reduce using rule 124 (pushop -> .)
 
     pushop                         shift and go to state 91
 
@@ -1376,7 +1378,7 @@ state 84
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     LPAREN          shift and go to state 107
     PLUS            shift and go to state 104
@@ -1397,8 +1399,8 @@ state 84
 
 state 85
 
-    (113) fcallvoid -> ID existfunc . LPAREN startera fcall1 RPAREN SEMICOLON
-    (114) fcallvoid -> ID existfunc . LPAREN startera RPAREN SEMICOLON
+    (114) fcallvoid -> ID existfunc . LPAREN startera fcall1 RPAREN SEMICOLON
+    (115) fcallvoid -> ID existfunc . LPAREN startera RPAREN SEMICOLON
 
     LPAREN          shift and go to state 115
 
@@ -1428,7 +1430,7 @@ state 86
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     LPAREN          shift and go to state 107
     PLUS            shift and go to state 104
@@ -1578,43 +1580,43 @@ state 99
 
     (65) asign -> ID pushid EQUAL . pushop fcall SEMICOLON
     (66) asign -> ID pushid EQUAL . pushop expres resolverasignacion SEMICOLON
-    (123) pushop -> .
+    (124) pushop -> .
 
-    ID              reduce using rule 123 (pushop -> .)
-    LPAREN          reduce using rule 123 (pushop -> .)
-    PLUS            reduce using rule 123 (pushop -> .)
-    MINUS           reduce using rule 123 (pushop -> .)
-    CTE_I           reduce using rule 123 (pushop -> .)
-    CTE_F           reduce using rule 123 (pushop -> .)
-    CTE_S           reduce using rule 123 (pushop -> .)
-    TRUE            reduce using rule 123 (pushop -> .)
-    FALSE           reduce using rule 123 (pushop -> .)
+    ID              reduce using rule 124 (pushop -> .)
+    LPAREN          reduce using rule 124 (pushop -> .)
+    PLUS            reduce using rule 124 (pushop -> .)
+    MINUS           reduce using rule 124 (pushop -> .)
+    CTE_I           reduce using rule 124 (pushop -> .)
+    CTE_F           reduce using rule 124 (pushop -> .)
+    CTE_S           reduce using rule 124 (pushop -> .)
+    TRUE            reduce using rule 124 (pushop -> .)
+    FALSE           reduce using rule 124 (pushop -> .)
 
     pushop                         shift and go to state 132
 
 state 100
 
     (101) var_cte -> ID . pushid
-    (110) asigvector -> ID . pushid LBRACE ex RBRACE
-    (122) pushid -> .
+    (110) asigvector -> ID . pushid LBRACE pushop ex RBRACE verificatam
+    (123) pushid -> .
 
-    LBRACE          reduce using rule 122 (pushid -> .)
-    TIMES           reduce using rule 122 (pushid -> .)
-    DIVIDE          reduce using rule 122 (pushid -> .)
-    PLUS            reduce using rule 122 (pushid -> .)
-    MINUS           reduce using rule 122 (pushid -> .)
-    LOWERTHAN       reduce using rule 122 (pushid -> .)
-    MORETHAN        reduce using rule 122 (pushid -> .)
-    LOWEREQ         reduce using rule 122 (pushid -> .)
-    MOREEQ          reduce using rule 122 (pushid -> .)
-    SAME            reduce using rule 122 (pushid -> .)
-    DIFFERENT       reduce using rule 122 (pushid -> .)
-    RBRACE          reduce using rule 122 (pushid -> .)
-    OR              reduce using rule 122 (pushid -> .)
-    AND             reduce using rule 122 (pushid -> .)
-    RPAREN          reduce using rule 122 (pushid -> .)
-    COMA            reduce using rule 122 (pushid -> .)
-    SEMICOLON       reduce using rule 122 (pushid -> .)
+    LBRACE          reduce using rule 123 (pushid -> .)
+    TIMES           reduce using rule 123 (pushid -> .)
+    DIVIDE          reduce using rule 123 (pushid -> .)
+    PLUS            reduce using rule 123 (pushid -> .)
+    MINUS           reduce using rule 123 (pushid -> .)
+    LOWERTHAN       reduce using rule 123 (pushid -> .)
+    MORETHAN        reduce using rule 123 (pushid -> .)
+    LOWEREQ         reduce using rule 123 (pushid -> .)
+    MOREEQ          reduce using rule 123 (pushid -> .)
+    SAME            reduce using rule 123 (pushid -> .)
+    DIFFERENT       reduce using rule 123 (pushid -> .)
+    RBRACE          reduce using rule 123 (pushid -> .)
+    OR              reduce using rule 123 (pushid -> .)
+    AND             reduce using rule 123 (pushid -> .)
+    RPAREN          reduce using rule 123 (pushid -> .)
+    COMA            reduce using rule 123 (pushid -> .)
+    SEMICOLON       reduce using rule 123 (pushid -> .)
 
     pushid                         shift and go to state 133
 
@@ -1656,50 +1658,50 @@ state 103
     (83) ex -> term . resterm
     (84) ex -> term . resterm PLUS pushop ex
     (85) ex -> term . resterm MINUS pushop ex
-    (128) resterm -> .
+    (129) resterm -> .
 
-    PLUS            reduce using rule 128 (resterm -> .)
-    MINUS           reduce using rule 128 (resterm -> .)
-    LOWERTHAN       reduce using rule 128 (resterm -> .)
-    MORETHAN        reduce using rule 128 (resterm -> .)
-    LOWEREQ         reduce using rule 128 (resterm -> .)
-    MOREEQ          reduce using rule 128 (resterm -> .)
-    SAME            reduce using rule 128 (resterm -> .)
-    DIFFERENT       reduce using rule 128 (resterm -> .)
-    RBRACE          reduce using rule 128 (resterm -> .)
-    OR              reduce using rule 128 (resterm -> .)
-    AND             reduce using rule 128 (resterm -> .)
-    RPAREN          reduce using rule 128 (resterm -> .)
-    COMA            reduce using rule 128 (resterm -> .)
-    SEMICOLON       reduce using rule 128 (resterm -> .)
+    PLUS            reduce using rule 129 (resterm -> .)
+    MINUS           reduce using rule 129 (resterm -> .)
+    LOWERTHAN       reduce using rule 129 (resterm -> .)
+    MORETHAN        reduce using rule 129 (resterm -> .)
+    LOWEREQ         reduce using rule 129 (resterm -> .)
+    MOREEQ          reduce using rule 129 (resterm -> .)
+    SAME            reduce using rule 129 (resterm -> .)
+    DIFFERENT       reduce using rule 129 (resterm -> .)
+    RBRACE          reduce using rule 129 (resterm -> .)
+    OR              reduce using rule 129 (resterm -> .)
+    AND             reduce using rule 129 (resterm -> .)
+    RPAREN          reduce using rule 129 (resterm -> .)
+    COMA            reduce using rule 129 (resterm -> .)
+    SEMICOLON       reduce using rule 129 (resterm -> .)
 
     resterm                        shift and go to state 142
 
 state 104
 
     (91) fact -> PLUS . pushop var_cte
-    (123) pushop -> .
+    (124) pushop -> .
 
-    ID              reduce using rule 123 (pushop -> .)
-    CTE_I           reduce using rule 123 (pushop -> .)
-    CTE_F           reduce using rule 123 (pushop -> .)
-    CTE_S           reduce using rule 123 (pushop -> .)
-    TRUE            reduce using rule 123 (pushop -> .)
-    FALSE           reduce using rule 123 (pushop -> .)
+    ID              reduce using rule 124 (pushop -> .)
+    CTE_I           reduce using rule 124 (pushop -> .)
+    CTE_F           reduce using rule 124 (pushop -> .)
+    CTE_S           reduce using rule 124 (pushop -> .)
+    TRUE            reduce using rule 124 (pushop -> .)
+    FALSE           reduce using rule 124 (pushop -> .)
 
     pushop                         shift and go to state 143
 
 state 105
 
     (92) fact -> MINUS . pushop var_cte
-    (123) pushop -> .
+    (124) pushop -> .
 
-    ID              reduce using rule 123 (pushop -> .)
-    CTE_I           reduce using rule 123 (pushop -> .)
-    CTE_F           reduce using rule 123 (pushop -> .)
-    CTE_S           reduce using rule 123 (pushop -> .)
-    TRUE            reduce using rule 123 (pushop -> .)
-    FALSE           reduce using rule 123 (pushop -> .)
+    ID              reduce using rule 124 (pushop -> .)
+    CTE_I           reduce using rule 124 (pushop -> .)
+    CTE_F           reduce using rule 124 (pushop -> .)
+    CTE_S           reduce using rule 124 (pushop -> .)
+    TRUE            reduce using rule 124 (pushop -> .)
+    FALSE           reduce using rule 124 (pushop -> .)
 
     pushop                         shift and go to state 144
 
@@ -1708,41 +1710,41 @@ state 106
     (86) term -> fact . resfact
     (87) term -> fact . resfact TIMES pushop term
     (88) term -> fact . resfact DIVIDE pushop term
-    (127) resfact -> .
+    (128) resfact -> .
 
-    TIMES           reduce using rule 127 (resfact -> .)
-    DIVIDE          reduce using rule 127 (resfact -> .)
-    PLUS            reduce using rule 127 (resfact -> .)
-    MINUS           reduce using rule 127 (resfact -> .)
-    LOWERTHAN       reduce using rule 127 (resfact -> .)
-    MORETHAN        reduce using rule 127 (resfact -> .)
-    LOWEREQ         reduce using rule 127 (resfact -> .)
-    MOREEQ          reduce using rule 127 (resfact -> .)
-    SAME            reduce using rule 127 (resfact -> .)
-    DIFFERENT       reduce using rule 127 (resfact -> .)
-    RBRACE          reduce using rule 127 (resfact -> .)
-    OR              reduce using rule 127 (resfact -> .)
-    AND             reduce using rule 127 (resfact -> .)
-    RPAREN          reduce using rule 127 (resfact -> .)
-    COMA            reduce using rule 127 (resfact -> .)
-    SEMICOLON       reduce using rule 127 (resfact -> .)
+    TIMES           reduce using rule 128 (resfact -> .)
+    DIVIDE          reduce using rule 128 (resfact -> .)
+    PLUS            reduce using rule 128 (resfact -> .)
+    MINUS           reduce using rule 128 (resfact -> .)
+    LOWERTHAN       reduce using rule 128 (resfact -> .)
+    MORETHAN        reduce using rule 128 (resfact -> .)
+    LOWEREQ         reduce using rule 128 (resfact -> .)
+    MOREEQ          reduce using rule 128 (resfact -> .)
+    SAME            reduce using rule 128 (resfact -> .)
+    DIFFERENT       reduce using rule 128 (resfact -> .)
+    RBRACE          reduce using rule 128 (resfact -> .)
+    OR              reduce using rule 128 (resfact -> .)
+    AND             reduce using rule 128 (resfact -> .)
+    RPAREN          reduce using rule 128 (resfact -> .)
+    COMA            reduce using rule 128 (resfact -> .)
+    SEMICOLON       reduce using rule 128 (resfact -> .)
 
     resfact                        shift and go to state 145
 
 state 107
 
     (89) fact -> LPAREN . pushop expres RPAREN popop
-    (123) pushop -> .
+    (124) pushop -> .
 
-    LPAREN          reduce using rule 123 (pushop -> .)
-    PLUS            reduce using rule 123 (pushop -> .)
-    MINUS           reduce using rule 123 (pushop -> .)
-    ID              reduce using rule 123 (pushop -> .)
-    CTE_I           reduce using rule 123 (pushop -> .)
-    CTE_F           reduce using rule 123 (pushop -> .)
-    CTE_S           reduce using rule 123 (pushop -> .)
-    TRUE            reduce using rule 123 (pushop -> .)
-    FALSE           reduce using rule 123 (pushop -> .)
+    LPAREN          reduce using rule 124 (pushop -> .)
+    PLUS            reduce using rule 124 (pushop -> .)
+    MINUS           reduce using rule 124 (pushop -> .)
+    ID              reduce using rule 124 (pushop -> .)
+    CTE_I           reduce using rule 124 (pushop -> .)
+    CTE_F           reduce using rule 124 (pushop -> .)
+    CTE_S           reduce using rule 124 (pushop -> .)
+    TRUE            reduce using rule 124 (pushop -> .)
+    FALSE           reduce using rule 124 (pushop -> .)
 
     pushop                         shift and go to state 146
 
@@ -1771,120 +1773,120 @@ state 108
 state 109
 
     (102) var_cte -> CTE_I . pushcte
-    (121) pushcte -> .
+    (122) pushcte -> .
 
-    TIMES           reduce using rule 121 (pushcte -> .)
-    DIVIDE          reduce using rule 121 (pushcte -> .)
-    PLUS            reduce using rule 121 (pushcte -> .)
-    MINUS           reduce using rule 121 (pushcte -> .)
-    LOWERTHAN       reduce using rule 121 (pushcte -> .)
-    MORETHAN        reduce using rule 121 (pushcte -> .)
-    LOWEREQ         reduce using rule 121 (pushcte -> .)
-    MOREEQ          reduce using rule 121 (pushcte -> .)
-    SAME            reduce using rule 121 (pushcte -> .)
-    DIFFERENT       reduce using rule 121 (pushcte -> .)
-    RBRACE          reduce using rule 121 (pushcte -> .)
-    OR              reduce using rule 121 (pushcte -> .)
-    AND             reduce using rule 121 (pushcte -> .)
-    RPAREN          reduce using rule 121 (pushcte -> .)
-    COMA            reduce using rule 121 (pushcte -> .)
-    SEMICOLON       reduce using rule 121 (pushcte -> .)
+    TIMES           reduce using rule 122 (pushcte -> .)
+    DIVIDE          reduce using rule 122 (pushcte -> .)
+    PLUS            reduce using rule 122 (pushcte -> .)
+    MINUS           reduce using rule 122 (pushcte -> .)
+    LOWERTHAN       reduce using rule 122 (pushcte -> .)
+    MORETHAN        reduce using rule 122 (pushcte -> .)
+    LOWEREQ         reduce using rule 122 (pushcte -> .)
+    MOREEQ          reduce using rule 122 (pushcte -> .)
+    SAME            reduce using rule 122 (pushcte -> .)
+    DIFFERENT       reduce using rule 122 (pushcte -> .)
+    RBRACE          reduce using rule 122 (pushcte -> .)
+    OR              reduce using rule 122 (pushcte -> .)
+    AND             reduce using rule 122 (pushcte -> .)
+    RPAREN          reduce using rule 122 (pushcte -> .)
+    COMA            reduce using rule 122 (pushcte -> .)
+    SEMICOLON       reduce using rule 122 (pushcte -> .)
 
     pushcte                        shift and go to state 147
 
 state 110
 
     (103) var_cte -> CTE_F . pushcte
-    (121) pushcte -> .
+    (122) pushcte -> .
 
-    TIMES           reduce using rule 121 (pushcte -> .)
-    DIVIDE          reduce using rule 121 (pushcte -> .)
-    PLUS            reduce using rule 121 (pushcte -> .)
-    MINUS           reduce using rule 121 (pushcte -> .)
-    LOWERTHAN       reduce using rule 121 (pushcte -> .)
-    MORETHAN        reduce using rule 121 (pushcte -> .)
-    LOWEREQ         reduce using rule 121 (pushcte -> .)
-    MOREEQ          reduce using rule 121 (pushcte -> .)
-    SAME            reduce using rule 121 (pushcte -> .)
-    DIFFERENT       reduce using rule 121 (pushcte -> .)
-    RBRACE          reduce using rule 121 (pushcte -> .)
-    OR              reduce using rule 121 (pushcte -> .)
-    AND             reduce using rule 121 (pushcte -> .)
-    RPAREN          reduce using rule 121 (pushcte -> .)
-    COMA            reduce using rule 121 (pushcte -> .)
-    SEMICOLON       reduce using rule 121 (pushcte -> .)
+    TIMES           reduce using rule 122 (pushcte -> .)
+    DIVIDE          reduce using rule 122 (pushcte -> .)
+    PLUS            reduce using rule 122 (pushcte -> .)
+    MINUS           reduce using rule 122 (pushcte -> .)
+    LOWERTHAN       reduce using rule 122 (pushcte -> .)
+    MORETHAN        reduce using rule 122 (pushcte -> .)
+    LOWEREQ         reduce using rule 122 (pushcte -> .)
+    MOREEQ          reduce using rule 122 (pushcte -> .)
+    SAME            reduce using rule 122 (pushcte -> .)
+    DIFFERENT       reduce using rule 122 (pushcte -> .)
+    RBRACE          reduce using rule 122 (pushcte -> .)
+    OR              reduce using rule 122 (pushcte -> .)
+    AND             reduce using rule 122 (pushcte -> .)
+    RPAREN          reduce using rule 122 (pushcte -> .)
+    COMA            reduce using rule 122 (pushcte -> .)
+    SEMICOLON       reduce using rule 122 (pushcte -> .)
 
     pushcte                        shift and go to state 148
 
 state 111
 
     (104) var_cte -> CTE_S . pushcte
-    (121) pushcte -> .
+    (122) pushcte -> .
 
-    TIMES           reduce using rule 121 (pushcte -> .)
-    DIVIDE          reduce using rule 121 (pushcte -> .)
-    PLUS            reduce using rule 121 (pushcte -> .)
-    MINUS           reduce using rule 121 (pushcte -> .)
-    LOWERTHAN       reduce using rule 121 (pushcte -> .)
-    MORETHAN        reduce using rule 121 (pushcte -> .)
-    LOWEREQ         reduce using rule 121 (pushcte -> .)
-    MOREEQ          reduce using rule 121 (pushcte -> .)
-    SAME            reduce using rule 121 (pushcte -> .)
-    DIFFERENT       reduce using rule 121 (pushcte -> .)
-    RBRACE          reduce using rule 121 (pushcte -> .)
-    OR              reduce using rule 121 (pushcte -> .)
-    AND             reduce using rule 121 (pushcte -> .)
-    RPAREN          reduce using rule 121 (pushcte -> .)
-    COMA            reduce using rule 121 (pushcte -> .)
-    SEMICOLON       reduce using rule 121 (pushcte -> .)
+    TIMES           reduce using rule 122 (pushcte -> .)
+    DIVIDE          reduce using rule 122 (pushcte -> .)
+    PLUS            reduce using rule 122 (pushcte -> .)
+    MINUS           reduce using rule 122 (pushcte -> .)
+    LOWERTHAN       reduce using rule 122 (pushcte -> .)
+    MORETHAN        reduce using rule 122 (pushcte -> .)
+    LOWEREQ         reduce using rule 122 (pushcte -> .)
+    MOREEQ          reduce using rule 122 (pushcte -> .)
+    SAME            reduce using rule 122 (pushcte -> .)
+    DIFFERENT       reduce using rule 122 (pushcte -> .)
+    RBRACE          reduce using rule 122 (pushcte -> .)
+    OR              reduce using rule 122 (pushcte -> .)
+    AND             reduce using rule 122 (pushcte -> .)
+    RPAREN          reduce using rule 122 (pushcte -> .)
+    COMA            reduce using rule 122 (pushcte -> .)
+    SEMICOLON       reduce using rule 122 (pushcte -> .)
 
     pushcte                        shift and go to state 149
 
 state 112
 
     (105) var_cte -> TRUE . pushcte
-    (121) pushcte -> .
+    (122) pushcte -> .
 
-    TIMES           reduce using rule 121 (pushcte -> .)
-    DIVIDE          reduce using rule 121 (pushcte -> .)
-    PLUS            reduce using rule 121 (pushcte -> .)
-    MINUS           reduce using rule 121 (pushcte -> .)
-    LOWERTHAN       reduce using rule 121 (pushcte -> .)
-    MORETHAN        reduce using rule 121 (pushcte -> .)
-    LOWEREQ         reduce using rule 121 (pushcte -> .)
-    MOREEQ          reduce using rule 121 (pushcte -> .)
-    SAME            reduce using rule 121 (pushcte -> .)
-    DIFFERENT       reduce using rule 121 (pushcte -> .)
-    RBRACE          reduce using rule 121 (pushcte -> .)
-    OR              reduce using rule 121 (pushcte -> .)
-    AND             reduce using rule 121 (pushcte -> .)
-    RPAREN          reduce using rule 121 (pushcte -> .)
-    COMA            reduce using rule 121 (pushcte -> .)
-    SEMICOLON       reduce using rule 121 (pushcte -> .)
+    TIMES           reduce using rule 122 (pushcte -> .)
+    DIVIDE          reduce using rule 122 (pushcte -> .)
+    PLUS            reduce using rule 122 (pushcte -> .)
+    MINUS           reduce using rule 122 (pushcte -> .)
+    LOWERTHAN       reduce using rule 122 (pushcte -> .)
+    MORETHAN        reduce using rule 122 (pushcte -> .)
+    LOWEREQ         reduce using rule 122 (pushcte -> .)
+    MOREEQ          reduce using rule 122 (pushcte -> .)
+    SAME            reduce using rule 122 (pushcte -> .)
+    DIFFERENT       reduce using rule 122 (pushcte -> .)
+    RBRACE          reduce using rule 122 (pushcte -> .)
+    OR              reduce using rule 122 (pushcte -> .)
+    AND             reduce using rule 122 (pushcte -> .)
+    RPAREN          reduce using rule 122 (pushcte -> .)
+    COMA            reduce using rule 122 (pushcte -> .)
+    SEMICOLON       reduce using rule 122 (pushcte -> .)
 
     pushcte                        shift and go to state 150
 
 state 113
 
     (106) var_cte -> FALSE . pushcte
-    (121) pushcte -> .
+    (122) pushcte -> .
 
-    TIMES           reduce using rule 121 (pushcte -> .)
-    DIVIDE          reduce using rule 121 (pushcte -> .)
-    PLUS            reduce using rule 121 (pushcte -> .)
-    MINUS           reduce using rule 121 (pushcte -> .)
-    LOWERTHAN       reduce using rule 121 (pushcte -> .)
-    MORETHAN        reduce using rule 121 (pushcte -> .)
-    LOWEREQ         reduce using rule 121 (pushcte -> .)
-    MOREEQ          reduce using rule 121 (pushcte -> .)
-    SAME            reduce using rule 121 (pushcte -> .)
-    DIFFERENT       reduce using rule 121 (pushcte -> .)
-    RBRACE          reduce using rule 121 (pushcte -> .)
-    OR              reduce using rule 121 (pushcte -> .)
-    AND             reduce using rule 121 (pushcte -> .)
-    RPAREN          reduce using rule 121 (pushcte -> .)
-    COMA            reduce using rule 121 (pushcte -> .)
-    SEMICOLON       reduce using rule 121 (pushcte -> .)
+    TIMES           reduce using rule 122 (pushcte -> .)
+    DIVIDE          reduce using rule 122 (pushcte -> .)
+    PLUS            reduce using rule 122 (pushcte -> .)
+    MINUS           reduce using rule 122 (pushcte -> .)
+    LOWERTHAN       reduce using rule 122 (pushcte -> .)
+    MORETHAN        reduce using rule 122 (pushcte -> .)
+    LOWEREQ         reduce using rule 122 (pushcte -> .)
+    MOREEQ          reduce using rule 122 (pushcte -> .)
+    SAME            reduce using rule 122 (pushcte -> .)
+    DIFFERENT       reduce using rule 122 (pushcte -> .)
+    RBRACE          reduce using rule 122 (pushcte -> .)
+    OR              reduce using rule 122 (pushcte -> .)
+    AND             reduce using rule 122 (pushcte -> .)
+    RPAREN          reduce using rule 122 (pushcte -> .)
+    COMA            reduce using rule 122 (pushcte -> .)
+    SEMICOLON       reduce using rule 122 (pushcte -> .)
 
     pushcte                        shift and go to state 151
 
@@ -1912,20 +1914,20 @@ state 114
 
 state 115
 
-    (113) fcallvoid -> ID existfunc LPAREN . startera fcall1 RPAREN SEMICOLON
-    (114) fcallvoid -> ID existfunc LPAREN . startera RPAREN SEMICOLON
-    (116) startera -> .
+    (114) fcallvoid -> ID existfunc LPAREN . startera fcall1 RPAREN SEMICOLON
+    (115) fcallvoid -> ID existfunc LPAREN . startera RPAREN SEMICOLON
+    (117) startera -> .
 
-    RPAREN          reduce using rule 116 (startera -> .)
-    LPAREN          reduce using rule 116 (startera -> .)
-    PLUS            reduce using rule 116 (startera -> .)
-    MINUS           reduce using rule 116 (startera -> .)
-    ID              reduce using rule 116 (startera -> .)
-    CTE_I           reduce using rule 116 (startera -> .)
-    CTE_F           reduce using rule 116 (startera -> .)
-    CTE_S           reduce using rule 116 (startera -> .)
-    TRUE            reduce using rule 116 (startera -> .)
-    FALSE           reduce using rule 116 (startera -> .)
+    RPAREN          reduce using rule 117 (startera -> .)
+    LPAREN          reduce using rule 117 (startera -> .)
+    PLUS            reduce using rule 117 (startera -> .)
+    MINUS           reduce using rule 117 (startera -> .)
+    ID              reduce using rule 117 (startera -> .)
+    CTE_I           reduce using rule 117 (startera -> .)
+    CTE_F           reduce using rule 117 (startera -> .)
+    CTE_S           reduce using rule 117 (startera -> .)
+    TRUE            reduce using rule 117 (startera -> .)
+    FALSE           reduce using rule 117 (startera -> .)
 
     startera                       shift and go to state 152
 
@@ -1978,7 +1980,7 @@ state 118
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     LPAREN          shift and go to state 107
     PLUS            shift and go to state 104
@@ -2023,7 +2025,7 @@ state 119
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     LPAREN          shift and go to state 107
     PLUS            shift and go to state 104
@@ -2141,8 +2143,8 @@ state 132
 
     (65) asign -> ID pushid EQUAL pushop . fcall SEMICOLON
     (66) asign -> ID pushid EQUAL pushop . expres resolverasignacion SEMICOLON
-    (111) fcall -> . ID existfunc LPAREN startera fcall1 RPAREN
-    (112) fcall -> . ID existfunc LPAREN startera RPAREN
+    (112) fcall -> . ID existfunc LPAREN startera fcall1 RPAREN
+    (113) fcall -> . ID existfunc LPAREN startera RPAREN
     (78) expres -> . exr
     (79) expres -> . exr log expres reslog
     (80) exr -> . ex
@@ -2164,7 +2166,7 @@ state 132
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     ID              shift and go to state 170
     LPAREN          shift and go to state 107
@@ -2188,7 +2190,7 @@ state 132
 state 133
 
     (101) var_cte -> ID pushid .
-    (110) asigvector -> ID pushid . LBRACE ex RBRACE
+    (110) asigvector -> ID pushid . LBRACE pushop ex RBRACE verificatam
 
     TIMES           reduce using rule 101 (var_cte -> ID pushid .)
     DIVIDE          reduce using rule 101 (var_cte -> ID pushid .)
@@ -2238,7 +2240,7 @@ state 135
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     LPAREN          shift and go to state 107
     PLUS            shift and go to state 104
@@ -2379,7 +2381,7 @@ state 143
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     ID              shift and go to state 100
     CTE_I           shift and go to state 109
@@ -2401,7 +2403,7 @@ state 144
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     ID              shift and go to state 100
     CTE_I           shift and go to state 109
@@ -2461,7 +2463,7 @@ state 146
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     LPAREN          shift and go to state 107
     PLUS            shift and go to state 104
@@ -2593,10 +2595,10 @@ state 151
 
 state 152
 
-    (113) fcallvoid -> ID existfunc LPAREN startera . fcall1 RPAREN SEMICOLON
-    (114) fcallvoid -> ID existfunc LPAREN startera . RPAREN SEMICOLON
-    (117) fcall1 -> . expres generateparam
-    (118) fcall1 -> . expres generateparam COMA fcall1
+    (114) fcallvoid -> ID existfunc LPAREN startera . fcall1 RPAREN SEMICOLON
+    (115) fcallvoid -> ID existfunc LPAREN startera . RPAREN SEMICOLON
+    (118) fcall1 -> . expres generateparam
+    (119) fcall1 -> . expres generateparam COMA fcall1
     (78) expres -> . exr
     (79) expres -> . exr log expres reslog
     (80) exr -> . ex
@@ -2618,7 +2620,7 @@ state 152
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     RPAREN          shift and go to state 184
     LPAREN          shift and go to state 107
@@ -2672,7 +2674,7 @@ state 154
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     LPAREN          shift and go to state 107
     PLUS            shift and go to state 104
@@ -2752,9 +2754,9 @@ state 159
 state 160
 
     (76) leer -> READ pushop LPAREN ID . pushid RPAREN readid SEMICOLON
-    (122) pushid -> .
+    (123) pushid -> .
 
-    RPAREN          reduce using rule 122 (pushid -> .)
+    RPAREN          reduce using rule 123 (pushid -> .)
 
     pushid                         shift and go to state 192
 
@@ -2817,8 +2819,8 @@ state 165
     (70) escrit -> . PRINT pushop LPAREN escriti RPAREN SEMICOLON
     (75) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
     (76) leer -> . READ pushop LPAREN ID pushid RPAREN readid SEMICOLON
-    (113) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
-    (114) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
+    (114) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
+    (115) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
     (108) findvec -> . FIND pushop LPAREN ID LBRACE ex RBRACE RPAREN SEMICOLON
     (109) sorti -> . SORT pushop LPAREN ID LBRACE RBRACE RPAREN SEMICOLON
 
@@ -2895,8 +2897,8 @@ state 168
     (70) escrit -> . PRINT pushop LPAREN escriti RPAREN SEMICOLON
     (75) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
     (76) leer -> . READ pushop LPAREN ID pushid RPAREN readid SEMICOLON
-    (113) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
-    (114) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
+    (114) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
+    (115) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
     (108) findvec -> . FIND pushop LPAREN ID LBRACE ex RBRACE RPAREN SEMICOLON
     (109) sorti -> . SORT pushop LPAREN ID LBRACE RBRACE RPAREN SEMICOLON
 
@@ -2944,28 +2946,28 @@ state 169
 
 state 170
 
-    (111) fcall -> ID . existfunc LPAREN startera fcall1 RPAREN
-    (112) fcall -> ID . existfunc LPAREN startera RPAREN
+    (112) fcall -> ID . existfunc LPAREN startera fcall1 RPAREN
+    (113) fcall -> ID . existfunc LPAREN startera RPAREN
     (101) var_cte -> ID . pushid
-    (110) asigvector -> ID . pushid LBRACE ex RBRACE
-    (115) existfunc -> .
-    (122) pushid -> .
+    (110) asigvector -> ID . pushid LBRACE pushop ex RBRACE verificatam
+    (116) existfunc -> .
+    (123) pushid -> .
 
-    LPAREN          reduce using rule 115 (existfunc -> .)
-    LBRACE          reduce using rule 122 (pushid -> .)
-    TIMES           reduce using rule 122 (pushid -> .)
-    DIVIDE          reduce using rule 122 (pushid -> .)
-    PLUS            reduce using rule 122 (pushid -> .)
-    MINUS           reduce using rule 122 (pushid -> .)
-    LOWERTHAN       reduce using rule 122 (pushid -> .)
-    MORETHAN        reduce using rule 122 (pushid -> .)
-    LOWEREQ         reduce using rule 122 (pushid -> .)
-    MOREEQ          reduce using rule 122 (pushid -> .)
-    SAME            reduce using rule 122 (pushid -> .)
-    DIFFERENT       reduce using rule 122 (pushid -> .)
-    OR              reduce using rule 122 (pushid -> .)
-    AND             reduce using rule 122 (pushid -> .)
-    SEMICOLON       reduce using rule 122 (pushid -> .)
+    LPAREN          reduce using rule 116 (existfunc -> .)
+    LBRACE          reduce using rule 123 (pushid -> .)
+    TIMES           reduce using rule 123 (pushid -> .)
+    DIVIDE          reduce using rule 123 (pushid -> .)
+    PLUS            reduce using rule 123 (pushid -> .)
+    MINUS           reduce using rule 123 (pushid -> .)
+    LOWERTHAN       reduce using rule 123 (pushid -> .)
+    MORETHAN        reduce using rule 123 (pushid -> .)
+    LOWEREQ         reduce using rule 123 (pushid -> .)
+    MOREEQ          reduce using rule 123 (pushid -> .)
+    SAME            reduce using rule 123 (pushid -> .)
+    DIFFERENT       reduce using rule 123 (pushid -> .)
+    OR              reduce using rule 123 (pushid -> .)
+    AND             reduce using rule 123 (pushid -> .)
+    SEMICOLON       reduce using rule 123 (pushid -> .)
 
     existfunc                      shift and go to state 203
     pushid                         shift and go to state 133
@@ -2980,112 +2982,91 @@ state 171
 state 172
 
     (66) asign -> ID pushid EQUAL pushop expres . resolverasignacion SEMICOLON
-    (125) resolverasignacion -> .
+    (126) resolverasignacion -> .
 
-    SEMICOLON       reduce using rule 125 (resolverasignacion -> .)
+    SEMICOLON       reduce using rule 126 (resolverasignacion -> .)
 
     resolverasignacion             shift and go to state 205
 
 state 173
 
-    (110) asigvector -> ID pushid LBRACE . ex RBRACE
-    (83) ex -> . term resterm
-    (84) ex -> . term resterm PLUS pushop ex
-    (85) ex -> . term resterm MINUS pushop ex
-    (86) term -> . fact resfact
-    (87) term -> . fact resfact TIMES pushop term
-    (88) term -> . fact resfact DIVIDE pushop term
-    (89) fact -> . LPAREN pushop expres RPAREN popop
-    (90) fact -> . var_cte
-    (91) fact -> . PLUS pushop var_cte
-    (92) fact -> . MINUS pushop var_cte
-    (101) var_cte -> . ID pushid
-    (102) var_cte -> . CTE_I pushcte
-    (103) var_cte -> . CTE_F pushcte
-    (104) var_cte -> . CTE_S pushcte
-    (105) var_cte -> . TRUE pushcte
-    (106) var_cte -> . FALSE pushcte
-    (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> ID pushid LBRACE . pushop ex RBRACE verificatam
+    (124) pushop -> .
 
-    LPAREN          shift and go to state 107
-    PLUS            shift and go to state 104
-    MINUS           shift and go to state 105
-    ID              shift and go to state 100
-    CTE_I           shift and go to state 109
-    CTE_F           shift and go to state 110
-    CTE_S           shift and go to state 111
-    TRUE            shift and go to state 112
-    FALSE           shift and go to state 113
+    LPAREN          reduce using rule 124 (pushop -> .)
+    PLUS            reduce using rule 124 (pushop -> .)
+    MINUS           reduce using rule 124 (pushop -> .)
+    ID              reduce using rule 124 (pushop -> .)
+    CTE_I           reduce using rule 124 (pushop -> .)
+    CTE_F           reduce using rule 124 (pushop -> .)
+    CTE_S           reduce using rule 124 (pushop -> .)
+    TRUE            reduce using rule 124 (pushop -> .)
+    FALSE           reduce using rule 124 (pushop -> .)
 
-    ex                             shift and go to state 206
-    term                           shift and go to state 103
-    fact                           shift and go to state 106
-    var_cte                        shift and go to state 108
-    asigvector                     shift and go to state 114
+    pushop                         shift and go to state 206
 
 state 174
 
     (67) asign -> ID LBRACE exr RBRACE EQUAL . pushop expres resasignvec SEMICOLON
-    (123) pushop -> .
+    (124) pushop -> .
 
-    LPAREN          reduce using rule 123 (pushop -> .)
-    PLUS            reduce using rule 123 (pushop -> .)
-    MINUS           reduce using rule 123 (pushop -> .)
-    ID              reduce using rule 123 (pushop -> .)
-    CTE_I           reduce using rule 123 (pushop -> .)
-    CTE_F           reduce using rule 123 (pushop -> .)
-    CTE_S           reduce using rule 123 (pushop -> .)
-    TRUE            reduce using rule 123 (pushop -> .)
-    FALSE           reduce using rule 123 (pushop -> .)
+    LPAREN          reduce using rule 124 (pushop -> .)
+    PLUS            reduce using rule 124 (pushop -> .)
+    MINUS           reduce using rule 124 (pushop -> .)
+    ID              reduce using rule 124 (pushop -> .)
+    CTE_I           reduce using rule 124 (pushop -> .)
+    CTE_F           reduce using rule 124 (pushop -> .)
+    CTE_S           reduce using rule 124 (pushop -> .)
+    TRUE            reduce using rule 124 (pushop -> .)
+    FALSE           reduce using rule 124 (pushop -> .)
 
     pushop                         shift and go to state 207
 
 state 175
 
     (81) exr -> ex rel exr . resrel
-    (129) resrel -> .
+    (130) resrel -> .
 
-    RBRACE          reduce using rule 129 (resrel -> .)
-    OR              reduce using rule 129 (resrel -> .)
-    AND             reduce using rule 129 (resrel -> .)
-    RPAREN          reduce using rule 129 (resrel -> .)
-    COMA            reduce using rule 129 (resrel -> .)
-    SEMICOLON       reduce using rule 129 (resrel -> .)
+    RBRACE          reduce using rule 130 (resrel -> .)
+    OR              reduce using rule 130 (resrel -> .)
+    AND             reduce using rule 130 (resrel -> .)
+    RPAREN          reduce using rule 130 (resrel -> .)
+    COMA            reduce using rule 130 (resrel -> .)
+    SEMICOLON       reduce using rule 130 (resrel -> .)
 
     resrel                         shift and go to state 208
 
 state 176
 
     (84) ex -> term resterm PLUS . pushop ex
-    (123) pushop -> .
+    (124) pushop -> .
 
-    LPAREN          reduce using rule 123 (pushop -> .)
-    PLUS            reduce using rule 123 (pushop -> .)
-    MINUS           reduce using rule 123 (pushop -> .)
-    ID              reduce using rule 123 (pushop -> .)
-    CTE_I           reduce using rule 123 (pushop -> .)
-    CTE_F           reduce using rule 123 (pushop -> .)
-    CTE_S           reduce using rule 123 (pushop -> .)
-    TRUE            reduce using rule 123 (pushop -> .)
-    FALSE           reduce using rule 123 (pushop -> .)
+    LPAREN          reduce using rule 124 (pushop -> .)
+    PLUS            reduce using rule 124 (pushop -> .)
+    MINUS           reduce using rule 124 (pushop -> .)
+    ID              reduce using rule 124 (pushop -> .)
+    CTE_I           reduce using rule 124 (pushop -> .)
+    CTE_F           reduce using rule 124 (pushop -> .)
+    CTE_S           reduce using rule 124 (pushop -> .)
+    TRUE            reduce using rule 124 (pushop -> .)
+    FALSE           reduce using rule 124 (pushop -> .)
 
     pushop                         shift and go to state 209
 
 state 177
 
     (85) ex -> term resterm MINUS . pushop ex
-    (123) pushop -> .
+    (124) pushop -> .
 
-    LPAREN          reduce using rule 123 (pushop -> .)
-    PLUS            reduce using rule 123 (pushop -> .)
-    MINUS           reduce using rule 123 (pushop -> .)
-    ID              reduce using rule 123 (pushop -> .)
-    CTE_I           reduce using rule 123 (pushop -> .)
-    CTE_F           reduce using rule 123 (pushop -> .)
-    CTE_S           reduce using rule 123 (pushop -> .)
-    TRUE            reduce using rule 123 (pushop -> .)
-    FALSE           reduce using rule 123 (pushop -> .)
+    LPAREN          reduce using rule 124 (pushop -> .)
+    PLUS            reduce using rule 124 (pushop -> .)
+    MINUS           reduce using rule 124 (pushop -> .)
+    ID              reduce using rule 124 (pushop -> .)
+    CTE_I           reduce using rule 124 (pushop -> .)
+    CTE_F           reduce using rule 124 (pushop -> .)
+    CTE_S           reduce using rule 124 (pushop -> .)
+    TRUE            reduce using rule 124 (pushop -> .)
+    FALSE           reduce using rule 124 (pushop -> .)
 
     pushop                         shift and go to state 210
 
@@ -3136,34 +3117,34 @@ state 179
 state 180
 
     (87) term -> fact resfact TIMES . pushop term
-    (123) pushop -> .
+    (124) pushop -> .
 
-    LPAREN          reduce using rule 123 (pushop -> .)
-    PLUS            reduce using rule 123 (pushop -> .)
-    MINUS           reduce using rule 123 (pushop -> .)
-    ID              reduce using rule 123 (pushop -> .)
-    CTE_I           reduce using rule 123 (pushop -> .)
-    CTE_F           reduce using rule 123 (pushop -> .)
-    CTE_S           reduce using rule 123 (pushop -> .)
-    TRUE            reduce using rule 123 (pushop -> .)
-    FALSE           reduce using rule 123 (pushop -> .)
+    LPAREN          reduce using rule 124 (pushop -> .)
+    PLUS            reduce using rule 124 (pushop -> .)
+    MINUS           reduce using rule 124 (pushop -> .)
+    ID              reduce using rule 124 (pushop -> .)
+    CTE_I           reduce using rule 124 (pushop -> .)
+    CTE_F           reduce using rule 124 (pushop -> .)
+    CTE_S           reduce using rule 124 (pushop -> .)
+    TRUE            reduce using rule 124 (pushop -> .)
+    FALSE           reduce using rule 124 (pushop -> .)
 
     pushop                         shift and go to state 211
 
 state 181
 
     (88) term -> fact resfact DIVIDE . pushop term
-    (123) pushop -> .
+    (124) pushop -> .
 
-    LPAREN          reduce using rule 123 (pushop -> .)
-    PLUS            reduce using rule 123 (pushop -> .)
-    MINUS           reduce using rule 123 (pushop -> .)
-    ID              reduce using rule 123 (pushop -> .)
-    CTE_I           reduce using rule 123 (pushop -> .)
-    CTE_F           reduce using rule 123 (pushop -> .)
-    CTE_S           reduce using rule 123 (pushop -> .)
-    TRUE            reduce using rule 123 (pushop -> .)
-    FALSE           reduce using rule 123 (pushop -> .)
+    LPAREN          reduce using rule 124 (pushop -> .)
+    PLUS            reduce using rule 124 (pushop -> .)
+    MINUS           reduce using rule 124 (pushop -> .)
+    ID              reduce using rule 124 (pushop -> .)
+    CTE_I           reduce using rule 124 (pushop -> .)
+    CTE_F           reduce using rule 124 (pushop -> .)
+    CTE_S           reduce using rule 124 (pushop -> .)
+    TRUE            reduce using rule 124 (pushop -> .)
+    FALSE           reduce using rule 124 (pushop -> .)
 
     pushop                         shift and go to state 212
 
@@ -3176,26 +3157,26 @@ state 182
 
 state 183
 
-    (113) fcallvoid -> ID existfunc LPAREN startera fcall1 . RPAREN SEMICOLON
+    (114) fcallvoid -> ID existfunc LPAREN startera fcall1 . RPAREN SEMICOLON
 
     RPAREN          shift and go to state 214
 
 
 state 184
 
-    (114) fcallvoid -> ID existfunc LPAREN startera RPAREN . SEMICOLON
+    (115) fcallvoid -> ID existfunc LPAREN startera RPAREN . SEMICOLON
 
     SEMICOLON       shift and go to state 215
 
 
 state 185
 
-    (117) fcall1 -> expres . generateparam
-    (118) fcall1 -> expres . generateparam COMA fcall1
-    (119) generateparam -> .
+    (118) fcall1 -> expres . generateparam
+    (119) fcall1 -> expres . generateparam COMA fcall1
+    (120) generateparam -> .
 
-    COMA            reduce using rule 119 (generateparam -> .)
-    RPAREN          reduce using rule 119 (generateparam -> .)
+    COMA            reduce using rule 120 (generateparam -> .)
+    RPAREN          reduce using rule 120 (generateparam -> .)
 
     generateparam                  shift and go to state 216
 
@@ -3203,15 +3184,15 @@ state 186
 
     (68) cond -> IF LPAREN expres RPAREN LKEY . resif bloq RKEY finif
     (69) cond -> IF LPAREN expres RPAREN LKEY . resif bloq RKEY ELSE LKEY reselse bloq RKEY finif
-    (130) resif -> .
+    (131) resif -> .
 
-    ID              reduce using rule 130 (resif -> .)
-    IF              reduce using rule 130 (resif -> .)
-    PRINT           reduce using rule 130 (resif -> .)
-    WHILE           reduce using rule 130 (resif -> .)
-    READ            reduce using rule 130 (resif -> .)
-    FIND            reduce using rule 130 (resif -> .)
-    SORT            reduce using rule 130 (resif -> .)
+    ID              reduce using rule 131 (resif -> .)
+    IF              reduce using rule 131 (resif -> .)
+    PRINT           reduce using rule 131 (resif -> .)
+    WHILE           reduce using rule 131 (resif -> .)
+    READ            reduce using rule 131 (resif -> .)
+    FIND            reduce using rule 131 (resif -> .)
+    SORT            reduce using rule 131 (resif -> .)
 
     resif                          shift and go to state 217
 
@@ -3250,9 +3231,9 @@ state 190
 state 191
 
     (75) ciclo -> WHILE while1 LPAREN expres RPAREN . while2 LKEY bloq RKEY while3
-    (134) while2 -> .
+    (135) while2 -> .
 
-    LKEY            reduce using rule 134 (while2 -> .)
+    LKEY            reduce using rule 135 (while2 -> .)
 
     while2                         shift and go to state 221
 
@@ -3283,7 +3264,7 @@ state 193
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     LPAREN          shift and go to state 107
     PLUS            shift and go to state 104
@@ -3336,8 +3317,8 @@ state 195
     (70) escrit -> . PRINT pushop LPAREN escriti RPAREN SEMICOLON
     (75) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
     (76) leer -> . READ pushop LPAREN ID pushid RPAREN readid SEMICOLON
-    (113) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
-    (114) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
+    (114) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
+    (115) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
     (108) findvec -> . FIND pushop LPAREN ID LBRACE ex RBRACE RPAREN SEMICOLON
     (109) sorti -> . SORT pushop LPAREN ID LBRACE RBRACE RPAREN SEMICOLON
 
@@ -3387,8 +3368,8 @@ state 196
     (70) escrit -> . PRINT pushop LPAREN escriti RPAREN SEMICOLON
     (75) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
     (76) leer -> . READ pushop LPAREN ID pushid RPAREN readid SEMICOLON
-    (113) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
-    (114) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
+    (114) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
+    (115) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
     (108) findvec -> . FIND pushop LPAREN ID LBRACE ex RBRACE RPAREN SEMICOLON
     (109) sorti -> . SORT pushop LPAREN ID LBRACE RBRACE RPAREN SEMICOLON
 
@@ -3425,10 +3406,10 @@ state 198
     (33) function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY bloq . return1 RKEY
     (48) return1 -> . RETURN pushop expres resreturn SEMICOLON
     (49) return1 -> . empty
-    (120) empty -> .
+    (121) empty -> .
 
     RETURN          shift and go to state 230
-    RKEY            reduce using rule 120 (empty -> .)
+    RKEY            reduce using rule 121 (empty -> .)
 
     return1                        shift and go to state 229
     empty                          shift and go to state 231
@@ -3470,8 +3451,8 @@ state 200
     (70) escrit -> . PRINT pushop LPAREN escriti RPAREN SEMICOLON
     (75) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
     (76) leer -> . READ pushop LPAREN ID pushid RPAREN readid SEMICOLON
-    (113) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
-    (114) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
+    (114) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
+    (115) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
     (108) findvec -> . FIND pushop LPAREN ID LBRACE ex RBRACE RPAREN SEMICOLON
     (109) sorti -> . SORT pushop LPAREN ID LBRACE RBRACE RPAREN SEMICOLON
 
@@ -3521,8 +3502,8 @@ state 201
     (70) escrit -> . PRINT pushop LPAREN escriti RPAREN SEMICOLON
     (75) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
     (76) leer -> . READ pushop LPAREN ID pushid RPAREN readid SEMICOLON
-    (113) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
-    (114) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
+    (114) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
+    (115) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
     (108) findvec -> . FIND pushop LPAREN ID LBRACE ex RBRACE RPAREN SEMICOLON
     (109) sorti -> . SORT pushop LPAREN ID LBRACE RBRACE RPAREN SEMICOLON
 
@@ -3555,8 +3536,8 @@ state 202
 
 state 203
 
-    (111) fcall -> ID existfunc . LPAREN startera fcall1 RPAREN
-    (112) fcall -> ID existfunc . LPAREN startera RPAREN
+    (112) fcall -> ID existfunc . LPAREN startera fcall1 RPAREN
+    (113) fcall -> ID existfunc . LPAREN startera RPAREN
 
     LPAREN          shift and go to state 238
 
@@ -3585,10 +3566,41 @@ state 205
 
 state 206
 
-    (110) asigvector -> ID pushid LBRACE ex . RBRACE
+    (110) asigvector -> ID pushid LBRACE pushop . ex RBRACE verificatam
+    (83) ex -> . term resterm
+    (84) ex -> . term resterm PLUS pushop ex
+    (85) ex -> . term resterm MINUS pushop ex
+    (86) term -> . fact resfact
+    (87) term -> . fact resfact TIMES pushop term
+    (88) term -> . fact resfact DIVIDE pushop term
+    (89) fact -> . LPAREN pushop expres RPAREN popop
+    (90) fact -> . var_cte
+    (91) fact -> . PLUS pushop var_cte
+    (92) fact -> . MINUS pushop var_cte
+    (101) var_cte -> . ID pushid
+    (102) var_cte -> . CTE_I pushcte
+    (103) var_cte -> . CTE_F pushcte
+    (104) var_cte -> . CTE_S pushcte
+    (105) var_cte -> . TRUE pushcte
+    (106) var_cte -> . FALSE pushcte
+    (107) var_cte -> . asigvector
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
-    RBRACE          shift and go to state 240
+    LPAREN          shift and go to state 107
+    PLUS            shift and go to state 104
+    MINUS           shift and go to state 105
+    ID              shift and go to state 100
+    CTE_I           shift and go to state 109
+    CTE_F           shift and go to state 110
+    CTE_S           shift and go to state 111
+    TRUE            shift and go to state 112
+    FALSE           shift and go to state 113
 
+    ex                             shift and go to state 240
+    term                           shift and go to state 103
+    fact                           shift and go to state 106
+    var_cte                        shift and go to state 108
+    asigvector                     shift and go to state 114
 
 state 207
 
@@ -3614,7 +3626,7 @@ state 207
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     LPAREN          shift and go to state 107
     PLUS            shift and go to state 104
@@ -3666,7 +3678,7 @@ state 209
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     LPAREN          shift and go to state 107
     PLUS            shift and go to state 104
@@ -3704,7 +3716,7 @@ state 210
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     LPAREN          shift and go to state 107
     PLUS            shift and go to state 104
@@ -3739,7 +3751,7 @@ state 211
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     LPAREN          shift and go to state 107
     PLUS            shift and go to state 104
@@ -3773,7 +3785,7 @@ state 212
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     LPAREN          shift and go to state 107
     PLUS            shift and go to state 104
@@ -3793,55 +3805,55 @@ state 212
 state 213
 
     (89) fact -> LPAREN pushop expres RPAREN . popop
-    (124) popop -> .
+    (125) popop -> .
 
-    TIMES           reduce using rule 124 (popop -> .)
-    DIVIDE          reduce using rule 124 (popop -> .)
-    PLUS            reduce using rule 124 (popop -> .)
-    MINUS           reduce using rule 124 (popop -> .)
-    LOWERTHAN       reduce using rule 124 (popop -> .)
-    MORETHAN        reduce using rule 124 (popop -> .)
-    LOWEREQ         reduce using rule 124 (popop -> .)
-    MOREEQ          reduce using rule 124 (popop -> .)
-    SAME            reduce using rule 124 (popop -> .)
-    DIFFERENT       reduce using rule 124 (popop -> .)
-    RBRACE          reduce using rule 124 (popop -> .)
-    OR              reduce using rule 124 (popop -> .)
-    AND             reduce using rule 124 (popop -> .)
-    RPAREN          reduce using rule 124 (popop -> .)
-    COMA            reduce using rule 124 (popop -> .)
-    SEMICOLON       reduce using rule 124 (popop -> .)
+    TIMES           reduce using rule 125 (popop -> .)
+    DIVIDE          reduce using rule 125 (popop -> .)
+    PLUS            reduce using rule 125 (popop -> .)
+    MINUS           reduce using rule 125 (popop -> .)
+    LOWERTHAN       reduce using rule 125 (popop -> .)
+    MORETHAN        reduce using rule 125 (popop -> .)
+    LOWEREQ         reduce using rule 125 (popop -> .)
+    MOREEQ          reduce using rule 125 (popop -> .)
+    SAME            reduce using rule 125 (popop -> .)
+    DIFFERENT       reduce using rule 125 (popop -> .)
+    RBRACE          reduce using rule 125 (popop -> .)
+    OR              reduce using rule 125 (popop -> .)
+    AND             reduce using rule 125 (popop -> .)
+    RPAREN          reduce using rule 125 (popop -> .)
+    COMA            reduce using rule 125 (popop -> .)
+    SEMICOLON       reduce using rule 125 (popop -> .)
 
     popop                          shift and go to state 246
 
 state 214
 
-    (113) fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN . SEMICOLON
+    (114) fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN . SEMICOLON
 
     SEMICOLON       shift and go to state 247
 
 
 state 215
 
-    (114) fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .
+    (115) fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .
 
-    ID              reduce using rule 114 (fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .)
-    IF              reduce using rule 114 (fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .)
-    PRINT           reduce using rule 114 (fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .)
-    WHILE           reduce using rule 114 (fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .)
-    READ            reduce using rule 114 (fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .)
-    FIND            reduce using rule 114 (fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .)
-    SORT            reduce using rule 114 (fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .)
-    RKEY            reduce using rule 114 (fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .)
-    RETURN          reduce using rule 114 (fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .)
+    ID              reduce using rule 115 (fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .)
+    IF              reduce using rule 115 (fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .)
+    PRINT           reduce using rule 115 (fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .)
+    WHILE           reduce using rule 115 (fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .)
+    READ            reduce using rule 115 (fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .)
+    FIND            reduce using rule 115 (fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .)
+    SORT            reduce using rule 115 (fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .)
+    RKEY            reduce using rule 115 (fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .)
+    RETURN          reduce using rule 115 (fcallvoid -> ID existfunc LPAREN startera RPAREN SEMICOLON .)
 
 
 state 216
 
-    (117) fcall1 -> expres generateparam .
-    (118) fcall1 -> expres generateparam . COMA fcall1
+    (118) fcall1 -> expres generateparam .
+    (119) fcall1 -> expres generateparam . COMA fcall1
 
-    RPAREN          reduce using rule 117 (fcall1 -> expres generateparam .)
+    RPAREN          reduce using rule 118 (fcall1 -> expres generateparam .)
     COMA            shift and go to state 248
 
 
@@ -3867,8 +3879,8 @@ state 217
     (70) escrit -> . PRINT pushop LPAREN escriti RPAREN SEMICOLON
     (75) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
     (76) leer -> . READ pushop LPAREN ID pushid RPAREN readid SEMICOLON
-    (113) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
-    (114) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
+    (114) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
+    (115) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
     (108) findvec -> . FIND pushop LPAREN ID LBRACE ex RBRACE RPAREN SEMICOLON
     (109) sorti -> . SORT pushop LPAREN ID LBRACE RBRACE RPAREN SEMICOLON
 
@@ -3941,7 +3953,7 @@ state 220
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     LPAREN          shift and go to state 107
     PLUS            shift and go to state 104
@@ -4013,8 +4025,8 @@ state 225
     (70) escrit -> . PRINT pushop LPAREN escriti RPAREN SEMICOLON
     (75) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
     (76) leer -> . READ pushop LPAREN ID pushid RPAREN readid SEMICOLON
-    (113) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
-    (114) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
+    (114) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
+    (115) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
     (108) findvec -> . FIND pushop LPAREN ID LBRACE ex RBRACE RPAREN SEMICOLON
     (109) sorti -> . SORT pushop LPAREN ID LBRACE RBRACE RPAREN SEMICOLON
 
@@ -4042,10 +4054,10 @@ state 226
     (25) function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY bloq . return1 RKEY
     (48) return1 -> . RETURN pushop expres resreturn SEMICOLON
     (49) return1 -> . empty
-    (120) empty -> .
+    (121) empty -> .
 
     RETURN          shift and go to state 230
-    RKEY            reduce using rule 120 (empty -> .)
+    RKEY            reduce using rule 121 (empty -> .)
 
     return1                        shift and go to state 256
     empty                          shift and go to state 231
@@ -4063,10 +4075,10 @@ state 228
     (30) function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq . return1 RKEY
     (48) return1 -> . RETURN pushop expres resreturn SEMICOLON
     (49) return1 -> . empty
-    (120) empty -> .
+    (121) empty -> .
 
     RETURN          shift and go to state 230
-    RKEY            reduce using rule 120 (empty -> .)
+    RKEY            reduce using rule 121 (empty -> .)
 
     return1                        shift and go to state 257
     empty                          shift and go to state 231
@@ -4081,17 +4093,17 @@ state 229
 state 230
 
     (48) return1 -> RETURN . pushop expres resreturn SEMICOLON
-    (123) pushop -> .
+    (124) pushop -> .
 
-    LPAREN          reduce using rule 123 (pushop -> .)
-    PLUS            reduce using rule 123 (pushop -> .)
-    MINUS           reduce using rule 123 (pushop -> .)
-    ID              reduce using rule 123 (pushop -> .)
-    CTE_I           reduce using rule 123 (pushop -> .)
-    CTE_F           reduce using rule 123 (pushop -> .)
-    CTE_S           reduce using rule 123 (pushop -> .)
-    TRUE            reduce using rule 123 (pushop -> .)
-    FALSE           reduce using rule 123 (pushop -> .)
+    LPAREN          reduce using rule 124 (pushop -> .)
+    PLUS            reduce using rule 124 (pushop -> .)
+    MINUS           reduce using rule 124 (pushop -> .)
+    ID              reduce using rule 124 (pushop -> .)
+    CTE_I           reduce using rule 124 (pushop -> .)
+    CTE_F           reduce using rule 124 (pushop -> .)
+    CTE_S           reduce using rule 124 (pushop -> .)
+    TRUE            reduce using rule 124 (pushop -> .)
+    FALSE           reduce using rule 124 (pushop -> .)
 
     pushop                         shift and go to state 259
 
@@ -4141,8 +4153,8 @@ state 233
     (70) escrit -> . PRINT pushop LPAREN escriti RPAREN SEMICOLON
     (75) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
     (76) leer -> . READ pushop LPAREN ID pushid RPAREN readid SEMICOLON
-    (113) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
-    (114) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
+    (114) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
+    (115) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
     (108) findvec -> . FIND pushop LPAREN ID LBRACE ex RBRACE RPAREN SEMICOLON
     (109) sorti -> . SORT pushop LPAREN ID LBRACE RBRACE RPAREN SEMICOLON
 
@@ -4197,20 +4209,20 @@ state 237
 
 state 238
 
-    (111) fcall -> ID existfunc LPAREN . startera fcall1 RPAREN
-    (112) fcall -> ID existfunc LPAREN . startera RPAREN
-    (116) startera -> .
+    (112) fcall -> ID existfunc LPAREN . startera fcall1 RPAREN
+    (113) fcall -> ID existfunc LPAREN . startera RPAREN
+    (117) startera -> .
 
-    RPAREN          reduce using rule 116 (startera -> .)
-    LPAREN          reduce using rule 116 (startera -> .)
-    PLUS            reduce using rule 116 (startera -> .)
-    MINUS           reduce using rule 116 (startera -> .)
-    ID              reduce using rule 116 (startera -> .)
-    CTE_I           reduce using rule 116 (startera -> .)
-    CTE_F           reduce using rule 116 (startera -> .)
-    CTE_S           reduce using rule 116 (startera -> .)
-    TRUE            reduce using rule 116 (startera -> .)
-    FALSE           reduce using rule 116 (startera -> .)
+    RPAREN          reduce using rule 117 (startera -> .)
+    LPAREN          reduce using rule 117 (startera -> .)
+    PLUS            reduce using rule 117 (startera -> .)
+    MINUS           reduce using rule 117 (startera -> .)
+    ID              reduce using rule 117 (startera -> .)
+    CTE_I           reduce using rule 117 (startera -> .)
+    CTE_F           reduce using rule 117 (startera -> .)
+    CTE_S           reduce using rule 117 (startera -> .)
+    TRUE            reduce using rule 117 (startera -> .)
+    FALSE           reduce using rule 117 (startera -> .)
 
     startera                       shift and go to state 264
 
@@ -4231,34 +4243,19 @@ state 239
 
 state 240
 
-    (110) asigvector -> ID pushid LBRACE ex RBRACE .
+    (110) asigvector -> ID pushid LBRACE pushop ex . RBRACE verificatam
 
-    TIMES           reduce using rule 110 (asigvector -> ID pushid LBRACE ex RBRACE .)
-    DIVIDE          reduce using rule 110 (asigvector -> ID pushid LBRACE ex RBRACE .)
-    PLUS            reduce using rule 110 (asigvector -> ID pushid LBRACE ex RBRACE .)
-    MINUS           reduce using rule 110 (asigvector -> ID pushid LBRACE ex RBRACE .)
-    LOWERTHAN       reduce using rule 110 (asigvector -> ID pushid LBRACE ex RBRACE .)
-    MORETHAN        reduce using rule 110 (asigvector -> ID pushid LBRACE ex RBRACE .)
-    LOWEREQ         reduce using rule 110 (asigvector -> ID pushid LBRACE ex RBRACE .)
-    MOREEQ          reduce using rule 110 (asigvector -> ID pushid LBRACE ex RBRACE .)
-    SAME            reduce using rule 110 (asigvector -> ID pushid LBRACE ex RBRACE .)
-    DIFFERENT       reduce using rule 110 (asigvector -> ID pushid LBRACE ex RBRACE .)
-    RBRACE          reduce using rule 110 (asigvector -> ID pushid LBRACE ex RBRACE .)
-    OR              reduce using rule 110 (asigvector -> ID pushid LBRACE ex RBRACE .)
-    AND             reduce using rule 110 (asigvector -> ID pushid LBRACE ex RBRACE .)
-    RPAREN          reduce using rule 110 (asigvector -> ID pushid LBRACE ex RBRACE .)
-    COMA            reduce using rule 110 (asigvector -> ID pushid LBRACE ex RBRACE .)
-    SEMICOLON       reduce using rule 110 (asigvector -> ID pushid LBRACE ex RBRACE .)
+    RBRACE          shift and go to state 265
 
 
 state 241
 
     (67) asign -> ID LBRACE exr RBRACE EQUAL pushop expres . resasignvec SEMICOLON
-    (126) resasignvec -> .
+    (127) resasignvec -> .
 
-    SEMICOLON       reduce using rule 126 (resasignvec -> .)
+    SEMICOLON       reduce using rule 127 (resasignvec -> .)
 
-    resasignvec                    shift and go to state 265
+    resasignvec                    shift and go to state 266
 
 state 242
 
@@ -4360,24 +4357,24 @@ state 246
 
 state 247
 
-    (113) fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .
+    (114) fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .
 
-    ID              reduce using rule 113 (fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .)
-    IF              reduce using rule 113 (fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .)
-    PRINT           reduce using rule 113 (fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .)
-    WHILE           reduce using rule 113 (fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .)
-    READ            reduce using rule 113 (fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .)
-    FIND            reduce using rule 113 (fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .)
-    SORT            reduce using rule 113 (fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .)
-    RKEY            reduce using rule 113 (fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .)
-    RETURN          reduce using rule 113 (fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .)
+    ID              reduce using rule 114 (fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .)
+    IF              reduce using rule 114 (fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .)
+    PRINT           reduce using rule 114 (fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .)
+    WHILE           reduce using rule 114 (fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .)
+    READ            reduce using rule 114 (fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .)
+    FIND            reduce using rule 114 (fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .)
+    SORT            reduce using rule 114 (fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .)
+    RKEY            reduce using rule 114 (fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .)
+    RETURN          reduce using rule 114 (fcallvoid -> ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON .)
 
 
 state 248
 
-    (118) fcall1 -> expres generateparam COMA . fcall1
-    (117) fcall1 -> . expres generateparam
-    (118) fcall1 -> . expres generateparam COMA fcall1
+    (119) fcall1 -> expres generateparam COMA . fcall1
+    (118) fcall1 -> . expres generateparam
+    (119) fcall1 -> . expres generateparam COMA fcall1
     (78) expres -> . exr
     (79) expres -> . exr log expres reslog
     (80) exr -> . ex
@@ -4399,7 +4396,7 @@ state 248
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     LPAREN          shift and go to state 107
     PLUS            shift and go to state 104
@@ -4412,7 +4409,7 @@ state 248
     FALSE           shift and go to state 113
 
     expres                         shift and go to state 185
-    fcall1                         shift and go to state 266
+    fcall1                         shift and go to state 267
     exr                            shift and go to state 117
     ex                             shift and go to state 102
     term                           shift and go to state 103
@@ -4425,7 +4422,7 @@ state 249
     (68) cond -> IF LPAREN expres RPAREN LKEY resif bloq . RKEY finif
     (69) cond -> IF LPAREN expres RPAREN LKEY resif bloq . RKEY ELSE LKEY reselse bloq RKEY finif
 
-    RKEY            shift and go to state 267
+    RKEY            shift and go to state 268
 
 
 state 250
@@ -4456,8 +4453,8 @@ state 251
     (70) escrit -> . PRINT pushop LPAREN escriti RPAREN SEMICOLON
     (75) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
     (76) leer -> . READ pushop LPAREN ID pushid RPAREN readid SEMICOLON
-    (113) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
-    (114) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
+    (114) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
+    (115) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
     (108) findvec -> . FIND pushop LPAREN ID LBRACE ex RBRACE RPAREN SEMICOLON
     (109) sorti -> . SORT pushop LPAREN ID LBRACE RBRACE RPAREN SEMICOLON
 
@@ -4469,7 +4466,7 @@ state 251
     FIND            shift and go to state 69
     SORT            shift and go to state 70
 
-    bloq                           shift and go to state 268
+    bloq                           shift and go to state 269
     estat                          shift and go to state 55
     asign                          shift and go to state 57
     cond                           shift and go to state 58
@@ -4484,21 +4481,21 @@ state 252
 
     (76) leer -> READ pushop LPAREN ID pushid RPAREN readid . SEMICOLON
 
-    SEMICOLON       shift and go to state 269
+    SEMICOLON       shift and go to state 270
 
 
 state 253
 
     (108) findvec -> FIND pushop LPAREN ID LBRACE ex RBRACE . RPAREN SEMICOLON
 
-    RPAREN          shift and go to state 270
+    RPAREN          shift and go to state 271
 
 
 state 254
 
     (109) sorti -> SORT pushop LPAREN ID LBRACE RBRACE RPAREN . SEMICOLON
 
-    SEMICOLON       shift and go to state 271
+    SEMICOLON       shift and go to state 272
 
 
 state 255
@@ -4506,26 +4503,26 @@ state 255
     (24) function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq . return1 RKEY
     (48) return1 -> . RETURN pushop expres resreturn SEMICOLON
     (49) return1 -> . empty
-    (120) empty -> .
+    (121) empty -> .
 
     RETURN          shift and go to state 230
-    RKEY            reduce using rule 120 (empty -> .)
+    RKEY            reduce using rule 121 (empty -> .)
 
-    return1                        shift and go to state 272
+    return1                        shift and go to state 273
     empty                          shift and go to state 231
 
 state 256
 
     (25) function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY bloq return1 . RKEY
 
-    RKEY            shift and go to state 273
+    RKEY            shift and go to state 274
 
 
 state 257
 
     (30) function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq return1 . RKEY
 
-    RKEY            shift and go to state 274
+    RKEY            shift and go to state 275
 
 
 state 258
@@ -4560,7 +4557,7 @@ state 259
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
     LPAREN          shift and go to state 107
     PLUS            shift and go to state 104
@@ -4572,7 +4569,7 @@ state 259
     TRUE            shift and go to state 112
     FALSE           shift and go to state 113
 
-    expres                         shift and go to state 275
+    expres                         shift and go to state 276
     exr                            shift and go to state 117
     ex                             shift and go to state 102
     term                           shift and go to state 103
@@ -4591,7 +4588,7 @@ state 261
 
     (26) function -> FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY localvar bloq . RKEY
 
-    RKEY            shift and go to state 276
+    RKEY            shift and go to state 277
 
 
 state 262
@@ -4612,10 +4609,10 @@ state 263
 
 state 264
 
-    (111) fcall -> ID existfunc LPAREN startera . fcall1 RPAREN
-    (112) fcall -> ID existfunc LPAREN startera . RPAREN
-    (117) fcall1 -> . expres generateparam
-    (118) fcall1 -> . expres generateparam COMA fcall1
+    (112) fcall -> ID existfunc LPAREN startera . fcall1 RPAREN
+    (113) fcall -> ID existfunc LPAREN startera . RPAREN
+    (118) fcall1 -> . expres generateparam
+    (119) fcall1 -> . expres generateparam COMA fcall1
     (78) expres -> . exr
     (79) expres -> . exr log expres reslog
     (80) exr -> . ex
@@ -4637,9 +4634,9 @@ state 264
     (105) var_cte -> . TRUE pushcte
     (106) var_cte -> . FALSE pushcte
     (107) var_cte -> . asigvector
-    (110) asigvector -> . ID pushid LBRACE ex RBRACE
+    (110) asigvector -> . ID pushid LBRACE pushop ex RBRACE verificatam
 
-    RPAREN          shift and go to state 278
+    RPAREN          shift and go to state 279
     LPAREN          shift and go to state 107
     PLUS            shift and go to state 104
     MINUS           shift and go to state 105
@@ -4650,7 +4647,7 @@ state 264
     TRUE            shift and go to state 112
     FALSE           shift and go to state 113
 
-    fcall1                         shift and go to state 277
+    fcall1                         shift and go to state 278
     expres                         shift and go to state 185
     exr                            shift and go to state 117
     ex                             shift and go to state 102
@@ -4661,45 +4658,69 @@ state 264
 
 state 265
 
-    (67) asign -> ID LBRACE exr RBRACE EQUAL pushop expres resasignvec . SEMICOLON
+    (110) asigvector -> ID pushid LBRACE pushop ex RBRACE . verificatam
+    (111) verificatam -> .
 
-    SEMICOLON       shift and go to state 279
+    TIMES           reduce using rule 111 (verificatam -> .)
+    DIVIDE          reduce using rule 111 (verificatam -> .)
+    PLUS            reduce using rule 111 (verificatam -> .)
+    MINUS           reduce using rule 111 (verificatam -> .)
+    LOWERTHAN       reduce using rule 111 (verificatam -> .)
+    MORETHAN        reduce using rule 111 (verificatam -> .)
+    LOWEREQ         reduce using rule 111 (verificatam -> .)
+    MOREEQ          reduce using rule 111 (verificatam -> .)
+    SAME            reduce using rule 111 (verificatam -> .)
+    DIFFERENT       reduce using rule 111 (verificatam -> .)
+    RBRACE          reduce using rule 111 (verificatam -> .)
+    OR              reduce using rule 111 (verificatam -> .)
+    AND             reduce using rule 111 (verificatam -> .)
+    RPAREN          reduce using rule 111 (verificatam -> .)
+    COMA            reduce using rule 111 (verificatam -> .)
+    SEMICOLON       reduce using rule 111 (verificatam -> .)
 
+    verificatam                    shift and go to state 280
 
 state 266
 
-    (118) fcall1 -> expres generateparam COMA fcall1 .
+    (67) asign -> ID LBRACE exr RBRACE EQUAL pushop expres resasignvec . SEMICOLON
 
-    RPAREN          reduce using rule 118 (fcall1 -> expres generateparam COMA fcall1 .)
+    SEMICOLON       shift and go to state 281
 
 
 state 267
 
-    (68) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY . finif
-    (69) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY . ELSE LKEY reselse bloq RKEY finif
-    (132) finif -> .
+    (119) fcall1 -> expres generateparam COMA fcall1 .
 
-    ELSE            shift and go to state 281
-    ID              reduce using rule 132 (finif -> .)
-    IF              reduce using rule 132 (finif -> .)
-    PRINT           reduce using rule 132 (finif -> .)
-    WHILE           reduce using rule 132 (finif -> .)
-    READ            reduce using rule 132 (finif -> .)
-    FIND            reduce using rule 132 (finif -> .)
-    SORT            reduce using rule 132 (finif -> .)
-    RKEY            reduce using rule 132 (finif -> .)
-    RETURN          reduce using rule 132 (finif -> .)
+    RPAREN          reduce using rule 119 (fcall1 -> expres generateparam COMA fcall1 .)
 
-    finif                          shift and go to state 280
 
 state 268
 
-    (75) ciclo -> WHILE while1 LPAREN expres RPAREN while2 LKEY bloq . RKEY while3
+    (68) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY . finif
+    (69) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY . ELSE LKEY reselse bloq RKEY finif
+    (133) finif -> .
 
-    RKEY            shift and go to state 282
+    ELSE            shift and go to state 283
+    ID              reduce using rule 133 (finif -> .)
+    IF              reduce using rule 133 (finif -> .)
+    PRINT           reduce using rule 133 (finif -> .)
+    WHILE           reduce using rule 133 (finif -> .)
+    READ            reduce using rule 133 (finif -> .)
+    FIND            reduce using rule 133 (finif -> .)
+    SORT            reduce using rule 133 (finif -> .)
+    RKEY            reduce using rule 133 (finif -> .)
+    RETURN          reduce using rule 133 (finif -> .)
 
+    finif                          shift and go to state 282
 
 state 269
+
+    (75) ciclo -> WHILE while1 LPAREN expres RPAREN while2 LKEY bloq . RKEY while3
+
+    RKEY            shift and go to state 284
+
+
+state 270
 
     (76) leer -> READ pushop LPAREN ID pushid RPAREN readid SEMICOLON .
 
@@ -4714,14 +4735,14 @@ state 269
     RETURN          reduce using rule 76 (leer -> READ pushop LPAREN ID pushid RPAREN readid SEMICOLON .)
 
 
-state 270
+state 271
 
     (108) findvec -> FIND pushop LPAREN ID LBRACE ex RBRACE RPAREN . SEMICOLON
 
-    SEMICOLON       shift and go to state 283
+    SEMICOLON       shift and go to state 285
 
 
-state 271
+state 272
 
     (109) sorti -> SORT pushop LPAREN ID LBRACE RBRACE RPAREN SEMICOLON .
 
@@ -4736,14 +4757,14 @@ state 271
     RETURN          reduce using rule 109 (sorti -> SORT pushop LPAREN ID LBRACE RBRACE RPAREN SEMICOLON .)
 
 
-state 272
+state 273
 
     (24) function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq return1 . RKEY
 
-    RKEY            shift and go to state 284
+    RKEY            shift and go to state 286
 
 
-state 273
+state 274
 
     (25) function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY bloq return1 RKEY .
 
@@ -4751,7 +4772,7 @@ state 273
     MAIN            reduce using rule 25 (function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY bloq return1 RKEY .)
 
 
-state 274
+state 275
 
     (30) function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq return1 RKEY .
 
@@ -4759,16 +4780,16 @@ state 274
     MAIN            reduce using rule 30 (function -> FUNCTION functype ID addInTable LPAREN RPAREN LKEY localvar bloq return1 RKEY .)
 
 
-state 275
+state 276
 
     (48) return1 -> RETURN pushop expres . resreturn SEMICOLON
     (50) resreturn -> .
 
     SEMICOLON       reduce using rule 50 (resreturn -> .)
 
-    resreturn                      shift and go to state 285
+    resreturn                      shift and go to state 287
 
-state 276
+state 277
 
     (26) function -> FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY localvar bloq RKEY .
 
@@ -4776,21 +4797,43 @@ state 276
     MAIN            reduce using rule 26 (function -> FUNCTION pushvoid ID addInTable LPAREN funci RPAREN LKEY localvar bloq RKEY .)
 
 
-state 277
-
-    (111) fcall -> ID existfunc LPAREN startera fcall1 . RPAREN
-
-    RPAREN          shift and go to state 286
-
-
 state 278
 
-    (112) fcall -> ID existfunc LPAREN startera RPAREN .
+    (112) fcall -> ID existfunc LPAREN startera fcall1 . RPAREN
 
-    SEMICOLON       reduce using rule 112 (fcall -> ID existfunc LPAREN startera RPAREN .)
+    RPAREN          shift and go to state 288
 
 
 state 279
+
+    (113) fcall -> ID existfunc LPAREN startera RPAREN .
+
+    SEMICOLON       reduce using rule 113 (fcall -> ID existfunc LPAREN startera RPAREN .)
+
+
+state 280
+
+    (110) asigvector -> ID pushid LBRACE pushop ex RBRACE verificatam .
+
+    TIMES           reduce using rule 110 (asigvector -> ID pushid LBRACE pushop ex RBRACE verificatam .)
+    DIVIDE          reduce using rule 110 (asigvector -> ID pushid LBRACE pushop ex RBRACE verificatam .)
+    PLUS            reduce using rule 110 (asigvector -> ID pushid LBRACE pushop ex RBRACE verificatam .)
+    MINUS           reduce using rule 110 (asigvector -> ID pushid LBRACE pushop ex RBRACE verificatam .)
+    LOWERTHAN       reduce using rule 110 (asigvector -> ID pushid LBRACE pushop ex RBRACE verificatam .)
+    MORETHAN        reduce using rule 110 (asigvector -> ID pushid LBRACE pushop ex RBRACE verificatam .)
+    LOWEREQ         reduce using rule 110 (asigvector -> ID pushid LBRACE pushop ex RBRACE verificatam .)
+    MOREEQ          reduce using rule 110 (asigvector -> ID pushid LBRACE pushop ex RBRACE verificatam .)
+    SAME            reduce using rule 110 (asigvector -> ID pushid LBRACE pushop ex RBRACE verificatam .)
+    DIFFERENT       reduce using rule 110 (asigvector -> ID pushid LBRACE pushop ex RBRACE verificatam .)
+    RBRACE          reduce using rule 110 (asigvector -> ID pushid LBRACE pushop ex RBRACE verificatam .)
+    OR              reduce using rule 110 (asigvector -> ID pushid LBRACE pushop ex RBRACE verificatam .)
+    AND             reduce using rule 110 (asigvector -> ID pushid LBRACE pushop ex RBRACE verificatam .)
+    RPAREN          reduce using rule 110 (asigvector -> ID pushid LBRACE pushop ex RBRACE verificatam .)
+    COMA            reduce using rule 110 (asigvector -> ID pushid LBRACE pushop ex RBRACE verificatam .)
+    SEMICOLON       reduce using rule 110 (asigvector -> ID pushid LBRACE pushop ex RBRACE verificatam .)
+
+
+state 281
 
     (67) asign -> ID LBRACE exr RBRACE EQUAL pushop expres resasignvec SEMICOLON .
 
@@ -4805,7 +4848,7 @@ state 279
     RETURN          reduce using rule 67 (asign -> ID LBRACE exr RBRACE EQUAL pushop expres resasignvec SEMICOLON .)
 
 
-state 280
+state 282
 
     (68) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY finif .
 
@@ -4820,31 +4863,31 @@ state 280
     RETURN          reduce using rule 68 (cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY finif .)
 
 
-state 281
+state 283
 
     (69) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE . LKEY reselse bloq RKEY finif
 
-    LKEY            shift and go to state 287
+    LKEY            shift and go to state 289
 
 
-state 282
+state 284
 
     (75) ciclo -> WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY . while3
-    (135) while3 -> .
+    (136) while3 -> .
 
-    ID              reduce using rule 135 (while3 -> .)
-    IF              reduce using rule 135 (while3 -> .)
-    PRINT           reduce using rule 135 (while3 -> .)
-    WHILE           reduce using rule 135 (while3 -> .)
-    READ            reduce using rule 135 (while3 -> .)
-    FIND            reduce using rule 135 (while3 -> .)
-    SORT            reduce using rule 135 (while3 -> .)
-    RKEY            reduce using rule 135 (while3 -> .)
-    RETURN          reduce using rule 135 (while3 -> .)
+    ID              reduce using rule 136 (while3 -> .)
+    IF              reduce using rule 136 (while3 -> .)
+    PRINT           reduce using rule 136 (while3 -> .)
+    WHILE           reduce using rule 136 (while3 -> .)
+    READ            reduce using rule 136 (while3 -> .)
+    FIND            reduce using rule 136 (while3 -> .)
+    SORT            reduce using rule 136 (while3 -> .)
+    RKEY            reduce using rule 136 (while3 -> .)
+    RETURN          reduce using rule 136 (while3 -> .)
 
-    while3                         shift and go to state 288
+    while3                         shift and go to state 290
 
-state 283
+state 285
 
     (108) findvec -> FIND pushop LPAREN ID LBRACE ex RBRACE RPAREN SEMICOLON .
 
@@ -4859,7 +4902,7 @@ state 283
     RETURN          reduce using rule 108 (findvec -> FIND pushop LPAREN ID LBRACE ex RBRACE RPAREN SEMICOLON .)
 
 
-state 284
+state 286
 
     (24) function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq return1 RKEY .
 
@@ -4867,36 +4910,36 @@ state 284
     MAIN            reduce using rule 24 (function -> FUNCTION functype ID addInTable LPAREN funci RPAREN LKEY localvar bloq return1 RKEY .)
 
 
-state 285
+state 287
 
     (48) return1 -> RETURN pushop expres resreturn . SEMICOLON
 
-    SEMICOLON       shift and go to state 289
+    SEMICOLON       shift and go to state 291
 
-
-state 286
-
-    (111) fcall -> ID existfunc LPAREN startera fcall1 RPAREN .
-
-    SEMICOLON       reduce using rule 111 (fcall -> ID existfunc LPAREN startera fcall1 RPAREN .)
-
-
-state 287
-
-    (69) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY . reselse bloq RKEY finif
-    (131) reselse -> .
-
-    ID              reduce using rule 131 (reselse -> .)
-    IF              reduce using rule 131 (reselse -> .)
-    PRINT           reduce using rule 131 (reselse -> .)
-    WHILE           reduce using rule 131 (reselse -> .)
-    READ            reduce using rule 131 (reselse -> .)
-    FIND            reduce using rule 131 (reselse -> .)
-    SORT            reduce using rule 131 (reselse -> .)
-
-    reselse                        shift and go to state 290
 
 state 288
+
+    (112) fcall -> ID existfunc LPAREN startera fcall1 RPAREN .
+
+    SEMICOLON       reduce using rule 112 (fcall -> ID existfunc LPAREN startera fcall1 RPAREN .)
+
+
+state 289
+
+    (69) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY . reselse bloq RKEY finif
+    (132) reselse -> .
+
+    ID              reduce using rule 132 (reselse -> .)
+    IF              reduce using rule 132 (reselse -> .)
+    PRINT           reduce using rule 132 (reselse -> .)
+    WHILE           reduce using rule 132 (reselse -> .)
+    READ            reduce using rule 132 (reselse -> .)
+    FIND            reduce using rule 132 (reselse -> .)
+    SORT            reduce using rule 132 (reselse -> .)
+
+    reselse                        shift and go to state 292
+
+state 290
 
     (75) ciclo -> WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3 .
 
@@ -4911,14 +4954,14 @@ state 288
     RETURN          reduce using rule 75 (ciclo -> WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3 .)
 
 
-state 289
+state 291
 
     (48) return1 -> RETURN pushop expres resreturn SEMICOLON .
 
     RKEY            reduce using rule 48 (return1 -> RETURN pushop expres resreturn SEMICOLON .)
 
 
-state 290
+state 292
 
     (69) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse . bloq RKEY finif
     (55) bloq -> . estat
@@ -4939,8 +4982,8 @@ state 290
     (70) escrit -> . PRINT pushop LPAREN escriti RPAREN SEMICOLON
     (75) ciclo -> . WHILE while1 LPAREN expres RPAREN while2 LKEY bloq RKEY while3
     (76) leer -> . READ pushop LPAREN ID pushid RPAREN readid SEMICOLON
-    (113) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
-    (114) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
+    (114) fcallvoid -> . ID existfunc LPAREN startera fcall1 RPAREN SEMICOLON
+    (115) fcallvoid -> . ID existfunc LPAREN startera RPAREN SEMICOLON
     (108) findvec -> . FIND pushop LPAREN ID LBRACE ex RBRACE RPAREN SEMICOLON
     (109) sorti -> . SORT pushop LPAREN ID LBRACE RBRACE RPAREN SEMICOLON
 
@@ -4952,7 +4995,7 @@ state 290
     FIND            shift and go to state 69
     SORT            shift and go to state 70
 
-    bloq                           shift and go to state 291
+    bloq                           shift and go to state 293
     estat                          shift and go to state 55
     asign                          shift and go to state 57
     cond                           shift and go to state 58
@@ -4963,31 +5006,31 @@ state 290
     findvec                        shift and go to state 63
     sorti                          shift and go to state 64
 
-state 291
+state 293
 
     (69) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq . RKEY finif
 
-    RKEY            shift and go to state 292
+    RKEY            shift and go to state 294
 
 
-state 292
+state 294
 
     (69) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY . finif
-    (132) finif -> .
+    (133) finif -> .
 
-    ID              reduce using rule 132 (finif -> .)
-    IF              reduce using rule 132 (finif -> .)
-    PRINT           reduce using rule 132 (finif -> .)
-    WHILE           reduce using rule 132 (finif -> .)
-    READ            reduce using rule 132 (finif -> .)
-    FIND            reduce using rule 132 (finif -> .)
-    SORT            reduce using rule 132 (finif -> .)
-    RKEY            reduce using rule 132 (finif -> .)
-    RETURN          reduce using rule 132 (finif -> .)
+    ID              reduce using rule 133 (finif -> .)
+    IF              reduce using rule 133 (finif -> .)
+    PRINT           reduce using rule 133 (finif -> .)
+    WHILE           reduce using rule 133 (finif -> .)
+    READ            reduce using rule 133 (finif -> .)
+    FIND            reduce using rule 133 (finif -> .)
+    SORT            reduce using rule 133 (finif -> .)
+    RKEY            reduce using rule 133 (finif -> .)
+    RETURN          reduce using rule 133 (finif -> .)
 
-    finif                          shift and go to state 293
+    finif                          shift and go to state 295
 
-state 293
+state 295
 
     (69) cond -> IF LPAREN expres RPAREN LKEY resif bloq RKEY ELSE LKEY reselse bloq RKEY finif .
 

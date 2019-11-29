@@ -4,6 +4,7 @@ import varsTable as varsTable
 import semantic_Cube as semantic
 import execMemory as Memory
 
+pos_vect = 0
 popper = []
 pilaid = []
 pilaTipos = []
@@ -12,6 +13,7 @@ ptemp = []
 pilaVal = []
 pilacuadruplos = []
 contador = 0
+vector_id = None
 
 class Cuadrupl:
     def __init__(self, left, operator, right, resultado, num):
@@ -21,13 +23,16 @@ class Cuadrupl:
         self.resultado = resultado
         self.num = num
 
+#Funcion que imprime el arreglo de cuadruplos
 def imprimirtodocuadr():
     for i in range(len(pilacuadruplos)):
         imprimircuadruplo(pilacuadruplos[i].num,pilacuadruplos[i].left,pilacuadruplos[i].operator,pilacuadruplos[i].right,pilacuadruplos[i].resultado)
 
+#Funcion que imprime cuadruplos, ya no se usa
 def imprimircuadruplo(num,left, operator, right, resultado):
     print (num,operator, left, right, resultado)
 
+#Mete el id a la pila id y de igual forma su valor y tipo
 def pushID(id):
     global contador
     pilaid.append(varsTable.getAttributes(id))
@@ -80,6 +85,7 @@ def verificarValorCte(cte,tipo):
     else:
         print("falla")
 
+# Funcion que mete las constantes y su tipo a las pilas correspondientes, tambien el valor lo agrega a una pila
 def pushCTE(var):
     global contador
     if (var == 'true' or var == 'false'):
@@ -139,6 +145,7 @@ def pushCTE(var):
     #print (contador,str(pilaid)[1:-1])
     #print(contador,str(pilaVal)[1:-1])
 
+#Funcion que crea el tipo de una variable a traves de lo que consigue y lo agrega a la pila
 def crearTipo(var):
     tipo = str(type(var))
     tipo1 = varsTable.getTypeVar2(tipo)
@@ -146,9 +153,11 @@ def crearTipo(var):
     #print (str(pilaid)[1:-1])
     #print (str(pilaTipos)[1:-1])
 
+#Funcion que usa el yacc para meter un operador
 def pushPoper(oper):
     popper.append(oper)
 
+#Cuadruplo de "=" que envia un valor de regreso
 def resolverasignacion():
     global contador
     tam = len(popper)
@@ -174,14 +183,16 @@ def resolverasignacion():
             #    pilacuadruplos.append(cuad)
             #    return av
             else:
-                cuad = Cuadrupl(id2, operator, None, valid, len(pilacuadruplos))
+                cuad = Cuadrupl(id2, operator, valor, valid, len(pilacuadruplos))
                 pilacuadruplos.append(cuad)
                 return valor
             #varsTable.update(valid,valor)
             #print(id, varsTable.getAttributes(id))
 
+#Cuadruplo de "=" para vectores
 def resasignvec(id):
     global contador
+    global pos_vect
     tam = len(popper)
     if tam > 0:
         if popper[tam-1] == '=':
@@ -192,12 +203,10 @@ def resasignvec(id):
             tipo_res = pilaTipos.pop()
             tipo_id = pilaTipos.pop()
             valid = pilaid.pop()
-
-            #print("LALALA",valor,id2,av,valid,id)
-            dir = varsTable.symbol_table["main"].dict[id].dirs[av]
-            #print("LALALA",valor,id2,av,valid,id,dir)
-            #print("SDA",varsTable.symbol_table[funt].dict[id].dirs[av],id)
+            dir_Vec = varsTable.symbol_table["global"].dict[id].dirs[av]
+            #print("LALALA",valor,id2,av,valid,id,dir_Vec)
             operator = popper.pop()
+            pos_vect = av
             if tipo_id == "float" and tipo_res == "int":
                 valor = float(valor)
                 #dir = Memory.GetDir(valor,"float")
@@ -205,15 +214,16 @@ def resasignvec(id):
                 print("error de semantica 1")
                 sys.exit()
             if(valid >= 7000) :
-                print("dasdas",valid,varsTable.func_id)
-                cuad = Cuadrupl(valid, operator, None, id2, len(pilacuadruplos))
+            #    print("dasdas",dir_Vec,varsTable.func_id)
+                cuad = Cuadrupl(dir_Vec, operator, None, id2, len(pilacuadruplos))
                 pilacuadruplos.append(cuad)
                 return av
             else:
-                cuad = Cuadrupl(id2, operator, None, dir, len(pilacuadruplos))
+                cuad = Cuadrupl(id2, operator, None, dir_Vec, len(pilacuadruplos))
                 pilacuadruplos.append(cuad)
                 return valor
 
+#Resuelve cuadruplos de suma y resta de dos id ademas de checar su semantica
 def resolverterm():
     global contador
     tam = len(popper)
@@ -247,7 +257,7 @@ def resolverterm():
                 print("error de semantica 2")
                 sys.exit()
 
-
+#Resuelve cuadruplos de multiplicación y división de dos id ademas de checar su semantica
 def resolverfact():
     global contador
     tam = len(popper)
@@ -278,6 +288,7 @@ def resolverfact():
                 print("error de semantica 3")
                 sys.exit()
 
+#Resuelve cuadruplos de relación de dos id ademas de checar su semantica y devolver un booleano
 def resolverRel():
     global contador
     tam = len(popper)
@@ -322,6 +333,7 @@ def resolverRel():
                 print("error de semantica 4")
                 sys.exit()
 
+#Funcion que resuelve cuadruplos logicos
 def ResolverLog():
     global contador
     tam = len(popper)
@@ -348,7 +360,7 @@ def ResolverLog():
             pilaVal.append(resultado)
             tip = crearTipo(resultado)
 
-#Condiciones
+#Funcion que resuelve cuadruplos de condiciones
 def ResolverCond():
     global contador
     tipo = pilaTipos.pop()
@@ -362,6 +374,7 @@ def ResolverCond():
         pilacuadruplos.append(cuad)
         pilaSaltos.append(len(pilacuadruplos)-1)
 
+#Funcion que resuelve cuadruplos de condiciones else
 def ResElse():
     global contador
     cuad = Cuadrupl(None, "Goto", None, None, len(pilacuadruplos))
@@ -370,16 +383,20 @@ def ResElse():
     pilacuadruplos.append(cuad)
     fill(false, len(pilacuadruplos))
 
+#Funcion que llena los distintos saltos que hay
 def fill(cuadr, salto):
     pilacuadruplos[cuadr].resultado = salto
 
+#Funcion que finaliza el if
 def finalif():
     end = pilaSaltos.pop()
     fill(end, len(pilacuadruplos))
 
+#Funcion que crea el inicio del ciclo
 def while1():
     pilaSaltos.append(len(pilacuadruplos))
 
+#Funcion que crea el cuadruplo GotoF
 def while2():
     tipo = pilaTipos.pop()
     if (tipo != "bool"):
@@ -392,6 +409,7 @@ def while2():
         pilacuadruplos.append(cuad)
         pilaSaltos.append(len(pilacuadruplos)-1)
 
+#Funcion que crea Goto y manda a fill el GotoF
 def while3():
     end = pilaSaltos.pop()
     regresa = pilaSaltos.pop()
@@ -400,7 +418,7 @@ def while3():
     fill(end,len(pilacuadruplos))
 
 #Modulos
-
+#Cuadruplo que genera return
 def generateReturn():
     tam = len(popper)
     if tam > 0:
@@ -423,6 +441,7 @@ def generateEra(id):
     cuad = Cuadrupl(None, "ERA", None, id, len(pilacuadruplos))
     pilacuadruplos.append(cuad)
 
+#Function que crea el cuadrupo param
 def getparam():
     resultado = pilaid.pop()
     pilaTipos.pop()
@@ -432,11 +451,13 @@ def getparam():
     pilacuadruplos.append(cuadr)
     return resultado
 
+#Function que crea el cuadrupo gosub
 def generategosub(funct):
     resultado = varsTable.symbol_table[funct].cuadno
     cuadr = Cuadrupl(funct,"GoSub",None,resultado,len(pilacuadruplos))
     pilacuadruplos.append(cuadr)
 
+#Funcion que permite asignar a un valor el valor que regresa una funcion
 def funcasign(id):
     tipo = varsTable.symbol_table[id].tipo
     tam = len(popper)
@@ -468,7 +489,7 @@ def gotoMain():
     cuadr = Cuadrupl(None,"GoTo",None,None,len(pilacuadruplos))
     pilacuadruplos.append(cuadr)
 
-#Generate Cuadruplos de I/O
+#Cuadruplos de print
 def printcuad():
     tam = len(popper)
     if tam > 0:
@@ -480,6 +501,7 @@ def printcuad():
             cuadr = Cuadrupl(None, operator, None, resultado, len(pilacuadruplos))
             pilacuadruplos.append(cuadr)
 
+#Cuadruplos de read
 def readid():
     tam = len(popper)
     if tam > 0:
@@ -491,6 +513,7 @@ def readid():
             cuadr = Cuadrupl(None, operator, None, resultado, len(pilacuadruplos))
             pilacuadruplos.append(cuadr)
 
+#Cuadruplos de find / No se usa confundimos lo que se pedia
 def generateFind(id):
     tam = len(popper)
     if tam > 0:
@@ -507,6 +530,7 @@ def generateFind(id):
                 print("Se sale del rango del arreglo")
                 sys.exit()
 
+#Cuadruplos de sort / No se usa confundimos lo que se pedia
 def generateSort(id):
     tam = len(popper)
     if tam > 0:
@@ -516,3 +540,39 @@ def generateSort(id):
             #dirvec = varsTable.symbol_table[varsTable.func_id].dict[id].dirs[pos]
             cuadr = Cuadrupl(None, operator, None, id,len(pilacuadruplos))
             pilacuadruplos.append(cuadr)
+
+
+def Verificartam():
+    #Memory.global_memroy.show()
+    #print("Antes")
+    #print("OPE",popper)
+    #print("VAL",pilaVal)
+    #print("DIR",pilaid)
+    #print("TIPO",pilaTipos)
+    tam = len(popper)
+    if tam > 0:
+        if popper[-1] == "[":
+            popper.pop()
+            val_inside = pilaVal.pop()
+            dir_inside = pilaid.pop()
+            pilaTipos.pop()
+            dir_outsie = pilaid.pop()
+            pilaVal.pop()
+            val_outside = Memory.getValor(dir_outsie)
+            tipo_resultado = pilaTipos.pop()
+            if ( val_inside <= varsTable.symbol_table["global"].dict[vector_id].space):
+                resultado_dir = varsTable.symbol_table["global"].dict[vector_id].dirs[val_inside]
+                resultado = Memory.getValor(resultado_dir)
+                dir = Memory.global_memroy.insert_temporal(resultado,tipo_resultado)
+                pilaid.append(resultado_dir)
+                pilaVal.append(resultado)
+                pilaTipos.append(tipo_resultado)
+                #print(resultado_dir,resultado,tipo_resultado)
+                #print("Despues")
+                #print("OPE",popper)
+                #print("VAL",pilaVal)
+                #print("DIR",pilaid)
+                #print("TIPO",pilaTipos)
+            else:
+                print("Estas fuera del rango del vector")
+                sys.exit()

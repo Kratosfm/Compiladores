@@ -2,29 +2,62 @@ program :
 
 var string wacho;
 vector int arr[4];
+var int CA ;
+
 function int Apple (int a, float b){
-	var int Caca ;
-	Caca = 2 ;
-	print (Caca) ;
-	return Caca ;
+	var int var1 ;
+	var1 = 24;
+	print (var1) ;
+	return var1 ;
 }
 
 main
 {
-var int Caca ;
-var int Caca2 ;
-vector float Caca3 [10] ;
-Caca2 = 3 ;
-Caca = 2 ;
+var int var1 ;
+var int var12 ;
+var12 = 3 ;
+var1 = 2 ;
 wacho = "hols";
-if (wacho == "hols" && Caca2 == 3){
+if (wacho == "hols" && var12 == 3){
 	print("entro wacho");
 }
 else{
 	print("no entro");
 }
-arr[2] = 10 ;
-print (Caca + Caca2) ;
-Caca2 = Apple (3,2.9);
-print("despues",Caca2);
+print (var1 + var12,var12) ;
+var12 = Apple (3,2.9);
+print("despues",var12,var1);
+}
+
+
+
+
+
+
+
+
+program :
+vector int Arr [5] ;
+main {
+   var int num ;
+	 var int res ;
+   res = 0 ;
+   Arr [0] = 8;
+   Arr [1] = 4;
+   Arr [2] = 3;
+   Arr [3] = 1;
+   Arr [4] = 7;
+   Arr [0] = 12;
+   num = 0 ;
+   res = Arr [0 + 2 ];
+   print("oscar",res);
+   Arr [ 1 + 1 ] = 200 ;
+   print ( Arr [2]);
+   if(Arr[num] == 12){
+    print("es igual");
+   }
+   else{
+    print("no es igual");
+   }
+
 }

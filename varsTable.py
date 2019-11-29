@@ -45,6 +45,7 @@ class Param:
         self.dict = []
         self.num = num
 
+#Valida que el tipo del valor sea el correcto
 def validar(tipo, valor):
     if str(type(valor)) == "<class 'float'>" and tipo == 'float':
         return True
@@ -57,15 +58,18 @@ def validar(tipo, valor):
     else:
         return False
 
+#Borra id / No se usa
 def delete(id):
     del symbol_table[id]
 
+#Funcion que permite enviar el valor de un id / No se usa
 def look(id):
     if symbol_table.get(id):
       return (symbol_table[id].id, symbol_table[id].tipo, symbol_table[id].value)
     else:
       return None
 
+#Funcion que agrega una funcion global, main o local a la symbol_table
 def insert(tipo, id):
     if(is_local):
         if symbol_table.get(id):
@@ -86,7 +90,7 @@ def insert(tipo, id):
         else:
             symbol_table[id] = FunctionEntry("global",tipo)
 
-
+#Funcion que recibe un id y valor y actualiza el valor de ese id en la funcion actual
 def update(id, value):
     if(is_local):
         if (symbol_table[func_id].dict.get(id)):
@@ -152,6 +156,7 @@ def update(id, value):
                 #print("Valos ", dir, value)
                 symbol_table[id].value = value
 
+#Funcion que consigue la direccion
 def getAttributes(id):
     if (symbol_table[func_id].dict.get(id)):
         dir = symbol_table[func_id].dict[id].value
@@ -179,6 +184,7 @@ def getAttributes(id):
         else:
             return (symbol_table["global"].dict[id].value)
 
+#Funcion que consigue el valor
 def getValue(id):
     if (symbol_table[func_id].dict.get(id)):
         dir = symbol_table[func_id].dict[id].value
@@ -208,14 +214,17 @@ def getValue(id):
             print("error")
             #return (symbol_table["global"].dict[id].value)
 
+#funcion que regresa el tipo de funcion
 def getType(id):
     return (symbol_table[id].tipo)
 
+#funcion que regrea el tipo de variable
 def getTypeVar(id):
     if (symbol_table[func_id].dict.get(id)):
         return (symbol_table[func_id].dict[id].tipo)
     else:
         return (symbol_table["global"].dict[id].tipo)
+
 #Funcion para conseguir el tipo de variable y comprobarlo con el cubo semantico
 def getTypeVar2(tipo):
     if tipo == "<class 'float'>" :
@@ -235,6 +244,7 @@ def getTypeVar3(funcion,id):
     else:
         return (symbol_table["global"].dict[id].tipo)
 
+#Funcion que imprime la vars table
 def show():
 #    print(symbol_table["global"].dict, symbol_table["main"].dict)
     for i in symbol_table:
@@ -246,6 +256,7 @@ def show():
         else:
             print(symbol_table[i].id, symbol_table[i].tipo, symbol_table[i].value)
 
+#Funcion que añade a dir de un FunctionEntry un Entry
 def insertVarInFunc(tipo, id, funt, espacio = None):
     if(exist_GLOBAL == True):
         if (symbol_table[funt].dict.get(id) or symbol_table["global"].dict.get(id)):
@@ -309,12 +320,14 @@ def insertVarInFunc(tipo, id, funt, espacio = None):
                     symbol_table[funt].dict[id] = Entry(id, tipo, dir)
                     symbol_table[funt].dict[id].space = espacio
                     Llenado(id,tipo,dir,espacio,funt)
+
 #checa si una funcion ya existe con ese id
 def CheckExistIdFunc(id):
     if (symbol_table.get(id)):
         return True
     else:
         return False
+
 #Checa si el id existe en una variable dentro de la funcion (funt)
 def existeID(funt,id):
     tipo = symbol_table[funt].dict[id].tipo
@@ -327,13 +340,16 @@ def ImprimirLcalTable(funt):
     for i in symbol_table[funt].dict:
         print(symbol_table[funt].dict[i].id, symbol_table[funt].dict[i].tipo, symbol_table[funt].dict[i].value)
 
+#Inserta un parametro
 def InsertParam(funt):
     param_table[funt] = Param(funt)
 
+#Inserta el tipo de parametro
 def InsertTypParam(tipo):
     param_table[func_id].dict.append(tipo)
     param_table[func_id].num = param_table[func_id].num + 1
 
+#Actualiza el valor de un parametro al momento de llamarlo
 def UpdateParam():
     #for i in symbol_table[func_id]
     if(symbol_table[fun_name].paramno > 0):
@@ -349,6 +365,7 @@ def UpdateParam():
     else:
         print("LE")
 
+#Llena las direcciones de un vector e inserta el numero correcto de direcciones
 def Llenado(id,tipo,dir,espacio,funt):
     i = 0
     dir2 = 0
@@ -356,19 +373,19 @@ def Llenado(id,tipo,dir,espacio,funt):
         if ( funt == "global"):
             if ( i == 0):
                 dir2 = dir
-                Memoria.updateVal(dir,0)
+                Memoria.updateVal(dir,None)
             else:
                 dir2 = Memoria.global_memroy.insert_global(None,tipo)
         elif ( funt == "main"):
             if ( i == 0):
                 dir2 = dir
-                Memoria.updateVal(dir,0)
+                Memoria.updateVal(dir,None)
             else:
                 dir2 = Memoria.global_memroy.insert_main(None,tipo)
         else:
             if ( i == 0):
                 dir2 = dir
-                Memoria.updateVal(dir,0)
+                Memoria.updateVal(dir,None)
             else:
                 dir2 = Memoria.global_memroy.insert_local(None,tipo)
         symbol_table[funt].dict[id].dirs.append(dir2)

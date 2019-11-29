@@ -1,36 +1,24 @@
 program :
-
-var int Caca ;
-
-function int fib ( int num ) {
-   var int x ;
-	 var int y ;
-	 var int z ;
-	 var int i;
-   x = 0;
-   y = 1;
-   z = 0;
-   i = 0;
-   while (i < num - 1) {
-      print ( x ) ;
-      z = x + y;
-      x = y;
-      y = z;
-      i = i + 1;
-   }
-   return x;
-}
-
-function void auto ( int num ) {
-	print("Void", num);
-}
-
+vector int Arr [5] ;
 main {
    var int num ;
 	 var int res ;
-	 num = 10 ;
-   print(num) ;
-   res = fib ( num ) ;
-   print(res);
-	 auto ( res ) ;
+   res = 0 ;
+   Arr [0] = 8;
+   Arr [1] = 4;
+   Arr [2] = 3;
+   Arr [3] = 1;
+   Arr [4] = 7;
+   Arr [0] = 12;
+   res = 10 ;
+   num = 0;
+   while ( num < 5){
+    Arr [num] = num * res ;
+   num = num + 1;
+   }
+   num = 0 ;
+   while ( num < 5){
+    print(Arr[num]);
+    num = num + 1;
+   }
 }

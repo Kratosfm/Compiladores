@@ -133,7 +133,7 @@ def t_error(t):
 
 # Construye el lexer
 lexer = lex.lex()
-archivo = "prueba.txt"
+archivo = "prueba2.txt"
 fopen = open(archivo, 'r')
 abrir = fopen.read()
 lexer.input(abrir)
@@ -340,7 +340,7 @@ def p_resreturn(p):
     '''
     resreturn :
     '''
-    print (str(cuadruplos.pilaid)[1:-1])
+    #print (str(cuadruplos.pilaid)[1:-1])
 def p_mainc(p):
     '''
     mainc : LKEY RKEY
@@ -427,6 +427,7 @@ def p_expres(p):
         | exr log expres reslog
   '''
 
+
 def p_exr(p):
   '''
   	exr : ex
@@ -503,8 +504,19 @@ def p_sorti(p):
 
 def p_asigvector(p):
     '''
-    asigvector : ID pushid LBRACE ex RBRACE
+    asigvector : ID pushid LBRACE pushop ex RBRACE verificatam
     '''
+    #print(cuadruplos.pilaVal)
+    #print(cuadruplos.popper)
+    #print(cuadruplos.pilaid)
+    #print(cuadruplos.pilaTipos)
+
+def p_verifictam(p):
+    '''
+    verificatam :
+    '''
+    cuadruplos.vector_id = p[-6]
+    cuadruplos.Verificartam()
 
 def p_fcall(p):
   '''
@@ -548,11 +560,11 @@ def p_fcall1(p):
   	fcall1 : expres generateparam
         | expres generateparam COMA fcall1
   '''
- # if varsTable.param_cont == varsTable.param_table[varsTable.fun_name].num:
-#      print("pasa")
-#  else:
-     # print("Num de var no coinciden")
-      #sys.exit()
+  if varsTable.param_cont == varsTable.param_table[varsTable.fun_name].num:
+      print("")
+  else:
+      print("Num de var no coinciden")
+      sys.exit()
 
 def p_generateparam(p):
     "generateparam :"
@@ -604,15 +616,22 @@ def p_resolverasignacion(p):
 def p_resasignvec(p):
     "resasignvec :"
     res = cuadruplos.resasignvec(p[-7])
+    name = p[-7]
+    pos = cuadruplos.pos_vect
+    dir = varsTable.symbol_table["global"].dict[name].dirs[pos]
+    #print ("dirrr", name,res,pos,dir)
     if(res == 'true'):
         resb = bool(res)
-        varsTable.update(p[-7],resb)
+        varsTable.update(dir,resb)
     elif(res == 'false'):
         resb = bool()
-        varsTable.update(p[-7],resb)
+        varsTable.update(dir,resb)
     else:
         #print("RES",res)
-        varsTable.update(p[-7],res)
+        #varsTable.update(dir,res)
+        Memoria.updateVal(dir,res)
+        cuadruplos.pos_vect = 0
+
 
 def p_resfact(p):
     "resfact :"
@@ -652,7 +671,7 @@ def p_while3(p):
 
 parser = yacc.yacc()
 
-archivo = "prueba.txt"
+archivo = "pruebas90.txt"
 f = open(archivo, 'r')
 s = f.read()
 
@@ -664,7 +683,7 @@ if success == True:
 else:
     print("Archivo no aprobado")
     #sys.exit()
-#cuadruplos.imprimirtodocuadr()
+cuadruplos.imprimirtodocuadr()
 #print("memoria global ")
 #Memoria.global_memroy.show()
 #varsTable.show();
@@ -675,7 +694,7 @@ print("VM")
 Virtual.programa()
 #print("")
 #print("Vars Table")
-#varsTable.show();
+varsTable.show();
 #print("")
 #print("Memoriac")
-#Memoria.global_memroy.show()
+Memoria.global_memroy.show()

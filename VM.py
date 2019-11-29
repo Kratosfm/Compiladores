@@ -15,7 +15,7 @@ arrparam = []
 arrparam2 =[]
 last_pos = []
 
-
+#Funcion que inicializa la lectura de la virtual machine con el cuadruplo de GotoMain
 def programa():
     pos = GoToMain(0,cuadruplos.pilacuadruplos[0])
     while(cuadruplos.pilacuadruplos[pos].resultado != "ENDPROGRAM"):
@@ -28,29 +28,23 @@ def programa():
     #No se porque no se elimina el 1000
     #Memory.global_memroy.ints.pop(1000)
 
-
+#El if gigante que dependiendo el operador del cuadruplo empezara a hacer las acciones necesarias.
 def Ejecucion(num,cuadrup):
     global cont_param
     global last_pos
     global func_id
     if (cuadrup.operator == "="):
+        #print("Antes")
         if (func_id != None):
             if(varsTable.symbol_table[func_id].isReturn == True):
                 newVal = Memory.getValor(cuadrup.left)
                 Memory.updateVal(cuadrup.resultado,newVal)
-                #print("Se recibe dir en funcion", cuadrup.left, "con valor",Memory.getValor(cuadrup.left),"en", cuadrup.resultado, "con", Memory.getValor(cuadrup.resultado),"en",func_id)
-        #elif (varsTable.symbol_table["main"].dict["Arr"].isVector == True):
-        #    newVal = Memory.getValor(cuadrup.left)
-        #    newVal2 = Memory.getValor(cuadrup.resultado)
-        #    dir2 = varsTable.symbol_table["main"].dict["Arr"].dirs[newVal2]
-        #    print("sa",newVal,cuadrup.left,cuadrup.resultado,dir2,newVal2)
-        #    Memory.updateVal(cuadrup.resultado,newVal)
-        #    num = num + 1
-        #    return num
         else:
+            
             newVal = Memory.getValor(cuadrup.left)
             tipo1 = Memory.GetTipo(cuadrup.resultado)
             tipo2 = Memory.GetTipo(cuadrup.left)
+            print(cuadrup.left,cuadrup.resultado)
             if(tipo1 == tipo2):
                 Memory.updateVal(cuadrup.resultado,newVal)
                 num = num + 1
@@ -263,10 +257,11 @@ def Ejecucion(num,cuadrup):
 
 #def Funciones (num,cuadrup,func_id):
 
-
+#Funcion que devuelve el numero donde empieza el main
 def GoToMain (num,cuadrup):
     return cuadrup.resultado
 
+#funcion que acomoda los valores dentro de un vector / esta mal, sentimos eso nos enteramos ayer que no era asi
 def acomodar(id):
     arraux = {}
     arrfin = []
@@ -289,6 +284,7 @@ def acomodar(id):
     print(varsTable.symbol_table["main"].dict[id].dirs)
     #arraux.append(varsTable.symbol_table["main"].dict[id].dirs.pop())
 
+#funcion que regresa el valor de los input con la funcion literal_eval
 def get_type(newVal):
     try:
         return type(literal_eval(newVal))

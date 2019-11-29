@@ -4,15 +4,19 @@ const cors = require('cors')
 var fs = require('fs');
 var exec = require('child_process').exec;
 
+//Funcion que ejecuta scripts
 function execute(command, callback){
     exec(command, function(error, stdout, stderr){ callback(stdout); });
 };
+
+//Funcion que ejecuta el script de python
 var cmd = function(){
   execute("python3 lexPar.py", function(compilation){
     console.log(compilation);
   });
 };
 
+//Funcion que se llama desde el IDE para compilar
 var compile = function(req, res){
   fs.writeFile('prueba.txt', req.body.data, function (err) {
     if (err){res.send("BIG ERROR")};
@@ -22,6 +26,7 @@ var compile = function(req, res){
   });
 }
 
+//Rutas de la API
 router.all('*', cors());
 router.post('/compile', compile);
 router.get('*', function(req, res) {

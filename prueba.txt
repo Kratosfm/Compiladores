@@ -1,14 +1,6 @@
 program: 
-var int varint ;
-function void func(int x){
-if (x > 5){
-varint = 3 ;
-} 
-else{
-varint = 1 ;
-} 
-} 
 main{
-func(6) ;
-print ( varint ) ;
+var int x ;
+x = 5 ;
+print(x) ;
 } 

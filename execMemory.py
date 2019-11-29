@@ -1,30 +1,36 @@
 import pprint
 import varsTable as varsTable
-
+#Direcciones de locales
 loc_int = 1000
 loc_float = 1100
 loc_string = 1200
 loc_bools = 1300
+#Direcciones de globales
 global_int = 2000
 global_float = 2100
 global_string = 2200
 global_bools = 2300
+#Direcciones de main
 main_int = 3000
 main_float = 3100
 main_string = 3200
 main_bools = 3300
+#Direcciones de Constantes enteras
 cte_int = 4000
 cte_float = 4100
 cte_string = 4200
 cte_bools = 4300
+#Direcciones de temporales main
 tm_int = 5000
 tm_float = 5100
 tm_string = 5200
 tm_bools = 5300
+#Direcciones de temporales locales
 tl_int = 6000
 tl_float = 6100
 tl_string = 6200
 tl_bools = 6300
+#Direcciones de retorno
 ret_int = 7000
 ret_float = 7100
 ret_string = 7200
@@ -39,6 +45,7 @@ class Memory:
         self.bools = {}
         self.strings = {}
 
+    #Insertar variables en direcciones de globales
     def insert_global(self, var, tipo, Space = None):
         global global_int
         global global_float
@@ -65,6 +72,7 @@ class Memory:
             self.strings[dir] = var
             return dir
 
+    #Insertar variables en direcciones de main
     def insert_main(self, var, tipo, Space = None):
         global main_int
         global main_float
@@ -91,7 +99,7 @@ class Memory:
             self.strings[dir] = var
             return dir
 
-
+    #Insertar variables en direcciones locales
     def insert_local(self, var, tipo, Space = None):
         global loc_int
         global loc_float
@@ -118,6 +126,7 @@ class Memory:
             self.strings[dir] = var
             return dir
 
+    #Insertar constantes en direccion de contantes
     def insert_const(self,var,tipo):
         global cte_int
         global cte_float
@@ -144,6 +153,7 @@ class Memory:
             self.strings[dir] = var
             return dir
 
+    #Insertar variables en direcciones de return
     def insert_returns(self, var, tipo, Space = None):
         global ret_int
         global ret_float
@@ -170,6 +180,7 @@ class Memory:
             self.strings[dir] = var
             return dir
 
+    #Insertar variables en direcciones de temporales
     def insert_temporal(self,var,tipo):
         global tm_int
         global tm_float
@@ -223,9 +234,10 @@ class Memory:
     def show(self):
         print("memoria int ",self.ints, " memoria float ",self.floats, " memoria bools ",self.bools," memoria string ",self.strings)
 
-
+#Memoria que almacena todo el codigo.
 global_memroy = Memory()
 
+# Reinicia todas las direcciones para cuando termine la ejecucion
 def Reiniciar():
     global loc_int
     global loc_float
@@ -244,6 +256,7 @@ def Reiniciar():
     tl_string = 6200
     tl_bools = 6300
 
+#Borra las temporales y direcciones locales de la memoria int
 def BorrarInts():
     arr = []
     for key in global_memroy.ints:
@@ -254,6 +267,7 @@ def BorrarInts():
         val = arr.pop()
         del global_memroy.ints[val]
 
+#Borra las temporales y direcciones locales de la memoria float
 def BorrarFloats():
     arr = []
     for key in global_memroy.floats:
@@ -264,6 +278,7 @@ def BorrarFloats():
         val = arr.pop()
         del global_memroy.floats[val]
 
+#Borra las temporales y direcciones locales de la memoria bool
 def BorrarBools():
     arr = []
     for key in global_memroy.bools:
@@ -274,6 +289,7 @@ def BorrarBools():
         val = arr.pop()
         del global_memroy.bools[val]
 
+#Borra las temporales y direcciones locales de la memoria string
 def BorrarStrings():
     arr = []
     for key in global_memroy.strings:
@@ -284,10 +300,12 @@ def BorrarStrings():
         val = arr.pop()
         del global_memroy.strings[val]
 
+#Imprime toda la variable local
 def Imprimirlocales():
     for i in local_memory:
         local_memory[i].show()
 
+#Retorna la direccion de un valor
 def GetDir(val,tipo):
     if tipo == "int":
         for i,y in global_memroy.ints.items():
@@ -308,6 +326,7 @@ def GetDir(val,tipo):
     else:
         print("No existe")
 
+#Retorna el valor de una direccion
 def getValor(dir):
     #global_memroy.show()
     if((dir >= 1000 and dir < 1100) or (dir >= 2000 and dir < 2100 ) or (dir >= 3000 and dir < 3100) or (dir >= 4000 and dir < 4100) or (dir >= 5000 and dir < 5100) or (dir >= 6000 and dir < 6100) or (dir >= 7000 and dir < 7100)):
@@ -323,6 +342,7 @@ def getValor(dir):
         valor = global_memroy.bools[dir]
         return valor
 
+#Retorna el valor de una direccion
 def updateVal(dir,valor):
     if((dir >= 1000 and dir < 1100) or (dir >= 2000 and dir < 2100 ) or (dir >= 3000 and dir < 3100) or (dir >= 4000 and dir < 4100) or (dir >= 5000 and dir < 5100) or (dir >= 6000 and dir < 6100) or (dir >= 7000 and dir < 7100)):
         global_memroy.ints[dir] = valor
@@ -339,6 +359,8 @@ def updateVal(dir,valor):
     elif((dir >= 1300 and dir < 1400) or (dir >= 2300 and dir < 2400 ) or (dir >= 3300 and dir < 3400) or (dir >= 4300 and dir < 4400) or (dir >= 5300 and dir < 5400) or (dir >= 6300 and dir < 6400) or (dir >= 7300 and dir < 7400)):
         global_memroy.bools[dir] = valor
         #print(dir,global_memroy.bools[dir])
+
+#Retorna el tipo de variable dependiendo de la direccion asignada
 def GetTipo(dir):
     if((dir >= 1000 and dir < 1100) or (dir >= 2000 and dir < 2100 ) or (dir >= 3000 and dir < 3100) or (dir >= 4000 and dir < 4100) or (dir >= 5000 and dir < 5100) or (dir >= 6000 and dir < 6100) or (dir >= 7000 and dir < 7100)):
         valor = global_memroy.ints[dir]
@@ -353,6 +375,7 @@ def GetTipo(dir):
         valor = global_memroy.bools[dir]
         return "bool"
 
+#Retorna si esta en main o en una funcion
 def GetTFunc(dir):
     if( dir >= 2000 and dir < 2400):
         return "global"

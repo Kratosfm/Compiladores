@@ -5,10 +5,14 @@ from ast import literal_eval
 import operator
 import sys
 
+arr_vec = []
 resbol = None
 cont_param = 0
 func_id = None
 val_return = None
+isArray = False
+cont_vect = 0
+pos = 0
 #arreglo que almacena las direcciones de los parametros
 arrparam = []
 #arreglo que almacena los tipos de los parametros
@@ -30,70 +34,99 @@ def programa():
 
 #El if gigante que dependiendo el operador del cuadruplo empezara a hacer las acciones necesarias.
 def Ejecucion(num,cuadrup):
+    global pos
     global cont_param
     global last_pos
     global func_id
+    global isArray
+    global cont_vect
     if (cuadrup.operator == "="):
-        #print("Antes")
         if (func_id != None):
             if(varsTable.symbol_table[func_id].isReturn == True):
                 newVal = Memory.getValor(cuadrup.left)
                 Memory.updateVal(cuadrup.resultado,newVal)
-        else:
-            
-            newVal = Memory.getValor(cuadrup.left)
-            tipo1 = Memory.GetTipo(cuadrup.resultado)
-            tipo2 = Memory.GetTipo(cuadrup.left)
-            print(cuadrup.left,cuadrup.resultado)
-            if(tipo1 == tipo2):
-                Memory.updateVal(cuadrup.resultado,newVal)
-                num = num + 1
-                return num
             else:
-                print("error de tipos")
-                sys.exit()
-            #print("Se recibe dir", cuadrup.left, "con valor",Memory.getValor(cuadrup.left),"en", cuadrup.resultado, "con", Memory.getValor(cuadrup.resultado),"en",func_id)
-
+                newVal = Memory.getValor(cuadrup.left)
+                tipo1 = Memory.GetTipo(cuadrup.resultado)
+                tipo2 = Memory.GetTipo(cuadrup.left)
+                if(tipo1 == tipo2):
+                    Memory.updateVal(cuadrup.resultado,newVal)
+                    num = num + 1
+                    return num
+                else:
+                        print("error de tipos")
+                        sys.exit()
+        else:
+            #print("print",cuadrup.left,cuadrup.resultado)
+            left = isdirect(cuadrup.left)
+            valleft = Memory.getValor(left)
+            resdir = isdirect(cuadrup.resultado)
+            #Memory.updateVal()
+            #print("print",resdir)
+            Memory.updateVal(resdir,valleft)
+        num = num + 1
+        return num
 
     elif(cuadrup.operator == "+"):
-        #print("hey")
-        #Memory.global_memroy.show()
-        val_izq = Memory.getValor(cuadrup.left)
-        val_der = Memory.getValor(cuadrup.right)
-        newVal = (val_izq + val_der)
-        #Memory.global_memroy.show()
-        #print(cuadrup.left,cuadrup.right)
+        left = isdirect(cuadrup.left)
+        right = isdirect(cuadrup.right)
+        if cuadrup.right == 1:
+            isArray = True
+        if isArray:
+            val_izq = Memory.getValor(left)
+            val_der = Memory.getValor(right)
+            newVal = (val_izq + right)
+            cont_vect = cont_vect + 1
+        #    print(cuadrup.operator,cuadrup.left,cuadrup.right,cuadrup.resultado)
+        else:
+            val_izq = Memory.getValor(left)
+            val_der = Memory.getValor(right)
+            newVal = (val_izq + val_der)
+            #print ("suma",  val_izq,left,val_der,right,newVal,cuadrup.resultado)
         Memory.updateVal(cuadrup.resultado,newVal)
+        if cont_vect >= 2:
+            isArray = False
         num = num + 1
         return num
 
     elif(cuadrup.operator == "-"):
-        val_izq = Memory.getValor(cuadrup.left)
-        val_der = Memory.getValor(cuadrup.right)
+        val_izq = isdirect(cuadrup.left)
+        val_der = isdirect(cuadrup.right)
+
+        val_izq = Memory.getValor(val_izq)
+        val_der = Memory.getValor(val_der)
         newVal = (val_izq - val_der)
         Memory.updateVal(cuadrup.resultado,newVal)
         num = num + 1
         return num
 
     elif(cuadrup.operator == "/"):
-        val_izq = Memory.getValor(cuadrup.left)
-        val_der = Memory.getValor(cuadrup.right)
+        val_izq = isdirect(cuadrup.left)
+        val_der = isdirect(cuadrup.right)
+
+        val_izq = Memory.getValor(val_izq)
+        val_der = Memory.getValor(val_der)
         newVal = (val_izq / val_der)
         Memory.updateVal(cuadrup.resultado,newVal)
         num = num + 1
         return num
 
     elif(cuadrup.operator == "*"):
-        val_izq = Memory.getValor(cuadrup.left)
-        val_der = Memory.getValor(cuadrup.right)
+        val_izq = isdirect(cuadrup.left)
+        val_der = isdirect(cuadrup.right)
+
+        val_izq = Memory.getValor(val_izq)
+        val_der = Memory.getValor(val_der)
         newVal = (val_izq * val_der)
         Memory.updateVal(cuadrup.resultado,newVal)
         num = num + 1
         return num
 
     elif(cuadrup.operator == "print"):
-        res = Memory.getValor(cuadrup.resultado)
-        print(res)
+        #sprint(cuadrup.operator,cuadrup.left,cuadrup.right,cuadrup.resultado)
+        res = isdirect(cuadrup.resultado)
+        valres = Memory.getValor(res)
+        print(valres)
         num = num + 1
         return num
 
@@ -117,7 +150,7 @@ def Ejecucion(num,cuadrup):
 
     elif(cuadrup.operator == "find"):
         res = Memory.getValor(cuadrup.resultado)
-        print("El valor del arreglo en la posicion es", res)
+        print(res)
         num = num + 1
         return num
 
@@ -129,53 +162,79 @@ def Ejecucion(num,cuadrup):
         return num
 
     elif(cuadrup.operator == "<"):
-        res = Memory.getValor(cuadrup.resultado)
-        val_izq = Memory.getValor(cuadrup.left)
-        val_der = Memory.getValor(cuadrup.right)
+        res = isdirect(cuadrup.resultado)
+        val_izq = isdirect(cuadrup.left)
+        val_der = isdirect(cuadrup.right)
+
+        res = Memory.getValor(res)
+        val_izq = Memory.getValor(val_izq)
+        val_der = Memory.getValor(val_der)
         newVal = (val_izq < val_der)
         Memory.updateVal(cuadrup.resultado,newVal)
         num = num + 1
         return num
 
     elif(cuadrup.operator == ">"):
-        res = Memory.getValor(cuadrup.resultado)
-        val_izq = Memory.getValor(cuadrup.left)
-        val_der = Memory.getValor(cuadrup.right)
+        res = isdirect(cuadrup.resultado)
+        val_izq = isdirect(cuadrup.left)
+        val_der = isdirect(cuadrup.right)
+
+        res = Memory.getValor(res)
+        val_izq = Memory.getValor(val_izq)
+        val_der = Memory.getValor(val_der)
         newVal = (val_izq > val_der)
         Memory.updateVal(cuadrup.resultado,newVal)
         num = num + 1
         return num
 
     elif(cuadrup.operator == "<="):
-        res = Memory.getValor(cuadrup.resultado)
-        val_izq = Memory.getValor(cuadrup.left)
-        val_der = Memory.getValor(cuadrup.right)
+        #Memory.global_memroy.show()
+        res = isdirect(cuadrup.resultado)
+        val_izq = isdirect(cuadrup.left)
+        val_der = isdirect(cuadrup.right)
+
+        res = Memory.getValor(res)
+        val_izq = Memory.getValor(val_izq)
+        val_der = Memory.getValor(val_der)
         newVal = (val_izq <= val_der)
         Memory.updateVal(cuadrup.resultado,newVal)
         num = num + 1
         return num
 
     elif(cuadrup.operator == ">="):
-        res = Memory.getValor(cuadrup.resultado)
-        val_izq = Memory.getValor(cuadrup.left)
-        val_der = Memory.getValor(cuadrup.right)
+        res = isdirect(cuadrup.resultado)
+        val_izq = isdirect(cuadrup.left)
+        val_der = isdirect(cuadrup.right)
+
+        res = Memory.getValor(res)
+        val_izq = Memory.getValor(val_izq)
+        val_der = Memory.getValor(val_der)
         newVal = (val_izq >= val_der)
         Memory.updateVal(cuadrup.resultado,newVal)
         num = num + 1
         return num
 
     elif(cuadrup.operator == "!="):
-        res = Memory.getValor(cuadrup.resultado)
-        val_izq = Memory.getValor(cuadrup.left)
-        val_der = Memory.getValor(cuadrup.right)
+        res = isdirect(cuadrup.resultado)
+        val_izq = isdirect(cuadrup.left)
+        val_der = isdirect(cuadrup.right)
+
+        res = Memory.getValor(res)
+        val_izq = Memory.getValor(val_izq)
+        val_der = Memory.getValor(val_der)
         newVal = (val_izq != val_der)
         Memory.updateVal(cuadrup.resultado,newVal)
         num = num + 1
         return num
 
     elif(cuadrup.operator == "=="):
-        val_izq = Memory.getValor(cuadrup.left)
-        val_der = Memory.getValor(cuadrup.right)
+        res = isdirect(cuadrup.resultado)
+        val_izq = isdirect(cuadrup.left)
+        val_der = isdirect(cuadrup.right)
+
+        res = Memory.getValor(res)
+        val_izq = Memory.getValor(val_izq)
+        val_der = Memory.getValor(val_der)
         newVal = (val_izq == val_der)
         Memory.updateVal(cuadrup.resultado,newVal)
         num = num + 1
@@ -252,6 +311,20 @@ def Ejecucion(num,cuadrup):
             Memory.updateVal(dirRet,newVal)
         num = num + 1
         return num
+
+    elif(cuadrup.operator == "VER"):
+        #print(cuadrup.operator,cuadrup.left,cuadrup.right,cuadrup.resultado)
+        left = isdirect(cuadrup.left)
+        val_left = Memory.getValor(left)
+        val_der = cuadrup.right
+        val_res = cuadrup.resultado
+        #print ("entre", cuadrup.left,val_left, val_der, val_res)
+        if( val_left >= val_der and val_left <= val_res ):
+            pos = cuadrup.left + cuadrup.resultado
+            cont_vect = 0
+        else:
+            print("Valores fuera de rango")
+            sys.exit()
     num = num + 1
     return num
 
@@ -291,3 +364,13 @@ def get_type(newVal):
     except (ValueError, SyntaxError):
         # A string, so return str
         return str
+
+def isdirect(operator):
+    operator = str(operator)
+    if operator[0] == '(':
+        newOp = operator[1:len(operator)-1]
+        newOp = int(newOp)
+        dir = Memory.getValor(newOp)
+        return dir
+    else:
+        return int(operator)

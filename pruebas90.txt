@@ -3,22 +3,73 @@ vector int Arr [5] ;
 main {
    var int num ;
 	 var int res ;
-   res = 0 ;
-   Arr [0] = 8;
-   Arr [1] = 4;
-   Arr [2] = 3;
-   Arr [3] = 1;
-   Arr [4] = 7;
-   Arr [0] = 12;
-   res = 10 ;
-   num = 0;
-   while ( num < 5){
-    Arr [num] = num * res ;
-   num = num + 1;
+   var int conta ;
+   var int temp ;
+   var int i ;
+   var int j ;
+   var int x ;
+   var int prueb ;
+   temp = 0;
+   i = 0;
+   j = 0;
+
+   Arr [1] = 100;
+   Arr [2] = 500;
+   Arr [3] = 50;
+   Arr [4] = 25;
+   Arr [5] = 75;
+
+   conta = 1;
+   while ( conta <= 5 ){
+    print (Arr[conta]);
+    conta = conta + 1;
    }
-   num = 0 ;
-   while ( num < 5){
-    print(Arr[num]);
-    num = num + 1;
+   print("SORT");
+
+
+   while(i < 6) {
+   j = 1;
+   while(j < 6 - 1) {
+     if(Arr[j] > Arr[j + 1]) {
+       temp = Arr[j];
+       Arr[j] = Arr[j + 1];
+       Arr[j + 1] = temp;
+     }
+     j = j + 1;
    }
+   i = i + 1;
+ }
+
+ conta = 1;
+ while ( conta <= 5 ){
+  print (Arr[conta]);
+  conta = conta + 1;
+ }
+
+ conta = 1;
+ prueb = 5;
+ while ( conta <= 5 ){
+  Arr[conta] = Arr[prueb];
+  conta = conta + 1;
+  prueb = prueb - 1;
+ }
+
+print("INVERSA");
+ conta = 1;
+ while ( conta <= 5 ){
+  print (Arr[conta]);
+  conta = conta + 1;
+ }
+
+conta = 1;
+
+ print ("find");
+ read (x);
+ while (conta <= 5 ){
+  if (x == Arr[conta]){
+    print ("Existe");
+  }
+  conta = conta + 1;
+ }
+
 }

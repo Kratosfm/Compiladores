@@ -178,50 +178,16 @@ def resolverasignacion():
                 print("error de semantica 1")
                 sys.exit()
             #if(valid >= 7000) :
-            #    print("dasdas",valid,varsTable.func_id)
             #    cuad = Cuadrupl(valid, operator, None, id2, len(pilacuadruplos))
             #    pilacuadruplos.append(cuad)
             #    return av
             else:
-                cuad = Cuadrupl(id2, operator, valor, valid, len(pilacuadruplos))
+                #print("dasdas",id2,valor,valid,av)
+                cuad = Cuadrupl(id2, operator, None, valid, len(pilacuadruplos))
                 pilacuadruplos.append(cuad)
                 return valor
             #varsTable.update(valid,valor)
             #print(id, varsTable.getAttributes(id))
-
-#Cuadruplo de "=" para vectores
-def resasignvec(id):
-    global contador
-    global pos_vect
-    tam = len(popper)
-    if tam > 0:
-        if popper[tam-1] == '=':
-            valor = pilaVal.pop()
-            #Sacar temporal final de resultado id
-            id2 = pilaid.pop()
-            av = pilaVal.pop()
-            tipo_res = pilaTipos.pop()
-            tipo_id = pilaTipos.pop()
-            valid = pilaid.pop()
-            dir_Vec = varsTable.symbol_table["global"].dict[id].dirs[av]
-            #print("LALALA",valor,id2,av,valid,id,dir_Vec)
-            operator = popper.pop()
-            pos_vect = av
-            if tipo_id == "float" and tipo_res == "int":
-                valor = float(valor)
-                #dir = Memory.GetDir(valor,"float")
-            elif tipo_id == "int" and tipo_res == "float":
-                print("error de semantica 1")
-                sys.exit()
-            if(valid >= 7000) :
-            #    print("dasdas",dir_Vec,varsTable.func_id)
-                cuad = Cuadrupl(dir_Vec, operator, None, id2, len(pilacuadruplos))
-                pilacuadruplos.append(cuad)
-                return av
-            else:
-                cuad = Cuadrupl(id2, operator, None, dir_Vec, len(pilacuadruplos))
-                pilacuadruplos.append(cuad)
-                return valor
 
 #Resuelve cuadruplos de suma y resta de dos id ademas de checar su semantica
 def resolverterm():
@@ -252,7 +218,11 @@ def resolverterm():
                 #pilaTipos.append(tip)
                 cuad = Cuadrupl(id_izq, operator, id_der, dir, len(pilacuadruplos))
                 pilacuadruplos.append(cuad)
-                #imprimircuadruplo(val_izq, operator, val_der, resultado)
+                #print("Antes")
+                #print("OPE",popper)
+                #print("VAL",pilaVal)
+                #print("DIR",pilaid)
+                #print("TIPO",pilaTipos)
             else:
                 print("error de semantica 2")
                 sys.exit()
@@ -543,31 +513,34 @@ def generateSort(id):
 
 
 def Verificartam():
-    #Memory.global_memroy.show()
-    #print("Antes")
-    #print("OPE",popper)
-    #print("VAL",pilaVal)
-    #print("DIR",pilaid)
-    #print("TIPO",pilaTipos)
+
     tam = len(popper)
     if tam > 0:
         if popper[-1] == "[":
-            popper.pop()
             val_inside = pilaVal.pop()
             dir_inside = pilaid.pop()
             pilaTipos.pop()
             dir_outsie = pilaid.pop()
-            pilaVal.pop()
-            val_outside = Memory.getValor(dir_outsie)
+            val_outside = pilaVal.pop()
             tipo_resultado = pilaTipos.pop()
-            if ( val_inside <= varsTable.symbol_table["global"].dict[vector_id].space):
-                resultado_dir = varsTable.symbol_table["global"].dict[vector_id].dirs[val_inside]
-                resultado = Memory.getValor(resultado_dir)
-                dir = Memory.global_memroy.insert_temporal(resultado,tipo_resultado)
-                pilaid.append(resultado_dir)
-                pilaVal.append(resultado)
+            leng = varsTable.symbol_table["global"].dict[vector_id].space
+            #print(val_inside,dir_inside,val_outside,dir_outsie)
+            if ( val_inside <= leng):
+                #print(newDir)
+                cuadr = Cuadrupl(dir_inside, "VER", 1, leng,len(pilacuadruplos))
+                pilacuadruplos.append(cuadr)
+                valt = dir_inside + 1
+                t = Memory.global_memroy.insert_temporal(valt,"int")
+                cuadr = Cuadrupl(dir_inside,'+',1,t,len(pilacuadruplos))
+                pilacuadruplos.append(cuadr)
+                dirnew = Memory.global_memroy.insert_temporal(0,"int")
+                Memory.UpdateTemp(dir_inside, dirnew, 'int')
+                cuadr = Cuadrupl(t,'+',dir_outsie,dirnew,len(pilacuadruplos))
+                pilacuadruplos.append(cuadr)
+                pilaid.append('('+str(dirnew)+')')
+                pilaVal.append(0)
                 pilaTipos.append(tipo_resultado)
-                #print(resultado_dir,resultado,tipo_resultado)
+                #print(resultado_dir,resultado,)
                 #print("Despues")
                 #print("OPE",popper)
                 #print("VAL",pilaVal)

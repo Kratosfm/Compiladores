@@ -1,0 +1,58 @@
+begin
+
+int DIM;
+int arr[6];
+
+func void sortArray() {
+  int i, j, temp;
+
+  temp = 0;
+  i = 0;
+  j = 0;
+
+  loop(i < DIM) {
+    j = 0;
+    loop(j < DIM - 1) {
+      if(arr[j] > arr[j + 1]) {
+        temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+      j = j + 1;
+    }
+    i = i + 1;
+  }
+}
+
+func void printArray() {
+    int i;
+    i = 0;
+
+    loop(i < DIM) {
+      output(arr[i]);
+      i = i + 1;
+    }
+}
+
+main {
+    int a;
+    DIM = 6;
+
+    arr[0] = 12;
+    arr[1] = 11;
+    arr[2] = 13;
+    arr[3] = 6;
+    arr[4] = 6;
+    arr[5] = 7;
+
+    output("Arreglo dado:");
+    printArray();
+    output("");
+
+    sortArray();
+
+    output("Arreglo ordenado:");
+    printArray();
+}
+
+end

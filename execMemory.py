@@ -36,7 +36,6 @@ ret_float = 7100
 ret_string = 7200
 ret_bools = 7300
 
-
 class Memory:
 
     def __init__(self):
@@ -384,3 +383,13 @@ def GetTFunc(dir):
     #elif( dir >= 2000 and dir < 2400)):
     #    funts = varsTable.
     #    return "main"
+
+def UpdateTemp(val,dir,tipo):
+    if tipo == "int":
+        global_memroy.ints[dir] = val
+    if tipo == "float":
+        global_memroy.floats[dir] = val
+    if tipo == "string":
+        global_memroy.strings[dir] = val
+    if tipo == "bool":
+        global_memroy.bools[dir] = val

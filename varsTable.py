@@ -147,7 +147,6 @@ def update(id, value):
                 else:
                     symbol_table["global"].dict[id].value = value
     else:
-        print("muere")
         if(validar(symbol_table[func_id].tipo, value)):
             dir = symbol_table[id].value
             if (symbol_table[func_id].tipo == "int"):
@@ -267,16 +266,16 @@ def insertVarInFunc(tipo, id, funt, espacio = None):
                 dir = Memoria.global_memroy.insert_main(id,tipo)
                 symbol_table[funt].dict[id] = Entry(id, tipo, dir)
             elif (funt == "global" and is_vector == False):
-                dir = Memoria.global_memroy.insert_global(None,tipo)
+                dir = Memoria.global_memroy.insert_global(0,tipo)
                 symbol_table[funt].dict[id] = Entry(id, tipo, dir)
             elif (funt == "main" and is_vector == True):
                 dir = Memoria.global_memroy.insert_main(id,tipo,espacio)
                 symbol_table[funt].dict[id] = Entry(id, tipo, dir)
                 symbol_table[funt].dict[id].space = espacio
-                Llenado(id,tipo,dir,espacio,funt)
+                Llenado(id,tipo,dir+1,espacio,funt)
                 #symbol_table[funt].dict[id].dirs.clear()
             elif (funt == "global" and is_vector == True):
-                dir = Memoria.global_memroy.insert_global(None,tipo,espacio)
+                dir = Memoria.global_memroy.insert_global(0,tipo,espacio)
                 symbol_table[funt].dict[id] = Entry(id, tipo, dir)
                 symbol_table[funt].dict[id].space = espacio
                 Llenado(id,tipo,dir,espacio,funt)
@@ -288,7 +287,7 @@ def insertVarInFunc(tipo, id, funt, espacio = None):
                     dir = Memoria.global_memroy.insert_local(id,tipo)
                     symbol_table[funt].dict[id] = Entry(id, tipo, dir)
                     symbol_table[funt].dict[id].space = espacio
-                    Llenado(id,tipo,dir,espacio,funt)
+                    Llenado(id,tipo,dir+1,espacio,funt)
     else:
         if (symbol_table[funt].dict.get(id)):
             print ("variable ya declarada")
@@ -367,27 +366,28 @@ def UpdateParam():
 
 #Llena las direcciones de un vector e inserta el numero correcto de direcciones
 def Llenado(id,tipo,dir,espacio,funt):
-    i = 0
+    i = 1
     dir2 = 0
-    while ( i < espacio ):
+    dir = dir + 1
+    while ( i <= espacio ):
         if ( funt == "global"):
             if ( i == 0):
                 dir2 = dir
-                Memoria.updateVal(dir,None)
+                Memoria.updateVal(dir,0)
             else:
-                dir2 = Memoria.global_memroy.insert_global(None,tipo)
+                dir2 = Memoria.global_memroy.insert_global(0,tipo)
         elif ( funt == "main"):
             if ( i == 0):
                 dir2 = dir
-                Memoria.updateVal(dir,None)
+                Memoria.updateVal(dir,0)
             else:
-                dir2 = Memoria.global_memroy.insert_main(None,tipo)
+                dir2 = Memoria.global_memroy.insert_main(0,tipo)
         else:
             if ( i == 0):
                 dir2 = dir
-                Memoria.updateVal(dir,None)
+                Memoria.updateVal(dir,0)
             else:
-                dir2 = Memoria.global_memroy.insert_local(None,tipo)
+                dir2 = Memoria.global_memroy.insert_local(0,tipo)
         symbol_table[funt].dict[id].dirs.append(dir2)
         #print("LLENADO",id,symbol_table[funt].dict[id].dirs)
         i = i + 1

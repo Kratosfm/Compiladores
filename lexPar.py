@@ -231,16 +231,8 @@ def p_vector(p):
   '''
   	vector : VECTOR initvector tipo ID LBRACE CTE_I RBRACE SEMICOLON
   '''
-  if varsTable.is_global:
-      varsTable.insertVarInFunc(p[3],p[4], "global",p[6])
-      varsTable.symbol_table["global"].dict[p[4]].isVector = True
-  elif varsTable.is_main:
-      varsTable.insertVarInFunc(p[3],p[4], "main",p[6])
-      varsTable.symbol_table["main"].dict[p[4]].isVector = True
-  elif varsTable.is_local:
-      varsTable.insertVarInFunc(p[3],p[4], varsTable.func_id,p[6])
-      varsTable.symbol_table[varsTable.func_id].dict[p[4]].isVector = True
-     # varsTable.symbol_table[varsTable.fun_name].dict[p[4]].space = p[6]
+  varsTable.insertVarInFunc(p[3],p[4], "global",p[6])
+  varsTable.symbol_table["global"].dict[p[4]].isVector = True
   varsTable.is_vector = False
 
 def p_initvector(p):
@@ -372,7 +364,9 @@ def p_asign(p):
   '''
     asign : ID pushid EQUAL pushop fcall SEMICOLON
         | ID pushid EQUAL pushop expres resolverasignacion SEMICOLON
-        | ID LBRACE exr RBRACE EQUAL pushop expres resasignvec SEMICOLON
+        | asigvector EQUAL pushop expres resasignvec SEMICOLON
+        | ID pushid EQUAL pushop resasignvec SEMICOLON
+        | asigvector EQUAL pushop asigvector resasignvec SEMICOLON
   '''
 
 def p_cond(p):
@@ -504,12 +498,12 @@ def p_sorti(p):
 
 def p_asigvector(p):
     '''
-    asigvector : ID pushid LBRACE pushop ex RBRACE verificatam
+    asigvector : ID pushid LBRACE pushop ex RBRACE verificatam popop
     '''
-    #print(cuadruplos.pilaVal)
-    #print(cuadruplos.popper)
-    #print(cuadruplos.pilaid)
-    #print(cuadruplos.pilaTipos)
+    #print("valores",cuadruplos.pilaVal)
+    #print("operadores",cuadruplos.popper)
+    #print("id",cuadruplos.pilaid)
+    #print("tipos",cuadruplos.pilaTipos)
 
 def p_verifictam(p):
     '''
@@ -615,22 +609,22 @@ def p_resolverasignacion(p):
 
 def p_resasignvec(p):
     "resasignvec :"
-    res = cuadruplos.resasignvec(p[-7])
-    name = p[-7]
-    pos = cuadruplos.pos_vect
-    dir = varsTable.symbol_table["global"].dict[name].dirs[pos]
+    cuadruplos.resolverasignacion()
+    #name = p[-7]
+    #pos = cuadruplos.pos_vect
+    #print(res)
     #print ("dirrr", name,res,pos,dir)
-    if(res == 'true'):
-        resb = bool(res)
-        varsTable.update(dir,resb)
-    elif(res == 'false'):
-        resb = bool()
-        varsTable.update(dir,resb)
-    else:
-        #print("RES",res)
-        #varsTable.update(dir,res)
-        Memoria.updateVal(dir,res)
-        cuadruplos.pos_vect = 0
+    #if(res == 'true'):
+    #    resb = bool(res)
+    #    varsTable.update(dir,resb)
+    #elif(res == 'false'):
+    #    resb = bool()
+    #    varsTable.update(dir,resb)
+    #else:
+    #    #print("RES",res)
+    #    #varsTable.update(dir,res)
+    #    Memoria.updateVal(dir,res)
+    #    cuadruplos.pos_vect = 0
 
 
 def p_resfact(p):
@@ -676,7 +670,7 @@ f = open(archivo, 'r')
 s = f.read()
 
 parser.parse(s)
-
+print("")
 if success == True:
     print("Archivo aprobado")
     #sys.exit()
@@ -686,7 +680,7 @@ else:
 cuadruplos.imprimirtodocuadr()
 #print("memoria global ")
 #Memoria.global_memroy.show()
-#varsTable.show();
+varsTable.show();
 print("")
 print("VM")
 #posicion = Virtual.GoToMain(0,cuadruplos.pilacuadruplos[0])
@@ -694,7 +688,7 @@ print("VM")
 Virtual.programa()
 #print("")
 #print("Vars Table")
-varsTable.show();
+#varsTable.show();
 #print("")
 #print("Memoriac")
-Memoria.global_memroy.show()
+#Memoria.global_memroy.show()

@@ -1,38 +1,74 @@
 program :
-
-function int fib ( int num ) {
-   var int x ;
-	 var int y ;
-	 var int z ;
-	 var int i;
-   x = 0;
-   y = 1;
-   z = 0;
-   i = 0;
-   while (i < num - 1) {
-      print ( x ) ;
-      z = x + y;
-      x = y;
-      y = z;
-      i = i + 1;
-   }
-   return x;
-}
-
-function void auto ( int num ) {
-	print("Void", num);
-}
+vector int Arr [5] ;
 
 main {
-vector int arr [2];
+  var int a;
+  var int dim;
+  var int num;
+  var int res;
+  var int dim2;
+  dim = 5;
+  num = 1;
+  res = 10;
+
+  while ( num <= 5){
+   Arr [num] = num * res ;
+   num = num + 1;
+  }
+
+  print("Arreglo");
+  a = 1;
+  while ( a <= 5 ){
+    print (Arr[a]);
+    a = a + 1 ;
+  }
+  dim2 = dim - 1;
+  print("sort");
+  num = 1;
+  while ( num <= dim){
+  a = 1;
+  while ( a <= dim2){
+    if (Arr[a] > Arr[a+1]){
+      res = Arr[a];
+      Arr[a] = Arr[a+1];
+      Arr[a+1] = res;
+    }
+    a = a + 1 ;
+  }
+  num = num + 1;
+}
+}
+
+
+
+
+
+
+
+program :
+vector int Arr [5] ;
+main {
    var int num ;
 	 var int res ;
-	 num = 10 ;
-   arr[0] = 1;
-   arr[1] = 3;
-   print(num) ;
-   res = fib ( num ) ;
-   print(res);
-	 auto ( res ) ;
-   find(arr[1]);
+   var int conta ;
+   num = 1;
+   res = 10;
+   Arr [1] = 100;
+   Arr [2] = 25;
+   Arr [3] = 10;
+   Arr [4] = 70;
+   Arr [5] = 29;
+   print("Valores");
+   num = 1 ;
+   while ( num <= 5){
+    print(Arr[num]);
+    num = num + 1;
+   }
+   while(Arr[1] > Arr[2]){
+    Arr[2] = Arr[2] + 5;
+    print(Arr[2]);
+   }
+   print(Arr[4] - Arr[3]);
+   conta = Arr[2] + 3 ;
+   print(conta);
 }
